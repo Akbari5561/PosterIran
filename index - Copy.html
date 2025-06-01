@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>پوستر ایران</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2196f3">
+
+
+  <style>
+    body { font-family: sans-serif; direction: rtl; text-align: center; padding: 20px; background: #f2f2f2; }
+    img { width: 160px; margin: 10px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+    .image-box { border: 1px solid #ccc; padding: 10px; margin: 10px; border-radius: 10px; background: white; display: inline-block; width: 240px; vertical-align: top; }
+    .image-container { display: flex; flex-wrap: wrap; justify-content: center; }
+    #cartSection { display: none; background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; }
+    footer { margin-top: 50px; font-size: 14px; color: #555; }
+    #address, #contact { display: none; }
+  </style>
+</head>
+<body>
+
+<h1 onclick="showAdminLogin()">پوستر ایران</h1>
+<p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
+<div id="address">
+  <p>تهران : خیابان پانزده خرداد</p>
+  <p>بازار آهنگران</p>
+  <p>کوچه مسجد جامع</p>
+  <p>پاساژ کاغذ و تحریر</p>
+  <p>زیرزمین اول - پلاک 74</p>
+</div>
+<div id="contact">
+  <p>تلفن: 02155611875</p>
+  <p>موبایل: 09010195885</p>
+</div>
+
+<div id="loginSection">
+  <button onclick="enterAsUser()">ورود به گالری</button>
+  <button onclick="logout()">🛒</button>
+</div>
+
+<div id="adminLogin" style="display: none;">
+  <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
+  <button onclick="loginAsAdmin()">ورود ادمین</button>
+  <button onclick="logout()">بازگشت</button>
+</div>
+
+<div id="adminPanel" style="display: none;">
+  <h2>پنل مدیریت</h2>
+  <input type="text" id="imageURL" placeholder="لینک تصویر">
+  <input type="text" id="productName" placeholder="نام محصول">
+  <input type="number" id="unitPrice" placeholder="قیمت واحد (ریال)">
+  <select id="groupSelect">
+    <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+    <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
+    <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+    <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+    <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+  </select>
+  <button onclick="addImage()">افزودن تصویر</button>
+  <button onclick="logout()">بازگشت</button>
+</div>
+
+<div id="categorySelect" style="display: none;">
+  گروه:
+  <select onchange="changeGroup(this.value)">
+    <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+    <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
+    <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+    <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+    <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+  </select>
+  <button onclick="showCart()">🛒 سبد خرید</button>
+  <button onclick="logoutUser()">بازگشت</button>
+</div>
+
+<div id="gallery" style="display: none;">
+  <div class="image-container" id="imagesContainer"></div>
+</div>
+
+<div id="cartSection">
+  <h3>🛒 سبد خرید</h3>
+  <div id="cartList"></div>
+  <button onclick="downloadAndSendOrder()">ثبت سفارش و ارسال به واتس‌اپ</button>
+  <br><br>
+  <button onclick="hideCart()">بازگشت</button>
+</div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoSoJM55IcEnEv1-AZnWYMt9zvsDnm6mo",
+    authDomain: "shop-65e80.firebaseapp.com",
+    projectId: "shop-65e80",
+    storageBucket: "shop-65e80.appspot.com",
+    messagingSenderId: "128972614327",
+    appId: "1:128972614327:web:53b3512e90d87e476c7b32"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  function showAdminLogin() {
+    document.getElementById("adminLogin").style.display = "block";
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("subtitle").style.display = "none";
+    document.getElementById("address").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+  }
+
+  function enterAsUser() {
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("categorySelect").style.display = "block";
+    document.getElementById("gallery").style.display = "block";
+    document.getElementById("subtitle").style.display = "none";
+    document.getElementById("address").style.display = "none";
+    document.getElementById("contact").style.display = "none";
+    loadProducts("سایز ۲۹×۲۱ دوروچاپ");
+  }
+
+  function logoutUser() {
+    document.getElementById("categorySelect").style.display = "none";
+    document.getElementById("gallery").style.display = "none";
+    document.getElementById("loginSection").style.display = "block";
+    document.getElementById("subtitle").style.display = "block";
+    document.getElementById("address").style.display = "block";
+    document.getElementById("contact").style.display = "block";
+  }
+
+  function loginAsAdmin() {
+    const password = document.getElementById("adminPassword").value;
+    if (password === "Alireza55") {
+      document.getElementById("adminLogin").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+    } else {
+      alert("رمز اشتباه است");
+    }
+  }
+
+  function logout() {
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("adminLogin").style.display = "none";
+    document.getElementById("loginSection").style.display = "block";
+    document.getElementById("subtitle").style.display = "block";
+    document.getElementById("address").style.display = "block";
+    document.getElementById("contact").style.display = "block";
+  }
+
+  function changeGroup(groupId) {
+    const groupName = {
+      1: "سایز ۲۹×۲۱ دوروچاپ",
+      2: "سایز ۵۰×۳۵ یکروچاپ",
+      3: "سایز ۵۰×۳۵ دوروچاپ",
+      4: "سایز ۷۰×۵۰ یکروچاپ",
+      5: "سایز ۷۰×۵۰ یووی‌دار"
+    }[groupId];
+    loadProducts(groupName);
+  }
+
+  function showCart() {
+    document.getElementById("cartSection").style.display = "block";
+    document.getElementById("gallery").style.display = "none";
+  }
+
+  function hideCart() {
+    document.getElementById("cartSection").style.display = "none";
+    document.getElementById("gallery").style.display = "block";
+  }
+
+  function addImage() {
+    const imageURL = document.getElementById("imageURL").value;
+    const productName = document.getElementById("productName").value;
+    const unitPrice = parseInt(document.getElementById("unitPrice").value);
+    const group = document.getElementById("groupSelect").selectedOptions[0].text;
+
+    db.collection("products").add({
+      imageURL,
+      productName,
+      unitPrice,
+      group,
+      createdAt: new Date()
+    }).then(() => {
+      alert("محصول اضافه شد و ذخیره گردید.");
+    });
+  }
+
+  function loadProducts(groupName) {
+    const container = document.getElementById("imagesContainer");
+    container.innerHTML = "";
+
+    db.collection("products")
+      .where("group", "==", groupName)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          const data = doc.data();
+
+          const imageBox = document.createElement("div");
+          imageBox.className = "image-box";
+
+          const img = document.createElement("img");
+          img.src = data.imageURL;
+
+          const nameElem = document.createElement("div");
+          nameElem.textContent = data.productName;
+          nameElem.style.fontWeight = "bold";
+
+          const priceDisplay = document.createElement("div");
+          priceDisplay.textContent = `قیمت واحد: ${data.unitPrice.toLocaleString()} ریال`;
+
+          const quantitySelect = document.createElement("select");
+          [20, 50, 100, 200, 300, 400, 500].forEach(q => {
+            const opt = document.createElement("option");
+            opt.value = q;
+            opt.textContent = q + " عدد";
+            quantitySelect.appendChild(opt);
+          });
+
+          const addToCartBtn = document.createElement("button");
+          addToCartBtn.textContent = "➕ افزودن به سبد";
+          addToCartBtn.onclick = () => {
+            const qty = parseInt(quantitySelect.value);
+            const total = data.unitPrice * qty;
+            const cartItem = document.createElement("div");
+            cartItem.textContent = `${data.productName} | ${data.group} | تعداد: ${qty} | جمع: ${total.toLocaleString()} ریال`;
+            document.getElementById("cartList").appendChild(cartItem);
+          };
+
+          imageBox.appendChild(img);
+          imageBox.appendChild(nameElem);
+          imageBox.appendChild(priceDisplay);
+          imageBox.appendChild(quantitySelect);
+          imageBox.appendChild(addToCartBtn);
+
+          if (document.getElementById("adminPanel").style.display === "block") {
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "✏️ ویرایش";
+            editBtn.onclick = () => {
+              const newImageURL = prompt("لینک جدید تصویر:", data.imageURL);
+              const newName = prompt("نام جدید محصول:", data.productName);
+              const newPrice = prompt("قیمت جدید:", data.unitPrice);
+              if (newImageURL && newName && newPrice) {
+                db.collection("products").doc(doc.id).update({
+                  imageURL: newImageURL,
+                  productName: newName,
+                  unitPrice: parseInt(newPrice)
+                }).then(() => {
+                  alert("بروزرسانی انجام شد.");
+                  loadProducts(groupName);
+                });
+              }
+            };
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "🗑️ حذف";
+            deleteBtn.onclick = () => {
+              if (confirm("آیا مطمئن هستید؟")) {
+                db.collection("products").doc(doc.id).delete().then(() => {
+                  alert("محصول حذف شد.");
+                  loadProducts(groupName);
+                });
+              }
+            };
+
+            imageBox.appendChild(editBtn);
+            imageBox.appendChild(deleteBtn);
+          }
+
+          container.appendChild(imageBox);
+        });
+      });
+  }
+
+  function downloadAndSendOrder() {
+    const cartItems = document.getElementById("cartList").textContent.trim();
+    const message = encodeURIComponent("🛒 سفارش:\n" + cartItems);
+    window.open("https://wa.me/989010195885?text=" + message, "_blank");
+  }
+</script>
+<footer class="mt-auto py-6 text-gray-500 text-sm">
+    <p>&copy; 2023 پوستر ایران. تمامی حقوق محفوظ است.</p>
+</footer>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(function (registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+  }
+</script>
+
+</body>
+</html>
