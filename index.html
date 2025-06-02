@@ -1,411 +1,618 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>پوستر ایران</title>
-  <meta name="theme-color" content="#2196f3">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: sans-serif; direction: rtl; text-align: center; padding: 20px; background: #f2f2f2; }
-    img { width: 160px; margin: 10px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
-    .image-box { border: 1px solid #ccc; padding: 10px; margin: 10px; border-radius: 10px; background: white; display: inline-block; width: 240px; vertical-align: top; }
-    .image-container { display: flex; flex-wrap: wrap; justify-content: center; }
-    #cartSection { display: none; background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; }
-    footer { margin-top: 50px; font-size: 14px; color: #555; }
-    #address, #contact { display: none; }
+    body {
+      font-family: sans-serif;
+      direction: rtl;
+      background: #f0f4f8;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+      margin: 0; /* Remove default body margin */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure body takes full viewport height */
+    }
+
+    h1 {
+      color: #1976d2;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1976d2;
+    }
+    button.remove-btn {
+      background-color: #f44336;
+    }
+    button.remove-btn:hover {
+      background-color: #d32f2f;
+    }
+    button.clear-cart-btn {
+      background-color: #ff9800; /* Orange for clear cart */
+    }
+    button.clear-cart-btn:hover {
+      background-color: #fb8c00;
+    }
+
+    /* Style for quantity dropdowns */
+    .quantity-select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      min-width: 80px; /* Adjust width for dropdown */
+      text-align: center;
+    }
+    
+    /* Main sections styling */
+    #mainSection, #adminLogin, #gallery, #cartSection {
+        margin-top: 20px;
+        flex-grow: 1; /* Allow sections to take available space */
+        display: none; /* Hidden by default, controlled by JS */
+        flex-direction: column; /* For consistent layout */
+    }
+    
+    /* Admin login is hidden by default, shown by JS only on title click */
+    #adminLogin {
+        display: none;
+    }
+
+
+    #cartSection {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: right;
+    }
+
+    #address {
+      margin-top: 10px;
+    }
+    .image-box {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(50% - 15px); /* Default for 2 items per row with gap */
+      box-sizing: border-box; /* Include padding/border in width */
+    }
+
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-grow: 1; /* Allow container to grow */
+    }
+
+    img {
+      width: 100%;
+      height: auto; /* Reverted to auto for original aspect ratio */
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    select, input[type="password"] {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: calc(100% - 10px); /* Adjust width */
+      box-sizing: border-box; /* Include padding/border in width */
+    }
+    
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed #eee;
+    }
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .cart-item-info {
+        text-align: right;
+        flex-grow: 1; /* Allow info section to take available space */
+        margin-left: 10px; /* Space between info and controls */
+    }
+    .cart-item-actions {
+        display: flex;
+        align-items: center;
+    }
+    .cart-item-actions span {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    .cart-item-actions button {
+      margin-left: 5px;
+    }
+
+    /* Controls at the top/bottom of gallery */
+    .gallery-controls {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        padding: 10px 0;
+        background-color: #e0e7ff; /* Light background */
+        border-top: 1px solid #c3d4e6;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        z-index: 1000; /* Ensure it's above other content */
+    }
+    #gallery-bottom-controls {
+        margin-top: auto; /* Push to bottom of gallery content */
+        position: sticky; /* Make it sticky */
+        bottom: 0; /* Stick to the bottom */
+        left: 0;
+        right: 0;
+        border-bottom: none; /* No bottom border for the very bottom one */
+    }
+    #gallery-top-controls {
+        margin-bottom: 10px;
+        border-top: none; /* No top border for the very top one */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Shadow at the bottom */
+    }
+
+    .gallery-controls select {
+        width: auto;
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+    .gallery-controls button {
+        margin: 0;
+    }
+    .in-cart-display {
+        font-size: 0.9em;
+        color: #007BFF; /* Blue color for in-cart message */
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        .image-box {
+            width: calc(100% - 10px); /* Full width on small screens */
+        }
+        .gallery-controls {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .gallery-controls select, .gallery-controls button {
+            width: calc(100% - 20px); /* Full width */
+        }
+    }
   </style>
 </head>
 <body>
+
 <h1 onclick="showAdminLogin()">پوستر ایران</h1>
 <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
-<div id="address">
-  <p>تهران : خیابان پانزده خرداد</p>
-  <p>بازار آهنگران</p>
-  <p>کوچه مسجد جامع</p>
-  <p>پاساژ کاغذ و تحریر</p>
-  <p>زیرزمین اول - پلاک 74</p>
-</div>
-<div id="contact">
-  <p>تلفن: 02155611875</p>
-  <p>موبایل: 09010195885</p>
+
+<div id="mainSection">
+  <div id="address">
+    <p>تهران : خیابان پانزده خرداد</p>
+    <p>بازار آهنگران</p>
+    <p>کوچه مسجد جامع</p>
+    <p>پاساژ کاغذ و تحریر</p>
+    <p>زیرزمین اول - پلاک 74</p> 
+    <p>تلفن: 02155611875 | واتساپ: 09010195885</p>
+  </div>
+  <div id="loginSection">
+    <button onclick="enterAsUser()">ورود به گالری</button>
+  </div>
+  <div id="adminLogin">
+    <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
+    <button onclick="loginAsAdmin()">ورود ادمین</button>
+  </div>
 </div>
 
-<div id="loginSection">
-  <button onclick="enterAsUser()">ورود به گالری</button>
-</div>
-
-<div id="adminLogin" style="display: none;">
-  <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
-  <button onclick="loginAsAdmin()">ورود ادمین</button>
-  <button onclick="logout()">بازگشت</button>
-</div>
-
-<div id="adminPanel" style="display: none;">
-  <h2>پنل مدیریت</h2>
-  <input type="text" id="imageURL" placeholder="لینک تصویر">
-  <input type="text" id="productName" placeholder="نام محصول">
-  <input type="number" id="unitPrice" placeholder="قیمت واحد (ریال)">
-  <select id="groupSelect">
-    <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
-    <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
-    <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
-    <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
-    <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-  </select>
-  <button onclick="addImage()">افزودن تصویر</button>
-  <button onclick="logout()">بازگشت</button>
-</div>
-
-<div id="categorySelect" style="display: none;">
-  گروه:
-  <select onchange="changeGroup(this.value)">
-    <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
-    <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
-    <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
-    <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
-    <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-  </select>
-  <button onclick="showCart()">🛒 سبد خرید</button>
-  <button onclick="logoutUser()">بازگشت</button>
-</div>
-
-<div id="gallery" style="display: none;">
-  <div class="image-container" id="imagesContainer"></div>
+<div id="gallery">
+  <div id="gallery-top-controls" class="gallery-controls">
+    <label>انتخاب گروه:</label>
+    <select id="topGroupSelect" onchange="changeGroup(this.value)">
+      <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+      <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
+      <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+      <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+      <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+    </select>
+    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
+  </div>
+  <div id="imagesContainer" class="image-container"></div>
+  <div id="gallery-bottom-controls" class="gallery-controls">
+    <label>انتخاب گروه:</label>
+    <select id="bottomGroupSelect" onchange="changeGroup(this.value)">
+      <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+      <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
+      <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+      <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+      <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+    </select>
+    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
+  </div>
 </div>
 
 <div id="cartSection">
   <h3>🛒 سبد خرید</h3>
   <div id="cartList"></div>
-  <button onclick="downloadAndSendOrder()">ثبت سفارش و ارسال به واتس‌اپ</button>
-  <br><br>
-  <button onclick="hideCart()">بازگشت</button>
+  <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
+  <button onclick="sendOrder()">ثبت و ارسال سفارش</button>
+  <button onclick="clearCart()" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
+  <button onclick="showScreen('gallery')" style="background-color: #607d8b;">بازگشت به گالری</button>
 </div>
 
 <script>
-// مرحله 1: تعریف محصولات ثابت برای هر گروه
-let products = [
-  {
-    id: 1,
-    imageURL: "https://drive.google.com/uc?export=view&id=1wYhivLlDK8fIZbqXfkGFruyz9hkc4N-u",
-    productName: "الفبای فارسی و انگلیسی",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 2,
-    imageURL: "https://drive.google.com/uc?export=view&id=1VGTLXO0r1MAmqidiM1NWbhu_S2l55DBI",
-    productName: "جدول جع و تفریق",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 3,
-    imageURL: "https://drive.google.com/uc?export=view&id=15LF7loQKDoXkuNZ_TFTNZxxAEgA4noSS",
-    productName: "جدول ضرب و تسیم",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 4,
-    imageURL: "https://drive.google.com/uc?export=view&id=14xGBSbj0vLUrb8u6Vm8jZTEy1GU-I8wA",
-    productName: "جدول ضرب و تسیم تمرینی",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 5,
-    imageURL: "https://drive.google.com/uc?export=view&id=1_hdUBg_g0DQRPps8EthudsidMgwwGBtG",
-    productName: "آموزش ضرب و تمرین ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 6,
-    imageURL: "https://drive.google.com/uc?export=view&id=1Qj8uC6ErFH0r7s5IUR_6BssHOPWlqMxM",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 7,
-    imageURL: "https://drive.google.com/uc?export=view&id=14AgjiVxoGVOHTq56iX-nUP4qJ4kW3uqn",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 8,
-    imageURL: "https://drive.google.com/uc?export=view&id=1LyJG8e-uRdNuHH8gCMokY3MQ_8X4Ssv4",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 9,
-    imageURL: "https://drive.google.com/uc?export=view&id=1X_mNGOVNvpDuZAr9FAPO9wm1jHD9sVIq",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 10,
-    imageURL: "https://drive.google.com/uc?export=view&id=1x4HxBCK684bHOnrtz2FR2oMHIlIi3-uP",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 11,
-    imageURL: "https://drive.google.com/uc?export=view&id=1JpGyqoGDoCgQ45l4FdfxqHiNIN82ev9g",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 12,
-    imageURL: "https://drive.google.com/uc?export=view&id=1O8IajNCz3kk_COK8mPKpoZyBJVTz-X_X",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 13,
-    imageURL: "https://drive.google.com/uc?export=view&id=1B6tjGDr7jzm0lRnPQ67iLa1qRl-Azvza",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 14,
-    imageURL: "https://drive.google.com/uc?export=view&id=1WxzEgWFpSihMDcduYb-OmUC7Uq_Hj4zR",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 15,
-    imageURL: "https://drive.google.com/uc?export=view&id=18svS3nPA0hQtVS4Fr3MM5mcPfR1cOAEt",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 16,
-    imageURL: "https://drive.google.com/uc?export=view&id=1tJ5vAYrM1UAMyFrNZxZR4GnRLyWNeYy6",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 17,
-    imageURL: "https://drive.google.com/uc?export=view&id=13BASKywI7R7oGrAjAG4vBNvOG9ffJGIp",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 18,
-    imageURL: "https://drive.google.com/uc?export=view&id=1Xe5AqwkLDH3qwvVSNrrHmYzTK8eqmrh4",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 19,
-    imageURL: "https://drive.google.com/uc?export=view&id=1VPWtzYxkYkqWWscr2R0-rBUx3ylQodHC",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 20,
-    imageURL: "https://drive.google.com/uc?export=view&id=1K3DVTKpHuuv2A3-zs7ZZ9ZUYypVgLUyG",
-    productName: "جدول ضرب",
-    unitPrice: 100000,
-    group: "سایز ۲۹×۲۱ دوروچاپ"
-  },
-  {
-    id: 2,
-    imageURL: "https://cdn.hotgit.ir/posteriran/image2.jpg",
-    productName: "نقشه ایران",
-    unitPrice: 100000,
-    group: "سایز ۵۰×۳۵ یکروچاپ"
-  },
-  {
-    id: 3,
-    imageURL: "https://cdn.hotgit.ir/posteriran/image3.jpg",
-    productName: "قاره‌ها",
-    unitPrice: 200000,
-    group: "سایز ۵۰×۳۵ دوروچاپ"
-  },
-  {
-    id: 4,
-    imageURL: "https://cdn.hotgit.ir/posteriran/image4.jpg",
-    productName: "الفبای فارسی",
-    unitPrice: 200000,
-    group: "سایز ۷۰×۵۰ یکروچاپ"
-  },
-  {
-    id: 5,
-    imageURL: "https://cdn.hotgit.ir/posteriran/image5.jpg",
-    productName: "جدول تناوبی",
-    unitPrice: 250000,
-    group: "سایز ۷۰×۵۰ یووی‌دار"
-  }
-];
+const groupInfo = {
+  1: { name: "سایز ۲۹×۲۱ دوروچاپ", count: 20, price: 100000 }, // 10,000,000 ریال (1,000,000 * 10)
+  2: { name: "سایز ۵۰×۳۵ یکروچاپ", count: 4, price: 100000 },
+  3: { name: "سایز ۵۰×۳۵ دوروچاپ", count: 9, price: 200000 },
+  4: { name: "سایز ۷۰×۵۰ یکروچاپ", count: 12, price: 200000 },
+  5: { name: "سایز ۷۰×۵۰ یووی‌دار", count: 15, price: 250000 },
+};
 
-function showAdminLogin() {
-  document.getElementById("adminLogin").style.display = "block";
-  document.getElementById("loginSection").style.display = "none";
-  document.getElementById("subtitle").style.display = "none";
-  document.getElementById("address").style.display = "none";
-  document.getElementById("contact").style.display = "none";
+// Quantities must be sorted ascending
+const allowedQuantities = [0, 20, 50, 100, 200, 300, 400, 500];
+let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
+
+// --- Screen Management ---
+const screens = {
+    main: document.getElementById('mainSection'),
+    gallery: document.getElementById('gallery'),
+    cart: document.getElementById('cartSection')
+};
+
+function showScreen(screenName) {
+    // Hide all screens
+    for (let key in screens) {
+        screens[key].style.display = 'none';
+    }
+
+    // Show the requested screen
+    screens[screenName].style.display = 'flex'; // Use flex for these sections
+
+    // Update history for back button support
+    // Only push state if not going back via popstate or already on the screen
+    if (history.state === null || history.state.screen !== screenName) {
+        history.pushState({ screen: screenName }, '', `#${screenName}`);
+    }
+
+    // Specific actions for each screen
+    if (screenName === 'gallery') {
+        const currentGroupId = document.getElementById('topGroupSelect').value; // Get current selected group
+        loadGroup(currentGroupId); // Reload current group
+    } else if (screenName === 'cart') {
+        renderCartList();
+    }
 }
+
+// Handle browser's back button
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.screen) {
+        // Restore previous screen based on history state
+        for (let key in screens) {
+            screens[key].style.display = 'none';
+        }
+        screens[event.state.screen].style.display = 'flex';
+        if (event.state.screen === 'gallery') {
+            const currentGroupId = document.getElementById('topGroupSelect').value;
+            loadGroup(currentGroupId);
+        } else if (event.state.screen === 'cart') {
+            renderCartList();
+        }
+    } else {
+        // Fallback to main screen if no state (e.g., initial load or direct URL)
+        showScreen('main');
+    }
+});
+
 
 function enterAsUser() {
-  document.getElementById("loginSection").style.display = "none";
-  document.getElementById("categorySelect").style.display = "block";
-  document.getElementById("gallery").style.display = "block";
-  document.getElementById("subtitle").style.display = "none";
-  document.getElementById("address").style.display = "none";
-  document.getElementById("contact").style.display = "none";
-  loadProducts("سایز ۲۹×۲۱ دوروچاپ");
+  showScreen('gallery');
+  // Sync selected group in both dropdowns
+  document.getElementById('topGroupSelect').value = 1;
+  document.getElementById('bottomGroupSelect').value = 1;
+  loadGroup(1); // Load the first group by default
 }
 
-function logoutUser() {
-  document.getElementById("categorySelect").style.display = "none";
-  document.getElementById("gallery").style.display = "none";
-  document.getElementById("loginSection").style.display = "block";
-  document.getElementById("subtitle").style.display = "block";
-  document.getElementById("address").style.display = "block";
-  document.getElementById("contact").style.display = "block";
+function showAdminLogin() {
+  // Hide initial login button and address/subtitle
+  document.getElementById("loginSection").style.display = "none";
+  document.getElementById("subtitle").style.display = "none";
+  document.getElementById("address").style.display = "none";
+  // Show admin login form
+  document.getElementById("adminLogin").style.display = "flex";
 }
 
 function loginAsAdmin() {
-  const password = document.getElementById("adminPassword").value;
-  if (password === "Alireza55") {
-    document.getElementById("adminLogin").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
+  const pass = document.getElementById("adminPassword").value;
+  if (pass === "Alireza55") {
+    alert("خوش آمدید ادمین!");
+    // You might want to navigate to an admin panel or hide this form
+    // For now, it just shows an alert
   } else {
     alert("رمز اشتباه است");
   }
 }
 
-function logout() {
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("adminLogin").style.display = "none";
-  document.getElementById("loginSection").style.display = "block";
-  document.getElementById("subtitle").style.display = "block";
-  document.getElementById("address").style.display = "block";
-  document.getElementById("contact").style.display = "block";
+function changeGroup(val) {
+  // Sync both dropdowns when one changes
+  document.getElementById('topGroupSelect').value = val;
+  document.getElementById('bottomGroupSelect').value = val;
+  loadGroup(parseInt(val));
 }
 
-function changeGroup(groupId) {
-  const groupName = {
-    1: "سایز ۲۹×۲۱ دوروچاپ",
-    2: "سایز ۵۰×۳۵ یکروچاپ",
-    3: "سایز ۵۰×۳۵ دوروچاپ",
-    4: "سایز ۷۰×۵۰ یکروچاپ",
-    5: "سایز ۷۰×۵۰ یووی‌دار"
-  }[groupId];
-  loadProducts(groupName);
-}
-
-function showCart() {
-  document.getElementById("cartSection").style.display = "block";
-  document.getElementById("gallery").style.display = "none";
-}
-
-function hideCart() {
-  document.getElementById("cartSection").style.display = "none";
-  document.getElementById("gallery").style.display = "block";
-}
-
-function addImage() {
-  const imageURL = document.getElementById("imageURL").value;
-  const productName = document.getElementById("productName").value;
-  const unitPrice = parseInt(document.getElementById("unitPrice").value);
-  const group = document.getElementById("groupSelect").selectedOptions[0].text;
-  const newProduct = { id: Date.now(), imageURL, productName, unitPrice, group };
-  products.push(newProduct);
-  alert("محصول اضافه شد.");
-  loadProducts(group);
-}
-
-function loadProducts(groupName) {
-  const container = document.getElementById("imagesContainer");
-  container.innerHTML = "";
-  products.filter(p => p.group === groupName).forEach(product => {
-    const imageBox = document.createElement("div");
-    imageBox.className = "image-box";
-    const img = document.createElement("img");
-    img.src = product.imageURL;
-    const nameElem = document.createElement("div");
-    nameElem.textContent = product.productName;
-    nameElem.style.fontWeight = "bold";
-    const priceDisplay = document.createElement("div");
-    priceDisplay.textContent = `قیمت واحد: ${product.unitPrice.toLocaleString()} ریال`;
-    const quantitySelect = document.createElement("select");
-    [20, 50, 100, 200, 300, 400, 500].forEach(q => {
-      const opt = document.createElement("option");
-      opt.value = q;
-      opt.textContent = q + " عدد";
-      quantitySelect.appendChild(opt);
+// Helper to generate options for the quantity dropdown
+function generateQuantityOptions(selectedQty) {
+    let optionsHtml = '';
+    allowedQuantities.forEach(qty => {
+        optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
     });
-    const addToCartBtn = document.createElement("button");
-    addToCartBtn.textContent = "➕ افزودن به سبد";
-    addToCartBtn.onclick = () => {
-      const qty = parseInt(quantitySelect.value);
-      const total = product.unitPrice * qty;
-      const cartItem = document.createElement("div");
-      cartItem.textContent = `${product.productName} | ${product.group} | تعداد: ${qty} | جمع: ${total.toLocaleString()} ریال`;
-      document.getElementById("cartList").appendChild(cartItem);
-    };
-    imageBox.appendChild(img);
-    imageBox.appendChild(nameElem);
-    imageBox.appendChild(priceDisplay);
-    imageBox.appendChild(quantitySelect);
-    imageBox.appendChild(addToCartBtn);
+    return optionsHtml;
+}
 
-    // اگر در حالت مدیریت هست
-    if (document.getElementById("adminPanel").style.display === "block") {
-      const editBtn = document.createElement("button");
-      editBtn.textContent = "✏️ ویرایش";
-      editBtn.onclick = () => {
-        const newImageURL = prompt("لینک جدید تصویر:", product.imageURL);
-        const newName = prompt("نام جدید محصول:", product.productName);
-        const newPrice = prompt("قیمت جدید:", product.unitPrice);
-        if (newImageURL && newName && newPrice) {
-          product.imageURL = newImageURL;
-          product.productName = newName;
-          product.unitPrice = parseInt(newPrice);
-          loadProducts(groupName);
-        }
-      };
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "🗑️ حذف";
-      deleteBtn.onclick = () => {
-        if (confirm("آیا مطمئن هستید؟")) {
-          products = products.filter(p => p.id !== product.id);
-          loadProducts(groupName);
-        }
-      };
-      imageBox.appendChild(editBtn);
-      imageBox.appendChild(deleteBtn);
+function loadGroup(groupId) {
+  const container = document.getElementById("imagesContainer");
+  container.innerHTML = ""; // Clear previous images
+  const info = groupInfo[groupId];
+
+  for (let i = 1; i <= info.count; i++) {
+    const filename = i.toString().padStart(2, '0');
+    const imagePath = `Image/${info.name}/${filename}.jpg`; // Assumes 'Image' folder is at root
+    
+    const itemUniqueId = `${groupId}-${filename}`;
+    const currentCartItem = cart.get(itemUniqueId);
+    // If item is in cart, use its quantity, otherwise default to 0 for gallery dropdown
+    const initialQty = currentCartItem ? currentCartItem.qty : 0; 
+
+    const box = document.createElement("div");
+    box.className = "image-box";
+
+    // Prepare in-cart display message
+    let inCartMessage = '';
+    if (currentCartItem && currentCartItem.qty > 0) {
+        inCartMessage = `<p class="in-cart-display">موجود در سبد: ${currentCartItem.qty} عدد</p>`;
     }
 
-    container.appendChild(imageBox);
-  });
+    box.innerHTML = `
+      <img src="${imagePath}" alt="پوستر ${info.name} - ${filename}">
+      <p style="font-weight: bold; margin-bottom: 5px;">${info.name} - ${filename}</p>
+      <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
+      <div style="display: flex; align-items: center; margin-top: 10px;">
+        <label for="qty-select-${itemUniqueId}">تعداد:</label>
+        <select id="qty-select-${itemUniqueId}" class="quantity-select">
+          ${generateQuantityOptions(initialQty)}
+        </select>
+        <button onclick="addToCart('${groupId}', '${filename}')">افزودن به سبد</button>
+      </div>
+      ${inCartMessage}
+    `;
+    container.appendChild(box);
+  }
 }
 
-function downloadAndSendOrder() {
-  const cartItems = document.getElementById("cartList").textContent.trim();
-  const message = encodeURIComponent("🛒 سفارش:\n" + cartItems);
-  window.open("https://wa.me/989010195885?text=" + message, "_blank");
+function addToCart(groupId, filename) {
+    const info = groupInfo[groupId];
+    const itemUniqueId = `${groupId}-${filename}`;
+    
+    // Get quantity from the select dropdown corresponding to this item
+    const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+    const selectedQty = parseInt(qtySelect.value);
+
+    if (selectedQty === 0) {
+        // If quantity is 0, remove from cart if exists
+        if (cart.has(itemUniqueId)) {
+            removeFromCart(itemUniqueId); 
+            // Update the gallery item's in-cart display after removal
+            const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
+            if (inCartDisplayElement) {
+                inCartDisplayElement.remove();
+            }
+            alert(`"${info.name} - ${filename}" از سبد حذف شد.`);
+        } else {
+            alert('لطفاً تعداد را انتخاب کنید.');
+        }
+        return;
+    }
+
+    // Always set (override) to ensure "last choice" is recorded
+    cart.set(itemUniqueId, {
+        groupId: groupId,
+        filename: filename,
+        groupName: info.name,
+        price: info.price,
+        qty: selectedQty
+    });
+    
+    saveCart();
+    alert(`"${info.name} - ${filename}" به تعداد ${selectedQty} عدد به سبد خرید اضافه/به‌روز شد.`);
+
+    // Update the in-cart display for the specific item in gallery
+    const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
+    if (inCartDisplayElement) {
+        inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
+    } else {
+        const newInCartDisplay = document.createElement('p');
+        newInCartDisplay.className = 'in-cart-display';
+        newInCartDisplay.textContent = `موجود در سبد: ${selectedQty} عدد`;
+        qtySelect.parentNode.parentNode.appendChild(newInCartDisplay);
+    }
 }
+
+function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
+    let newQty = parseInt(selectElement.value);
+
+    if (isNaN(newQty) || newQty < 0) {
+        // This case should ideally not happen with a dropdown of fixed values
+        console.error("Invalid quantity selected from dropdown.");
+        renderCartList(); // Re-render to revert to last valid quantity
+        return;
+    }
+    
+    if (newQty === 0) {
+        removeFromCart(itemUniqueId);
+    } else {
+        let item = cart.get(itemUniqueId);
+        item.qty = newQty;
+        cart.set(itemUniqueId, item);
+        saveCart();
+        renderCartList(); // Re-render cart list after update
+    }
+}
+
+function removeFromCart(itemUniqueId) {
+    if (confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
+        cart.delete(itemUniqueId);
+        saveCart();
+        renderCartList(); // Re-render cart list after removal
+        // Also update the gallery view if currently displayed
+        if (document.getElementById('gallery').style.display === 'flex') {
+            const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
+            if (qtySelectInGallery) {
+                qtySelectInGallery.value = 0; // Reset dropdown to 0
+                const inCartDisplayElement = qtySelectInGallery.parentNode.parentNode.querySelector('.in-cart-display');
+                if (inCartDisplayElement) {
+                    inCartDisplayElement.remove(); // Remove the in-cart message
+                }
+            }
+        }
+    }
+}
+
+function clearCart() {
+    if (confirm('آیا مطمئنید می‌خواهید کل سبد خرید را پاک کنید؟')) {
+        cart.clear(); // Clear all items from the Map
+        saveCart(); // Save the empty cart to localStorage
+        renderCartList(); // Re-render the cart list to show it's empty
+        alert('سبد خرید شما پاک شد.');
+        // Also update the gallery view if currently displayed
+        if (document.getElementById('gallery').style.display === 'flex') {
+            loadGroup(document.getElementById('topGroupSelect').value); // Reload current group to reset all in-cart messages
+        }
+    }
+}
+
+function renderCartList() {
+  const list = document.getElementById("cartList");
+  const total = document.getElementById("totalPrice");
+  list.innerHTML = ""; // Clear previous list
+  let grouped = {};
+  let totalSum = 0;
+
+  if (cart.size === 0) {
+      list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
+      total.textContent = `مبلغ کل: 0 ریال`;
+      return;
+  }
+
+  cart.forEach(item => {
+    // Group items by their actual groupName for display
+    if (!grouped[item.groupName]) grouped[item.groupName] = [];
+    grouped[item.groupName].push(item);
+    totalSum += item.qty * item.price;
+  });
+
+  for (let groupName in grouped) {
+    list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px solid #eee; padding-bottom: 5px;">${groupName}</h4>`;
+    grouped[groupName].forEach(item => {
+      // Correct itemUniqueId for buttons
+      const itemUniqueId = `${item.groupId}-${item.filename}`; 
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "cart-item";
+      itemDiv.innerHTML = `
+        <div class="cart-item-info">
+          <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename}</p>
+          <p>${item.qty} عدد × ${item.price.toLocaleString()} ریال = ${(item.qty * item.price).toLocaleString()} ریال</p>
+        </div>
+        <div class="quantity-control">
+          <select id="cart-qty-select-${itemUniqueId}" class="quantity-select" 
+                  onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
+            ${generateQuantityOptions(item.qty)}
+          </select>
+          <button class="remove-btn" onclick="removeFromCart('${itemUniqueId}')">حذف</button>
+        </div>
+      `;
+      list.appendChild(itemDiv);
+    });
+  }
+
+  total.textContent = `مبلغ کل: ${totalSum.toLocaleString()} ریال`;
+}
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+}
+
+function sendOrder() {
+  if (cart.size === 0) {
+    alert('سبد خرید شما خالی است.');
+    return;
+  }
+
+  let message = "🛒 سفارش جدید:\n";
+  let totalAmount = 0;
+  let groupedOrder = {};
+
+  cart.forEach(item => {
+    if (!groupedOrder[item.groupName]) groupedOrder[item.groupName] = [];
+    groupedOrder[item.groupName].push(item);
+    totalAmount += item.qty * item.price;
+  });
+
+  for (let groupName in groupedOrder) {
+    message += `\n--- گروه ${groupName} ---\n`;
+    groupedOrder[groupName].forEach(item => {
+      message += `* پوستر ${item.filename} - تعداد: ${item.qty} - قیمت واحد: ${item.price.toLocaleString()} ریال - جمع: ${(item.qty * item.price).toLocaleString()} ریال\n`;
+    });
+  }
+
+  message += `\n💵 مبلغ کل: ${totalAmount.toLocaleString()} ریال`;
+  message += `\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
+
+  const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(whatsappUrl, '_blank');
+
+  alert('سفارش شما آماده ارسال به واتس‌اپ است.');
+}
+
+// Initial load: show main screen and add initial history state
+window.onload = function() {
+    showScreen('main');
+    // Ensure the initial state is also recorded for history API
+    history.replaceState({ screen: 'main' }, '', '#main');
+    // Load any existing cart items to ensure gallery quantities are correct on load
+    renderCartList(); // This also initializes the cart display if empty
+};
+
 </script>
 
-<footer>
-  <p>&copy; 2023 پوستر ایران. تمامی حقوق محفوظ است.</p>
-</footer>
 </body>
 </html>
