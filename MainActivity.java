@@ -28,36 +28,74 @@ public class MainActivity extends AppCompatActivity {
         // بارگذاری سایت شما
         webView.loadUrl("https://akbari5561.github.io/PosterIran/");
 
-        // تنظیم WebViewClient با پشتیبانی از واتساپ و intentها
+        // تنظیم WebViewClient با پشتیبانی از واتس‌اپ و Intent ها
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // مهم: برای API 24 به بالا، از WebResourceRequest درshouldOverrideUrlLoading استفاده کنید.
+                // این متد با String url در API 24+ منسوخ شده است.
+                // اما اگر نسخه‌های قدیمی‌تر اندروید را هدف قرار داده‌اید یا فقط یک راه حل سریع می‌خواهید، این کد کار می‌کند.
+
+                // مدیریت لینک‌های عمیق واتس‌اپ (whatsapp://) و Intent های عمومی (intent://)
                 if (url.startsWith("whatsapp://") || url.startsWith("intent://")) {
                     try {
                         Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
                         if (intent != null) {
                             startActivity(intent);
-                            return true;
+                            return true; // لینک مدیریت شد، در WebView بارگذاری نشود
                         }
                     } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, "واتساپ نصب نیست", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "واتس‌اپ نصب نیست", Toast.LENGTH_SHORT).show();
+                        // می‌توانید در اینجا کاربر را به صفحه فروشگاه Play واتس‌اپ هدایت کنید:
+                        // Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.whatsapp"));
+                        // startActivity(browserIntent);
                         return true;
                     }
-                } else if (url.startsWith("http") || url.startsWith("https")) {
-                    // اجازه بده لینک‌های معمولی در WebView باز بشن
+                }
+                // *** اضافه شده جدید ***
+                // مدیریت لینک‌های HTTPS واتس‌اپ (wa.me)
+                else if (url.contains("wa.me/")) { // بررسی می‌کند که "wa.me/" در هر کجای URL وجود دارد
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                        return true; // لینک مدیریت شد، در WebView بارگذاری نشود
+                    } catch (ActivityNotFoundException e) {
+                        // اگر واتس‌اپ نصب نبود، به کاربر اطلاع دهید یا به صفحه دانلود هدایت کنید
+                        Toast.makeText(MainActivity.this, "اپلیکیشن واتس‌اپ یافت نشد.", Toast.LENGTH_SHORT).show();
+                        // گزینه برای باز کردن لینک فروشگاه Play:
+                        // Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.whatsapp"));
+                        // startActivity(playStoreIntent);
+                        return true;
+                    }
+                }
+                // مدیریت لینک‌های HTTP/HTTPS معمولی
+                else if (url.startsWith("http") || url.startsWith("https")) {
+                    // اجازه دهید لینک‌های وب معمولی در WebView باز شوند
                     return false;
-                } else {
-                    // بقیه لینک‌ها (mailto:, tel:, ...) رو با intent باز کن
+                }
+                // مدیریت سایر scheme های سفارشی (مثلاً mailto:, tel:)
+                else {
                     try {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
-                        return true;
+                        return true; // لینک به صورت خارجی مدیریت شد
                     } catch (ActivityNotFoundException e) {
                         Toast.makeText(MainActivity.this, "اپلیکیشن مورد نظر نصب نیست", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }
             }
+
+            // توصیه می‌شود برای API 24 به بالا از سربارگذاری WebResourceRequest استفاده کنید
+            // @RequiresApi(Build.VERSION_CODES.N) // اگر از این استفاده می‌کنید، این حاشیه نویسی را اضافه کنید
+            // @Override
+            // public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            //     String url = request.getUrl().toString();
+            //     // می‌توانید همان منطق بالا را اینجا قرار دهید.
+            //     // WebResourceRequest اطلاعات بیشتری در مورد درخواست ارائه می‌دهد.
+            //     return shouldOverrideUrlLoading(view, url); // برای سادگی متد قدیمی را فراخوانی کنید، یا منطق را بازنویسی کنید
+            // }
         });
     }
 }
