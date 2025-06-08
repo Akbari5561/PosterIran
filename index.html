@@ -221,9 +221,12 @@
     <p>بازار آهنگران</p>
     <p>کوچه مسجد جامع</p>
     <p>پاساژ کاغذ و تحریر</p>
-    <p>زیرزمین اول - پلاک 74</p> 
-    <p>تلفن: 02155611875 | واتساپ: 09010195885</p>
-  </div>
+    <p>زیرزمین اول - پلاک 74</p>
+</div>
+<div id="contact">
+  <p>تلفن: 02155611875</p>
+  <p>موبایل: 09010195885</p>
+</div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
   </div>
@@ -270,11 +273,41 @@
 
 <script>
 const groupInfo = {
-  1: { name: "سایز ۲۹×۲۱ دوروچاپ", count: 20, price: 100000 }, // 10,000,000 ریال (1,000,000 * 10)
-  2: { name: "سایز ۵۰×۳۵ یکروچاپ", count: 4, price: 100000 },
-  3: { name: "سایز ۵۰×۳۵ دوروچاپ", count: 9, price: 200000 },
-  4: { name: "سایز ۷۰×۵۰ یکروچاپ", count: 12, price: 200000 },
-  5: { name: "سایز ۷۰×۵۰ یووی‌دار", count: 15, price: 250000 },
+  1: {
+    name: "سایز ۲۹×۲۱ دوروچاپ",
+    count: 22, // تعداد فایل‌های این گروه
+    price: 100000,
+    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
+    filenames: ["الفبای فارسی و انگلیسی.jpg", "جدول تناوبی عناصر.jpg", "اعداد همراه با ساعت و محور.jpg", "آموزش اعداد.jpg", "آموزش زمان و ساعت.jpg", "آموزش زمان وساعت 2.jpg", "آموزش ضرب و تقسیم.jpg", "تمرین ضرب و تقسیم.jpg", "جدول دوستی تمرینی.jpg", "جدول دوستی کامل.jpg", "حساب آموز اول (افقی).jpg", "حساب آموز اول (عمودی).jpg", "حساب آموز دوم (افقی).jpg", "حساب آموز دوم (عمودی).jpg", "حساب آموز پایه سوم.jpg", /*"حساب آموز چهارم و پنجم.jpg"*/, "ضرب و تمرین ضرب.jpg", /*"آموزش ضرب و تقسیم حیوانات.jpg"*/, "محیط و مساحت اشکال هندسی.jpg", /*"آموزش جمع و تفریق.jpg"*/, /*"نقشه ایران و جهان.jpg"*/, /*"جدول تقریب اعداد.jpg"*/]
+  },
+  2: {
+    name: "سایز ۵۰×۳۵ یکروچاپ",
+    count: 4, // تعداد فایل‌های این گروه
+    price: 100000,
+    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
+    filenames: ["الفبای فارسی و شکل صداها.jpg", "جدول دوستی.jpg", "جدول ضرب کد 350.jpg", "جدول ضرب کد 351.jpg"]
+  },
+  3: {
+    name: "سایز ۵۰×۳۵ دوروچاپ",
+    count: 9, // تعداد فایل‌های این گروه
+    price: 200000,
+    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
+    filenames: ["اعداد همراه ساعت و محور.jpg", "الفبای فارسی و انگلیسی.jpg", "آموزش ضرب و تقسیم.jpg", "تمرین ضرب و تقسیم.jpg", "جدول تناوبی عناصر.jpg", "جدول جمع و تفریق.jpg", "جدول دوستی تمرینی.jpg", "جدول دوستی کامل.jpg", "آموزش زمان و ساعت.jpg"]
+  },
+  4: {
+    name: "سایز ۷۰×۵۰ یکروچاپ",
+    count: 12, // تعداد فایل‌های این گروه
+    price: 200000,
+    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
+    filenames: ["الفبای فارسی  شکل دار.jpg", "الفبای فارسی بدون شکل.jpg", "اعداد 1 تا 100.jpg", "اعداد ده دهی.jpg", "اعداد یک تا ده.jpg", "الفبای انگلیسی.jpg", "جدول جمع.jpg", "جدول تفریق.jpg", "جدول ضرب.jpg", "جدول تقسیم.jpg", "جدول تناوبی عناصر.jpg", "جدول دوستی.jpg"]
+  },
+  5: {
+    name: "سایز ۷۰×۵۰ یووی‌دار",
+    count: 15, // تعداد فایل‌های این گروه
+    price: 250000,
+    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
+    filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", "برنامه روزانه.jpg", "برنامه هفتگی.jpg", "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg", /*"جدول ضرب حیوانات.jpg"*/]
+  },
 };
 
 // Quantities must be sorted ascending
@@ -379,42 +412,44 @@ function generateQuantityOptions(selectedQty) {
 
 function loadGroup(groupId) {
   const container = document.getElementById("imagesContainer");
-  container.innerHTML = ""; // Clear previous images
+  container.innerHTML = ""; // پاک کردن تصاویر قبلی
   const info = groupInfo[groupId];
 
-  for (let i = 1; i <= info.count; i++) {
-    const filename = i.toString().padStart(2, '0');
-    const imagePath = `Image/${info.name}/${filename}.jpg`; // Assumes 'Image' folder is at root
+  // **شروع حلقه جدید برای استفاده از filenames**
+  // این حلقه روی هر نام فایل که در آرایه filenames تعریف شده، یک بار تکرار می‌شود
+  info.filenames.forEach(actualFilename => { // 'actualFilename' حالا مستقیماً نام فایل رو از آرایه می‌گیره
     
-    const itemUniqueId = `${groupId}-${filename}`;
+    const imagePath = `Image/${info.name}/${actualFilename}`; // استفاده از نام فایل واقعی
+
+    // شناسه منحصر به فرد آیتم رو هم با نام فایل واقعی می‌سازیم
+    const itemUniqueId = `${groupId}-${actualFilename}`; 
     const currentCartItem = cart.get(itemUniqueId);
-    // If item is in cart, use its quantity, otherwise default to 0 for gallery dropdown
+    // اگر آیتم در سبد خرید بود، از تعدادش استفاده می‌کنیم، وگرنه 0
     const initialQty = currentCartItem ? currentCartItem.qty : 0; 
 
     const box = document.createElement("div");
     box.className = "image-box";
 
-    // Prepare in-cart display message
     let inCartMessage = '';
     if (currentCartItem && currentCartItem.qty > 0) {
         inCartMessage = `<p class="in-cart-display">موجود در سبد: ${currentCartItem.qty} عدد</p>`;
     }
 
     box.innerHTML = `
-      <img src="${imagePath}" alt="پوستر ${info.name} - ${filename}">
-      <p style="font-weight: bold; margin-bottom: 5px;">${info.name} - ${filename}</p>
+      <img src="${imagePath}" alt="پوستر ${info.name} - ${actualFilename}">
+      <p style="font-weight: bold; margin-bottom: 5px;">${info.name} - ${actualFilename.replace(/\.jpg$/, '')}</p> 
       <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
       <div style="display: flex; align-items: center; margin-top: 10px;">
         <label for="qty-select-${itemUniqueId}">تعداد:</label>
         <select id="qty-select-${itemUniqueId}" class="quantity-select">
           ${generateQuantityOptions(initialQty)}
         </select>
-        <button onclick="addToCart('${groupId}', '${filename}')">افزودن به سبد</button>
+        <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن به سبد</button>
       </div>
       ${inCartMessage}
     `;
     container.appendChild(box);
-  }
+  }); // **پایان حلقه forEach**
 }
 
 function addToCart(groupId, filename) {
@@ -613,6 +648,11 @@ window.onload = function() {
 };
 
 </script>
+</script>
+<footer class="mt-auto py-6 text-gray-500 text-sm">
+    <p>&copy; 2023 پوستر ایران. تمامی حقوق محفوظ است.</p>
+</footer>
+<script>
 
 </body>
 </html>
