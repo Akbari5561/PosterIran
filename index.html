@@ -616,7 +616,7 @@ function sendOrder() {
   for (let groupName in groupedOrder) {
     message += `\n--- گروه ${groupName} ---\n`;
     groupedOrder[groupName].forEach(item => {
-      message += `* پوستر ${item.filename} - تعداد: ${item.qty} - قیمت واحد: ${item.price.toLocaleString()} ریال - جمع: ${(item.qty * item.price).toLocaleString()} ریال\n`;
+      message += `* ${item.groupName} - پوستر ${item.filename.replace(/\.jpg$/, '')}: ${(item.qty * item.price).toLocaleString()} ریال\n`;
     });
   }
 
