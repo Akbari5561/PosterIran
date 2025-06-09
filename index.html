@@ -225,6 +225,9 @@
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
+    </select>
+    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
+  </div>
   </div>
   <div id="adminLogin">
     <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
@@ -622,7 +625,8 @@ function sendOrder() {
   }
 
   message += `\n💵 مبلغ کل: ${totalAmount.toLocaleString()} ریال`;
-  message += `\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
+  message += `\n\nهزینه ارسال با شما هماهنگ میشود.`;
+  message += `\n\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -645,7 +649,7 @@ window.onload = function() {
 
 </script>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
-    <p>&copy; Poster Iran 1997 Created by Pixel</p>
+    <p>&copy; Poster Iran 1997</p>
     <p></p>
 </footer>
 <script>
