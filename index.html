@@ -576,8 +576,8 @@ function renderCartList() {
       itemDiv.className = "cart-item";
       itemDiv.innerHTML = `
         <div class="cart-item-info">
-            <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename.replace(/\.jpg$/, '')}</p>
-
+          <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename}</p>
+          <p>${item.qty} عدد × ${item.price.toLocaleString()} ریال = ${(item.qty * item.price).toLocaleString()} ریال</p>
         </div>
         <div class="quantity-control">
           <select id="cart-qty-select-${itemUniqueId}" class="quantity-select" 
@@ -617,7 +617,7 @@ function sendOrder() {
   for (let groupName in groupedOrder) {
     message += `\n--- گروه ${groupName} ---\n`;
     groupedOrder[groupName].forEach(item => {
-      message += `* پوستر ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty}\n`;
+      message += `* پوستر ${item.filename} - تعداد: ${item.qty} - قیمت واحد: ${item.price.toLocaleString()} ریال - جمع: ${(item.qty * item.price).toLocaleString()} ریال\n`;
     });
   }
 
@@ -645,7 +645,8 @@ window.onload = function() {
 
 </script>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
-    <p>&copy; Poster Iran 1997</p>
+    <p>&copy; Poster Iran 1997 Created by Pixel</p>
+    <p></p>
 </footer>
 <script>
   </script>
