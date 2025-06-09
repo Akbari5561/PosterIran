@@ -154,10 +154,10 @@
     .cart-item-actions button {
       margin-left: 5px;
     }
-    
+
     /* Controls at the top/bottom of gallery */
     .gallery-controls {
-        display: flex;
+        display: flex; /* اینجا رو به flex تغییر میدیم */
         justify-content: space-around;
         align-items: center;
         width: 100%;
@@ -166,6 +166,8 @@
         border-top: 1px solid #c3d4e6;
         box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
         z-index: 1000; /* Ensure it's above other content */
+        /* اضافه شدن: برای ایجاد فاصله مناسب بین آیتم‌ها */
+        gap: 10px;
     }
     #gallery-bottom-controls {
         margin-top: auto; /* Push to bottom of gallery content */
@@ -181,21 +183,26 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Shadow at the bottom */
     }
 
+.gallery-controls label {
+        /* اطمینان از اینکه لیبل فضای لازم رو میگیره */
+        flex-shrink: 0;
+    }
+
     .gallery-controls select {
         width: auto;
         flex-grow: 1;
-        margin-right: 10px;
+        margin-right: 0px;
     }
     .gallery-controls button {
-        margin: 0;
+        margin: 0; /* اطمینان از حذف مارجین‌های اضافی */
+        flex-shrink: 0; /* جلوگیری از کوچک شدن دکمه */
     }
     .in-cart-display {
-        font-size: 0.9em;
+        font-size: 1em;
         color: #007BFF; /* Blue color for in-cart message */
         margin-top: 5px;
         font-weight: bold;
     }
-
     @media (max-width: 600px) {
         .image-box {
             width: calc(100% - 10px); /* Full width on small screens */
@@ -205,7 +212,13 @@
             gap: 10px;
         }
         .gallery-controls select, .gallery-controls button {
-            width: calc(100% - 20px); /* Full width */
+            width: calc(100% - 20px); /* عرض کامل در موبایل */
+            margin-right: 0; /* اطمینان از حذف مارجین در موبایل */
+        }
+        /* اضافه شدن: لیبل هم در موبایل عرض کامل بگیره */
+        .gallery-controls label {
+            width: calc(100% - 20px);
+            text-align: right; /* یا center، بستگی به طراحی داره */
         }
     }
   </style>
@@ -645,6 +658,10 @@ window.onload = function() {
 };
 
 </script>
+<footer class="mt-auto py-6 text-gray-500 text-sm">
+    <p> &copy; Poster Iran 1997</p>
+</footer>
+<script>
 
   </script>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
