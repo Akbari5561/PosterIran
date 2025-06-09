@@ -554,7 +554,8 @@ function renderCartList() {
   const list = document.getElementById("cartList");
   const total = document.getElementById("totalPrice");
   list.innerHTML = ""; // Clear previous list
-  let grouped = {};
+  let grouped = {}; // برای نمایش آیتم‌های تکی گروه‌بندی شده
+  let groupedSummaries = {}; // جدید: برای خلاصه‌ی گروه‌ها
   let totalSum = 0;
 
   if (cart.size === 0) {
@@ -564,14 +565,38 @@ function renderCartList() {
   }
 
   cart.forEach(item => {
-    // Group items by their actual groupName for display
+    // گروه‌بندی برای نمایش آیتم‌های تکی
     if (!grouped[item.groupName]) grouped[item.groupName] = [];
     grouped[item.groupName].push(item);
     totalSum += item.qty * item.price;
+
+    // جدید: محاسبه خلاصه‌ی گروه‌ها
+    if (!groupedSummaries[item.groupName]) {
+        groupedSummaries[item.groupName] = {
+            totalQty: 0,
+            totalPrice: 0
+        };
+    }
+    groupedSummaries[item.groupName].totalQty += item.qty;
+    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
   });
 
+  // جدید: نمایش خلاصه‌ی گروه‌ها در بالای سبد خرید
+    list.innerHTML += `<h3 style="margin-bottom: 10px;">خلاصه سفارش بر اساس گروه:</h3>`;
+    for (let groupName in groupedSummaries) {
+        const summary = groupedSummaries[groupName];
+        list.innerHTML += `
+            <div style="background-color: #e8f5e9; padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right;">
+                <p style="font-weight: bold; margin: 0;">${groupName}:</p>
+                <p style="margin: 0; font-size: 0.9em;">تعداد کل: ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال</p>
+            </div>
+        `;
+    }
+    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; // یک خط جداکننده
+
+    // حالا نمایش آیتم‌های تکی، مثل قبل
   for (let groupName in grouped) {
-    list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px solid #eee; padding-bottom: 5px;">${groupName}</h4>`;
+    list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
     grouped[groupName].forEach(item => {
       // Correct itemUniqueId for buttons
       const itemUniqueId = `${item.groupId}-${item.filename}`; 
@@ -579,8 +604,8 @@ function renderCartList() {
       itemDiv.className = "cart-item";
       itemDiv.innerHTML = `
         <div class="cart-item-info">
-          <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename}</p>
-          <p>${item.qty} عدد × ${item.price.toLocaleString()} ریال = ${(item.qty * item.price).toLocaleString()} ریال</p>
+          <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename.replace(/\.jpg$/, '')}</p>
+          <p>  تعداد ${(item.qty)}</p>
         </div>
         <div class="quantity-control">
           <select id="cart-qty-select-${itemUniqueId}" class="quantity-select" 
@@ -620,7 +645,7 @@ function sendOrder() {
   for (let groupName in groupedOrder) {
     message += `\n--- گروه ${groupName} ---\n`;
     groupedOrder[groupName].forEach(item => {
-      message += `* پوستر ${item.filename} - تعداد: ${item.qty} - قیمت واحد: ${item.price.toLocaleString()} ریال - جمع: ${(item.qty * item.price).toLocaleString()} ریال\n`;
+      message += `* ${item.filename.replace(/\.jpg$/, '')} - تعداد= ${item.qty} \n`;
     });
   }
 
