@@ -617,7 +617,7 @@ function sendOrder() {
   for (let groupName in groupedOrder) {
     message += `\n--- گروه ${groupName} ---\n`;
     groupedOrder[groupName].forEach(item => {
-      message += `* ${item.groupName} - پوستر ${item.filename.replace(/\.jpg$/, '')} - تعداد:`;
+      message += `* پوستر ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty}\n`;
     });
   }
 
