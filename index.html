@@ -685,7 +685,7 @@ function sendOrder() {
   // --- نمایش جزئیات کامل هر آیتم (به تفکیک گروه) ---
   message += "\n--- جزئیات سفارش ---\n";
   for (let groupName in groupedItems) {
-    message += `\n***گروه${groupName} ------------- :\n`; // اضافه کردن عنوان گروه
+    message += `\n==> گروه ${groupName} ------------- :\n`; // اضافه کردن عنوان گروه
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // اضافه کردن جزئیات آیتم با indent
     });
