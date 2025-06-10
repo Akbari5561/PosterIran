@@ -4,7 +4,45 @@
   <meta charset="UTF-8">
   <title>پوستر ایران</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon">
+
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167x167.png">
+
+  <link rel="manifest" href="/icons/manifest.json">
+  <meta name="theme-color" content="#2196f3">
+
+  <meta property="og:title" content="پوستر ایران">
+  <meta property="og:description" content="چاپ انواع پوسترهای آموزشی">
+  <meta property="og:image" content="/icons/og-image.jpg"> <meta property="og:url" content="https://akbari5561.github.io/PosterIran/">
+
   <style>
+    .header-container {
+      display: flex; /* استفاده از فلکس‌باکس برای قرار گرفتن آیتم‌ها در یک سطر */
+      align-items: center; /* تراز کردن عمودی آیتم‌ها در مرکز */
+      justify-content: center; /* تراز کردن افقی محتوا در مرکز */
+      margin-bottom: 10px; /* فاصله از عنوان فرعی */
+    }
+
+    .header-logo {
+      width: 50px; /* اندازه دلخواه برای عرض لوگو */
+      height: 50px; /* اندازه دلخواه برای ارتفاع لوگو */
+      margin-left: 10px; /* فاصله بین لوگو و عنوان */
+      /* اگر لوگو مربع نیست و می‌خواهید کامل نمایش داده شود، object-fit: contain; را اضافه کنید. */
+      /* object-fit: contain; */
+    }
+
+    h1 {
+      color: #1976d2;
+      cursor: pointer;
+      margin: 0; /* حذف مارجین پیش‌فرض h1 برای کنترل بهتر فاصله در فلکس‌باکس */
+      font-size: 2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
+    }
+
     body {
       font-family: sans-serif;
       direction: rtl;
@@ -209,10 +247,14 @@
         }
     }
   </style>
+  
 </head>
 <body>
 
-<h1 onclick="showAdminLogin()">پوستر ایران</h1>
+<div class="header-container">
+  <img src="/icons/logo.png" alt="لوگو پوستر ایران" class="header-logo">
+  <h1 onclick="showAdminLogin()">پوستر ایران</h1>
+</div>
 <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
 
 <div id="mainSection">
