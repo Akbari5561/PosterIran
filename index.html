@@ -615,7 +615,7 @@ function renderCartList() {
             itemDiv.className = "cart-item";
             itemDiv.innerHTML = `
                 <div class="cart-item-info">
-                    <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename.replace(/\.jpg$/, '')}</p>
+                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.filename.replace(/\.jpg$/, '')}</p>
                     <p>تعداد: ${item.qty} عدد</p>
                 </div>
                 <div class="quantity-control">
@@ -646,7 +646,7 @@ function renderCartList() {
     list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; 
 
 
-    // --- محاسبه و نمایش هزینه باربری در سبد خرید ---
+    // --- محاسبه و نمایش هزینه ارسال به باربری در سبد خرید ---
     const baseShippingThreshold = 85000000; 
     const costPerThreshold = 600000;     
     let calculatedShippingCost = 0;
@@ -654,14 +654,14 @@ function renderCartList() {
     
     if (totalSum === 0) {
         calculatedShippingCost = 0;
-        shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
+        shippingDisplayMessage = `\n🚚 هزینه ارسال به باربری: 0 ریال`;
     } else {
         const numberOfThresholds = Math.ceil(totalSum / baseShippingThreshold);
         calculatedShippingCost = numberOfThresholds * costPerThreshold;
-        shippingDisplayMessage = `\n🚚 هزینه باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} مضرب)`;
+        shippingDisplayMessage = `\n🚚 هزینه ارسال به باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
     }
 
-    // اضافه کردن پیام هزینه باربری به سبد خرید
+    // اضافه کردن پیام هزینه ارسال به باربری به سبد خرید
     list.innerHTML += `
         <div style="padding: 8px; margin-top: 10px; border-radius: 5px; text-align: right;">
             <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
@@ -744,7 +744,7 @@ function sendOrder() {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
-      shippingMessage = `\n🚚 هزینه ارسال به باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} مضرب)`;
+      shippingMessage = `\n🚚 هزینه ارسال به باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
   }
   
   finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
