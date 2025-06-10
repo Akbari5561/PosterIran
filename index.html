@@ -660,8 +660,6 @@ function sendOrder() {
   let message = "🛒 درود، سفارش من:\n";
   let totalAmount = 0;
   let groupedOrder = {};
-  let totalSum = 0;
-  let groupedSummaries = {}; // جدید: برای محاسبه خلاصه‌ی گروه‌ها
 
   cart.forEach(item => {
     if (!groupedOrder[item.groupName]) groupedOrder[item.groupName] = [];
@@ -672,38 +670,18 @@ function sendOrder() {
   for (let groupName in groupedOrder) {
     message += `\n--- گروه ${groupName} ---\n`;
     groupedOrder[groupName].forEach(item => {
-      message += `* ${item.filename.replace(/\.jpg$/, '')}: ${(item.qty * item.price).toLocaleString()} ریال\n`;
+      message += `* ${item.filename.replace(/\.jpg$/, '')} - تعداد= ${item.qty} \n`;
     });
   }
-  if (!groupedSummaries[item.groupName]) {
-      groupedSummaries[item.groupName] = {
-        totalQty: 0,
-        totalPrice: 0
-      };
-    }
-    groupedSummaries[item.groupName].totalQty += item.qty;
-    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
-  }
-
-  // جدید: اضافه کردن خلاصه‌ی گروه‌ها به پیام
-  message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
-  for (let groupName in groupedSummaries) {
-    const summary = groupedSummaries[groupName];
-    message += `${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
-  }
-  message += "-------------------------------\n";
-
-  // اضافه کردن مبلغ کل نهایی (اگر میخواهید)
-  message += `\nمبلغ کل سفارش: ${totalSum.toLocaleString()} ریال\n`;
-
 
   message += `\n💵 مبلغ کل: ${totalAmount.toLocaleString()} ریال`;
-  message += `\n\ببرای ارسال با شما هماهنگ میشود.`;
+  message += `\n\nهزینه ارسال با شما هماهنگ میشود.`;
   message += `\n\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_system'); // برای باز کردن در مرورگر سیستم
+
+  window.open(whatsappUrl, '_blank');
 
   alert('سفارش شما آماده ارسال به واتس‌اپ است.');
 }
