@@ -650,7 +650,6 @@ function renderCartList() {
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 }
-
 function sendOrder() {
   if (cart.size === 0) {
     alert('سبد خرید شما خالی است.');
@@ -659,33 +658,65 @@ function sendOrder() {
 
   let message = "🛒 درود، سفارش من:\n";
   let totalAmount = 0;
-  let groupedOrder = {};
+  let groupedItems = {};     // برای گروه‌بندی نمایش جزئیات آیتم‌ها
+  let groupedSummaries = {}; // برای محاسبه خلاصه‌ی هر گروه (تعداد کل و مبلغ کل)
 
   cart.forEach(item => {
-    if (!groupedOrder[item.groupName]) groupedOrder[item.groupName] = [];
-    groupedOrder[item.groupName].push(item);
+    // 1. برای نمایش جزئیات آیتم‌ها به تفکیک گروه
+    if (!groupedItems[item.groupName]) {
+      groupedItems[item.groupName] = [];
+    }
+    groupedItems[item.groupName].push(item);
+
+    // 2. برای محاسبه مبلغ کل نهایی سبد خرید
     totalAmount += item.qty * item.price;
+
+    // 3. برای محاسبه خلاصه‌ی هر گروه (تعداد کل و مبلغ کل)
+    if (!groupedSummaries[item.groupName]) {
+      groupedSummaries[item.groupName] = {
+        totalQty: 0,
+        totalPrice: 0
+      };
+    }
+    groupedSummaries[item.groupName].totalQty += item.qty;
+    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
   });
 
-  for (let groupName in groupedOrder) {
-    message += `\n--- گروه ${groupName} ---\n`;
-    groupedOrder[groupName].forEach(item => {
-      message += `* ${item.filename.replace(/\.jpg$/, '')} - تعداد= ${item.qty} \n`;
+  // --- نمایش خلاصه‌ی سفارش بر اساس گروه ---
+  message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
+  for (let groupName in groupedSummaries) {
+    const summary = groupedSummaries[groupName];
+    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
+  }
+  message += "-------------------------------\n";
+
+
+  // --- نمایش جزئیات کامل هر آیتم (به تفکیک گروه) ---
+  message += "\n--- جزئیات سفارش ---\n";
+  for (let groupName in groupedItems) {
+    message += `\n* گروه ${groupName} :\n`; // اضافه کردن عنوان گروه
+    groupedItems[groupName].forEach(item => {
+      message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // اضافه کردن جزئیات آیتم با indent
     });
   }
+  message += "-------------------\n";
 
-  message += `\n💵 مبلغ کل: ${totalAmount.toLocaleString()} ریال`;
-  message += `\n\nهزینه ارسال با شما هماهنگ میشود.`;
-  message += `\n\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
+
+  // --- نمایش مبلغ کل نهایی و پیام‌های تکمیلی ---
+  message += `\n💵 مبلغ کل سفارش: ${totalAmount.toLocaleString()} ریال`;
+  message += `\n\nبرای ارسال با شما هماهنگ میشود.`;
+  message += `\n\nلطفاً این پیام را تغییر ندهید. در اسرع وقت با شما تماس گرفته می‌شود.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  window.open(whatsappUrl, '_blank');
+  // برای باز کردن در مرورگر جدید و نه در همان WebView
+  // '_blank' معمولاً در مرورگر جدید باز می‌شود
+  // '_system' در مرورگر پیش‌فرض سیستم عامل باز می‌شود
+  window.open(whatsappUrl, '_blank'); 
 
   alert('سفارش شما آماده ارسال به واتس‌اپ است.');
 }
-
 // Initial load: show main screen and add initial history state
 window.onload = function() {
     showScreen('main');
