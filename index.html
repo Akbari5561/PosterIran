@@ -682,24 +682,23 @@ function sendOrder() {
     groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
   });
 
-  // --- نمایش خلاصه‌ی سفارش بر اساس گروه ---
+  // --- نمایش جزئیات کامل هر آیتم (به تفکیک گروه) ---
+  message += "\n--- جزئیات سفارش ---\n";
+  for (let groupName in groupedItems) {
+    message += `\n* گروه ${groupName} ------------- :\n`; // اضافه کردن عنوان گروه
+    groupedItems[groupName].forEach(item => {
+      message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // اضافه کردن جزئیات آیتم با indent
+    });
+  }
+  message += "-------------------\n";
+
+  // --- نمایش خلاصه‌ی سفارش بر اساس گروه (مکان جدید) ---
   message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
     message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
   }
   message += "-------------------------------\n";
-
-
-  // --- نمایش جزئیات کامل هر آیتم (به تفکیک گروه) ---
-  message += "\n--- جزئیات سفارش ---\n";
-  for (let groupName in groupedItems) {
-    message += `\n--- گروه ${groupName} -------\n`;
-    groupedItems[groupName].forEach(item => {
-      message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // اضافه کردن جزئیات آیتم با indent
-    });
-  }
-  message += "-------------------\n";
 
 
   // --- نمایش مبلغ کل نهایی و پیام‌های تکمیلی ---
@@ -710,9 +709,6 @@ function sendOrder() {
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  // برای باز کردن در مرورگر جدید و نه در همان WebView
-  // '_blank' معمولاً در مرورگر جدید باز می‌شود
-  // '_system' در مرورگر پیش‌فرض سیستم عامل باز می‌شود
   window.open(whatsappUrl, '_blank'); 
 
   alert('سفارش شما آماده ارسال به واتس‌اپ است.');
