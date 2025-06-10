@@ -576,37 +576,62 @@ function clearCart() {
 }
 
 function renderCartList() {
-  const list = document.getElementById("cartList");
-  const total = document.getElementById("totalPrice");
-  list.innerHTML = ""; // Clear previous list
-  let grouped = {}; // برای نمایش آیتم‌های تکی گروه‌بندی شده
-  let groupedSummaries = {}; // جدید: برای خلاصه‌ی گروه‌ها
-  let totalSum = 0;
+    const list = document.getElementById("cartList");
+    const total = document.getElementById("totalPrice");
+    list.innerHTML = ""; // Clear previous list
+    let grouped = {}; // برای نمایش آیتم‌های تکی گروه‌بندی شده
+    let groupedSummaries = {}; // برای خلاصه‌ی گروه‌ها
+    let totalSum = 0; // مبلغ کل بدون باربری
 
-  if (cart.size === 0) {
-      list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
-      total.textContent = `مبلغ کل: 0 ریال`;
-      return;
-  }
-
-  cart.forEach(item => {
-    // گروه‌بندی برای نمایش آیتم‌های تکی
-    if (!grouped[item.groupName]) grouped[item.groupName] = [];
-    grouped[item.groupName].push(item);
-    totalSum += item.qty * item.price;
-
-    // جدید: محاسبه خلاصه‌ی گروه‌ها
-    if (!groupedSummaries[item.groupName]) {
-        groupedSummaries[item.groupName] = {
-            totalQty: 0,
-            totalPrice: 0
-        };
+    if (cart.size === 0) {
+        list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
+        total.textContent = `مبلغ کل: 0 ریال`;
+        return;
     }
-    groupedSummaries[item.groupName].totalQty += item.qty;
-    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
-  });
 
-  // جدید: نمایش خلاصه‌ی گروه‌ها در بالای سبد خرید
+    cart.forEach(item => {
+        // گروه‌بندی برای نمایش آیتم‌های تکی
+        if (!grouped[item.groupName]) grouped[item.groupName] = [];
+        grouped[item.groupName].push(item);
+        totalSum += item.qty * item.price;
+
+        // محاسبه خلاصه‌ی گروه‌ها
+        if (!groupedSummaries[item.groupName]) {
+            groupedSummaries[item.groupName] = {
+                totalQty: 0,
+                totalPrice: 0
+            };
+        }
+        groupedSummaries[item.groupName].totalQty += item.qty;
+        groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
+    });
+
+    // حالا نمایش آیتم‌های تکی، مثل قبل
+    for (let groupName in grouped) {
+        list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
+        grouped[groupName].forEach(item => {
+            const itemUniqueId = `${item.groupId}-${item.filename}`;
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "cart-item";
+            itemDiv.innerHTML = `
+                <div class="cart-item-info">
+                    <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename.replace(/\.jpg$/, '')}</p>
+                    <p>تعداد: ${item.qty} عدد</p>
+                </div>
+                <div class="quantity-control">
+                    <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
+                            onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
+                        ${generateQuantityOptions(item.qty)}
+                    </select>
+                    <button class="remove-btn" onclick="removeFromCart('${itemUniqueId}')">حذف</button>
+                </div>
+            `;
+            list.appendChild(itemDiv);
+        });
+    }
+
+    // --- NEW LOCATION: نمایش خلاصه‌ی گروه‌ها در پایین لیست آیتم‌ها ---
+    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; // یک خط جداکننده قبل از خلاصه
     list.innerHTML += `<h3 style="margin-bottom: 10px;">خلاصه سفارش بر اساس گروه:</h3>`;
     for (let groupName in groupedSummaries) {
         const summary = groupedSummaries[groupName];
@@ -617,34 +642,35 @@ function renderCartList() {
             </div>
         `;
     }
-    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; // یک خط جداکننده
+    // یک خط جداکننده دیگر بعد از خلاصه گروه‌ها (اختیاری)
+    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; 
 
-    // حالا نمایش آیتم‌های تکی، مثل قبل
-  for (let groupName in grouped) {
-    list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
-    grouped[groupName].forEach(item => {
-      // Correct itemUniqueId for buttons
-      const itemUniqueId = `${item.groupId}-${item.filename}`; 
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "cart-item";
-      itemDiv.innerHTML = `
-        <div class="cart-item-info">
-          <p style="font-weight: bold; margin-bottom: 3px;">${item.groupName} - ${item.filename.replace(/\.jpg$/, '')}</p>
-          <p>  تعداد ${(item.qty)}</p>
-        </div>
-        <div class="quantity-control">
-          <select id="cart-qty-select-${itemUniqueId}" class="quantity-select" 
-                  onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
-            ${generateQuantityOptions(item.qty)}
-          </select>
-          <button class="remove-btn" onclick="removeFromCart('${itemUniqueId}')">حذف</button>
-        </div>
-      `;
-      list.appendChild(itemDiv);
-    });
-  }
 
-  total.textContent = `مبلغ کل: ${totalSum.toLocaleString()} ریال`;
+    // --- محاسبه و نمایش هزینه باربری در سبد خرید ---
+    const baseShippingThreshold = 85000000; 
+    const costPerThreshold = 600000;     
+    let calculatedShippingCost = 0;
+    let shippingDisplayMessage = "";
+    
+    if (totalSum === 0) {
+        calculatedShippingCost = 0;
+        shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
+    } else {
+        const numberOfThresholds = Math.ceil(totalSum / baseShippingThreshold);
+        calculatedShippingCost = numberOfThresholds * costPerThreshold;
+        shippingDisplayMessage = `\n🚚 هزینه باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} مضرب)`;
+    }
+
+    // اضافه کردن پیام هزینه باربری به سبد خرید
+    list.innerHTML += `
+        <div style="padding: 8px; margin-top: 10px; border-radius: 5px; text-align: right;">
+            <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
+        </div>
+    `;
+
+    // --- نمایش مبلغ کل نهایی (شامل باربری) ---
+    const finalTotalWithShipping = totalSum + calculatedShippingCost;
+    total.textContent = `مبلغ کل: ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
