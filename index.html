@@ -221,32 +221,17 @@
     }
 
     @media (max-width: 600px) {
-    .gallery-controls {
-        flex-direction: row; /* حالا در ردیف قرار میگیرن (پیش‌فرض فلکس) */
-        flex-wrap: nowrap; /* از شکسته شدن به خط بعدی جلوگیری می‌کنه */
-        justify-content: center; /* عناصر رو وسط‌چین می‌کنه */
-        align-items: center; /* عناصر رو از نظر عمودی هم‌تراز می‌کنه */
-        gap: 5px; /* فاصله بین عناصر رو کمتر می‌کنیم */
-        padding: 5px; /* پدینگ رو کمتر می‌کنیم */
+        .image-box {
+            width: calc(100% - 10px); /* Full width on small screens */
+        }
+        .gallery-controls {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .gallery-controls select, .gallery-controls button {
+            width: calc(100% - 20px); /* Full width */
+        }
     }
-    .gallery-controls label {
-        font-size: 0.8em; /* اندازه فونت لیبل رو کوچکتر می‌کنیم */
-        white-space: nowrap; /* لیبل شکسته نشه */
-    }
-    .gallery-controls select {
-        width: 130px; /* عرض ثابت برای دروپ‌داون در موبایل (قابل تنظیم) */
-        min-width: 100px; /* حداقل عرض */
-        max-width: 160px; /* حداکثر عرض */
-        font-size: 0.85em; /* فونت دروپ‌داون رو کوچکتر می‌کنیم */
-        padding: 6px; /* پدینگ دروپ‌داون رو کم می‌کنیم */
-    }
-    .gallery-controls button {
-        width: auto; /* عرض دکمه به اندازه محتواش باشه */
-        font-size: 0.85em; /* فونت دکمه رو کوچکتر می‌کنیم */
-        padding: 6px 12px; /* پدینگ دکمه رو کم می‌کنیم */
-        white-space: nowrap; /* دکمه شکسته نشه */
-    }
-}
   </style>
   
 </head>
@@ -420,8 +405,9 @@ function loginAsAdmin() {
 }
 
 function changeGroup(val) {
-  // حالا که فقط یک دروپ‌داون انتخاب گروه داریم، نیازی به هماهنگی بین دو تا نیست.
-  // خود مرورگر مقدار 'bottomGroupSelect' رو وقتی کاربر انتخابی انجام میده، به روز می‌کنه.
+  // Sync both dropdowns when one changes
+  document.getElementById('bottomGroupSelect').value = val;
+  document.getElementById('bottomGroupSelect').value = val;
   loadGroup(parseInt(val));
 }
 
