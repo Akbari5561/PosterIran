@@ -454,7 +454,7 @@ function loadGroup(groupId) {
         <select id="qty-select-${itemUniqueId}" class="quantity-select">
           ${generateQuantityOptions(initialQty)}
         </select>
-        <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن به سبد</button>
+        <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن‌به🛒</button>
       </div>
       ${inCartMessage}
     `;
@@ -732,7 +732,7 @@ function sendOrder() {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
-      shippingMessage = `\n🚚 هزینه باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
+      shippingMessage = `\n🚚 هزینه  باربری  (${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
   }
   
   finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
