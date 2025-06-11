@@ -221,17 +221,32 @@
     }
 
     @media (max-width: 600px) {
-        .image-box {
-            width: calc(100% - 10px); /* Full width on small screens */
-        }
-        .gallery-controls {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .gallery-controls select, .gallery-controls button {
-            width: calc(100% - 20px); /* Full width */
-        }
+    .gallery-controls {
+        flex-direction: row; /* حالا در ردیف قرار میگیرن (پیش‌فرض فلکس) */
+        flex-wrap: nowrap; /* از شکسته شدن به خط بعدی جلوگیری می‌کنه */
+        justify-content: center; /* عناصر رو وسط‌چین می‌کنه */
+        align-items: center; /* عناصر رو از نظر عمودی هم‌تراز می‌کنه */
+        gap: 5px; /* فاصله بین عناصر رو کمتر می‌کنیم */
+        padding: 5px; /* پدینگ رو کمتر می‌کنیم */
     }
+    .gallery-controls label {
+        font-size: 0.8em; /* اندازه فونت لیبل رو کوچکتر می‌کنیم */
+        white-space: nowrap; /* لیبل شکسته نشه */
+    }
+    .gallery-controls select {
+        width: 130px; /* عرض ثابت برای دروپ‌داون در موبایل (قابل تنظیم) */
+        min-width: 100px; /* حداقل عرض */
+        max-width: 160px; /* حداکثر عرض */
+        font-size: 0.85em; /* فونت دروپ‌داون رو کوچکتر می‌کنیم */
+        padding: 6px; /* پدینگ دروپ‌داون رو کم می‌کنیم */
+    }
+    .gallery-controls button {
+        width: auto; /* عرض دکمه به اندازه محتواش باشه */
+        font-size: 0.85em; /* فونت دکمه رو کوچکتر می‌کنیم */
+        padding: 6px 12px; /* پدینگ دکمه رو کم می‌کنیم */
+        white-space: nowrap; /* دکمه شکسته نشه */
+    }
+}
   </style>
   
 </head>
@@ -261,17 +276,6 @@
 </div>
 
 <div id="gallery">
-  <div id="gallery-top-controls" class="gallery-controls">
-    <label>انتخاب گروه:</label>
-    <select id="topGroupSelect" onchange="changeGroup(this.value)">
-      <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
-      <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
-      <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
-      <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
-      <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-    </select>
-    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
-  </div>
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
     <label>انتخاب گروه:</label>
@@ -285,7 +289,6 @@
     <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
 </div>
-
 <div id="cartSection">
   <h3>🛒 سبد خرید</h3>
   <div id="cartList"></div>
@@ -362,7 +365,7 @@ function showScreen(screenName) {
 
     // Specific actions for each screen
     if (screenName === 'gallery') {
-        const currentGroupId = document.getElementById('topGroupSelect').value; // Get current selected group
+        const currentGroupId = document.getElementById('bottomGroupSelect').value; // Get current selected group
         loadGroup(currentGroupId); // Reload current group
     } else if (screenName === 'cart') {
         renderCartList();
@@ -378,7 +381,7 @@ window.addEventListener('popstate', (event) => {
         }
         screens[event.state.screen].style.display = 'flex';
         if (event.state.screen === 'gallery') {
-            const currentGroupId = document.getElementById('topGroupSelect').value;
+            const currentGroupId = document.getElementById('bottomGroupSelect').value;
             loadGroup(currentGroupId);
         } else if (event.state.screen === 'cart') {
             renderCartList();
@@ -417,9 +420,8 @@ function loginAsAdmin() {
 }
 
 function changeGroup(val) {
-  // Sync both dropdowns when one changes
-  document.getElementById('topGroupSelect').value = val;
-  document.getElementById('bottomGroupSelect').value = val;
+  // حالا که فقط یک دروپ‌داون انتخاب گروه داریم، نیازی به هماهنگی بین دو تا نیست.
+  // خود مرورگر مقدار 'bottomGroupSelect' رو وقتی کاربر انتخابی انجام میده، به روز می‌کنه.
   loadGroup(parseInt(val));
 }
 
@@ -570,7 +572,7 @@ function clearCart() {
         alert('سبد خرید شما پاک شد.');
         // Also update the gallery view if currently displayed
         if (document.getElementById('gallery').style.display === 'flex') {
-            loadGroup(document.getElementById('topGroupSelect').value); // Reload current group to reset all in-cart messages
+            loadGroup(document.getElementById('bottomGroupSelect').value); // Reload current group to reset all in-cart messages
         }
     }
 }
@@ -646,7 +648,7 @@ function renderCartList() {
     list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; 
 
 
-    // --- محاسبه و نمایش هزینه ارسال به باربری در سبد خرید ---
+    // --- محاسبه و نمایش هزینه باربری در سبد خرید ---
     const baseShippingThreshold = 85000000; 
     const costPerThreshold = 600000;     
     let calculatedShippingCost = 0;
@@ -654,14 +656,14 @@ function renderCartList() {
     
     if (totalSum === 0) {
         calculatedShippingCost = 0;
-        shippingDisplayMessage = `\n🚚 هزینه ارسال به باربری: 0 ریال`;
+        shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
     } else {
         const numberOfThresholds = Math.ceil(totalSum / baseShippingThreshold);
         calculatedShippingCost = numberOfThresholds * costPerThreshold;
-        shippingDisplayMessage = `\n🚚 هزینه ارسال به باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
+        shippingDisplayMessage = `\n🚚 هزینه باربری (${numberOfThresholds} بسته): ${calculatedShippingCost.toLocaleString()} ریال `;
     }
 
-    // اضافه کردن پیام هزینه ارسال به باربری به سبد خرید
+    // اضافه کردن پیام هزینه باربری به سبد خرید
     list.innerHTML += `
         <div style="padding: 8px; margin-top: 10px; border-radius: 5px; text-align: right;">
             <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
@@ -670,7 +672,7 @@ function renderCartList() {
 
     // --- نمایش مبلغ کل نهایی (شامل باربری) ---
     const finalTotalWithShipping = totalSum + calculatedShippingCost;
-    total.textContent = `مبلغ کل: ${finalTotalWithShipping.toLocaleString()} ریال`;
+    total.textContent = `💵 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
@@ -682,7 +684,7 @@ function sendOrder() {
     return;
   }
 
-  let message = " درود ، سفارش من: 🛒\n";
+  let message = " درود ، سفارش من 🛒: \n";
   let totalAmount = 0; // This is the initial amount before shipping
   let groupedItems = {};
   let groupedSummaries = {};
@@ -711,7 +713,7 @@ function sendOrder() {
   // --- Display full item details (grouped) ---
   message += "\n--- جزئیات سفارش ---\n";
   for (let groupName in groupedItems) {
-    message += `\n>>> گروه ${groupName} <<<->>> :\n`; // Added group title
+    message += `\n⬅️⬅️ گروه ${groupName} ➡️➡️ :\n`; // Added group title
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
     });
@@ -737,14 +739,14 @@ function sendOrder() {
   // If totalAmount is zero (empty cart), shipping is zero.
   if (totalAmount === 0) {
       calculatedShippingCost = 0;
-      shippingMessage = "\n🚚 هزینه ارسال به باربری: 0 ریال"; 
+      shippingMessage = "\n🚚 هزینه باربری: 0 ریال"; 
   } 
   // If totalAmount is greater than zero, calculate tiers
   else {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
-      shippingMessage = `\n🚚 هزینه ارسال به باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
+      shippingMessage = `\n🚚 هزینه باربری: ${calculatedShippingCost.toLocaleString()} ریال (${numberOfThresholds} بسته)`;
   }
   
   finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
@@ -775,11 +777,6 @@ window.onload = function() {
 
 </script>
 
-</script>
-<footer class="mt-auto py-6 text-gray-500 text-sm">
-    <p>&copy; Poster Iran 1997</p>
-    <p></p>
-</footer>
 <script>
   </script>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
