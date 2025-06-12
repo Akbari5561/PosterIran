@@ -670,7 +670,7 @@ function sendOrder() {
     return;
   }
 
-  let message = " درود ، سفارش من 🛒: \n";
+  let message = " درود ، سفارش من : 🛒 \n";
   let totalAmount = 0; // This is the initial amount before shipping
   let groupedItems = {};
   let groupedSummaries = {};
@@ -699,7 +699,7 @@ function sendOrder() {
   // --- Display full item details (grouped) ---
   message += "\n--- جزئیات سفارش ---\n";
   for (let groupName in groupedItems) {
-    message += `\n⬅️⬅️ گروه ${groupName} ➡️➡️ :\n`; // Added group title
+    message += `\n🚥 گروه ${groupName} --------------- :\n`; // Added group title
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
     });
@@ -732,7 +732,7 @@ function sendOrder() {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
-      shippingMessage = `\n🚚 هزینه  باربری  (${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
+      shippingMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
   }
   
   finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
@@ -743,7 +743,7 @@ function sendOrder() {
   // --- Display final total amount and supplementary messages ---
   message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
 
-  message += `\n\nدر اسرع وقت با شما تماس گرفته می‌شود.`;
+  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما تماس گرفته می‌شود.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
