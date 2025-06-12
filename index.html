@@ -76,31 +76,14 @@
 
     /* Style for quantity dropdowns */
     .quantity-select {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin: 5px;
-    width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
-    min-width: 50px; /* حداقل عرض مجاز */
-    max-width: 70px; /* حداکثر عرض مجاز */
-    box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
-    text-align: center; /* متن داخلش وسط‌چین بشه */
-    /* padding-right: 5px; */ /* اگر فلش دروپ‌داون مشکل داشت، این رو اضافه کنید */
-    /* padding-left: 5px; */  /* اگر فلش دروپ‌داون مشکل داشت، این رو اضافه کنید */
-}
-
-    /* Style for the Group Selection dropdown */
-    .group-select-fixed {
-    width: 180px;   /* عرض ثابت برای دروپ‌داون گروه */
-    min-width: 100px; /* حداقل عرض */
-    max-width: 155px; /* حداکثر عرض */
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin: 5px;
-    box-sizing: border-box; /* برای محاسبه درست عرض */
-    text-align: right; /* متن راست‌چین باشه */
-}
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      min-width: 80px; /* Adjust width for dropdown */
+      text-align: center;
+    }
+    
     /* Main sections styling */
     #mainSection, #adminLogin, #gallery, #cartSection {
         margin-top: 20px;
@@ -238,18 +221,17 @@
     }
 
     @media (max-width: 600px) {
-    .image-box {
-        width: calc(100% - 10px); /* Full width on small screens */
+        .image-box {
+            width: calc(100% - 10px); /* Full width on small screens */
+        }
+        .gallery-controls {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .gallery-controls select, .gallery-controls button {
+            width: calc(100% - 20px); /* Full width */
+        }
     }
-    .gallery-controls {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .gallery-controls button { /* فقط دکمه‌ها رو هدف قرار میدیم */
-        width: calc(100% - 20px); /* Full width */
-    }
-    /* نیازی به تغییر برای select ها اینجا نیست چون با min/max-width کنترل میشن */
-}
   </style>
   
 </head>
@@ -281,7 +263,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <label>انتخاب گروه:</label>
+  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه:</label>
     <select id="bottomGroupSelect" class="group-select-fixed" onchange="changeGroup(this.value)">
       <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
       <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -289,8 +271,8 @@
       <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
       <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
     </select>
-    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
+  <button onclick="showScreen('cart')">🛒 سبد خرید</button>
 </div>
 <div id="cartSection">
   <h3>🛒 سبد خرید</h3>
