@@ -724,7 +724,7 @@ function sendOrder() {
   message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
-    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت \n`; ${summary.totalPrice.toLocaleString()} ریال
+    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
   }
   message += "       --------------------------------------------------\n"; // Adjusted line separator
 
