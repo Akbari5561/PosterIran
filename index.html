@@ -714,7 +714,7 @@ function sendOrder() {
   // --- Display full item details (grouped) ---
   message += "\n--- جزئیات سفارش ---\n";
   for (let groupName in groupedItems) {
-    message += `\n🚥 گروه ${groupName} --------------- :\n`; // Added group title
+    message += `\n🚥 ${groupName} --------------- :\n`; // Added group title
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
     });
@@ -724,7 +724,7 @@ function sendOrder() {
   message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
-    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
+    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت \n`; ${summary.totalPrice.toLocaleString()} ریال
   }
   message += "       --------------------------------------------------\n"; // Adjusted line separator
 
@@ -757,7 +757,7 @@ function sendOrder() {
   // --- Display final total amount and supplementary messages ---
   message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
 
-  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما تماس گرفته می‌شود.`;
+  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما انجام می‌شود.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
