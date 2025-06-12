@@ -474,7 +474,7 @@ function loadGroup(groupId) {
       <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
       <div style="display: flex; align-items: center; margin-top: 10px;">
         <label for="qty-select-${itemUniqueId}">تعداد:</label>
-        <select id="qty-select-${itemUniqueId}" class="quantity-select">
+        <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${actualFilename}', this.value)">
           ${generateQuantityOptions(initialQty)}
         </select>
         <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن‌ به سبد خرید</button>
