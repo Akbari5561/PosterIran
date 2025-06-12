@@ -83,7 +83,18 @@
       min-width: 80px; /* Adjust width for dropdown */
       text-align: center;
     }
-    
+    /* Style for the Group Selection dropdown */
+    .group-select-fixed {
+    width: 180px;   /* عرض ثابت برای دروپ‌داون گروه */
+    min-width: 150px; /* حداقل عرض */
+    max-width: 220px; /* حداکثر عرض */
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    box-sizing: border-box; /* برای محاسبه درست عرض */
+    text-align: right; /* متن راست‌چین باشه */
+    }
     /* Main sections styling */
     #mainSection, #adminLogin, #gallery, #cartSection {
         margin-top: 20px;
@@ -178,19 +189,26 @@
     .cart-item-actions button {
       margin-left: 5px;
     }
-
     /* Controls at the top/bottom of gallery */
-    .gallery-controls {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        padding: 10px 0;
-        background-color: #e0e7ff; /* Light background */
-        border-top: 1px solid #c3d4e6;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-        z-index: 1000; /* Ensure it's above other content */
-    }
+  .gallery-controls {
+      display: flex;
+      flex-wrap: wrap; /* اجازه می‌دهیم آیتم‌ها به خط بعدی شکسته شوند */
+      justify-content: center; /* آیتم‌ها را در مرکز قرار می‌دهد */
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #e0e7ff;
+      border-top: 1px solid #c3d4e6;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+      z-index: 1000;
+      gap: 10px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
+  }
+  .group-selection-wrapper {
+      display: flex; /* این div خودش یک فلکس‌کانتینر می‌شود */
+      align-items: center;
+      gap: 5px; /* فاصله بین لیبل و سلکت دروپ‌داون */
+      margin-right: 10px; /* فاصله از دکمه "سبد خرید" (اگر در یک ردیف باشد) */
+  }
     #gallery-bottom-controls {
         margin-top: auto; /* Push to bottom of gallery content */
         position: sticky; /* Make it sticky */
@@ -219,11 +237,30 @@
         margin-top: 5px;
         font-weight: bold;
     }
-
+@media (max-width: 600px) {
+    .image-box {
+        width: calc(100% - 10px);
+    }
+    .gallery-controls {
+        flex-direction: column; /* در موبایل همه به صورت ستونی */
+        gap: 10px;
+    }
+    .group-selection-wrapper {
+        width: calc(100% - 20px); /* در موبایل، wrapper هم تمام عرض شود */
+        justify-content: center; /* محتوای wrapper در موبایل وسط‌چین شود */
+        margin-right: 0; /* مارجین حذف شود */
+    }
+    .gallery-controls button {
+        width: calc(100% - 20px);
+    }
+    /* نیازی به تغییر .gallery-controls select نیست زیرا با min/max-width کنترل می‌شود */
+}
     @media (max-width: 600px) {
-        .image-box {
-            width: calc(100% - 10px); /* Full width on small screens */
-        }
+    /* ... */
+         .gallery-controls select, .gallery-controls button {
+         width: calc(100% - 20px); /* Full width */
+      }
+    }
         .gallery-controls {
             flex-direction: column;
             gap: 10px;
