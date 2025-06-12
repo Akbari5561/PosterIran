@@ -73,34 +73,30 @@
     button.clear-cart-btn:hover {
       background-color: #fb8c00;
     }
-
-    /* Style for quantity dropdowns */
+    /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin: 5px;
-    width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
-    min-width: 50px; /* حداقل عرض مجاز */
-    max-width: 70px; /* حداکثر عرض مجاز */
-    box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
-    text-align: center; /* متن داخلش وسط‌چین بشه */
-    /* padding-right: 5px; */ /* اگر فلش دروپ‌داون مشکل داشت، این رو اضافه کنید */
-    /* padding-left: 5px; */  /* اگر فلش دروپ‌داون مشکل داشت، این رو اضافه کنید */
-}
-
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
+      min-width: 50px; /* حداقل عرض مجاز */
+      max-width: 70px; /* حداکثر عرض مجاز */
+      box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
+      text-align: center; /* متن داخلش وسط‌چین بشه */
+  }
     /* Style for the Group Selection dropdown */
     .group-select-fixed {
-    width: 180px;   /* عرض ثابت برای دروپ‌داون گروه */
-    min-width: 100px; /* حداقل عرض */
-    max-width: 155px; /* حداکثر عرض */
+    width: 100px;   /* عرض ثابت برای دروپ‌داون گروه */
+    min-width: 120px; /* حداقل عرض */
+    max-width: 150px; /* حداکثر عرض */
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
     margin: 5px;
     box-sizing: border-box; /* برای محاسبه درست عرض */
     text-align: right; /* متن راست‌چین باشه */
-}
+    }
     /* Main sections styling */
     #mainSection, #adminLogin, #gallery, #cartSection {
         margin-top: 20px;
@@ -113,15 +109,12 @@
     #adminLogin {
         display: none;
     }
-
-
     #cartSection {
       background: #fff;
       padding: 15px;
       border-radius: 10px;
       text-align: right;
     }
-
     #address {
       margin-top: 10px;
     }
@@ -195,19 +188,26 @@
     .cart-item-actions button {
       margin-left: 5px;
     }
-
     /* Controls at the top/bottom of gallery */
-    .gallery-controls {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        padding: 10px 0;
-        background-color: #e0e7ff; /* Light background */
-        border-top: 1px solid #c3d4e6;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-        z-index: 1000; /* Ensure it's above other content */
-    }
+  .gallery-controls {
+      display: flex;
+      flex-wrap: wrap; /* اجازه می‌دهیم آیتم‌ها به خط بعدی شکسته شوند */
+      justify-content: center; /* آیتم‌ها را در مرکز قرار می‌دهد */
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #e0e7ff;
+      border-top: 1px solid #c3d4e6;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+      z-index: 1000;
+      gap: 10px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
+  }
+  .group-selection-wrapper {
+      display: flex; /* این div خودش یک فلکس‌کانتینر می‌شود */
+      align-items: center;
+      gap: 5px; /* فاصله بین لیبل و سلکت دروپ‌داون */
+      margin-right: 10px; /* فاصله از دکمه "سبد خرید" (اگر در یک ردیف باشد) */
+  }
     #gallery-bottom-controls {
         margin-top: auto; /* Push to bottom of gallery content */
         position: sticky; /* Make it sticky */
@@ -221,12 +221,6 @@
         border-top: none; /* No top border for the very top one */
         box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Shadow at the bottom */
     }
-
-    .gallery-controls select {
-        width: auto;
-        flex-grow: 1;
-        margin-right: 10px;
-    }
     .gallery-controls button {
         margin: 0;
     }
@@ -236,20 +230,24 @@
         margin-top: 5px;
         font-weight: bold;
     }
-
-    @media (max-width: 600px) {
+@media (max-width: 600px) {
     .image-box {
-        width: calc(100% - 10px); /* Full width on small screens */
+        width: calc(100% - 10px);
     }
     .gallery-controls {
-        flex-direction: column;
+        flex-direction: column; /* در موبایل همه به صورت ستونی */
         gap: 10px;
     }
-    .gallery-controls button { /* فقط دکمه‌ها رو هدف قرار میدیم */
-        width: calc(100% - 20px); /* Full width */
+    .group-selection-wrapper {
+        width: calc(100% - 20px); /* در موبایل، wrapper هم تمام عرض شود */
+        justify-content: center; /* محتوای wrapper در موبایل وسط‌چین شود */
+        margin-right: 0; /* مارجین حذف شود */
     }
-    /* نیازی به تغییر برای select ها اینجا نیست چون با min/max-width کنترل میشن */
-}
+    .gallery-controls button {
+        width: calc(100% - 20px);
+    }
+    /* نیازی به تغییر .gallery-controls select نیست زیرا با min/max-width کنترل می‌شود */
+} 
   </style>
   
 </head>
@@ -268,20 +266,19 @@
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
-    </select>
     <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
   </div>
-  <div id="adminLogin">
-    <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
-    <button onclick="loginAsAdmin()">ورود ادمین</button>
-  </div>
+
+<div id="adminLogin">
+  <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
+  <button onclick="loginAsAdmin()">ورود ادمین</button>
 </div>
 
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <label>انتخاب گروه:</label>
+  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه:</label>
     <select id="bottomGroupSelect" class="group-select-fixed" onchange="changeGroup(this.value)">
       <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
       <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -289,8 +286,8 @@
       <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
       <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
     </select>
-    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
+  <button onclick="showScreen('cart')">🛒 سبد خرید</button>
 </div>
 <div id="cartSection">
   <h3>🛒 سبد خرید</h3>
@@ -469,7 +466,7 @@ function loadGroup(groupId) {
       <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
       <div style="display: flex; align-items: center; margin-top: 10px;">
         <label for="qty-select-${itemUniqueId}">تعداد:</label>
-        <select id="qty-select-${itemUniqueId}" class="quantity-select">
+        <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${actualFilename}', this.value)">
           ${generateQuantityOptions(initialQty)}
         </select>
         <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن‌ به سبد خرید</button>
