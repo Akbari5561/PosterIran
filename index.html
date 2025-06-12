@@ -475,6 +475,12 @@ function loadGroup(groupId) {
     `;
     container.appendChild(box);
   }); // **پایان حلقه forEach**
+  
+  // بعد از بارگذاری کامل گروه، به بالای کانتینر اسکرول کنید
+  // می‌توانید به خود imagesContainer یا به کل گالری (gallery) اسکرول کنید.
+  // بهتره به خود گالری اسکرول کنیم که هدر و کنترل‌ها هم دیده بشن.
+  document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
 }
 
 function addToCart(groupId, filename) {
