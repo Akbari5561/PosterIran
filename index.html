@@ -297,14 +297,14 @@
   <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
     <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات مشتری:</h4>
     <label for="customerName" style="display: block; margin-bottom: 5px; font-weight: bold;">نام و نام خانوادگی:</label>
-    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required ...>
 
     <label for="customerPhone" style="display: block; margin-bottom: 5px; font-weight: bold;">شماره موبایل:</label>
-    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;" inputmode="numeric">
+    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required ...>
 
     <label for="customerAddress" style="display: block; margin-bottom: 5px; font-weight: bold;">آدرس کامل تحویل:</label>
-    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
-  </div>
+    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required ...></textarea>
+    </div>
   <button onclick="sendOrder()">ثبت و ارسال سفارش</button>
   <button onclick="clearCart()" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button onclick="showScreen('gallery')" style="background-color: #607d8b;">بازگشت به گالری</button>
@@ -703,11 +703,24 @@ function sendOrder() {
     return;
   }
 
-  // گرفتن اطلاعات مشتری از فرم
-  const customerName = document.getElementById('customerName').value.trim();
-  const customerPhone = document.getElementById('customerPhone').value.trim();
-  const customerAddress = document.getElementById('customerAddress').value.trim();
+  function renderCartList() {
+    // ... (تمام کدهای موجود در تابع renderCartList تا قبل از بخش بارگذاری اطلاعات مشتری) ...
 
+    // --- بخش اصلاح شده: بارگذاری اطلاعات مشتری از localStorage ---
+    const customerNameInput = document.getElementById('customerName');
+    const customerPhoneInput = document.getElementById('customerPhone');
+    const customerAddressInput = document.getElementById('customerAddress');
+
+    if (customerNameInput) {
+        customerNameInput.value = localStorage.getItem('customerName') || '';
+    }
+    if (customerPhoneInput) {
+        customerPhoneInput.value = localStorage.getItem('customerPhone') || '';
+    }
+    if (customerAddressInput) {
+        customerAddressInput.value = localStorage.getItem('customerAddress') || '';
+    }
+}
   // اعتبار سنجی فیلدهای مشتری
   if (!customerName || !customerPhone || !customerAddress) {
     alert('لطفاً نام و نام خانوادگی، شماره موبایل و آدرس کامل تحویل را وارد کنید.');
