@@ -87,9 +87,9 @@
   }
     /* Style for the Group Selection dropdown */
     .group-select-fixed {
-    width: 100px;   /* عرض ثابت برای دروپ‌داون گروه */
-    min-width: 120px; /* حداقل عرض */
-    max-width: 150px; /* حداکثر عرض */
+    width: 120px;   /* عرض ثابت برای دروپ‌داون گروه */
+    min-width: 100px; /* حداقل عرض */
+    max-width: 180px; /* حداکثر عرض */
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -763,14 +763,14 @@ function sendOrder() {
   // --- Display final total amount and supplementary messages ---
   message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
 
-  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما انجام می‌شود.`;
+  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
 
   const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   window.open(whatsappUrl, '_blank'); 
 
-  alert('سفارش شما آماده ارسال به واتس‌آپ است.');
+  alert('سفارش شما آماده ارسال به واتس‌آپِ پوستر ایران است.');
 }
 // Initial load: show main screen and add initial history state
 window.onload = function() {
