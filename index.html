@@ -88,8 +88,8 @@
     /* Style for the Group Selection dropdown */
     .group-select-fixed {
     width: 150px;   /* عرض ثابت برای دروپ‌داون گروه */
-    min-width: 100px; /* حداقل عرض */
-    max-width: 2000px; /* حداکثر عرض */
+    min-width: 120px; /* حداقل عرض */
+    max-width: 200px; /* حداکثر عرض */
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -691,86 +691,94 @@ function sendOrder() {
     return;
   }
 
-  let message = "*️⃣ درود ، سفارش من : 🛒 \n";
-  let totalAmount = 0; // This is the initial amount before shipping
-  let groupedItems = {};
-  let groupedSummaries = {};
+  // --- افزودن کادر تایید ---
+  const confirmation = confirm('آیا از ثبت و ارسال سفارش خود مطمئن هستید؟');
 
-  cart.forEach(item => {
-    // 1. For displaying item details by group
-    if (!groupedItems[item.groupName]) {
-      groupedItems[item.groupName] = [];
-    }
-    groupedItems[item.groupName].push(item);
+  if (confirmation) { // اگر کاربر روی "OK" یا "تایید" کلیک کرد
+    let message = "*️⃣ درود ، سفارش من : 🛒 \n";
+    let totalAmount = 0; // This is the initial amount before shipping
+    let groupedItems = {};
+    let groupedSummaries = {};
 
-    // 2. For calculating the final total amount of the shopping cart
-    totalAmount += item.qty * item.price;
+    cart.forEach(item => {
+      // 1. For displaying item details by group
+      if (!groupedItems[item.groupName]) {
+        groupedItems[item.groupName] = [];
+      }
+      groupedItems[item.groupName].push(item);
 
-    // 3. For calculating the summary of each group (total quantity and total price)
-    if (!groupedSummaries[item.groupName]) {
-      groupedSummaries[item.groupName] = {
-        totalQty: 0,
-        totalPrice: 0
-      };
-    }
-    groupedSummaries[item.groupName].totalQty += item.qty;
-    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
-  });
+      // 2. For calculating the final total amount of the shopping cart
+      totalAmount += item.qty * item.price;
 
-  // --- Display full item details (grouped) ---
-  message += "\n--- جزئیات سفارش ---\n";
-  for (let groupName in groupedItems) {
-    message += `\n🚥 ${groupName} --------------- :\n`; // Added group title
-    groupedItems[groupName].forEach(item => {
-      message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
+      // 3. For calculating the summary of each group (total quantity and total price)
+      if (!groupedSummaries[item.groupName]) {
+        groupedSummaries[item.groupName] = {
+          totalQty: 0,
+          totalPrice: 0
+        };
+      }
+      groupedSummaries[item.groupName].totalQty += item.qty;
+      groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
     });
-  }
-  message += "       --------------------------------------------------\n";
-  // --- Display order summary by group ---
-  message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
-  for (let groupName in groupedSummaries) {
-    const summary = groupedSummaries[groupName];
-    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
-  }
-  message += "       --------------------------------------------------\n"; // Adjusted line separator
 
-  // --- Calculate and add variable/tiered shipping cost ---
-  const baseShippingThreshold = 85000000; // 85,000,000 Rials (per tier)
-  const costPerThreshold = 600000;     // 600,000 Rials (cost for each tier)
+    // --- Display full item details (grouped) ---
+    message += "\n--- جزئیات سفارش ---\n";
+    for (let groupName in groupedItems) {
+      message += `\n🚥 گروه ${groupName} --------------- :\n`; // Added group title
+      groupedItems[groupName].forEach(item => {
+        message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
+      });
+    }
+    message += "       --------------------------------------------------\n";
+    // --- Display order summary by group ---
+    message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
+    for (let groupName in groupedSummaries) {
+      const summary = groupedSummaries[groupName];
+      message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
+    }
+    message += "       --------------------------------------------------\n"; // Adjusted line separator
 
-  let calculatedShippingCost = 0;
-  let shippingMessage = "";
-  let finalTotalAmount = totalAmount; // Final amount including shipping
+    // --- Calculate and add variable/tiered shipping cost ---
+    const baseShippingThreshold = 85000000; // 85,000,000 Rials (per tier)
+    const costPerThreshold = 600000;     // 600,000 Rials (cost for each tier)
 
-  // If totalAmount is zero (empty cart), shipping is zero.
-  if (totalAmount === 0) {
+    let calculatedShippingCost = 0;
+    let shippingMessage = "";
+    let finalTotalAmount = totalAmount; // Final amount including shipping
+
+    // If totalAmount is zero (empty cart), shipping is zero.
+    if (totalAmount === 0) {
       calculatedShippingCost = 0;
-      shippingMessage = "\n🚚 هزینه باربری: 0 ریال"; 
-  } 
-  // If totalAmount is greater than zero, calculate tiers
-  else {
+      shippingMessage = "\n🚚 هزینه باربری: 0 ریال";
+    }
+    // If totalAmount is greater than zero, calculate tiers
+    else {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
       shippingMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
+    }
+
+    finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
+
+    message += shippingMessage; // Add the shipping message above the total amount
+
+
+    // --- Display final total amount and supplementary messages ---
+    message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
+
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
+
+    const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    alert('سفارش شما آماده ارسال به واتس‌آپ است.'); // این alert هنوز می‌تواند نمایش داده شود
+  } else {
+    // اگر کاربر روی "Cancel" یا "لغو" کلیک کرد
+    alert('ثبت سفارش لغو شد.');
   }
-  
-  finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
-  
-  message += shippingMessage; // Add the shipping message above the total amount
-
-
-  // --- Display final total amount and supplementary messages ---
-  message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
-
-  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
-
-  const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-  window.open(whatsappUrl, '_blank'); 
-
-  alert('سفارش شما آماده ارسال به واتس‌آپِ پوستر ایران است.');
 }
 // Initial load: show main screen and add initial history state
 window.onload = function() {
