@@ -625,7 +625,6 @@ function renderCartList() {
             itemDiv.innerHTML = `
                 <div class="cart-item-info">
                     <p style="font-weight: bold; margin-bottom: 3px;"> ${item.filename.replace(/\.jpg$/, '')}</p>
-                    <p>تعداد: ${item.qty} عدد</p>
                 </div>
                 <div class="quantity-control">
                     <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
@@ -676,7 +675,6 @@ function renderCartList() {
             <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
         </div>
     `;
-
     // --- نمایش مبلغ کل نهایی (شامل باربری) ---
     const finalTotalWithShipping = totalSum + calculatedShippingCost;
     total.textContent = `💵 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
@@ -761,7 +759,7 @@ function sendOrder() {
 
 
   // --- Display final total amount and supplementary messages ---
-  message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
+  message += `\n💵 مبلغ قابل پرداخت: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
 
   message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
 
@@ -770,7 +768,7 @@ function sendOrder() {
 
   window.open(whatsappUrl, '_blank'); 
 
-  alert('سفارش شما آماده ارسال به واتس‌آپِ پوستر ایران است.');
+  alert('سفارش شما آماده ارسال به واتس‌آپ است.');
 }
 // Initial load: show main screen and add initial history state
 window.onload = function() {
