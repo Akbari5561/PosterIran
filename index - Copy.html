@@ -293,6 +293,18 @@
   <h3>🛒 سبد خرید</h3>
   <div id="cartList"></div>
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
+
+  <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات مشتری:</h4>
+    <label for="customerName" style="display: block; margin-bottom: 5px; font-weight: bold;">نام و نام خانوادگی:</label>
+    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+
+    <label for="customerPhone" style="display: block; margin-bottom: 5px; font-weight: bold;">شماره موبایل:</label>
+    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;" inputmode="numeric">
+
+    <label for="customerAddress" style="display: block; margin-bottom: 5px; font-weight: bold;">آدرس کامل:</label>
+    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
+  </div>
   <button onclick="sendOrder()">ثبت و ارسال سفارش</button>
   <button onclick="clearCart()" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button onclick="showScreen('gallery')" style="background-color: #607d8b;">بازگشت به گالری</button>
@@ -679,7 +691,7 @@ function renderCartList() {
 
     // --- نمایش مبلغ کل نهایی (شامل باربری) ---
     const finalTotalWithShipping = totalSum + calculatedShippingCost;
-    total.textContent = `💵 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
+    total.textContent = `💵 مبلغ جمع کل: ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
@@ -691,86 +703,132 @@ function sendOrder() {
     return;
   }
 
-  let message = "*️⃣ درود ، سفارش من : 🛒 \n";
-  let totalAmount = 0; // This is the initial amount before shipping
-  let groupedItems = {};
-  let groupedSummaries = {};
+  function renderCartList() {
+    // ... (تمام کدهای موجود در تابع renderCartList تا قبل از بخش بارگذاری اطلاعات مشتری) ...
 
-  cart.forEach(item => {
-    // 1. For displaying item details by group
-    if (!groupedItems[item.groupName]) {
-      groupedItems[item.groupName] = [];
+    // --- بخش اصلاح شده: بارگذاری اطلاعات مشتری از localStorage ---
+    const customerNameInput = document.getElementById('customerName');
+    const customerPhoneInput = document.getElementById('customerPhone');
+    const customerAddressInput = document.getElementById('customerAddress');
+
+    if (customerNameInput) {
+        customerNameInput.value = localStorage.getItem('customerName') || '';
     }
-    groupedItems[item.groupName].push(item);
-
-    // 2. For calculating the final total amount of the shopping cart
-    totalAmount += item.qty * item.price;
-
-    // 3. For calculating the summary of each group (total quantity and total price)
-    if (!groupedSummaries[item.groupName]) {
-      groupedSummaries[item.groupName] = {
-        totalQty: 0,
-        totalPrice: 0
-      };
+    if (customerPhoneInput) {
+        customerPhoneInput.value = localStorage.getItem('customerPhone') || '';
     }
-    groupedSummaries[item.groupName].totalQty += item.qty;
-    groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
-  });
+    if (customerAddressInput) {
+        customerAddressInput.value = localStorage.getItem('customerAddress') || '';
+    }
+}
+  // اعتبار سنجی فیلدهای مشتری
+  if (!customerName || !customerPhone || !customerAddress) {
+    alert('لطفاً نام و نام خانوادگی، شماره موبایل و آدرس کامل را وارد کنید.');
+    return; // جلوگیری از ادامه ارسال سفارش
+  }
 
-  // --- Display full item details (grouped) ---
-  message += "\n--- جزئیات سفارش ---\n";
-  for (let groupName in groupedItems) {
-    message += `\n🚥 ${groupName} --------------- :\n`; // Added group title
-    groupedItems[groupName].forEach(item => {
-      message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
+  // ذخیره اطلاعات مشتری در localStorage برای استفاده‌های بعدی
+  localStorage.setItem('customerName', customerName);
+  localStorage.setItem('customerPhone', customerPhone);
+  localStorage.setItem('customerAddress', customerAddress);
+
+  const confirmation = confirm('آیا از ثبت و ارسال سفارش خود مطمئن هستید؟');
+
+  if (confirmation) {
+    let message = "*️⃣ درود ، سفارش من : 🛒 \n";
+
+    // اضافه کردن اطلاعات مشتری به ابتدای پیام
+    message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
+    message += `📱 موبایل : ${customerPhone}\n`;
+    message += `📍 آدرس: ${customerAddress}\n`;
+    message += `\n------------------------------------------\n`;
+
+
+    let totalAmount = 0;
+    let groupedItems = {};
+    let groupedSummaries = {};
+
+    cart.forEach(item => {
+      // 1. For displaying item details by group
+      if (!groupedItems[item.groupName]) {
+        groupedItems[item.groupName] = [];
+      }
+      groupedItems[item.groupName].push(item);
+
+      // 2. For calculating the final total amount of the shopping cart
+      totalAmount += item.qty * item.price;
+
+      // 3. For calculating the summary of each group (total quantity and total price)
+      if (!groupedSummaries[item.groupName]) {
+        groupedSummaries[item.groupName] = {
+          totalQty: 0,
+          totalPrice: 0
+        };
+      }
+      groupedSummaries[item.groupName].totalQty += item.qty;
+      groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
     });
-  }
-  message += "       --------------------------------------------------\n";
-  // --- Display order summary by group ---
-  message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
-  for (let groupName in groupedSummaries) {
-    const summary = groupedSummaries[groupName];
-    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
-  }
-  message += "       --------------------------------------------------\n"; // Adjusted line separator
 
-  // --- Calculate and add variable/tiered shipping cost ---
-  const baseShippingThreshold = 85000000; // 85,000,000 Rials (per tier)
-  const costPerThreshold = 600000;     // 600,000 Rials (cost for each tier)
+    // --- Display full item details (grouped) ---
+    message += "\n--- جزئیات سفارش ---\n";
+    for (let groupName in groupedItems) {
+      message += `\n🚥 گروه ${groupName} --------------- :\n`; // Added group title
+      groupedItems[groupName].forEach(item => {
+        message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
+      });
+    }
+    message += "       --------------------------------------------------\n";
+    // --- Display order summary by group ---
+    message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
+    for (let groupName in groupedSummaries) {
+      const summary = groupedSummaries[groupName];
+      message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - \n`;
+      //مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال
+    }
+    message += "       --------------------------------------------------\n"; // Adjusted line separator
 
-  let calculatedShippingCost = 0;
-  let shippingMessage = "";
-  let finalTotalAmount = totalAmount; // Final amount including shipping
+    // --- Calculate and add variable/tiered shipping cost ---
+    const baseShippingThreshold = 85000000; // 85,000,000 Rials (per tier)
+    const costPerThreshold = 600000;     // 600,000 Rials (cost for each tier)
 
-  // If totalAmount is zero (empty cart), shipping is zero.
-  if (totalAmount === 0) {
+    let calculatedShippingCost = 0;
+    let shippingMessage = "";
+    let finalTotalAmount = totalAmount; // Final amount including shipping
+
+    // If totalAmount is zero (empty cart), shipping is zero.
+    if (totalAmount === 0) {
       calculatedShippingCost = 0;
-      shippingMessage = "\n🚚 هزینه باربری: 0 ریال"; 
-  } 
-  // If totalAmount is greater than zero, calculate tiers
-  else {
+      shippingMessage = "\n🚚 هزینه باربری: 0 ریال";
+    }
+    // If totalAmount is greater than zero, calculate tiers
+    else {
       // Calculate the number of full or partial thresholds reached.
       const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
       calculatedShippingCost = numberOfThresholds * costPerThreshold;
       shippingMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
+    }
+
+    finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
+
+    message += shippingMessage; // Add the shipping message above the total amount
+
+
+    // --- Display final total amount and supplementary messages ---
+    message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
+
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد .`;
+    //message += `\n\n📌 در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
+
+    const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    alert('سفارش شما آماده ارسال به واتس‌آپ است.'); // این alert هنوز می‌تواند نمایش داده شود
+  } else {
+    // اگر کاربر روی "Cancel" یا "لغو" کلیک کرد
+    alert('ثبت سفارش لغو شد.');
   }
-  
-  finalTotalAmount += calculatedShippingCost; // Add shipping cost to the final total
-  
-  message += shippingMessage; // Add the shipping message above the total amount
-
-
-  // --- Display final total amount and supplementary messages ---
-  message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
-
-  message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
-
-  const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-  window.open(whatsappUrl, '_blank'); 
-
-  alert('سفارش شما آماده ارسال به واتس‌آپِ پوستر ایران است.');
 }
 // Initial load: show main screen and add initial history state
 window.onload = function() {
