@@ -727,9 +727,7 @@ function sendOrder() {
     message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
     message += `📱 شماره موبایل: ${customerPhone}\n`;
     message += `📍 آدرس تحویل: ${customerAddress}\n`;
-    message += `\n------------------------------------------\n`;
-
-
+    
     let totalAmount = 0;
     let groupedItems = {};
     let groupedSummaries = {};
@@ -800,7 +798,7 @@ function sendOrder() {
 
     // --- Display final total amount and supplementary messages ---
     message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
-
+    message += "       ----------------------------------\n";
     message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما هماهنگی لازم صورت می‌گیرد.`;
 
     const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
