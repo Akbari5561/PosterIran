@@ -721,7 +721,7 @@ function sendOrder() {
   const confirmation = confirm('آیا از ثبت و ارسال سفارش خود مطمئن هستید؟');
 
   if (confirmation) {
-    let message = "*️⃣ درود ، سفارش من : 🛒 \n";
+    let message = "🛒 سفارش من :  \n";
 
     // اضافه کردن اطلاعات مشتری به ابتدای پیام
     message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
@@ -801,7 +801,7 @@ function sendOrder() {
     // --- Display final total amount and supplementary messages ---
     message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
 
-    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما تماس گرفته می‌شود.`;
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما هماهنگی لازم صورت می‌گیرد.`;
 
     const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -824,7 +824,10 @@ window.onload = function() {
 };
 
 </script>
-
+</div>
+<footer class="mt-auto py-6 text-gray-500 text-sm">
+    <p>&copy; 2025 PosterIran. تمامی حقوق محفوظ است.</p>
+</footer>
 <script>
   </script>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
