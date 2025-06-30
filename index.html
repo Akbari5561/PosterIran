@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>پوستر ایران</title>
+  <title>ر ایران</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
@@ -255,7 +255,6 @@
 
 <h1 onclick="showAdminLogin()">پوستر ایران</h1>
 <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
-
 <div id="mainSection">
   <div id="address">
     <p>تهران : خیابان پانزده خرداد</p>
@@ -423,11 +422,11 @@ function showAdminLogin() {
 function loginAsAdmin() {
   const pass = document.getElementById("adminPassword").value;
   if (pass === "Alireza55") {
-    alert("خوش آمدید علیرضا!");
+    alert("علیرضا خوش آمدید!");
     // You might want to navigate to an admin panel or hide this form
     // For now, it just shows an alert
   } else {
-    alert("رمز اشتباه است");
+    alert("ورود شما مجاز نیست");
   }
 }
 
@@ -477,7 +476,7 @@ function loadGroup(groupId) {
       <p style="font-weight: bold; margin-bottom: 5px;">${info.name} - ${actualFilename.replace(/\.jpg$/, '')}</p> 
       <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
       <div style="display: flex; align-items: center; margin-top: 10px;">
-        <label for="qty-select-${itemUniqueId}">تعـداد:</label>
+        <label for="qty-select-${itemUniqueId}">تعداد:</label>
         <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${actualFilename}', this.value)">
           ${generateQuantityOptions(initialQty)}
         </select>
@@ -727,7 +726,7 @@ function sendOrder() {
     message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
     message += `📱 شماره موبایل: ${customerPhone}\n`;
     message += `📍 آدرس تحویل: ${customerAddress}\n`;
-    
+
     let totalAmount = 0;
     let groupedItems = {};
     let groupedSummaries = {};
@@ -756,19 +755,19 @@ function sendOrder() {
     // --- Display full item details (grouped) ---
     message += "\n--- جزئیات سفارش ---\n";
     for (let groupName in groupedItems) {
-      message += `\n🚥 گروه ${groupName} --------------- :\n`; // Added group title
+      message += `\n⤵️  ${groupName} 🔀 :\n`; // Added group title
       groupedItems[groupName].forEach(item => {
         message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
       });
     }
-    message += "       ----------------------------------\n";
+    message += "---------------------------------------\n";
     // --- Display order summary by group ---
     message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
     for (let groupName in groupedSummaries) {
       const summary = groupedSummaries[groupName];
       message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
     }
-    message += "       ----------------------------------\n"; // Adjusted line separator
+    message += "---------------------------------------\n"; // Adjusted line separator
 
     // --- Calculate and add variable/tiered shipping cost ---
     const baseShippingThreshold = 85000000; // 85,000,000 Rials (per tier)
@@ -798,15 +797,13 @@ function sendOrder() {
 
     // --- Display final total amount and supplementary messages ---
     message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
-    message += "       ----------------------------------\n";
-    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت با شما هماهنگی لازم صورت می‌گیرد.`;
+    message += "       ---------------------------------------\n";
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
 
     const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank');
-
-    alert('سفارش شما آماده ارسال به واتس‌آپ است.');
   } else {
     // اگر کاربر روی "Cancel" یا "لغو" کلیک کرد
     alert('ثبت سفارش لغو شد.');
@@ -832,6 +829,18 @@ window.onload = function() {
     <p> </p>
 </footer>
 <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered! Scope:', registration.scope);
+                })
+                .catch(err => {
+                    console.log('Service Worker registration failed:', err);
+                });
+        });
+    }
+</script>
 
 </body>
 </html>

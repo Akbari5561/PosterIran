@@ -1,15 +1,17 @@
-const CACHE_NAME = 'iran-poster-shop-v1';
+// در فایل service-worker.js
+const CACHE_NAME = 'my-pwa-cache-v3'; // شماره نسخه رو به v3 یا هر عدد بالاتری تغییر بدید
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/offline.html',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  'https://cdn.tailwindcss.com',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-  'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js',
-  'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js'
+    '/', // ریشه برنامه
+    '/index.html', // فایل اصلی HTML
+    '/manifest.json',
+    '/offline.html',
+    '/icons/android-icon-192x192.png', // آیکون PWA
+    '/icons/android-icon-512x512.png', // آیکون PWA
+    '/logo.png', // اگر لوگوی هدر شما logo.png و در ریشه هست
+    'https://cdn.tailwindcss.com',
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js',
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js'
 ];
 
 self.addEventListener('install', event => {
