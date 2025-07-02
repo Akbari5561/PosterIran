@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>ر ایران</title>
+  <title>پوستر ایران</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
@@ -103,6 +103,18 @@
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
         flex-direction: column; /* For consistent layout */
+    }
+    /* استایل برای فیلدهای ورودی تعداد در گالری (جدید) */
+    .quantity-input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
+      min-width: 50px; /* حداقل عرض مجاز */
+      max-width: 70px; /* حداکثر عرض مجاز */
+      box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
+      text-align: center; /* متن داخلش وسط‌چین بشه */
     }
     
     /* Admin login is hidden by default, shown by JS only on title click */
@@ -284,6 +296,7 @@
       <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
       <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
       <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+      <option value="6">سایر محصولات</option>
     </select>
   </div>
   <button onclick="showScreen('cart')">🛒 سبد خرید</button>
@@ -346,10 +359,28 @@ const groupInfo = {
     // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
     filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", "برنامه روزانه.jpg", "برنامه هفتگی.jpg", "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg", /*"جدول ضرب حیوانات.jpg"*/]
   },
+  6: {
+    name: "سایر محصولات",
+        images: [
+            { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
+            { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 120000 },
+            /*{ filename: "فلش کارت دوستی.jpeg", name: "فلش کارت دوستی", price: 180000 },*/
+            /*{ filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 220000 },*/
+            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
+            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
+            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
+            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
+            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 200000, qtyMultiplier: 10 }, // محصول با مضرب 10
+            // ... می‌توانید محصولات بیشتری را با نام و قیمت اضافه کنید
+        ],
+        type: "variable-count", // نوع جدید برای کنترل تعداد متغیر
+        defaultQtyMultiplier: 12 // مضرب پیش‌فرض برای این گروه
+    }
 };
 
 // Quantities must be sorted ascending
-const allowedQuantities = [0, 20, 50, 100, 200, 300, 400, 500];
+const allowedQuantities = [0, 10, 20, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
 
 // --- Screen Management ---
@@ -437,56 +468,97 @@ function changeGroup(val) {
   loadGroup(parseInt(val));
 }
 
-// Helper to generate options for the quantity dropdown
-function generateQuantityOptions(selectedQty) {
+// تابع کمکی برای تولید گزینه‌ها برای dropdown تعداد
+function generateQuantityOptions(selectedQty, qtyMultiplier = 1) { // پارامتر qtyMultiplier اضافه شد، مقدار پیش‌فرض 1
     let optionsHtml = '';
-    allowedQuantities.forEach(qty => {
-        optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
-    });
+    // اگر qtyMultiplier بیشتر از 1 باشه، گزینه‌ها رو بر اساس اون تولید می‌کنیم
+    if (qtyMultiplier > 1) {
+        // از 0 برای گزینه "حذف" شروع می‌کنیم، بعد از اون از خود مضرب برای انتخاب‌های واقعی
+        optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
+        for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) { // تا 5000 عدد تولید میشه، می‌تونید حداکثر رو تنظیم کنید
+            optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
+        }
+    } else {
+        // منطق قبلی برای allowedQuantities ثابت
+        allowedQuantities.forEach(qty => {
+            optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
+        });
+    }
     return optionsHtml;
 }
 
 function loadGroup(groupId) {
-  const container = document.getElementById("imagesContainer");
-  container.innerHTML = ""; // پاک کردن تصاویر قبلی
-  const info = groupInfo[groupId];
+    const container = document.getElementById("imagesContainer");
+    container.innerHTML = ""; // پاک کردن تصاویر قبلی
+    const info = groupInfo[groupId]; // این 'info' آبجکت گروه فعلی شماست
 
-  // **شروع حلقه جدید برای استفاده از filenames**
-  // این حلقه روی هر نام فایل که در آرایه filenames تعریف شده، یک بار تکرار می‌شود
-  info.filenames.forEach(actualFilename => { // 'actualFilename' حالا مستقیماً نام فایل رو از آرایه می‌گیره
-    
-    const imagePath = `Image/${info.name}/${actualFilename}`; // استفاده از نام فایل واقعی
+    // بررسی می‌کنیم که آیا این گروه از نوع 'variable-count' هست یا نه
+    const isVariableCountGroup = info.type === 'variable-count';
 
-    // شناسه منحصر به فرد آیتم رو هم با نام فایل واقعی می‌سازیم
-    const itemUniqueId = `${groupId}-${actualFilename}`; 
-    const currentCartItem = cart.get(itemUniqueId);
-    // اگر آیتم در سبد خرید بود، از تعدادش استفاده می‌کنیم، وگرنه 0
-    const initialQty = currentCartItem ? currentCartItem.qty : 0; 
+    // یک آرایه متحد برای محصولات ایجاد می‌کنیم تا حلقه forEach به صورت یکسان کار کنه
+    const itemsToRender = isVariableCountGroup ? info.images : info.filenames.map(f => ({
+        filename: f,
+        name: f.replace(/\.jpg$/, ''),
+        price: info.price
+    }));
 
-    const box = document.createElement("div");
-    box.className = "image-box";
+    itemsToRender.forEach(item => {
+        const filename = item.filename;
+        const itemName = item.name;
+        const itemPrice = item.price;
+        
+        const imagePath = `Image/${info.name}/${filename}`; 
 
-    let inCartMessage = '';
-    if (currentCartItem && currentCartItem.qty > 0) {
-        inCartMessage = `<p class="in-cart-display">موجود در سبد: ${currentCartItem.qty} عدد</p>`;
-    }
+        const itemUniqueId = `${groupId}-${filename}`;
+        const currentCartItem = cart.get(itemUniqueId);
+        // تعداد اولیه: اگر در سبد خرید بود، از تعداد اون استفاده میشه، در غیر این صورت 0.
+        const initialQty = currentCartItem ? currentCartItem.qty : 0; 
 
-    box.innerHTML = `
-      <img src="${imagePath}" alt="پوستر ${info.name} - ${actualFilename}">
-      <p style="font-weight: bold; margin-bottom: 5px;">${info.name} - ${actualFilename.replace(/\.jpg$/, '')}</p> 
-      <p style="color: #4CAF50; font-weight: bold;">قیمت: ${info.price.toLocaleString()} ریال</p>
-      <div style="display: flex; align-items: center; margin-top: 10px;">
-        <label for="qty-select-${itemUniqueId}">تعداد:</label>
-        <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${actualFilename}', this.value)">
-          ${generateQuantityOptions(initialQty)}
-        </select>
-        <button onclick="addToCart('${groupId}', '${actualFilename}')">افزودن‌ به سبد خرید</button>
-      </div>
-      ${inCartMessage}
-    `;
-    container.appendChild(box);
-  }); // **پایان حلقه forEach**
-  
+        const box = document.createElement("div");
+        box.className = "image-box";
+
+        let inCartMessage = '';
+        if (currentCartItem && currentCartItem.qty > 0) {
+            inCartMessage = `<p class="in-cart-display">موجود در سبد: ${currentCartItem.qty} عدد</p>`;
+        }
+
+        let quantityControlHtml = '';
+        // حالا هر دو نوع گروه از select استفاده می‌کنند، اما با گزینه‌های متفاوت
+        // مضرب برای این آیتم: اگر در گروه variable-count بود، از مضرب خاص محصول یا پیش‌فرض گروه استفاده می‌کنیم. در غیر این صورت 1.
+        const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
+
+        quantityControlHtml = `
+            <div style="display: flex; align-items: center; margin-top: 10px;">
+                <label for="qty-select-${itemUniqueId}">تعداد:</label>
+                <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
+                    ${generateQuantityOptions(initialQty, qtyMultiplier)}
+                </select>
+                <button onclick="addToCart('${groupId}', '${filename}')">افزودن‌ به سبد خرید</button>
+            </div>
+        `;
+
+        box.innerHTML = `
+            <img src="${imagePath}" alt="${itemName}">
+            <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
+            <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
+            ${quantityControlHtml}
+            ${inCartMessage}
+        `;
+        container.appendChild(box);
+    });
+
+    document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// تابع updateGalleryItemQuantity دیگر مورد نیاز نیست و می‌توانید آن را حذف کنید.
+// زیرا تغییرات مستقیماً از onchange در select مدیریت می‌شوند.
+// اگر این تابع در جای دیگری استفاده نمی‌شود، آن را از کد خود حذف کنید.
+
+// **تابع جدید:** برای مدیریت تغییرات تعداد در فیلدهای ورودی (گروه‌های variable-count)
+// این تابع فقط مقدار ورودی رو به addToCart ارسال می‌کنه.
+function updateGalleryItemQuantity(groupId, filename, quantity) {
+    addToCart(groupId, filename, quantity); // منطق addToCart رو دوباره استفاده می‌کنیم
+
   // بعد از بارگذاری کامل گروه، به بالای کانتینر اسکرول کنید
   // می‌توانید به خود imagesContainer یا به کل گالری (gallery) اسکرول کنید.
   // بهتره به خود گالری اسکرول کنیم که هدر و کنترل‌ها هم دیده بشن.
@@ -498,40 +570,60 @@ function addToCart(groupId, filename) {
     const info = groupInfo[groupId];
     const itemUniqueId = `${groupId}-${filename}`;
     
-    // Get quantity from the select dropdown corresponding to this item
+    const isVariableCountGroup = info.type === 'variable-count'; // برای تشخیص نوع گروه (جهت دریافت مضرب)
+    
+    // همیشه از select مقدار را می‌خوانیم
     const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
     const selectedQty = parseInt(qtySelect.value);
 
-    if (selectedQty === 0) {
-        // If quantity is 0, remove from cart if exists
+    // مضرب صحیح برای این آیتم را پیدا می‌کنیم
+    let qtyMultiplier = 1; // پیش‌فرض 1 برای گروه‌های معمولی
+    if (isVariableCountGroup) {
+        const itemInGroup = info.images.find(img => img.filename === filename);
+        qtyMultiplier = itemInGroup ? (itemInGroup.qtyMultiplier || info.defaultQtyMultiplier) : info.defaultQtyMultiplier;
+    }
+
+    if (selectedQty === 0) { // اگر 0 انتخاب شد، یعنی حذف از سبد
         if (cart.has(itemUniqueId)) {
-            removeFromCart(itemUniqueId); 
-            // Update the gallery item's in-cart display after removal
-            const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
-            if (inCartDisplayElement) {
-                inCartDisplayElement.remove();
-            }
-            alert(`"${info.name} - ${filename}" از سبد حذف شد.`);
-        } else {
-            alert('لطفاً تعداد را انتخاب کنید.');
+            removeFromCart(itemUniqueId);
+        }
+        // به‌روزرسانی نمایش "موجود در سبد" بعد از حذف
+        const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
+        if (inCartDisplayElement) {
+            inCartDisplayElement.remove();
         }
         return;
     }
+    
+    // اعتبارسنجی مضرب (فقط برای گروه‌های variable-count)
+    if (isVariableCountGroup && (selectedQty % qtyMultiplier !== 0)) {
+        alert(`برای این محصول، تعداد باید مضربی از ${qtyMultiplier} باشد.`);
+        // اگر مضرب رعایت نشده بود، dropdown را به مقدار قبلی یا 0 (برای حذف) برمی‌گردانیم
+        qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0; 
+        return;
+    }
 
-    // Always set (override) to ensure "last choice" is recorded
+    // پیدا کردن اطلاعات کامل محصول برای اضافه کردن به سبد
+    const itemToAdd = isVariableCountGroup ? info.images.find(img => img.filename === filename) : {
+        filename: filename,
+        name: filename.replace(/\.jpg$/, ''),
+        price: info.price
+    };
+
     cart.set(itemUniqueId, {
         groupId: groupId,
         filename: filename,
         groupName: info.name,
-        price: info.price,
+        name: itemToAdd.name,
+        price: itemToAdd.price,
         qty: selectedQty
     });
     
     saveCart();
-    alert(`"${info.name} - ${filename}" به تعداد ${selectedQty} عدد به سبد خرید اضافه/به‌روز شد.`);
+    
+    // به‌روزرسانی نمایش "موجود در سبد" در صفحه گالری برای آیتم خاص
+    let inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
 
-    // Update the in-cart display for the specific item in gallery
-    const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
     if (inCartDisplayElement) {
         inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
     } else {
@@ -567,15 +659,19 @@ function removeFromCart(itemUniqueId) {
     if (confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
         cart.delete(itemUniqueId);
         saveCart();
-        renderCartList(); // Re-render cart list after removal
-        // Also update the gallery view if currently displayed
+        renderCartList(); // سبد خرید را پس از حذف دوباره رندر می‌کنیم
+
+        // همچنین نمایش گالری را اگر در حال حاضر نمایش داده می‌شود به‌روز می‌کنیم
         if (document.getElementById('gallery').style.display === 'flex') {
             const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
+            // qtyInputInGallery دیگر وجود ندارد و نیازی به آن نیست.
+            // اگر خطی مربوط به qtyInputInGallery دارید، آن را حذف کنید.
+
             if (qtySelectInGallery) {
-                qtySelectInGallery.value = 0; // Reset dropdown to 0
+                qtySelectInGallery.value = 0; // dropdown را به 0 بازنشانی می‌کنیم
                 const inCartDisplayElement = qtySelectInGallery.parentNode.parentNode.querySelector('.in-cart-display');
                 if (inCartDisplayElement) {
-                    inCartDisplayElement.remove(); // Remove the in-cart message
+                    inCartDisplayElement.remove(); // پیام "موجود در سبد" را حذف می‌کنیم
                 }
             }
         }
@@ -598,7 +694,7 @@ function clearCart() {
 function renderCartList() {
     const list = document.getElementById("cartList");
     const total = document.getElementById("totalPrice");
-    list.innerHTML = ""; // Clear previous list
+    list.innerHTML = ""; // لیست قبلی رو پاک می‌کنه
     let grouped = {}; // برای نمایش آیتم‌های تکی گروه‌بندی شده
     let groupedSummaries = {}; // برای خلاصه‌ی گروه‌ها
     let totalSum = 0; // مبلغ کل بدون باربری
@@ -631,16 +727,30 @@ function renderCartList() {
         list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
         grouped[groupName].forEach(item => {
             const itemUniqueId = `${item.groupId}-${item.filename}`;
+            
+            // --- اینجا باید qtyMultiplierForCartItem رو دوباره محاسبه کنیم ---
+            // اطلاعات گروه این آیتم رو پیدا می‌کنیم
+            const group = groupInfo[item.groupId]; 
+            let itemDetail = null;
+            // اگر گروه از نوع variable-count بود، جزئیات محصول رو از آرایه images پیدا می‌کنیم
+            if (group.type === 'variable-count') {
+                itemDetail = group.images.find(img => img.filename === item.filename);
+            }
+            // مضرب برای آیتم سبد خرید رو تعیین می‌کنیم
+            // اگر از نوع variable-count نبود یا مضرب خاصی نداشت، پیش‌فرض 1 رو می‌ذاریم
+            const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
+            // --- پایان محاسبه مضرب ---
+
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
             itemDiv.innerHTML = `
                 <div class="cart-item-info">
-                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.filename.replace(/\.jpg$/, '')}</p>
+                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.filename.replace(/\.(jpeg|jpg)$/i, '')}</p>
                 </div>
                 <div class="quantity-control">
                     <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
-                            onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
-                        ${generateQuantityOptions(item.qty)}
+                                onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
+                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem)} 
                     </select>
                     <button class="remove-btn" onclick="removeFromCart('${itemUniqueId}')">حذف</button>
                 </div>
@@ -667,7 +777,7 @@ function renderCartList() {
 
     // --- محاسبه و نمایش هزینه باربری در سبد خرید ---
     const baseShippingThreshold = 85000000; 
-    const costPerThreshold = 600000;     
+    const costPerThreshold = 600000;     
     let calculatedShippingCost = 0;
     let shippingDisplayMessage = "";
     
@@ -757,7 +867,7 @@ function sendOrder() {
     for (let groupName in groupedItems) {
       message += `\n⤵️  ${groupName} 🔀 :\n`; // Added group title
       groupedItems[groupName].forEach(item => {
-        message += `  - ${item.filename.replace(/\.jpg$/, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
+        message += `  - ${item.filename.replace(/\.(jpeg|jpg)$/i, '')} - تعداد: ${item.qty} عدد\n`; // Item details with indent
       });
     }
     message += "---------------------------------------\n";
@@ -798,7 +908,7 @@ function sendOrder() {
     // --- Display final total amount and supplementary messages ---
     message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`; // Use finalTotalAmount
     message += "       ---------------------------------------\n";
-    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت هماهنگی لازم با شما صورت می‌گیرد.`;
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
 
     const phoneNumber = "989010195885"; // Iranian WhatsApp number (with 98 prefix)
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -821,7 +931,7 @@ window.onload = function() {
 </script>
 </div>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
-    <p>&copy; 2025 PosterIran. تمامی حقوق محفوظ است.</p>
+    <p>&copy; All rights reserved for PosterIran2025</p>
 </footer>
 <script>
   </script>
