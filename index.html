@@ -242,6 +242,13 @@
         margin-top: 5px;
         font-weight: bold;
     }
+    /* جدید: استایل برای لوگو */
+    .header-logo {
+        max-width: 150px; /* حداکثر عرض لوگو */
+        height: auto; /* حفظ نسبت ابعاد */
+        display: block; /* برای اینکه margin auto کار کنه */
+        margin: 0px auto 10px auto; /* بالا 0، چپ و راست اتوماتیک (وسط چین)، پایین 10px فاصله */
+    }
 @media (max-width: 600px) {
     .image-box {
         width: calc(100% - 10px);
@@ -265,7 +272,7 @@
 </head>
 <body>
 
-<h1 onclick="showAdminLogin()">پوستر ایران</h1>
+<img src="/icons/logo.png" alt="لوگوی پوستر ایران" class="header-logo"> <h1>پوستر ایران</h1>
 <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
 <div id="mainSection">
   <div id="address">
@@ -274,6 +281,8 @@
     <p>پاساژ کاغذ و تحریر ، زیرزمین اول - پلاک 74</p>
     <p>تلفـن: 02155611875</p>
     <p>موبایل: 09010195885</p>
+  </div>
+  </div>
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
@@ -370,7 +379,7 @@ const groupInfo = {
             { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
             { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
             { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 200000, qtyMultiplier: 10 }, // محصول با مضرب 10
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 10 }, // محصول با مضرب 10
             // ... می‌توانید محصولات بیشتری را با نام و قیمت اضافه کنید
         ],
         type: "variable-count", // نوع جدید برای کنترل تعداد متغیر
