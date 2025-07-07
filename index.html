@@ -239,8 +239,9 @@
     .in-cart-display {
         font-size: 0.9em;
         color: #007BFF; /* Blue color for in-cart message */
-        margin-top: 5px;
+        /* Removed margin-top to align it */
         font-weight: bold;
+        margin-right: 10px; /* فاصله بین دراپ‌داون و پیام */
     }
     /* جدید: استایل برای لوگو */
     .header-logo {
@@ -413,8 +414,12 @@ const groupInfo = {
 };
 
 // Quantities must be sorted ascending
+// این آرایه دیگر به طور مستقیم برای dropdown سایر محصولات استفاده نمی‌شود
 const allowedQuantities = [0, 10, 20, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
+
+// تعریف حداکثر تعداد مجاز برای "سایر محصولات"
+const MAX_QTY_OTHER_PRODUCTS = 1200;
 
 // --- Screen Management ---
 const screens = {
@@ -508,17 +513,22 @@ function changeGroup(val) {
 }
 
 // تابع کمکی برای تولید گزینه‌ها برای dropdown تعداد
-function generateQuantityOptions(selectedQty, qtyMultiplier = 1) { // پارامتر qtyMultiplier اضافه شد، مقدار پیش‌فرض 1
+function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) { // پارامتر جدید isOtherProductsGroup
     let optionsHtml = '';
-    // اگر qtyMultiplier بیشتر از 1 باشه، گزینه‌ها رو بر اساس اون تولید می‌کنیم
-    if (qtyMultiplier > 1) {
-        // از 0 برای گزینه "حذف" شروع می‌کنیم، بعد از اون از خود مضرب برای انتخاب‌های واقعی
+    const maxQtyForOtherProducts = MAX_QTY_OTHER_PRODUCTS; // استفاده از ثابت
+
+    if (isOtherProductsGroup) { // برای گروه "سایر محصولات"
+        optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
+        // تولید گزینه تا 1200 با گام qtyMultiplier
+        for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) { 
+            optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
+        }
+    } else if (qtyMultiplier > 1) { // اگر qtyMultiplier بیشتر از 1 باشه (برای گروه‌های variable-count ولی نه گروه 6)
         optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
         for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) { // تا 5000 عدد تولید میشه، می‌تونید حداکثر رو تنظیم کنید
             optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
         }
-    } else {
-        // منطق قبلی برای allowedQuantities ثابت
+    } else { // منطق قبلی برای allowedQuantities ثابت (گروه‌های معمولی)
         allowedQuantities.forEach(qty => {
             optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
         });
@@ -533,6 +543,7 @@ function loadGroup(groupId) {
 
     // بررسی می‌کنیم که آیا این گروه از نوع 'variable-count' هست یا نه
     const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (groupId === 6); // تشخیص گروه "سایر محصولات"
 
     // یک آرایه متحد برای محصولات ایجاد می‌کنیم تا حلقه forEach به صورت یکسان کار کنه
     const itemsToRender = isVariableCountGroup ? info.images : info.filenames.map(f => ({
@@ -553,25 +564,8 @@ function loadGroup(groupId) {
         // تعداد اولیه: اگر در سبد خرید بود، از تعداد اون استفاده میشه، در غیر این صورت 0.
         const initialQty = currentCartItem ? currentCartItem.qty : 0; 
 
-        let inCartMessage = '';
-        if (currentCartItem && currentCartItem.qty > 0) {
-            inCartMessage = `<p class="in-cart-display">موجود در سبد: ${currentCartItem.qty} عدد</p>`;
-        }
-
-        let quantityControlHtml = '';
-        // حالا هر دو نوع گروه از select استفاده می‌کنند، اما با گزینه‌های متفاوت
         // مضرب برای این آیتم: اگر در گروه variable-count بود، از مضرب خاص محصول یا پیش‌فرض گروه استفاده می‌کنیم. در غیر این صورت 1.
         const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
-
-        quantityControlHtml = `
-            <div style="display: flex; align-items: center; margin-top: 10px;">
-                <label for="qty-select-${itemUniqueId}">تعداد:</label>
-                <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
-                    ${generateQuantityOptions(initialQty, qtyMultiplier)}
-                </select>
-                <button onclick="addToCart('${groupId}', '${filename}')">افزودن‌ به سبد خرید</button>
-            </div>
-        `;
 
         const box = document.createElement("div");
         box.className = "image-box";
@@ -579,8 +573,13 @@ function loadGroup(groupId) {
             <img src="${imagePath}" alt="${itemName}">
             <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
             <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
-            ${quantityControlHtml}
-            ${inCartMessage}
+            <div style="display: flex; align-items: center; margin-top: 10px; justify-content: center;">
+                <label for="qty-select-${itemUniqueId}">تعداد:</label>
+                <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
+                    ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                </select>
+                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display">موجود در سبد: ${initialQty} عدد</p>
+            </div>
         `;
         container.appendChild(box);
     });
@@ -593,10 +592,11 @@ function addToCart(groupId, filename) {
     const itemUniqueId = `${groupId}-${filename}`;
     
     const isVariableCountGroup = info.type === 'variable-count'; // برای تشخیص نوع گروه (جهت دریافت مضرب)
-    
+    const isOtherProductsGroup = (groupId === 6); // تشخیص گروه "سایر محصولات"
+
     // همیشه از select مقدار را می‌خوانیم
     const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
-    const selectedQty = parseInt(qtySelect.value);
+    let selectedQty = parseInt(qtySelect.value); // استفاده از let به جای const برای امکان تغییر
 
     // مضرب صحیح برای این آیتم را پیدا می‌کنیم
     let qtyMultiplier = 1; // پیش‌فرض 1 برای گروه‌های معمولی
@@ -605,15 +605,11 @@ function addToCart(groupId, filename) {
         qtyMultiplier = itemInGroup ? (itemInGroup.qtyMultiplier || info.defaultQtyMultiplier) : info.defaultQtyMultiplier;
     }
 
-    if (selectedQty === 0) { // اگر 0 انتخاب شد، یعنی حذف از سبد
-        if (cart.has(itemUniqueId)) {
-            removeFromCart(itemUniqueId);
-        }
-        // به‌روزرسانی نمایش "موجود در سبد" بعد از حذف
-        const inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
-        if (inCartDisplayElement) {
-            inCartDisplayElement.remove();
-        }
+    // اعتبارسنجی کلی برای مقدار ورودی
+    if (isNaN(selectedQty) || selectedQty < 0) {
+        alert("لطفا تعداد معتبری را انتخاب کنید.");
+        selectedQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0; // بازگشت به مقدار قبلی
+        qtySelect.value = selectedQty;
         return;
     }
     
@@ -625,6 +621,13 @@ function addToCart(groupId, filename) {
         return;
     }
 
+    // اعتبارسنجی محدودیت 1200 فقط برای گروه "سایر محصولات"
+    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) { 
+        alert(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        selectedQty = MAX_QTY_OTHER_PRODUCTS; // محدود کردن به 1200
+        qtySelect.value = selectedQty; // بروزرسانی dropdown
+    }
+
     // پیدا کردن اطلاعات کامل محصول برای اضافه کردن به سبد
     const itemToAdd = isVariableCountGroup ? info.images.find(img => img.filename === filename) : {
         filename: filename,
@@ -632,37 +635,47 @@ function addToCart(groupId, filename) {
         price: info.price
     };
 
-    cart.set(itemUniqueId, {
-        groupId: groupId,
-        filename: filename,
-        groupName: info.name,
-        name: itemToAdd.name,
-        price: itemToAdd.price,
-        qty: selectedQty
-    });
+    if (selectedQty === 0) { // اگر 0 انتخاب شد، یعنی حذف از سبد
+        if (cart.has(itemUniqueId)) {
+            removeFromCart(itemUniqueId, false); // false = don't show confirmation
+        }
+    } else {
+        cart.set(itemUniqueId, {
+            groupId: groupId,
+            filename: filename,
+            groupName: info.name,
+            name: itemToAdd.name,
+            price: itemToAdd.price,
+            qty: selectedQty
+        });
+    }
     
     saveCart();
     
     // به‌روزرسانی نمایش "موجود در سبد" در صفحه گالری برای آیتم خاص
-    let inCartDisplayElement = qtySelect.parentNode.parentNode.querySelector('.in-cart-display');
+    let inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
 
     if (inCartDisplayElement) {
         inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
-    } else {
-        const newInCartDisplay = document.createElement('p');
-        newInCartDisplay.className = 'in-cart-display';
-        newInCartDisplay.textContent = `موجود در سبد: ${selectedQty} عدد`;
-        qtySelect.parentNode.parentNode.appendChild(newInCartDisplay);
     }
 }
 
 function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
     let newQty = parseInt(selectElement.value);
+    const [groupId, filename] = itemUniqueId.split('-'); // استخراج groupId
+    const isOtherProductsGroup = (parseInt(groupId) === 6); // بررسی اگر گروه 6 است
 
     if (isNaN(newQty) || newQty < 0) {
         console.error("Invalid quantity selected from dropdown.");
         renderCartList();
         return;
+    }
+
+    // اعمال محدودیت 1200 فقط برای گروه "سایر محصولات"
+    if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
+        alert(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        newQty = MAX_QTY_OTHER_PRODUCTS; // محدود کردن به 1200
+        selectElement.value = newQty; // بروزرسانی مقدار dropdown
     }
     
     if (newQty === 0) {
@@ -676,20 +689,21 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
     }
 }
 
-function removeFromCart(itemUniqueId) {
-    if (confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
-        cart.delete(itemUniqueId);
-        saveCart();
-        renderCartList();
+function removeFromCart(itemUniqueId, showConfirm = true) {
+    if (showConfirm && !confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
+        return;
+    }
+    cart.delete(itemUniqueId);
+    saveCart();
+    renderCartList();
 
-        if (document.getElementById('gallery').style.display === 'flex') {
-            const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
-            if (qtySelectInGallery) {
-                qtySelectInGallery.value = 0;
-                const inCartDisplayElement = qtySelectInGallery.parentNode.parentNode.querySelector('.in-cart-display');
-                if (inCartDisplayElement) {
-                    inCartDisplayElement.remove();
-                }
+    if (document.getElementById('gallery').style.display === 'flex') {
+        const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
+        if (qtySelectInGallery) {
+            qtySelectInGallery.value = 0;
+            const inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
+            if (inCartDisplayElement) {
+                inCartDisplayElement.textContent = `موجود در سبد: 0 عدد`;
             }
         }
     }
@@ -747,6 +761,7 @@ function renderCartList() {
                 itemDetail = group.images.find(img => img.filename === item.filename);
             }
             const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
+            const isOtherProductsGroup = (parseInt(item.groupId) === 6); // تشخیص گروه 6 در سبد خرید
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
@@ -757,8 +772,7 @@ function renderCartList() {
                 <div class="quantity-control">
                     <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
                                 onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
-                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem)} 
-                    </select>
+                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem, isOtherProductsGroup)} </select>
                     <button class="remove-btn" onclick="removeFromCart('${itemUniqueId}')">حذف</button>
                 </div>
             `;
@@ -868,7 +882,7 @@ function prepareOrderForSending() {
   message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
-    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت ${summary.totalPrice.toLocaleString()} ریال\n`;
+    message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال\n`;
   }
   message += "---------------------------------------\n";
 
