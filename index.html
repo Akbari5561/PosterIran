@@ -253,10 +253,28 @@
     .image-box {
         width: calc(100% - 10px);
     }
-    .gallery-controls {
-        flex-direction: column; /* در موبایل همه به صورت ستونی */
-        gap: 10px;
+   .gallery-controls {
+    display: flex; /* مطمئن شوید که flexbox فعال است */
+    flex-wrap: wrap; /* اجازه می‌دهد آیتم‌ها به سطر بعدی منتقل شوند */
+    gap: 10px; /* فاصله بین آیتم‌ها */
+    justify-content: space-around; /* یا center برای تراز وسط */
+    align-items: flex-start; /* یا stretch بسته به نیاز */
+}
+
+/* برای هر آیتم داخل gallery-controls */
+.gallery-controls > * {
+    flex: 1 1 calc(50% - 10px); /* برای دو آیتم در هر سطر با در نظر گرفتن gap */
+    max-width: calc(50% - 10px); /* اطمینان از عدم تجاوز از 50% */
+    box-sizing: border-box; /* برای جلوگیری از مشکلات پدینگ/بردر با عرض */
+}
+
+/* اگر در موبایل همچنان می‌خواهید ستونی باشند، می‌توانید یک Media Query اضافه کنید */
+@media (max-width: 768px) { /* مثال: برای صفحه‌های کوچکتر از 768 پیکسل */
+    .gallery-controls > * {
+        flex: 1 1 100%; /* یک آیتم در هر سطر */
+        max-width: 100%;
     }
+}
     .group-selection-wrapper {
         width: calc(100% - 20px); /* در موبایل، wrapper هم تمام عرض شود */
         justify-content: center; /* محتوای wrapper در موبایل وسط‌چین شود */
