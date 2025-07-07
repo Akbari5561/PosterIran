@@ -25,10 +25,15 @@
     h1 {
   color: #1976d2;
   cursor: pointer;
-  margin-top: 5px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
+  margin-top: 0px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
   font-size: 2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
 }
-
+h2 {
+  color: #1976d2;
+  cursor: pointer;
+  margin-top: 0px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
+  font-size: 2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
+}
     body {
       font-family: sans-serif;
       direction: rtl;
@@ -46,6 +51,11 @@
       color: #1976d2;
       cursor: pointer;
     }
+    h2 {
+      color: #6B19D2;
+      cursor: pointer;
+    }
+
 
     button {
       background-color: #2196f3;
@@ -295,7 +305,7 @@
 <div id="mainSection">
   <section id="showcase">
   <div class="container">
-    <h1>پوستر ایران</h1>
+    <h2>پوستر ایران</h2>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
 </section>
@@ -309,9 +319,6 @@
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
     <button onclick="showScreen('cart')">🛒 سبد خرید</button>
-    <p>------------------------------------------------------------</p>
-<p>All rights reserved for Poster Iran &copy; 2025</p>
-   <p>------------------------------------------------------------</p>
   </div>
   </div>
 
@@ -981,6 +988,6 @@ window.onload = function() {
         });
     }
 </script>
-
+<p>All rights reserved for Poster Iran &copy; 2025</p>
 </body>
 </html>
