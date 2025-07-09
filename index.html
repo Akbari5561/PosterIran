@@ -301,11 +301,11 @@ h2 {
 </head>
 <body>
 
-<h1>Poster Iran</h1>
+<h1>® Poster Iran</h1>
 <div id="mainSection">
   <section id="showcase">
   <div class="container">
-    <h2>پوستر ایران</h2>
+    <h2>&reg; پوستر ایران </h2>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
 </section>
@@ -318,7 +318,7 @@ h2 {
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
-    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
+    <button onclick="showScreen('cart')">🛒  سبد خرید</button>
   </div>
   </div>
 
@@ -340,7 +340,7 @@ h2 {
       <option value="6">سایر محصولات</option>
     </select>
   </div>
-  <button onclick="showScreen('cart')">🛒 سبد خرید</button>
+  <button onclick="showScreen('cart')">🛒  سبد خرید </button>
 </div> </div>
 <div id="cartSection">
   <h3>🛒 سبد خرید</h3>
@@ -364,7 +364,7 @@ h2 {
   <button onclick="showScreen('gallery')" style="background-color: #607d8b;">بازگشت به گالری</button>
 
   <div id="sendOptions" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-    <p style="font-weight: bold; margin-bottom: 10px; color: #1976d2;">از طریق کدام اپلیکیشن ارسال می‌کنید؟</p>
+    <p style="font-weight: bold; margin-bottom: 10px; color: #1976d2;">سفارش شما با موفقیت آماده شد. لطفاً در صورت نیاز فیلترشکن را روشن و کلید ارسال با واتس‌آپ را انتخاب کنید</p>
     <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال با واتساپ 🟢</button>
   </div>
 
@@ -828,7 +828,7 @@ function renderCartList() {
         </div>
     `;
     const finalTotalWithShipping = totalSum + calculatedShippingCost;
-    total.textContent = `💵 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
+    total.textContent = `💰 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
@@ -885,15 +885,15 @@ function prepareOrderForSending() {
     groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
   });
 
-  message += "\n--- جزئیات سفارش ---\n";
+  message += "\n🔆🔅 جزئیات  سفارش🔅🔆\n";
   for (let groupName in groupedItems) {
-    message += `\n⤵️  ${groupName} 🔀 :\n`;
+    message += `\n⏮️ ${groupName}  :\n`;
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.(jpeg|jpg)$/i, '')} - تعداد: ${item.qty} عدد\n`;
     });
   }
   message += "---------------------------------------\n";
-  message += "\n--- خلاصه سفارش بر اساس گروه ---\n";
+  message += "\n🔸🔶 خلاصه سفارش بر اساس گروه🔶🔸\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
     message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال\n`;
@@ -917,7 +917,7 @@ function prepareOrderForSending() {
 
   finalTotalAmount += calculatedShippingCost;
   message += shippingMessage;
-  message += `\n💵 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`;
+  message += `\n💰 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`;
   message += "       ---------------------------------------\n";
   message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
 
@@ -927,7 +927,7 @@ function prepareOrderForSending() {
   // Show the sending options and hide the original submit button
   document.getElementById('sendOptions').style.display = 'block';
   document.getElementById('submitOrderBtn').style.display = 'none';
-  alert('سفارش شما با موفقیت آماده شد. لطفاً اپلیکیشن مورد نظر برای ارسال را انتخاب کنید.');
+  alert('سفارش شما با موفقیت آماده شد. لطفاً در صورت نیاز فیلترشکن را روشن و کلید ارسال با واتس‌آپ را انتخاب کنید.');
 }
 
 function sendOrderWithWhatsApp() {
