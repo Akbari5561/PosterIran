@@ -405,7 +405,7 @@ const groupInfo = {
     count: 15, // تعداد فایل‌های این گروه
     price: 250000,
     // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", "برنامه روزانه.jpg", "برنامه هفتگی.jpg", "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg", /*"جدول ضرب حیوانات.jpg"*/]
+    filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", "برنامه روزانه.jpg", "برنامه هفتگی.jpg", "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg", /*"جدول ضرب*/]
   },
   6: {
     name: "سایر محصولات",
@@ -951,6 +951,63 @@ window.onload = function() {
     history.replaceState({ screen: 'main' }, '', '#main');
     renderCartList();
 };
+// ... (کد موجود شما) ...
+
+// این قسمت را برای بارگذاری اطلاعات مشتری هنگام بارگذاری صفحه یا نمایش سبد خرید اضافه کنید
+function loadCustomerInfo() {
+    const customerName = localStorage.getItem('customerName');
+    const customerPhone = localStorage.getItem('customerPhone');
+    const customerAddress = localStorage.getItem('customerAddress');
+    
+    if (customerName) {
+        document.getElementById('customerName').value = customerName;
+    }
+    if (customerPhone) {
+        document.getElementById('customerPhone').value = customerPhone;
+    }
+    if (customerAddress) {
+        document.getElementById('customerAddress').value = customerAddress;
+    }
+}
+
+// تابع showScreen را برای بارگذاری اطلاعات مشتری هنگام نمایش سبد خرید تغییر دهید
+function showScreen(screenName) {
+    // پنهان کردن تمام صفحات
+    for (let key in screens) {
+        screens[key].style.display = 'none';
+    }
+    
+    // نمایش صفحه درخواستی
+    screens[screenName].style.display = 'flex'; // استفاده از flex برای این بخش‌ها
+    
+    // به روز رسانی تاریخچه برای پشتیبانی از دکمه بازگشت
+    // فقط در صورتی که در حال بازگشت از طریق popstate نیستیم یا قبلاً در صفحه نبودیم، حالت را push کنید
+    if (history.state === null || history.state.screen !== screenName) {
+        history.pushState({ screen: screenName }, '', `#${screenName}`);
+    }
+    
+    // اقدامات خاص برای هر صفحه
+    if (screenName === 'gallery') {
+        const currentGroupId = document.getElementById('bottomGroupSelect').value; // دریافت گروه انتخاب شده فعلی
+        loadGroup(currentGroupId); // بارگذاری گروه فعلی
+    } else if (screenName === 'cart') {
+        renderCartList();
+        loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
+        // بازنشانی گزینه‌های ارسال هنگام ورود به بخش سبد خرید
+        document.getElementById('sendOptions').style.display = 'none';
+        document.getElementById('submitOrderBtn').style.display = 'block';
+    }
+}
+
+// window.onload را برای بارگذاری اطلاعات مشتری تغییر دهید
+window.onload = function() {
+    showScreen('main');
+    history.replaceState({ screen: 'main' }, '', '#main');
+    renderCartList();
+    loadCustomerInfo(); // <--- این خط را برای بارگذاری اولیه اضافه کنید
+};
+
+// ... (بقیه کدهای موجود شما) ...
 
 </script>
 </div>
