@@ -865,7 +865,8 @@ function prepareOrderForSending() {
   }
 
   // --- Generate the message content ---
-  let message = "🛒 سفارش من :  \n";
+  let
+  message = "🛍️ سفارش من :  \n"
   message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
   message += `📱 شماره موبایل: ${customerPhone}\n`;
   message += `📍 آدرس تحویل: ${customerAddress}\n`;
@@ -884,21 +885,20 @@ function prepareOrderForSending() {
     groupedSummaries[item.groupName].totalQty += item.qty;
     groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
   });
-
-  message += "\n🔆🔅 جزئیات  سفارش🔅🔆\n";
+  message += "\n🔆🔅 جزئیات  سفارش\n";
   for (let groupName in groupedItems) {
-    message += `\n⏮️ ${groupName}  :\n`;
+    message += `\n• ${groupName}  :\n`;
     groupedItems[groupName].forEach(item => {
       message += `  - ${item.filename.replace(/\.(jpeg|jpg)$/i, '')} - تعداد: ${item.qty} عدد\n`;
     });
   }
-  message += "---------------------------------------\n";
-  message += "\n🔸🔶 خلاصه سفارش بر اساس گروه🔶🔸\n";
+  message += "               ---------------------------------------\n";
+  message += "\n🔶🔸 خلاصه سفارش بر اساس گروه\n";
   for (let groupName in groupedSummaries) {
     const summary = groupedSummaries[groupName];
     message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال\n`;
   }
-  message += "---------------------------------------\n";
+  message += "               ---------------------------------------\n";
 
   const baseShippingThreshold = 85000000;
   const costPerThreshold = 600000;
@@ -918,7 +918,6 @@ function prepareOrderForSending() {
   finalTotalAmount += calculatedShippingCost;
   message += shippingMessage;
   message += `\n💰 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`;
-  message += "       ---------------------------------------\n";
   message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
 
   // Store the message globally
