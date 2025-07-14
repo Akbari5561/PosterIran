@@ -294,7 +294,17 @@ h2 {
         width: calc(100% - 20px);
     }
     /* نیازی به تغییر .gallery-controls select نیست زیرا با min/max-width کنترل می‌شود */
-} 
+}
+  /* CSS برای مودال بزرگنمایی */
+  .modal-content {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
   </style>
   
 </head>
@@ -368,6 +378,12 @@ h2 {
     <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال با واتساپ 🟢</button>
   </div>
 
+</div>
+
+<div id="imageModal" style="display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);">
+  <span class="close-button" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+  <img class="modal-content" id="modalImage" style="margin: auto; display: block; max-width: 90%; max-height: 90vh;">
+  <div id="caption" style="margin: auto; display: block; width: 80%; text-align: center; color: #ccc; padding: 10px 0; height: 150px;"></div>
 </div>
 
 <script>
@@ -463,6 +479,7 @@ function showScreen(screenName) {
         loadGroup(currentGroupId); // Reload current group
     } else if (screenName === 'cart') {
         renderCartList();
+        loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
         // Reset send options when entering cart section
         document.getElementById('sendOptions').style.display = 'none';
         document.getElementById('submitOrderBtn').style.display = 'block';
@@ -482,6 +499,7 @@ window.addEventListener('popstate', (event) => {
             loadGroup(currentGroupId);
         } else if (event.state.screen === 'cart') {
             renderCartList();
+            loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
             // Reset send options when going back to cart
             document.getElementById('sendOptions').style.display = 'none';
             document.getElementById('submitOrderBtn').style.display = 'block';
@@ -534,7 +552,7 @@ function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProducts
     if (isOtherProductsGroup) { // برای گروه "سایر محصولات"
         optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
         // تولید گزینه تا 1200 با گام qtyMultiplier
-        for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) { 
+        for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) {
             optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
         }
     } else if (qtyMultiplier > 1) { // اگر qtyMultiplier بیشتر از 1 باشه (برای گروه‌های variable-count ولی نه گروه 6)
@@ -584,7 +602,7 @@ function loadGroup(groupId) {
         const box = document.createElement("div");
         box.className = "image-box";
         box.innerHTML = `
-            <img src="${imagePath}" alt="${itemName}">
+            <img src="${imagePath}" alt="${itemName}" onclick="enlargeImage('${imagePath}', '${itemName}')">
             <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
             <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
             <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
@@ -947,13 +965,33 @@ function resetSendOptions() {
     orderMessageContent = ""; // Clear message content after sending
 }
 
-// Initial load: show main screen and add initial history state
-window.onload = function() {
-    showScreen('main');
-    history.replaceState({ screen: 'main' }, '', '#main');
-    renderCartList();
-};
-// ... (کد موجود شما) ...
+// توابع بزرگنمایی تصویر
+const imageModal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const captionText = document.getElementById('caption');
+const closeButton = document.getElementsByClassName('close-button')[0];
+
+function enlargeImage(src, alt) {
+  imageModal.style.display = 'block';
+  modalImage.src = src;
+  captionText.innerHTML = alt;
+  // برای جلوگیری از اسکرول شدن بدنه اصلی در حالت نمایش مودال
+  document.body.style.overflow = 'hidden';
+}
+
+// بستن مودال با دکمه بستن
+closeButton.onclick = function() {
+  imageModal.style.display = 'none';
+  document.body.style.overflow = 'auto'; // بازگرداندن اسکرول بدنه
+}
+
+// بستن مودال با کلیک در هر جای خارج از تصویر
+imageModal.onclick = function(event) {
+  if (event.target === imageModal) {
+    imageModal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // بازگرداندن اسکرول بدنه
+  }
+}
 
 // این قسمت را برای بارگذاری اطلاعات مشتری هنگام بارگذاری صفحه یا نمایش سبد خرید اضافه کنید
 function loadCustomerInfo() {
@@ -1009,17 +1047,10 @@ window.onload = function() {
     loadCustomerInfo(); // <--- این خط را برای بارگذاری اولیه اضافه کنید
 };
 
-// ... (بقیه کدهای موجود شما) ...
-
 </script>
 </div>
 <footer class="mt-auto py-6 text-gray-500 text-sm">
     
-</footer>
-<script>
-  </script>
-<footer class="mt-auto py-6 text-gray-500 text-sm">
-    <p> </p>
 </footer>
 <script>
     if ('serviceWorker' in navigator) {
