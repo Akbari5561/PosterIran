@@ -340,7 +340,7 @@ h2 {
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه:</label>
+  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه :</label>
     <select id="bottomGroupSelect" class="group-select-fixed" onchange="changeGroup(this.value)">
       <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
       <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -620,12 +620,12 @@ function loadGroup(groupId) {
             <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
             <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
                 <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                    <label for="qty-select-${itemUniqueId}">تعداد:</label>
+                    <label for="qty-select-${itemUniqueId}">تعداد :</label>
                     <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
                         ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
                     </select>
                 </div>
-                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد   ${initialQty} عدد</p>
             </div>
         `;
         container.appendChild(box);
