@@ -249,9 +249,8 @@ h2 {
     .in-cart-display {
         font-size: 0.9em;
         color: #007BFF; /* Blue color for in-cart message */
-        /* Removed margin-top to align it */
         font-weight: bold;
-        margin-right: 10px; /* فاصله بین دراپ‌داون و پیام */
+        margin-right: 0; /* Removed this as it's no longer next to select */
     }
     /* جدید: استایل برای لوگو */
     .header-logo {
@@ -262,7 +261,7 @@ h2 {
     }
 @media (max-width: 600px) {
     .image-box {
-        width: calc(100% - 10px);
+        width: calc(50% - 5px); /* Changed for two-column layout on mobile */
     }
    .gallery-controls {
     display: flex; /* مطمئن شوید که flexbox فعال است */
@@ -349,7 +348,7 @@ h2 {
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
   <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات من:</h4>
+    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات مشتری:</h4>
     <label for="customerName" style="display: block; margin-bottom: 5px; font-weight: bold;">نام و نام خانوادگی:</label>
     <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
 
@@ -588,12 +587,14 @@ function loadGroup(groupId) {
             <img src="${imagePath}" alt="${itemName}">
             <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
             <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
-            <div style="display: flex; align-items: center; margin-top: 10px; justify-content: center;">
-                <label for="qty-select-${itemUniqueId}">تعداد:</label>
-                <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
-                    ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
-                </select>
-                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display">موجود در سبد: ${initialQty} عدد</p>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                    <label for="qty-select-${itemUniqueId}">تعداد:</label>
+                    <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
+                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                    </select>
+                </div>
+                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
             </div>
         `;
         container.appendChild(box);
@@ -1033,6 +1034,6 @@ window.onload = function() {
         });
     }
 </script>
-<p>All rights reserved for Poster Iran &copy; 2025</p>
+<p>All rights reserved for Poster Iran © 2025</p>
 </body>
 </html>
