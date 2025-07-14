@@ -381,7 +381,7 @@ h2 {
 </div>
 
 <div id="imageModal" style="display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);">
-  <span class="close-button" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+  <span class="close-button" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">×</span>
   <img class="modal-content" id="modalImage" style="margin: auto; display: block; max-width: 90%; max-height: 90vh;">
   <div id="caption" style="margin: auto; display: block; width: 80%; text-align: center; color: #ccc; padding: 10px 0; height: 150px;"></div>
 </div>
@@ -488,7 +488,20 @@ function showScreen(screenName) {
 
 // Handle browser's back button
 window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.screen) {
+    if (imageModal.style.display === 'block') { // If image modal is open, close it first
+        closeImageModal(false); // Close without pushing new history state
+        // If there's a previous state for the image modal, pop it off again
+        if (event.state && event.state.modal === 'image') {
+            // Do nothing, just let the modal close.
+        } else {
+            // If the popstate was for a screen change and not the modal,
+            // we need to re-evaluate what screen to show.
+            // This happens if history.back() was used while modal was open,
+            // and the previous state was a screen.
+            const targetScreen = event.state ? event.state.screen : 'main';
+            showScreen(targetScreen);
+        }
+    } else if (event.state && event.state.screen) {
         // Restore previous screen based on history state
         for (let key in screens) {
             screens[key].style.display = 'none';
@@ -977,19 +990,31 @@ function enlargeImage(src, alt) {
   captionText.innerHTML = alt;
   // برای جلوگیری از اسکرول شدن بدنه اصلی در حالت نمایش مودال
   document.body.style.overflow = 'hidden';
+  // Push a new state to history when the modal opens
+  history.pushState({ modal: 'image' }, 'Image Enlarge', '#image-enlarged');
+}
+
+function closeImageModal(popHistory = true) {
+  imageModal.style.display = 'none';
+  document.body.style.overflow = 'auto'; // بازگرداندن اسکرول بدنه
+  if (popHistory) {
+      // Go back in history if this close was not triggered by a popstate
+      // This ensures the back button doesn't get "stuck" on the modal state
+      if (history.state && history.state.modal === 'image') {
+          history.back();
+      }
+  }
 }
 
 // بستن مودال با دکمه بستن
 closeButton.onclick = function() {
-  imageModal.style.display = 'none';
-  document.body.style.overflow = 'auto'; // بازگرداندن اسکرول بدنه
+  closeImageModal(true); // Call with true to pop history state
 }
 
 // بستن مودال با کلیک در هر جای خارج از تصویر
 imageModal.onclick = function(event) {
   if (event.target === imageModal) {
-    imageModal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // بازگرداندن اسکرول بدنه
+    closeImageModal(true); // Call with true to pop history state
   }
 }
 
@@ -1010,39 +1035,16 @@ function loadCustomerInfo() {
     }
 }
 
-// تابع showScreen را برای بارگذاری اطلاعات مشتری هنگام نمایش سبد خرید تغییر دهید
-function showScreen(screenName) {
-    // پنهان کردن تمام صفحات
-    for (let key in screens) {
-        screens[key].style.display = 'none';
-    }
-    
-    // نمایش صفحه درخواستی
-    screens[screenName].style.display = 'flex'; // استفاده از flex برای این بخش‌ها
-    
-    // به روز رسانی تاریخچه برای پشتیبانی از دکمه بازگشت
-    // فقط در صورتی که در حال بازگشت از طریق popstate نیستیم یا قبلاً در صفحه نبودیم، حالت را push کنید
-    if (history.state === null || history.state.screen !== screenName) {
-        history.pushState({ screen: screenName }, '', `#${screenName}`);
-    }
-    
-    // اقدامات خاص برای هر صفحه
-    if (screenName === 'gallery') {
-        const currentGroupId = document.getElementById('bottomGroupSelect').value; // دریافت گروه انتخاب شده فعلی
-        loadGroup(currentGroupId); // بارگذاری گروه فعلی
-    } else if (screenName === 'cart') {
-        renderCartList();
-        loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
-        // بازنشانی گزینه‌های ارسال هنگام ورود به بخش سبد خرید
-        document.getElementById('sendOptions').style.display = 'none';
-        document.getElementById('submitOrderBtn').style.display = 'block';
-    }
-}
-
 // window.onload را برای بارگذاری اطلاعات مشتری تغییر دهید
 window.onload = function() {
-    showScreen('main');
-    history.replaceState({ screen: 'main' }, '', '#main');
+    // Check if there's a specific screen in the URL hash, otherwise show 'main'
+    const initialHash = window.location.hash.substring(1); // Remove '#'
+    if (initialHash && screens[initialHash]) {
+        showScreen(initialHash);
+    } else {
+        showScreen('main');
+    }
+    history.replaceState({ screen: initialHash || 'main' }, '', `#${initialHash || 'main'}`);
     renderCartList();
     loadCustomerInfo(); // <--- این خط را برای بارگذاری اولیه اضافه کنید
 };
