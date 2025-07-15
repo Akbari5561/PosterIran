@@ -25,8 +25,8 @@
     h1 {
   color: #1976d2;
   cursor: pointer;
-  margin-top: 0px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
-  font-size: 2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
+  margin-top: 20px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
+  font-size: 2.2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
 }
 h2 {
   color: #1976d2;
@@ -48,11 +48,11 @@ h2 {
     }
 
     h1 {
-      color: #1976d2;
+      color: #4527A0;
       cursor: pointer;
     }
     h2 {
-      color: #6B19D2;
+      color: #4527A0;
       cursor: pointer;
     }
 
@@ -328,7 +328,7 @@ h2 {
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
-    <button onclick="showScreen('cart')">🛒  سبد خرید</button>
+    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
   </div>
 
@@ -357,7 +357,7 @@ h2 {
   <div id="cartList"></div>
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
-  <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+  <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #fffde7; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
     <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات مشتری:</h4>
     <label for="customerName" style="display: block; margin-bottom: 5px; font-weight: bold;">نام و نام خانوادگی:</label>
     <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
@@ -371,7 +371,7 @@ h2 {
 
   <button onclick="prepareOrderForSending()" id="submitOrderBtn">ثبت و ارسال سفارش</button>
   <button onclick="clearCart()" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
-  <button onclick="showScreen('gallery')" style="background-color: #607d8b;">بازگشت به گالری</button>
+  <button onclick="showScreen('gallery')" style="background-color: #00acc1;">بازگشت به گالری</button>
 
   <div id="sendOptions" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
     <p style="font-weight: bold; margin-bottom: 10px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال با واتس‌آپ را انتخاب کنید.</p>
