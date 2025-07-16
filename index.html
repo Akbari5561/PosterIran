@@ -25,60 +25,162 @@
 /* Import Vazirmatn font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
-    h1 {
-  color: #1976d2;
-  cursor: pointer;
-  margin-top: 20px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
-  font-size: 2.2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
-}
-h2 {
-  color: #1976d2;
-  cursor: pointer;
-  margin-top: 0px; /* اضافه کردن فاصله از بالا برای پایین آمدن یک خط */
-  font-size: 2em; /* سایز فونت h1، می‌تونید تنظیم کنید */
-}
     body {
       font-family: 'Vazirmatn', sans-serif; /* Apply Vazirmatn font */
       direction: rtl;
-      background: #f0f4f8;
+      background: #f0f4f8; /* Softer background */
       color: #333;
-      padding: 20px;
-      text-align: center;
+      padding: 0; /* Remove default body padding */
       margin: 0; /* Remove default body margin */
       display: flex;
       flex-direction: column;
       min-height: 100vh; /* Ensure body takes full viewport height */
+      align-items: center; /* Center content horizontally */
+      justify-content: center; /* Center content vertically */
+    }
+
+    /* Enhanced Hero Section for the main page */
+    #mainSection {
+        margin-top: 0; /* Remove default margin from old style */
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 900px; /* Max width for content */
+        padding: 40px 20px; /* More padding */
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #e0f2f7 0%, #bbdefb 100%); /* Blue gradient background */
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* More prominent shadow */
+        text-align: center;
+        position: relative;
+        overflow: hidden; /* Hide overflowing pseudo-elements */
+    }
+
+    /* Animated background circles (optional, for extra graphical appeal) */
+    #mainSection::before, #mainSection::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        animation: bubble 15s infinite ease-in-out alternate;
+    }
+    #mainSection::before {
+        width: 150px; height: 150px;
+        top: -50px; left: -50px;
+        animation-delay: 0s;
+    }
+    #mainSection::after {
+        width: 200px; height: 200px;
+        bottom: -70px; right: -70px;
+        animation-delay: 7s;
+    }
+    @keyframes bubble {
+        0% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
+        50% { transform: scale(1.2) translate(20px, -20px); opacity: 0.9; }
+        100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
+    }
+
+
+    .main-title-container {
+        margin-bottom: 30px;
+        padding: 15px 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(5px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Stack logo, h1, h2 */
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+    }
+
+    .header-logo {
+        max-width: 160px; /* Adjusted size for the new layout */
+        height: auto;
+        margin-bottom: 5px; /* Space between logo and title */
     }
 
     h1 {
-      color: #4527A0;
-      cursor: pointer;
+        color: #1A237E; /* Deeper blue for main title */
+        font-size: 2em; /* Larger font size */
+        margin: 0; /* Remove default margin */
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        letter-spacing: 1.5px;
     }
     h2 {
-      color: #4527A0;
-      cursor: pointer;
+        color: #3F51B5; /* Slightly lighter blue for subtitle */
+        font-size: 1em;
+        margin-top: 10px; /* Space below h1 */
+        margin-bottom: 0px; /* No extra space below h2 */
+    }
+    #subtitle {
+        font-size: 0.8em;
+        color: #555;
+        margin-top: 5px;
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+    }
+    #address {
+        background: rgba(255,255,255,0.7);
+        padding: 8px;
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        line-height: 1.4;
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+    }
+    #address p {
+        margin: 5px 0;
+        font-size: 1.1em;
+        color: #444;
+    }
+    #address a {
+        color: #0D47A1; /* Darker blue for links */
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    #address a:hover {
+        color: #1976D2;
     }
 
-
+    #loginSection {
+        margin-top: 40px;
+        display: flex;
+        gap: 20px; /* Space between buttons */
+        position: relative; /* Add this */
+        z-index: 2; /* Add this: Higher z-index to be above pseudo-elements */
+    }
     button {
       background-color: #2196f3;
       color: white;
       border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 12px 25px; /* Larger padding */
+      margin: 0; /* Managed by flex gap */
+      border-radius: 30px; /* Pill-shaped buttons */
+      font-size: 1.1em; /* Larger font */
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease; /* Smooth transition for all properties */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     button:hover {
       background-color: #1976d2;
+      transform: translateY(-3px); /* Lift effect on hover */
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
     button.remove-btn {
       background-color: #f44336;
+      box-shadow: none; /* No shadow for small buttons */
     }
     button.remove-btn:hover {
       background-color: #d32f2f;
+      transform: none; /* No lift for small buttons */
     }
     button.clear-cart-btn {
       background-color: #ff9800; /* Orange for clear cart */
@@ -111,7 +213,7 @@ h2 {
     text-align: right; /* متن راست‌چین باشه */
     }
     /* Main sections styling */
-    #mainSection, #adminLogin, #gallery, #cartSection {
+    #adminLogin, #gallery, #cartSection {
         margin-top: 20px;
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
@@ -255,13 +357,7 @@ h2 {
         font-weight: bold;
         margin-right: 0; /* Removed this as it's no longer next to select */
     }
-    /* جدید: استایل برای لوگو */
-    .header-logo {
-        max-width: 150px; /* حداکثر عرض لوگو */
-        height: auto; /* حفظ نسبت ابعاد */
-        display: block; /* برای اینکه margin auto کار کنه */
-        margin: 0px auto 10px auto; /* بالا 0، چپ و راست اتوماتیک (وسط چین)، پایین 10px فاصله */
-    }
+    
 @media (max-width: 600px) {
     .image-box {
         width: calc(50% - 5px); /* Changed for two-column layout on mobile */
@@ -313,14 +409,11 @@ h2 {
 </head>
 <body>
 
-<h1>® P o s t e r Iran</h1>
 <div id="mainSection">
-  <section id="showcase">
-  <div class="container">
-    <h2>پوستر ایران</h2>
+  <div class="main-title-container">
+    <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
-</section>
   <div id="address">
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
@@ -333,7 +426,7 @@ h2 {
     <button onclick="enterAsUser()">ورود به گالری</button>
     <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
-  </div>
+</div>
 
 <div id="adminLogin">
   <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
