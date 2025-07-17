@@ -60,12 +60,19 @@
     }
 
     /* Animated background circles (optional, for extra graphical appeal) */
-    #mainSection::before, #mainSection::after {
+    #mainSection::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(145, 132, 231, 1);
+        animation: bubble 20s infinite ease-in-out alternate;
+    }
+    #mainSection::before {
         content: '';
         position: absolute;
         border-radius: 50%;
         background: rgba(65, 218, 237, 1);
-        animation: bubble 15s infinite ease-in-out alternate;
+        animation: bubble 30s infinite ease-in-out alternate;
     }
     #mainSection::before {
         width: 150px; height: 150px;
@@ -75,11 +82,11 @@
     #mainSection::after {
         width: 200px; height: 200px;
         bottom: -70px; right: -70px;
-        animation-delay: 7s;
+        animation-delay: 7.5s;
     }
     @keyframes bubble {
         0% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
-        50% { transform: scale(1.2) translate(20px, -20px); opacity: 0.9; }
+        50% { transform: scale(20) translate(70px, -20px); opacity: 0.9; }
         100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
     }
 
@@ -102,7 +109,7 @@
     .header-logo {
         max-width: 150px; /* Adjusted size for the new layout */
         height: auto;
-        margin-bottom: 5px; /* Space between logo and title */
+        margin-bottom: -10px; /* Space between logo and title */
     }
 
     h1 {
@@ -470,8 +477,9 @@
   <button onclick="showScreen('gallery')" style="background-color: #00acc1;">بازگشت به گالری</button>
 
   <div id="sendOptions" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-    <p style="font-weight: bold; margin-bottom: 10px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال با واتس‌آپ را انتخاب کنید.</p>
-    <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال با واتساپ 🟢</button>
+      <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال سفارش با واتساپ 🟢</button>
+    <p style="font-weight: bold; margin-bottom: 20px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.</p>
+    
   </div>
 
 </div>
