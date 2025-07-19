@@ -198,7 +198,7 @@
     }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
-      padding: 4px;
+      padding: 8px;
       border-radius: 6px;
       border: 1px solid #ccc;
       margin: 5px;
@@ -213,7 +213,7 @@
     width: 150px;   /* عرض ثابت برای دروپ‌داون گروه */
     min-width: 120px; /* حداقل عرض */
     max-width: 200px; /* حداکثر عرض */
-    padding: 6px;
+    padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
     margin: 5px;
@@ -335,7 +335,7 @@
     border-top: 1px solid #c3d4e6;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
     z-index: 1000;
-    gap: 5px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
+    gap: 10px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
 }
   .group-selection-wrapper {
       display: flex; /* این div خودش یک فلکس‌کانتینر می‌شود */
@@ -432,7 +432,7 @@
   </div>
   <div id="loginSection">
     <button onclick="enterAsUser()">ورود به گالری</button>
-    <button onclick="showScreen('cart')">🛒   سبد خرید </button>
+    <button onclick="showScreen('cart')">🛒 سبد خرید</button>
   </div>
 </div>
 
@@ -454,10 +454,10 @@
       <option value="6">سایر محصولات</option>
     </select>
   </div>
-  <button onclick="showScreen('cart')">🛒   سبد خرید </button>
+  <button onclick="showScreen('cart')">🛒  سبد خرید </button>
 </div> </div>
 <div id="cartSection">
-  <h3>🛒   سبد خرید </h3>
+  <h3>🛒 سبد خرید</h3>
   <div id="cartList"></div>
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
@@ -478,10 +478,8 @@
   <button onclick="showScreen('gallery')" style="background-color: #00acc1;">بازگشت به گالری</button>
 
   <div id="sendOptions" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-      <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال سفارش با واتساپ 🟢</button>
-    <p style="font-weight: bold; margin-bottom: 20px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.</p>
-    
-  </div>
+    <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال سفارش با واتساپ 🟢</button>
+<p style="font-weight: bold; margin-bottom: 20px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.</p>
 
 </div>
 
@@ -517,7 +515,7 @@ const groupInfo = {
   4: {
     name: "سایز ۷۰×۵۰ یکروچاپ",
     count: 12, // تعداد فایل‌های این گروه
-    price: 180000,
+    price: 200000,
     // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
     filenames: ["الفبای فارسی  شکل دار.jpg", "الفبای فارسی بدون شکل.jpg", "اعداد 1 تا 100.jpg", "اعداد ده دهی.jpg", "اعداد یک تا ده.jpg", "الفبای انگلیسی.jpg", "جدول جمع.jpg", "جدول تفریق.jpg", "جدول ضرب.jpg", "جدول تقسیم.jpg", "جدول تناوبی عناصر.jpg", "جدول دوستی.jpg"]
   },
@@ -873,25 +871,44 @@ function clearCart() {
     }
 }
 
+// تابع جدید برای محاسبه درصد تخفیف بر اساس مبلغ کل
+function calculateDiscountPercentage(totalAmount) {
+    if (totalAmount >= 1000000000) {
+        return 0.10; // 10%
+    } else if (totalAmount >= 500000000) {
+        return 0.08; // 8%
+    } else if (totalAmount >= 240000000) {
+    } else if (totalAmount >= 180000000) {    
+        return 0.05; // %
+    } else if (totalAmount >= 120000000) {
+        return 0.04; // 4%
+    } else if (totalAmount >= 60000000) {
+        return 0.02; // 2%
+    } else {
+        return 0; // No discount
+    }
+}
+
+
 function renderCartList() {
     const list = document.getElementById("cartList");
-    const total = document.getElementById("totalPrice");
+    const totalDisplay = document.getElementById("totalPrice");
     list.innerHTML = "";
     let grouped = {};
     let groupedSummaries = {};
-    let totalSum = 0;
-
+    let totalSumBeforeDiscount = 0;
+    
     if (cart.size === 0) {
         list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
-        total.textContent = `مبلغ کل: 0 ریال`;
+        totalDisplay.textContent = `مبلغ کل: 0 ریال`;
         return;
     }
-
+    
     cart.forEach(item => {
         if (!grouped[item.groupName]) grouped[item.groupName] = [];
         grouped[item.groupName].push(item);
-        totalSum += item.qty * item.price;
-
+        totalSumBeforeDiscount += item.qty * item.price;
+        
         if (!groupedSummaries[item.groupName]) {
             groupedSummaries[item.groupName] = {
                 totalQty: 0,
@@ -901,20 +918,20 @@ function renderCartList() {
         groupedSummaries[item.groupName].totalQty += item.qty;
         groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
     });
-
+    
     for (let groupName in grouped) {
         list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
         grouped[groupName].forEach(item => {
             const itemUniqueId = `${item.groupId}-${item.filename}`;
             
-            const group = groupInfo[item.groupId]; 
+            const group = groupInfo[item.groupId];
             let itemDetail = null;
             if (group.type === 'variable-count') {
                 itemDetail = group.images.find(img => img.filename === item.filename);
             }
-            const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
-            const isOtherProductsGroup = (parseInt(item.groupId) === 6); // تشخیص گروه 6 در سبد خرید
-
+            const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1;
+            const isOtherProductsGroup = (parseInt(item.groupId) === 6);
+            
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
             itemDiv.innerHTML = `
@@ -931,7 +948,7 @@ function renderCartList() {
             list.appendChild(itemDiv);
         });
     }
-
+    
     list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
     list.innerHTML += `<h3 style="margin-bottom: 10px;">خلاصه سفارش بر اساس گروه:</h3>`;
     for (let groupName in groupedSummaries) {
@@ -943,30 +960,53 @@ function renderCartList() {
             </div>
         `;
     }
-    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`; 
-
-
-    const baseShippingThreshold = 85000000; 
-    const costPerThreshold = 600000;     
+    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
+    
+    // ADDED: Display total before discount here
+    list.innerHTML += `
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #e0f2f7;">
+            <p style="font-weight: bold; margin: 0;">مبلغ کل (پیش از تخفیف و باربری): ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
+        </div>
+    `;
+    
+    // --- Discount Calculation ---
+    const discountRate = calculateDiscountPercentage(totalSumBeforeDiscount);
+    const discountAmount = totalSumBeforeDiscount * discountRate;
+    const totalSumAfterDiscount = totalSumBeforeDiscount - discountAmount;
+    
+    if (discountAmount > 0) {
+        list.innerHTML += `
+            <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
+                <p style="font-weight: bold; margin: 0; color: #e65100;">🎁 تخفیف (${discountAmount.toLocaleString()} ریال)</p>
+                <p style="margin: 0; font-size: 0.9em;">مبلغ پس از تخفیف: ${totalSumAfterDiscount.toLocaleString()} ریال</p>
+            </div>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+        `;
+    }
+    
+    
+    const baseShippingThreshold = 85000000;
+    const costPerThreshold = 600000;
     let calculatedShippingCost = 0;
     let shippingDisplayMessage = "";
     
-    if (totalSum === 0) {
+    // Shipping calculation based on totalSumAfterDiscount
+    if (totalSumAfterDiscount === 0) {
         calculatedShippingCost = 0;
         shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
     } else {
-        const numberOfThresholds = Math.ceil(totalSum / baseShippingThreshold);
+        const numberOfThresholds = Math.ceil(totalSumAfterDiscount / baseShippingThreshold);
         calculatedShippingCost = numberOfThresholds * costPerThreshold;
         shippingDisplayMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
     }
-
+    
     list.innerHTML += `
         <div style="padding: 8px; margin-top: 10px; border-radius: 5px; text-align: right;">
             <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
         </div>
     `;
-    const finalTotalWithShipping = totalSum + calculatedShippingCost;
-    total.textContent = `💰 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
+    const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost;
+    totalDisplay.textContent = `💰 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
@@ -1009,14 +1049,14 @@ function prepareOrderForSending() {
   message += `📱 شماره موبایل: ${customerPhone}\n`;
   message += `📍 آدرس تحویل: ${customerAddress}\n`;
 
-  let totalAmount = 0;
+  let totalAmountBeforeDiscount = 0; // Renamed for clarity
   let groupedItems = {};
   let groupedSummaries = {};
 
   cart.forEach(item => {
     if (!groupedItems[item.groupName]) groupedItems[item.groupName] = [];
     groupedItems[item.groupName].push(item);
-    totalAmount += item.qty * item.price;
+    totalAmountBeforeDiscount += item.qty * item.price; // Use new variable
     if (!groupedSummaries[item.groupName]) {
       groupedSummaries[item.groupName] = { totalQty: 0, totalPrice: 0 };
     }
@@ -1038,24 +1078,37 @@ function prepareOrderForSending() {
   }
   message += "               ---------------------------------------\n";
 
+  // --- Discount Calculation for Message ---
+  const discountRate = calculateDiscountPercentage(totalAmountBeforeDiscount);
+  const discountAmount = totalAmountBeforeDiscount * discountRate;
+  const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+
+  message += `\n💰 مبلغ کل (پیش از تخفیف و باربری): ${totalAmountBeforeDiscount.toLocaleString()} ریال`;
+  if (discountAmount > 0) {
+      message += `\n🎁 تخفیف : ${discountAmount.toLocaleString()} ریال`;
+      message += `\n💵 مبلغ پس از تخفیف: ${totalAmountAfterDiscount.toLocaleString()} ریال`;
+  }
+
+
   const baseShippingThreshold = 85000000;
   const costPerThreshold = 600000;
   let calculatedShippingCost = 0;
   let shippingMessage = "";
-  let finalTotalAmount = totalAmount;
-
-  if (totalAmount === 0) {
+  
+  // Shipping calculation based on totalAmountAfterDiscount
+  if (totalAmountAfterDiscount === 0) {
     calculatedShippingCost = 0;
     shippingMessage = "\n🚚 هزینه باربری: 0 ریال";
   } else {
-    const numberOfThresholds = Math.ceil(totalAmount / baseShippingThreshold);
+    const numberOfThresholds = Math.ceil(totalAmountAfterDiscount / baseShippingThreshold);
     calculatedShippingCost = numberOfThresholds * costPerThreshold;
     shippingMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
   }
 
-  finalTotalAmount += calculatedShippingCost;
+  const finalTotalAmountWithShipping = totalAmountAfterDiscount + calculatedShippingCost; // Final total after discount and shipping
+
   message += shippingMessage;
-  message += `\n💰 مبلغ کل سفارش: ${finalTotalAmount.toLocaleString()} ریال`;
+  message += `\n💰 مبلغ نهایی قابل پرداخت: ${finalTotalAmountWithShipping.toLocaleString()} ریال`; // Updated final total message
   message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
 
   // Store the message globally
@@ -1156,22 +1209,20 @@ window.onload = function() {
 
 </script>
 </div>
-<footer class="mt-auto py-6 text-gray-500 text-sm">
-    
-</footer>
 <script>
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registered! Scope:', registration.scope);
-                })
-                .catch(err => {
-                    console.log('Service Worker registration failed:', err);
-                });
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                console.log('✅ Service Worker ثبت شد: ', registration.scope);
+            }).catch(function(error) {
+                console.log('❌ ثبت Service Worker شکست خورد:', error);
+            });
         });
     }
 </script>
-<p>All rights reserved for Poster Iran © 2025</p>
+
+<footer style="text-align: center; margin-top: 50px;">
+    <p>All rights reserved for Poster Iran © 2025</p>
+</footer>
 </body>
 </html>
