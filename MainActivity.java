@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.WebSettings; // Import WebSettings
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -22,8 +23,23 @@ public class MainActivity extends AppCompatActivity {
         webView = new WebView(this);
         setContentView(webView);
 
+        WebSettings webSettings = webView.getSettings();
+
         // فعال‌سازی جاوااسکریپت (برای سایت‌های مدرن)
-        webView.getSettings().setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(true);
+
+        // *** تغییرات جدید برای مدیریت کش WebView ***
+        // تنظیم حالت کش به LOAD_NO_CACHE: این تنظیم WebView را مجبور می‌کند که
+        // هر بار محتوا را از شبکه بارگذاری کند و از کش استفاده نکند.
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+        // (اختیاری) پاک کردن کش WebView در هنگام شروع برنامه.
+        // این کار می‌تواند اطمینان حاصل کند که هیچ محتوای کش شده قدیمی‌ای نمایش داده نمی‌شود.
+        // اگر WebView به درستی تنظیم شده باشد، ممکن است نیازی به این خط نباشد،
+        // اما برای اطمینان بیشتر می‌توانید آن را نگه دارید.
+        webView.clearCache(true);
+        // webView.clearHistory(); // همچنین می‌توانید تاریخچه را نیز پاک کنید اگر لازم باشد.
+        // ********************************************
 
         // بارگذاری سایت شما
         webView.loadUrl("https://akbari5561.github.io/PosterIran/");
@@ -91,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
             // @RequiresApi(Build.VERSION_CODES.N) // اگر از این استفاده می‌کنید، این حاشیه نویسی را اضافه کنید
             // @Override
             // public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            //     String url = request.getUrl().toString();
-            //     // می‌توانید همان منطق بالا را اینجا قرار دهید.
-            //     // WebResourceRequest اطلاعات بیشتری در مورد درخواست ارائه می‌دهد.
-            //     return shouldOverrideUrlLoading(view, url); // برای سادگی متد قدیمی را فراخوانی کنید، یا منطق را بازنویسی کنید
+            //    String url = request.getUrl().toString();
+            //    // می‌توانید همان منطق بالا را اینجا قرار دهید.
+            //    // WebResourceRequest اطلاعات بیشتری در مورد درخواست ارائه می‌دهد.
+            //    return shouldOverrideUrlLoading(view, url); // برای سادگی متد قدیمی را فراخوانی کنید، یا منطق را بازنویسی کنید
             // }
         });
     }
