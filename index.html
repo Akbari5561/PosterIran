@@ -51,7 +51,7 @@
         max-width: 900px; /* Max width for content */
         padding: 40px 20px; /* More padding */
         box-sizing: border-box;
-        background: linear-gradient(135deg, #FFF8E1 0%, #FDD835 100%); /* Blue gradient background */
+        background: linear-gradient(135deg, #B39DDB 20%, #7E57C2 100%); /* Blue gradient background */
         border-radius: px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* More prominent shadow */
         text-align: center;
@@ -66,14 +66,14 @@
         position: absolute;
         border-radius: 50%;
         background: #FFFFFF;
-        animation: bubble 15s infinite ease-in-out alternate;
+        animation: bubble 30s infinite ease-in-out alternate;
     }
     #mainSection::after {
     content: '';
     position: absolute;
     border-radius: 50%;
     background: #FFFFFF;
-    animation: bubble 10s infinite ease-in-out alternate;
+    animation: bubble 25s infinite ease-in-out alternate;
 }
     #mainSection::before {
         width: 150px; height: 150px;
@@ -86,7 +86,7 @@
         animation-delay: 0s;
     }
     @keyframes bubble {
-        0% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
+        0% { transform: scale(1.4) translate(0, 0); opacity: 0.7; }
         50% { transform: scale(1.2) translate(70px, -40px); opacity: 0.9; }
         100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
     }
