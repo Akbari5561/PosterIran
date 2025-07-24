@@ -440,7 +440,7 @@
   <div id="loginSection">
     <button onclick="clearCart()" class="clear-cart-btn">پاک کردن سبد خرید</button>
     <footer style="text-align: center; margin-top: 50px;">
-        <p>ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</p>
+        <p>➡️ ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</p>
     </footer>
 </div>
 </div>
@@ -1232,7 +1232,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=6.6').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=6.7').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
