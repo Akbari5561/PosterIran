@@ -85,11 +85,11 @@
     }
     #mainSection::after {
         width: 200px; height: 200px;
-        bottom: -70px; right: 170px;
+        bottom: -60px; right: 190px;
         animation-delay: 0s;
     }
     @keyframes bubble {
-        0% { transform: scale(1.4) translate(0, 0); opacity: 0.7; }
+        0% { transform: scale(1.4) translate(0, 0); opacity: 100.17; }
         50% { transform: scale(1.2) translate(70px, -40px); opacity: 0.9; }
         100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
     }
@@ -1232,7 +1232,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=6.5').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=6.6').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
