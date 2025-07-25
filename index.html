@@ -54,7 +54,7 @@
         max-width: 900px; /* Max width for content */
         padding: 40px 20px; /* More padding */
         box-sizing: border-box;
-        background: linear-gradient(135deg, #673AB7 20%, #DCBCEA 100%); /* Blue gradient background */
+        background: linear-gradient(135deg, #BA68C8 20%, #6A1B9A 100%); /* Blue gradient background */
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* More prominent shadow */
         text-align: center;
@@ -260,7 +260,7 @@
       background: white;
       padding: 10px;
       border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      box-shadow: 0 0 5px #01579B;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1232,7 +1232,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=6.8').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=6.9').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
