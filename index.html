@@ -985,7 +985,7 @@ function renderCartList() {
 // ADDED: Display total before discount here
 list.innerHTML += `
         <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #e0f2f7;">
-            <p style="font-weight: bold; margin: 0;">مبلغ کل (پیش از تخفیف و باربری): ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
+            <p style="font-weight: bold; margin: 0;">مبلغ کل : ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
         </div>
     `;
 
@@ -1027,7 +1027,7 @@ if (discountAmount > 0) {
         </div>
     `;
     const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost; // Final total includes discount and shipping
-    totalDisplay.textContent = `💰 مبلغ کل سفارش: ${finalTotalWithShipping.toLocaleString()} ریال`;
+    totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
 function saveCart() {
@@ -1104,7 +1104,7 @@ function prepareOrderForSending() {
   const discountAmount = totalAmountBeforeDiscount * discountRate;
   const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
 
-  message += `\n💵 مبلغ کل (پیش از تخفیف و باربری): ${totalAmountBeforeDiscount.toLocaleString()} ریال`;
+  message += `\n💵 مبلغ کل : ${totalAmountBeforeDiscount.toLocaleString()} ریال`;
   if (discountAmount > 0) {
       message += `\n🎁 تخفیف : ${discountAmount.toLocaleString()} ریال`;
       message += `\n💵 مبلغ پس از تخفیف: ${totalAmountAfterDiscount.toLocaleString()} ریال`;
@@ -1233,7 +1233,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.1').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.2').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
