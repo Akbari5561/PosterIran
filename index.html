@@ -488,7 +488,7 @@
 
   <div id="sendOptions" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
     <button onclick="sendOrderWithWhatsApp()" style="background-color: #25D366;">ارسال سفارش با واتساپ 🟢</button>
-    <p style="font-weight: bold; margin-bottom: 20px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً فیلترشکن را روشن و کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.</p>
+    <p style="font-weight: bold; margin-bottom: 20px; color: #1976d2;">سفارش‌شما‌با‌موفقیت‌آماده‌شد. لطفاً برای ثبت و ارسال ، کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.</p>
     
 </div>
 
@@ -1055,11 +1055,11 @@ function prepareOrderForSending() {
   localStorage.setItem('customerPhone', customerPhone);
   localStorage.setItem('customerAddress', customerAddress);
 
-  const confirmation = confirm('آیا از ثبت و ارسال سفارش خود مطمئن هستید؟');
+  /*const confirmation = confirm('آیا از ثبت و ارسال سفارش خود مطمئن هستید؟');
   if (!confirmation) {
     alert('ثبت سفارش لغو شد.');
     return;
-  }
+  }*/
 
   // --- Generate the message content ---
   let
@@ -1136,7 +1136,7 @@ function prepareOrderForSending() {
   // Show the sending options and hide the original submit button
   document.getElementById('sendOptions').style.display = 'block';
   document.getElementById('submitOrderBtn').style.display = 'none';
-  alert('لطفاً فیلترشکن را روشن و کلید ارسال با واتس‌آپ را انتخاب کنید.');
+  alert('لطفاً برای ثبت و ارسال ، کلید ارسال سفارش با واتس‌آپ را انتخاب کنید.');
 }
 
 function sendOrderWithWhatsApp() {
@@ -1231,7 +1231,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
