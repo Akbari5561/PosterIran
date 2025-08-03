@@ -95,7 +95,7 @@
         100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
     }
     .main-title-container {
-        margin-bottom: 30px;
+        margin-bottom: -30px;
         padding: 15px 30px;
         /*background-color: rgba(255, 255, 255, 1);
         border-radius: 10px;
@@ -103,7 +103,6 @@
         backdrop-filter: blur(5px);*/ پس زمینه لوگو و تیتر خاموش شد
         display: flex;
         align-items: center;
-        justify-content: center;
         flex-direction: column; /* Stack logo, h1, h2 */
         position: relative; /* Ensure it's above pseudo-elements */
         z-index: 1; /* Bring to front */
@@ -111,7 +110,7 @@
     }
 
     .header-logo {
-        max-width: 130px; /* Adjusted size for the new layout */
+        max-width: 180px; /* Adjusted size for the new layout */
         height: auto;
         margin-bottom: -10px; /* Space between logo and title */
     }
@@ -218,9 +217,9 @@
     width: 150px;   /* عرض ثابت برای دروپ‌داون گروه */
     min-width: 120px; /* حداقل عرض */
     max-width: 200px; /* حداکثر عرض */
-    padding: 8px;
+    padding: 4px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #FF0000;
     margin: 5px;
     box-sizing: border-box; /* برای محاسبه درست عرض */
     text-align: right; /* متن راست‌چین باشه */
@@ -236,7 +235,7 @@
     .quantity-input {
       padding: 8px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #CCCCCC;
       margin: 5px;
       width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
       min-width: 50px; /* حداقل عرض مجاز */
@@ -250,7 +249,7 @@
         display: none;
     }
     #cartSection {
-      background: #fff;
+      background: #fff; بکگراند سبد خرید
       padding: 15px;
       border-radius: 10px;
       text-align: right;
@@ -284,7 +283,7 @@
       width: 100%;
       height: auto; /* Reverted to auto for original aspect ratio */
       border-radius: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     select, input[type="password"] {
@@ -336,7 +335,7 @@
     align-items: center;
     width: 100%;
     padding: 10px 0;
-    background-color: #e0e7ff;
+    background-color: #e0e7ff;بکگراند انتخاب گروه
     border-top: 1px solid #c3d4e6;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
     z-index: 1000;
@@ -364,8 +363,8 @@
     .gallery-controls button {
         margin: 0;
     }
-    .in-cart-display {
-        font-size: 0.9em;
+    .in-cart-display { 
+        font-size: 0.85em; /*موجود در سبد*/
         color: #007BFF; /* Blue color for in-cart message */
         font-weight: bold;
         margin-right: 0; /* Removed this as it's no longer next to select */
@@ -373,12 +372,12 @@
     
 @media (max-width: 600px) {
     .image-box {
-        width: calc(50% - 5px); /* Changed for two-column layout on mobile */
+        width: calc(50% - 15px); /* Changed for two-column layout on mobile */ /*برای دو آیتم در هر سطر با در نظر گرفتن gap !*/
     }
    .gallery-controls {
     display: flex; /* مطمئن شوید که flexbox فعال است */
     flex-wrap: wrap; /* اجازه می‌دهد آیتم‌ها به سطر بعدی منتقل شوند */
-    gap: 10px; /* فاصله بین آیتم‌ها */
+    gap: 5px; /* فاصله بین آیتم‌ها */
     justify-content: space-around; /* یا center برای تراز وسط */
     align-items: flex-start; /* یا stretch بسته به نیاز */
 }
@@ -440,10 +439,8 @@
     <button onclick="showScreen('cart')">سبد خرید 🛒</button>
   </div>
   <div id="loginSection">
-    <button onclick="clearCart()" class="clear-cart-btn">پاک کردن سبد خرید</button>
-    <footer style="text-align: center; margin-top: 50px;">
-        <p>➡️ ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</p>
-    </footer>
+    <button onclick="clearCart()" class="clear-cart-btn">ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</button>
+    
 </div>
 </div>
 
@@ -1230,7 +1227,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.1').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.2').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
