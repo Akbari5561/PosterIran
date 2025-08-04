@@ -69,14 +69,14 @@
         content: '';
         position: absolute;
         border-radius: 50%;
-        background: #FFFFFF;
+        background: #00A2FF;
         animation: bubble 20s infinite ease-in-out alternate;
     }
     #mainSection::after {
     content: '';
     position: absolute;
     border-radius: 50%;
-    background: #FFFFFF;
+    background: #00A2FF;
     animation: bubble 15s infinite ease-in-out alternate;
 }
     #mainSection::before {
@@ -430,7 +430,7 @@
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
     <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #1976d2; font-weight: bold;">  (مشاهده در نقشه)</a></p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #29B6F6; font-weight: bold;">  (مشاهده در نقشه)</a></p>
     <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
     <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
   </div>
@@ -1227,7 +1227,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.2').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.3').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
