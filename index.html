@@ -33,19 +33,32 @@
       direction: rtl;
       background: #E3F2FD; /* Softer background#543AFB */
       color: #333;
-      padding: 5000; /* Remove default body padding */
-      margin: 5000; /* Remove default body margin */
+      padding: 0; /* Remove default body padding */
+      margin: 0; /* Remove default body margin */
       display: flex;
       flex-direction: column;
       min-height: 100vh; /* Ensure body takes full viewport height */
       align-items: center; /* Center content horizontally */
       justify-content: center; /* Center content vertically */
+      position: relative; /* Add this to position particles relative to body */
     }
-    
+
+    /* Particles.js container styling */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #030C41; /* Dark blue background color for the particles */
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+      z-index: -1; /* Ensure particles are behind the content */
+    }
 
     /* Enhanced Hero Section for the main page */
     #mainSection {
-        margin-top: 0; /* Remove default margin from old style */
+        margin-top: 0;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -55,54 +68,24 @@
         max-width: 900px; /* Max width for content */
         padding: 40px 20px; /* More padding */
         box-sizing: border-box;
-        background: linear-gradient(135deg, #030C41 20%, #067FB5 100%); /* Blue gradient background */
+        background: rgba(6, 127, 181, 0.5); /* Semi-transparent blue background */
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* More prominent shadow */
         text-align: center;
         position: relative;
-        overflow: hidden; /* Hide overflowing pseudo-elements */
+        z-index: 1; /* Ensure content is on top */
     }
-
-    /* Animated background circles (optional, for extra graphical appeal) */
     
-    #mainSection::before {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-        background: #00A2FF;
-        animation: bubble 20s infinite ease-in-out alternate;
-    }
-    #mainSection::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: #00A2FF;
-    animation: bubble 15s infinite ease-in-out alternate;
-}
-    #mainSection::before {
-        width: 150px; height: 150px;
-        top: -30px; left: 200px;
-        animation-delay: 0s;
-    }
-    #mainSection::after {
-        width: 200px; height: 200px;
-        bottom: -60px; right: 190px;
-        animation-delay: 0s;
-    }
-    @keyframes bubble {
-        0% { transform: scale(1.4) translate(0, 0); opacity: 0; }
-        50% { transform: scale(1.2) translate(70px, -40px); opacity: 0.9; }
-        100% { transform: scale(0.8) translate(0, 0); opacity: 0.7; }
-    }
     .main-title-container {
-        margin-bottom: -30px;
-        padding: 15px 30px;
+        margin-bottom: -10px;
+        padding: 0px 0px;
         /*background-color: rgba(255, 255, 255, 1);
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 2, 13, 0.66);
-        backdrop-filter: blur(5px);*/ پس زمینه لوگو و تیتر خاموش شد
+        backdrop-filter: blur(5px);*/ /* پس زمینه لوگو و تیتر خاموش شد */
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-direction: column; /* Stack logo, h1, h2 */
         position: relative; /* Ensure it's above pseudo-elements */
         z-index: 1; /* Bring to front */
@@ -137,7 +120,7 @@
         z-index: 1; /* Bring to front */
     }
     #address {
-        پس زمینه آدرس خاموش شد
+        /* پس زمینه آدرس خاموش شد */
         /*background: rgba(255, 255, 255, 1);
         padding: 2px;
         border-radius: 10px;
@@ -162,12 +145,15 @@
         color: #1976D2;
     }
 
-    #loginSection {
+    #loginSection, #clearCartButtonSection {
         margin-top: 40px;
         display: flex;
         gap: 20px; /* Space between buttons */
         position: relative; /* Add this */
         z-index: 2; /* Add this: Higher z-index to be above pseudo-elements */
+    }
+    #clearCartButtonSection {
+        margin-top: 20px;
     }
     button {
     background-color: #2196f3;
@@ -235,7 +221,7 @@
     .quantity-input {
       padding: 8px;
       border-radius: 6px;
-      border: 1px solid #CCCCCC;
+      border: 1px solid #ccc;
       margin: 5px;
       width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
       min-width: 50px; /* حداقل عرض مجاز */
@@ -249,7 +235,7 @@
         display: none;
     }
     #cartSection {
-      background: #fff; بکگراند سبد خرید
+      background: #fff; /* بکگراند سبد خرید */
       padding: 15px;
       border-radius: 10px;
       text-align: right;
@@ -335,7 +321,7 @@
     align-items: center;
     width: 100%;
     padding: 10px 0;
-    background-color: #e0e7ff;بکگراند انتخاب گروه
+    background-color: #e0e7ff;/*بکگراند انتخاب گروه*/
     border-top: 1px solid #c3d4e6;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
     z-index: 1000;
@@ -416,10 +402,44 @@
     from {transform: scale(0)}
     to {transform: scale(1)}
   }
+    
+    /* CSS برای اعلان‌های سبد خرید */
+    #notification-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999; /* افزایش z-index برای نمایش در بالاترین لایه */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+    }
+    .notification {
+      background-color: rgba(33, 150, 243, 0.9); /* آبی */
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0; /* Start invisible */
+      transform: translateY(20px); /* Start slightly below */
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      font-size: 0.9em;
+      direction: rtl;
+    }
+    .notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .notification.hide {
+        opacity: 0;
+        transform: translateY(20px);
+    }
   </style>
   
 </head>
 <body>
+
+<div id="particles-js"></div>
 
 <div id="mainSection">
   <div class="main-title-container">
@@ -430,7 +450,7 @@
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
     <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #29B6F6; font-weight: bold;">  (مشاهده در نقشه)</a></p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #1976d2; font-weight: bold;">  (مشاهده در نقشه)</a></p>
     <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
     <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
   </div>
@@ -438,9 +458,9 @@
     <button onclick="enterAsUser()">ورود به گالری</button>
     <button onclick="showScreen('cart')">سبد خرید 🛒</button>
   </div>
-  <div id="loginSection">
+  <div id="clearCartButtonSection">
     <button onclick="clearCart()" class="clear-cart-btn">ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</button>
-    
+   
 </div>
 </div>
 
@@ -496,6 +516,122 @@
   <div id="caption" style="margin: auto; display: block; width: 80%; text-align: center; color: #ccc; padding: 10px 0; height: 150px;"></div>
 </div>
 
+<div id="notification-container"></div>
+<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+/* particles.js config */
+particlesJS('particles-js', {
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "polygon": {
+        "nb_sides": 5
+      },
+      "image": {
+        "src": "img/github.svg",
+        "width": 100,
+        "height": 100
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 0.5,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true
+});
+</script>
+
 <script>
 const groupInfo = {
   1: {
@@ -534,64 +670,56 @@ const groupInfo = {
     filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", /*"برنامه روزانه.jpg"*/, /*"برنامه هفتگی.jpg"*/, "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg"]
   },
   6: {
-    name: "سایر محصولات",
-        images: [
-            { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
-            { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
-            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
-            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
-            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
-            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
-            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-            /*{ filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 10 }, // محصول با مضرب 10*/
-            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 50 }, // محصول با مضرب 10
-        ],
-        type: "variable-count", // نوع جدید برای کنترل تعداد متغیر
-        defaultQtyMultiplier: 12 // مضرب پیش‌فرض برای این گروه
-    }
-};
-
-// Quantities must be sorted ascending
+    name: "سایر محصولات", // این خط اضافه شد تا نام گروه نمایش داده شود
+    images: [
+      { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
+      { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
+      { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
+      { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
+      { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
+      { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
+      { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
+      /*{ filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 10 }, // محصول با مضرب 10*/
+      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 50 }, // محصول با مضرب 10
+    ],
+    type: "variable-count", // نوع جدید برای کنترل تعداد متغیر
+    defaultQtyMultiplier: 12 // مضرب پیش‌فرض برای این گروه
+  }
+}; // Quantities must be sorted ascending
 // این آرایه دیگر به طور مستقیم برای dropdown سایر محصولات استفاده نمی‌شود
 const allowedQuantities = [0, 10, 20, 30, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-
 // تعریف حداکثر تعداد مجاز برای "سایر محصولات"
 const MAX_QTY_OTHER_PRODUCTS = 1200;
-
 // --- Screen Management ---
 const screens = {
-    main: document.getElementById('mainSection'),
-    gallery: document.getElementById('gallery'),
-    cart: document.getElementById('cartSection')
+  main: document.getElementById('mainSection'),
+  gallery: document.getElementById('gallery'),
+  cart: document.getElementById('cartSection')
 };
-
 function showScreen(screenName) {
-    // Hide all screens
-    for (let key in screens) {
-        screens[key].style.display = 'none';
-    }
-
-    // Show the requested screen
-    screens[screenName].style.display = 'flex'; // Use flex for these sections
-
-    // Update history for back button support
-    // Only push state if not going back via popstate or already on the screen
-    if (history.state === null || history.state.screen !== screenName) {
-        history.pushState({ screen: screenName }, '', `#${screenName}`);
-    }
-
-    // Specific actions for each screen
-    if (screenName === 'gallery') {
-        const currentGroupId = document.getElementById('bottomGroupSelect').value; // Get current selected group
-        loadGroup(currentGroupId); // Reload current group
-    } else if (screenName === 'cart') {
-        renderCartList();
-        loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
-        // Reset send options when entering cart section
-        document.getElementById('sendOptions').style.display = 'none';
-        document.getElementById('submitOrderBtn').style.display = 'block';
-    }
+  // Hide all screens
+  for (let key in screens) {
+    screens[key].style.display = 'none';
+  }
+  // Show the requested screen
+  screens[screenName].style.display = 'flex'; // Use flex for these sections
+  // Update history for back button support
+  // Only push state if not going back via popstate or already on the screen
+  if (history.state === null || history.state.screen !== screenName) {
+    history.pushState({ screen: screenName }, '', `#${screenName}`);
+  }
+  // Specific actions for each screen
+  if (screenName === 'gallery') {
+    const currentGroupId = document.getElementById('bottomGroupSelect').value; // Get current selected group
+    loadGroup(currentGroupId); // Reload current group
+  } else if (screenName === 'cart') {
+    renderCartList();
+    loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
+    // Reset send options when entering cart section
+    document.getElementById('sendOptions').style.display = 'none';
+    document.getElementById('submitOrderBtn').style.display = 'block';
+  }
 }
 
 // Handle browser's back button
@@ -726,7 +854,7 @@ function loadGroup(groupId) {
         const box = document.createElement("div");
         box.className = "image-box";
         box.innerHTML = `
-            <img src="${imagePath}" alt="${itemName}" onclick="enlargeImage('${imagePath}', '${itemName}')">
+            <img src="${imagePath}" alt="${itemName}" onclick="enlargeImage('${imagePath}', '${itemName}')" loading="lazy">
             <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
             <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
             <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
@@ -745,6 +873,30 @@ function loadGroup(groupId) {
     document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// تابع جدید برای نمایش اعلان‌ها
+function showNotification(message) {
+    const container = document.getElementById('notification-container');
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    container.appendChild(notification);
+    
+    // Force reflow to trigger animation
+    void notification.offsetWidth;
+    
+    // Add show class to trigger fade-in
+    notification.classList.add('show');
+    
+    // Automatically remove after 4 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        notification.classList.add('hide');
+        setTimeout(() => {
+            notification.remove();
+        }, 500); // Match CSS transition duration
+    }, 4000);
+}
+
 function addToCart(groupId, filename) {
     const info = groupInfo[groupId];
     const itemUniqueId = `${groupId}-${filename}`;
@@ -758,9 +910,16 @@ function addToCart(groupId, filename) {
 
     // مضرب صحیح برای این آیتم را پیدا می‌کنیم
     let qtyMultiplier = 1; // پیش‌فرض 1 برای گروه‌های معمولی
+    let itemToAdd = {}; // Declare outside the if block
     if (isVariableCountGroup) {
-        const itemInGroup = info.images.find(img => img.filename === filename);
-        qtyMultiplier = itemInGroup ? (itemInGroup.qtyMultiplier || info.defaultQtyMultiplier) : info.defaultQtyMultiplier;
+        itemToAdd = info.images.find(img => img.filename === filename);
+        qtyMultiplier = itemToAdd ? (itemToAdd.qtyMultiplier || info.defaultQtyMultiplier) : info.defaultQtyMultiplier;
+    } else {
+        itemToAdd = {
+            filename: filename,
+            name: filename.replace(/\.jpg$/, '').replace(/\.jpeg$/i, ''),
+            price: info.price
+        };
     }
 
     // اعتبارسنجی کلی برای مقدار ورودی
@@ -786,13 +945,8 @@ function addToCart(groupId, filename) {
         qtySelect.value = selectedQty; // بروزرسانی dropdown
     }
 
-    // پیدا کردن اطلاعات کامل محصول برای اضافه کردن به سبد
-    const itemToAdd = isVariableCountGroup ? info.images.find(img => img.filename === filename) : {
-        filename: filename,
-        name: filename.replace(/\.jpg$/, '').replace(/\.jpeg$/i, ''),
-        price: info.price
-    };
-
+    const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
+    
     if (selectedQty === 0) { // اگر 0 انتخاب شد، یعنی حذف از سبد
         if (cart.has(itemUniqueId)) {
             removeFromCart(itemUniqueId, false); // false = don't show confirmation
@@ -806,9 +960,15 @@ function addToCart(groupId, filename) {
             price: itemToAdd.price,
             qty: selectedQty
         });
+        saveCart();
+        
+        if (selectedQty > previousQty) {
+          showNotification(`${itemToAdd.name} به سبد خرید اضافه شد.`);
+        } else {
+          showNotification(`تعداد ${itemToAdd.name} در سبد خرید به ${selectedQty} عدد تغییر یافت.`);
+        }
     }
     
-    saveCart();
     
     // به‌روزرسانی نمایش "موجود در سبد" در صفحه گالری برای آیتم خاص
     let inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
@@ -819,41 +979,63 @@ function addToCart(groupId, filename) {
 }
 
 function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
+    const [groupId, filename] = itemUniqueId.split('-');
+    const info = groupInfo[groupId];
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (parseInt(groupId) === 6);
+    let itemInGroup;
+    if (isVariableCountGroup) {
+      itemInGroup = info.images.find(img => img.filename === filename);
+    } else {
+      itemInGroup = { name: filename.replace(/\.jpg$/, '').replace(/\.jpeg$/i, '') };
+    }
+
     let newQty = parseInt(selectElement.value);
-    const [groupId, filename] = itemUniqueId.split('-'); // استخراج groupId
-    const isOtherProductsGroup = (parseInt(groupId) === 6); // بررسی اگر گروه 6 است
 
     if (isNaN(newQty) || newQty < 0) {
         console.error("Invalid quantity selected from dropdown.");
         renderCartList();
         return;
     }
+    
+    const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
 
-    // اعمال محدودیت 1200 فقط برای گروه "سایر محصولات"
     if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
         alert(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
-        newQty = MAX_QTY_OTHER_PRODUCTS; // محدود کردن به 1200
-        selectElement.value = newQty; // بروزرسانی مقدار dropdown
+        newQty = MAX_QTY_OTHER_PRODUCTS;
+        selectElement.value = newQty;
     }
     
     if (newQty === 0) {
-    removeFromCart(itemUniqueId, false); // با اضافه کردن false, سوال تایید پرسیده نمی‌شود
-} else {
+        // Find the item before removing it to get its name for the notification
+        const itemToRemove = cart.get(itemUniqueId);
+        if (itemToRemove) {
+            removeFromCart(itemUniqueId, false); // Don't show confirmation
+        }
+        // اعلان حذف فقط در تابع removeFromCart نمایش داده می شود، بنابراین اینجا تکرار نمی‌شود
+    } else {
         let item = cart.get(itemUniqueId);
         item.qty = newQty;
         cart.set(itemUniqueId, item);
         saveCart();
         renderCartList();
+        showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${newQty} عدد تغییر یافت.`);
     }
 }
 
 function removeFromCart(itemUniqueId, showConfirm = true) {
+    // Get the item's name before deleting it from the cart
+    const itemToRemove = cart.get(itemUniqueId);
+    if (!itemToRemove) return;
+
     if (showConfirm && !confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
         return;
     }
+
     cart.delete(itemUniqueId);
     saveCart();
     renderCartList();
+    showNotification(`${itemToRemove.name} از سبد خرید حذف شد.`);
 
     if (document.getElementById('gallery').style.display === 'flex') {
         const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
@@ -872,7 +1054,7 @@ function clearCart() {
         cart.clear();
         saveCart();
         renderCartList();
-        alert('سبد خرید شما پاک شد.');
+        showNotification('سبد خرید شما پاک شد.');
         if (document.getElementById('gallery').style.display === 'flex') {
             loadGroup(document.getElementById('bottomGroupSelect').value);
         }
@@ -1227,7 +1409,7 @@ window.onload = function() {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.3').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) { /* اینجا ورژن را به روز کنید */
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
@@ -1236,7 +1418,7 @@ window.onload = function() {
     }
 </script>
 
-<footer style="text-align: center; margin-top: 10px;">
+<footer style="text-align: center; margin-top: 10px; color: white;">
     <p>All rights reserved for Poster Iran © 2025</p>
 </footer>
 </body>
