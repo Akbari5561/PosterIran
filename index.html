@@ -4,21 +4,17 @@
   <meta charset="UTF-8">
   <title>پوستر ایران</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" href="/icons/favicon.ico?v=1.0" type="image/x-icon">
   <link rel="shortcut icon" href="/icons/favicon.ico?v=1.0" type="image/x-icon">
-
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=1.0">
   <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png?v=1.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png?v=1.0">
   <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167x167.png?v=1.0">
-
   <link rel="manifest" href="/icons/manifest.json?v=1.0">
   <meta name="theme-color" content="#2196f3">
-
   <meta property="og:title" content="پوستر ایران">
   <meta property="og:description" content="چاپ انواع پوسترهای آموزشی">
   <meta property="og:image" content="/icons/og-image.jpg?v=1.0">
@@ -383,7 +379,7 @@
   /* CSS برای اعلان‌های سبد خرید */
     #notification-container {
       position: fixed;
-      bottom: 20px;
+      top: 20px;
       right: 20px;
       z-index: 1000; /* Layer 5: Notifications */
       display: flex;
@@ -398,7 +394,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       opacity: 0; /* Start invisible */
-      transform: translateY(20px); /* Start slightly below */
+      transform: translateY(-20px); /* Start slightly below */
       transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
       font-size: 0.9em;
       direction: rtl;
@@ -409,7 +405,39 @@
     }
     .notification.hide {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-20px);
+    }
+    /* استایل برای فرم اطلاعات مشتری */
+    .customer-info-form {
+      margin-top: 20px;
+      text-align: right;
+      background-color: #fffde7;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+    .customer-info-form h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .customer-info-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .customer-info-form input[type="text"],
+    .customer-info-form input[type="tel"],
+    .customer-info-form textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .customer-info-form textarea {
+      resize: vertical;
     }
   </style>
   
@@ -427,30 +455,30 @@
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
     <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #1976d2; font-weight: bold;">  (مشاهده در نقشه)</a></p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #4FC3F7; font-weight: bold;">  (مشاهده در نقشه)</a></p>
     <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
     <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
   </div>
   <div id="loginSection">
-    <button onclick="enterAsUser()">ورود به گالری</button>
-    <button onclick="showScreen('cart')">سبد خرید 🛒</button>
+    <button id="enterAsUserBtn">ورود به گالری</button>
+    <button id="showCartBtn">سبد خرید 🛒</button>
   </div>
   <div id="clearCartButtonSection">
-    <button onclick="clearCart()" class="clear-cart-btn">ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</button>
    
 </div>
 </div>
 
 <div id="adminLogin">
   <input type="password" id="adminPassword" placeholder="رمز ورود ادمین">
-  <button onclick="loginAsAdmin()">ورود ادمین</button>
+  <button id="loginAsAdminBtn">ورود ادمین</button>
 </div>
 
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
   <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه :</label>
-    <select id="bottomGroupSelect" class="group-select-fixed" onchange="changeGroup(this.value)">
+    <select id="bottomGroupSelect" class="group-select-fixed">
       <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
       <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
       <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
@@ -459,28 +487,28 @@
       <option value="6">سایر محصولات</option>
     </select>
   </div>
-  <button onclick="showScreen('cart')">سبد خرید 🛒</button>
+  <button id="showCartGalleryBtn">سبد خرید 🛒</button>
 </div> </div>
 <div id="cartSection">
   <h3>سبد خرید 🛒</h3>
   <div id="cartList"></div>
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
-  <div class="customer-info-form" style="margin-top: 20px; text-align: right; background-color: #fffde7; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-    <h4 style="margin-top: 0; margin-bottom: 15px; color: #333;">اطلاعات مشتری:</h4>
-    <label for="customerName" style="display: block; margin-bottom: 5px; font-weight: bold;">نام و نام خانوادگی:</label>
-    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+  <div class="customer-info-form">
+    <h4>اطلاعات مشتری:</h4>
+    <label for="customerName">نام و نام خانوادگی:</label>
+    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required>
 
-    <label for="customerPhone" style="display: block; margin-bottom: 5px; font-weight: bold;">شماره موبایل:</label>
-    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;" inputmode="numeric">
+    <label for="customerPhone">شماره موبایل:</label>
+    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" inputmode="numeric">
 
-    <label for="customerAddress" style="display: block; margin-bottom: 5px; font-weight: bold;">آدرس کامل تحویل:</label>
-    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required style="width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
+    <label for="customerAddress">آدرس کامل تحویل:</label>
+    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required></textarea>
   </div>
 
-  <button onclick="submitOrderWithWhatsApp()" id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ 🟢</button>
-  <button onclick="clearCart()" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
-  <button onclick="showScreen('gallery')" style="background-color: #00acc1;">بازگشت به گالری</button>
+  <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
+  <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
+  <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری</button>
   
 </div>
 
@@ -604,41 +632,85 @@ particlesJS('particles-js', {
 const groupInfo = {
   1: {
     name: "سایز ۲۹×۲۱ دوروچاپ",
-    count: 22, // تعداد فایل‌های این گروه
     price: 100000,
-    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: ["الفبای فارسی و انگلیسی.jpg", "جدول تناوبی عناصر.jpg", /*"اعداد همراه با ساعت و محور.jpg"*/, /*"آموزش اعداد.jpg"*/, "آموزش زمان و ساعت.jpg", /*"آموزش زمان وساعت 2.jpg"*/, /*"آموزش ضرب و تقسیم.jpg"*/, "تمرین ضرب و تقسیم.jpg", "جدول دوستی تمرینی.jpg", "جدول دوستی کامل.jpg", "حساب آموز اول (افقی).jpg", /*"حساب آموز اول (عمودی).jpg"*/, "حساب آموز دوم (افقی).jpg", "حساب آموز دوم (عمودی).jpg", "حساب آموز پایه سوم.jpg", "ضرب و تمرین ضرب.jpg", "محیط و مساحت اشکال هندسی.jpg"]
+    images: [
+      { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+      { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+      { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
+      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+      { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+      { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+      { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
+      { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
+      { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },
+      { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+      { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+    ]
   },
   2: {
     name: "سایز ۵۰×۳۵ یکروچاپ",
-    count: 4, // تعداد فایل‌های این گروه
     price: 100000,
-    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: ["الفبای فارسی و شکل صداها.jpg", "جدول دوستی.jpg", "جدول ضرب کد 350.jpg", "جدول ضرب کد 351.jpg"]
+    images: [
+      { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
+      { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+      { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+      { filename: "جدول ضرب کد 351.jpg", name: "جدول ضرب کد 351" },
+    ]
   },
   3: {
     name: "سایز ۵۰×۳۵ دوروچاپ",
-    count: 9, // تعداد فایل‌های این گروه
     price: 200000,
-    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: ["اعداد همراه ساعت و محور.jpg", "الفبای فارسی و انگلیسی.jpg", "آموزش ضرب و تقسیم.jpg", "تمرین ضرب و تقسیم.jpg", "جدول تناوبی عناصر.jpg", "جدول جمع و تفریق.jpg", "جدول دوستی تمرینی.jpg",/* "جدول دوستی کامل.jpg"*/, "آموزش زمان و ساعت.jpg"]
+    images: [
+      { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+      { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+      { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
+      { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
+      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+      { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
+      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+      { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+    ]
   },
   4: {
     name: "سایز ۷۰×۵۰ یکروچاپ",
-    count: 12, // تعداد فایل‌های این گروه
     price: 200000,
-    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: [/*الفبای فارسی"  شکل دار.jpg"*/, "الفبای فارسی بدون شکل.jpg", "اعداد 1 تا 100.jpg", "اعداد ده دهی.jpg", "اعداد یک تا ده.jpg", "الفبای انگلیسی.jpg", "جدول جمع.jpg", "جدول تفریق.jpg", "جدول ضرب.jpg", "جدول تقسیم.jpg", "جدول تناوبی عناصر.jpg", "جدول دوستی.jpg"]
+    images: [
+      { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+      { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
+      { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
+      { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
+      { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+      { filename: "جدول جمع.jpg", name: "جدول جمع" },
+      { filename: "جدول تفریق.jpg", name: "جدول تفریق" },
+      { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
+      { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
+      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+      { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+    ]
   },
   5: {
     name: "سایز ۷۰×۵۰ یووی‌دار",
-    count: 15, // تعداد فایل‌های این گروه
     price: 250000,
-    // اضافه کردن لیست نام فایل‌های رندوم برای این گروه
-    filenames: ["شهرک الفبا.jpg", "جدول دوستی تمرینی.jpg", "آناتومی بدن انسان.jpg", "بدن من.jpg", /*"برنامه روزانه.jpg"*/, /*"برنامه هفتگی.jpg"*/, "شکل صداها و الفبای فارسی.jpg", "آموزش زمان وساعت.jpg", "ضرب تمرینی ستونی.jpg", "ضرب تمرینی مربعی.jpg", "محیط و مساحت اشکال هندسی.jpg", "منظومه خورشیدی.jpg", "نقشه ایران.jpg", "نقشه جهان.jpg"]
+    images: [
+      { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
+      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+      { filename: "آناتومی بدن انسان.jpg", name: "آناتومی بدن انسان" },
+      { filename: "بدن من.jpg", name: "بدن من" },
+      { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
+      { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
+      { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
+      { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+      { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+      { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
+      { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
+      { filename: "نقشه جهان.jpg", name: "نقشه جهان" },
+    ]
   },
   6: {
-    name: "سایر محصولات", // این خط اضافه شد تا نام گروه نمایش داده شود
+    name: "سایر محصولات",
+    type: "variable-count",
+    defaultQtyMultiplier: 12,
     images: [
       { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
       { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
@@ -647,51 +719,41 @@ const groupInfo = {
       { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
       { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
       { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-      /*{ filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 10 }, // محصول با مضرب 10*/
-      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 50 }, // محصول با مضرب 10
+      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 50 },
     ],
-    type: "variable-count", // نوع جدید برای کنترل تعداد متغیر
-    defaultQtyMultiplier: 12 // مضرب پیش‌فرض برای این گروه
   }
-}; // Quantities must be sorted ascending
-// این آرایه دیگر به طور مستقیم برای dropdown سایر محصولات استفاده نمی‌شود
+};
 const allowedQuantities = [0, 10, 20, 30, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-// تعریف حداکثر تعداد مجاز برای "سایر محصولات"
 const MAX_QTY_OTHER_PRODUCTS = 1200;
-// --- Screen Management ---
+
 const screens = {
   main: document.getElementById('mainSection'),
   gallery: document.getElementById('gallery'),
   cart: document.getElementById('cartSection')
 };
+
 function showScreen(screenName) {
-  // Hide all screens
   for (let key in screens) {
     screens[key].style.display = 'none';
   }
-  // Show the requested screen
-  screens[screenName].style.display = 'flex'; // Use flex for these sections
-  // Update history for back button support
-  // Only push state if not going back via popstate or already on the screen
+  screens[screenName].style.display = 'flex';
+  
   if (history.state === null || history.state.screen !== screenName) {
     history.pushState({ screen: screenName }, '', `#${screenName}`);
   }
-  // Specific actions for each screen
+
   if (screenName === 'gallery') {
-    const currentGroupId = document.getElementById('bottomGroupSelect').value; // Get current selected group
-    loadGroup(currentGroupId); // Reload current group
+    const currentGroupId = document.getElementById('bottomGroupSelect').value;
+    loadGroup(currentGroupId);
   } else if (screenName === 'cart') {
     renderCartList();
-    loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
-    // Reset send options when entering cart section
+    loadCustomerInfo();
   }
 }
 
-// Handle browser's back button
 window.addEventListener('popstate', (event) => {
     if (event.state && event.state.screen) {
-        // Restore previous screen based on history state
         for (let key in screens) {
             screens[key].style.display = 'none';
         }
@@ -701,69 +763,46 @@ window.addEventListener('popstate', (event) => {
             loadGroup(currentGroupId);
         } else if (event.state.screen === 'cart') {
             renderCartList();
-            loadCustomerInfo(); // <--- این خط را برای بارگذاری اطلاعات مشتری اضافه کنید
-            // Reset send options when going back to cart
+            loadCustomerInfo();
         }
     } else {
-        // Fallback to main screen if no state (e.g., initial load or direct URL)
         showScreen('main');
     }
 });
 
-
-function enterAsUser() {
-  showScreen('gallery');
-  // Sync selected group in both dropdowns
-  loadGroup(1); // Load the first group by default
+function showNotification(message) {
+    const container = document.getElementById('notification-container');
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    container.appendChild(notification);
+    void notification.offsetWidth;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        notification.classList.add('hide');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 4000);
 }
 
-function showAdminLogin() {
-  // Hide initial login button and address/subtitle
-  document.getElementById("loginSection").style.display = "none";
-  document.getElementById("subtitle").style.display = "none";
-  document.getElementById("address").style.display = "none";
-  // Show admin login form
-  document.getElementById("adminLogin").style.display = "flex";
-}
-
-function loginAsAdmin() {
-  const pass = document.getElementById("adminPassword").value;
-  if (pass === "Alireza55") {
-    alert("علیرضا خوش آمدید!");
-    // You might want to navigate to an admin panel or hide this form
-    // For now, it just shows an alert
-  } else {
-    alert("ورود شما مجاز نیست");
-  }
-}
-
-function changeGroup(val) {
-  // Sync both dropdowns when one changes
-  document.getElementById('bottomGroupSelect').value = val;
-  // Make sure to update the value of both dropdowns if there were two,
-  // but based on your HTML, only bottomGroupSelect is present for group selection.
-  // If you add a topGroupSelect, uncomment and adjust the line below:
-  // document.getElementById('topGroupSelect').value = val;
-  loadGroup(parseInt(val));
-}
-
-// تابع کمکی برای تولید گزینه‌ها برای dropdown تعداد
-function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) { // پارامتر جدید isOtherProductsGroup
+function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
     let optionsHtml = '';
-    const maxQtyForOtherProducts = MAX_QTY_OTHER_PRODUCTS; // استفاده از ثابت
+    const maxQtyForOtherProducts = MAX_QTY_OTHER_PRODUCTS;
 
-    if (isOtherProductsGroup) { // برای گروه "سایر محصولات"
+    if (isOtherProductsGroup) {
         optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
-        // تولید گزینه تا 1200 با گام qtyMultiplier
         for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) {
             optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
         }
-    } else if (qtyMultiplier > 1) { // اگر qtyMultiplier بیشتر از 1 باشه (برای گروه‌های variable-count ولی نه گروه 6)
+    } else if (qtyMultiplier > 1) {
         optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
-        for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) { // تا 5000 عدد تولید میشه، می‌تونید حداکثر رو تنظیم کنید
+        for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) {
             optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
         }
-    } else { // منطق قبلی برای allowedQuantities ثابت (گروه‌های معمولی)
+    } else {
         allowedQuantities.forEach(qty => {
             optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
         });
@@ -773,19 +812,25 @@ function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProducts
 
 function loadGroup(groupId) {
     const container = document.getElementById("imagesContainer");
-    container.innerHTML = ""; // پاک کردن تصاویر قبلی
-    const info = groupInfo[groupId]; // این 'info' آبجکت گروه فعلی شماست
+    container.innerHTML = "";
+    
+    const info = groupInfo[groupId];
+    if (!info) {
+        console.error(`Group with ID ${groupId} not found. Cannot load images.`);
+        return;
+    }
 
-    // بررسی می‌کنیم که آیا این گروه از نوع 'variable-count' هست یا نه
     const isVariableCountGroup = info.type === 'variable-count';
-    const isOtherProductsGroup = (groupId === 6); // تشخیص گروه "سایر محصولات"
+    const isOtherProductsGroup = (groupId === '6');
 
-    // یک آرایه متحد برای محصولات ایجاد می‌کنیم تا حلقه forEach به صورت یکسان کار کنه
-    const itemsToRender = isVariableCountGroup ? info.images : info.filenames.map(f => ({
-        filename: f,
-        name: f.replace(/\.jpg$/, '').replace(/\.jpeg$/i, ''), // حذف پسوند jpg یا jpeg
-        price: info.price
-    }));
+    const itemsToRender = info.images.map(item => {
+        const itemPrice = item.price || info.price; // Get price from item or group
+        return {
+            filename: item.filename,
+            name: item.name,
+            price: itemPrice
+        };
+    });
 
     itemsToRender.forEach(item => {
         const filename = item.filename;
@@ -796,11 +841,9 @@ function loadGroup(groupId) {
 
         const itemUniqueId = `${groupId}-${filename}`;
         const currentCartItem = cart.get(itemUniqueId);
-        // تعداد اولیه: اگر در سبد خرید بود، از تعداد اون استفاده میشه، در غیر این صورت 0.
         const initialQty = currentCartItem ? currentCartItem.qty : 0; 
 
-        // مضرب برای این آیتم: اگر در گروه variable-count بود، از مضرب خاص محصول یا پیش‌فرض گروه استفاده می‌کنیم. در غیر این صورت 1.
-        const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
+        const qtyMultiplier = isVariableCountGroup ? (info.images.find(img => img.filename === filename).qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
 
         const box = document.createElement("div");
         box.className = "image-box";
@@ -811,7 +854,7 @@ function loadGroup(groupId) {
             <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
                 <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
                     <label for="qty-select-${itemUniqueId}">تعداد :</label>
-                    <select id="qty-select-${itemUniqueId}" class="quantity-select" onchange="addToCart('${groupId}', '${filename}')">
+                    <select id="qty-select-${itemUniqueId}" class="quantity-select">
                         ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
                     </select>
                 </div>
@@ -822,106 +865,82 @@ function loadGroup(groupId) {
     });
 
     document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// تابع جدید برای نمایش اعلان‌ها
-function showNotification(message) {
-    const container = document.getElementById('notification-container');
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.textContent = message;
-    container.appendChild(notification);
     
-    // Force reflow to trigger animation
-    void notification.offsetWidth;
-    
-    // Add show class to trigger fade-in
-    notification.classList.add('show');
-    
-    // Automatically remove after 4 seconds
-    setTimeout(() => {
-        notification.classList.remove('show');
-        notification.classList.add('hide');
-        setTimeout(() => {
-            notification.remove();
-        }, 500); // Match CSS transition duration
-    }, 4000);
+    // Attach event listeners to newly created selects
+    itemsToRender.forEach(item => {
+        const itemUniqueId = `${groupId}-${item.filename}`;
+        const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+        if (qtySelect) {
+            qtySelect.addEventListener('change', () => addToCart(groupId, item.filename));
+        }
+    });
 }
 
 function addToCart(groupId, filename) {
     const info = groupInfo[groupId];
     const itemUniqueId = `${groupId}-${filename}`;
     
-    const isVariableCountGroup = info.type === 'variable-count'; // برای تشخیص نوع گروه (جهت دریافت مضرب)
-    const isOtherProductsGroup = (parseInt(groupId) === 6); // تشخیص گروه "سایر محصولات"
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (parseInt(groupId) === 6);
 
-    // همیشه از select مقدار را می‌خوانیم
     const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
-    let selectedQty = parseInt(qtySelect.value); // استفاده از let به جای const برای امکان تغییر
+    let selectedQty = parseInt(qtySelect.value);
 
-    // مضرب صحیح برای این آیتم را پیدا می‌کنیم
-    let qtyMultiplier = 1; // پیش‌فرض 1 برای گروه‌های معمولی
-    let itemToAdd = {}; // Declare outside the if block
-    if (isVariableCountGroup) {
-        itemToAdd = info.images.find(img => img.filename === filename);
-        qtyMultiplier = itemToAdd ? (itemToAdd.qtyMultiplier || info.defaultQtyMultiplier) : info.defaultQtyMultiplier;
-    } else {
-        itemToAdd = {
-            filename: filename,
-            name: filename.replace(/\.jpg$/, '').replace(/\.jpeg$/i, ''),
-            price: info.price
-        };
+    // Find the specific item in the group
+    const itemInGroup = info.images.find(img => img.filename === filename);
+    if (!itemInGroup) {
+        console.error(`Item with filename ${filename} not found in group ${groupId}.`);
+        return;
     }
 
-    // اعتبارسنجی کلی برای مقدار ورودی
+    // Determine the price based on whether the item has its own price or uses the group price
+    const itemPrice = itemInGroup.price || info.price;
+    
+    const qtyMultiplier = isVariableCountGroup ? (itemInGroup.qtyMultiplier || info.defaultQtyMultiplier) : 1;
+    
     if (isNaN(selectedQty) || selectedQty < 0) {
-        alert("لطفا تعداد معتبری را انتخاب کنید.");
-        selectedQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0; // بازگشت به مقدار قبلی
+        showNotification("لطفا تعداد معتبری را انتخاب کنید.");
+        selectedQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
         qtySelect.value = selectedQty;
         return;
     }
     
-    // اعتبارسنجی مضرب (فقط برای گروه‌های variable-count)
     if (isVariableCountGroup && (selectedQty % qtyMultiplier !== 0)) {
-        alert(`برای این محصول، تعداد باید مضربی از ${qtyMultiplier} باشد.`);
-        // اگر مضرب رعایت نشده بود، dropdown را به مقدار قبلی یا 0 (برای حذف) برمی‌گردانیم
+        showNotification(`برای این محصول، تعداد باید مضربی از ${qtyMultiplier} باشد.`);
         qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0; 
         return;
     }
 
-    // اعتبارسنجی محدودیت 1200 فقط برای گروه "سایر محصولات"
     if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) { 
-        alert(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
-        selectedQty = MAX_QTY_OTHER_PRODUCTS; // محدود کردن به 1200
-        qtySelect.value = selectedQty; // بروزرسانی dropdown
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        selectedQty = MAX_QTY_OTHER_PRODUCTS;
+        qtySelect.value = selectedQty;
     }
 
     const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
     
-    if (selectedQty === 0) { // اگر 0 انتخاب شد، یعنی حذف از سبد
+    if (selectedQty === 0) {
         if (cart.has(itemUniqueId)) {
-            removeFromCart(itemUniqueId, false); // false = don't show confirmation
+            removeFromCart(itemUniqueId, false);
         }
     } else {
         cart.set(itemUniqueId, {
             groupId: groupId,
             filename: filename,
             groupName: info.name,
-            name: itemToAdd.name,
-            price: itemToAdd.price,
+            name: itemInGroup.name,
+            price: itemPrice, // Correctly assigns the price
             qty: selectedQty
         });
         saveCart();
         
         if (selectedQty > previousQty) {
-          showNotification(`${itemToAdd.name} به سبد خرید اضافه شد.`);
+          showNotification(`${itemInGroup.name} به سبد خرید اضافه شد.`);
         } else {
-          showNotification(`تعداد ${itemToAdd.name} در سبد خرید به ${selectedQty} عدد تغییر یافت.`);
+          showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${selectedQty} عدد تغییر یافت.`);
         }
     }
     
-    
-    // به‌روزرسانی نمایش "موجود در سبد" در صفحه گالری برای آیتم خاص
     let inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
 
     if (inCartDisplayElement) {
@@ -938,7 +957,7 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
     if (isVariableCountGroup) {
       itemInGroup = info.images.find(img => img.filename === filename);
     } else {
-      itemInGroup = { name: filename.replace(/\.jpg$/, '').replace(/\.jpeg$/i, '') };
+      itemInGroup = info.images.find(img => img.filename === filename);
     }
 
     let newQty = parseInt(selectElement.value);
@@ -949,21 +968,17 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
         return;
     }
     
-    const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
-
     if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
-        alert(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
         newQty = MAX_QTY_OTHER_PRODUCTS;
         selectElement.value = newQty;
     }
     
     if (newQty === 0) {
-        // Find the item before removing it to get its name for the notification
         const itemToRemove = cart.get(itemUniqueId);
         if (itemToRemove) {
-            removeFromCart(itemUniqueId, false); // Don't show confirmation
+            removeFromCart(itemUniqueId, false);
         }
-        // اعلان حذف فقط در تابع removeFromCart نمایش داده می شود، بنابراین اینجا تکرار نمی‌شود
     } else {
         let item = cart.get(itemUniqueId);
         item.qty = newQty;
@@ -975,7 +990,6 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
 }
 
 function removeFromCart(itemUniqueId, showConfirm = true) {
-    // Get the item's name before deleting it from the cart
     const itemToRemove = cart.get(itemUniqueId);
     if (!itemToRemove) return;
 
@@ -1012,38 +1026,26 @@ function clearCart() {
     }
 }
 
-// تابع جدید برای محاسبه درصد تخفیف بر اساس مبلغ کل
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) {
-        return 0.10; // 10%
-    } else if (totalAmount >= 900000000) {
-    return 0.09; // 9%
-    } else if (totalAmount >= 800000000) {
-        return 0.08; // 8%
-    } else if (totalAmount >= 700000000) {
-    return 0.07; // 7%
-    } else if (totalAmount >= 600000000) {
-        return 0.06; // 6%
-    } else if (totalAmount >= 500000000) {
-        return 0.05; // 5%
-    } else if (totalAmount >= 400000000) {
-        return 0.04; // 4%
-    } else if (totalAmount >= 300000000) {
-        return 0.03; // 3%
-    } else if (totalAmount >= 100000000) {
-        return 0.02; // 2%
-    } else {
-        return 0; // No discount
-    }
+    if (totalAmount >= 1000000000) return 0.10;
+    else if (totalAmount >= 900000000) return 0.09;
+    else if (totalAmount >= 800000000) return 0.08;
+    else if (totalAmount >= 700000000) return 0.07;
+    else if (totalAmount >= 600000000) return 0.06;
+    else if (totalAmount >= 500000000) return 0.05;
+    else if (totalAmount >= 400000000) return 0.04;
+    else if (totalAmount >= 300000000) return 0.03;
+    else if (totalAmount >= 100000000) return 0.02;
+    else return 0;
 }
 
 function renderCartList() {
     const list = document.getElementById("cartList");
-    const totalDisplay = document.getElementById("totalPrice"); // Changed variable name to avoid conflict
+    const totalDisplay = document.getElementById("totalPrice");
     list.innerHTML = "";
     let grouped = {};
     let groupedSummaries = {};
-    let totalSumBeforeDiscount = 0; // Initial total before any discount
+    let totalSumBeforeDiscount = 0;
 
     if (cart.size === 0) {
         list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
@@ -1054,7 +1056,7 @@ function renderCartList() {
     cart.forEach(item => {
         if (!grouped[item.groupName]) grouped[item.groupName] = [];
         grouped[item.groupName].push(item);
-        totalSumBeforeDiscount += item.qty * item.price; // Calculate total before discount
+        totalSumBeforeDiscount += item.qty * item.price;
 
         if (!groupedSummaries[item.groupName]) {
             groupedSummaries[item.groupName] = {
@@ -1067,9 +1069,9 @@ function renderCartList() {
     });
 
     for (let groupName in grouped) {
-        list.innerHTML += `<h4 style="margin-top: 15px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px;">${groupName}</h4>`;
-        grouped[groupName].forEach(item => {
-            const itemUniqueId = `${item.groupId}-${item.filename}`;
+    list.innerHTML += `<h4 style="margin-top: 45px; margin-bottom: 0px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px; color: #4CAF50;">${groupName}</h4>`;
+    grouped[groupName].forEach(item => {
+                const itemUniqueId = `${item.groupId}-${item.filename}`;
             
             const group = groupInfo[item.groupId]; 
             let itemDetail = null;
@@ -1077,13 +1079,13 @@ function renderCartList() {
                 itemDetail = group.images.find(img => img.filename === item.filename);
             }
             const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
-            const isOtherProductsGroup = (parseInt(item.groupId) === 6); // تشخیص گروه 6 در سبد خرید
+            const isOtherProductsGroup = (parseInt(item.groupId) === 6);
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
             itemDiv.innerHTML = `
                 <div class="cart-item-info">
-                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.filename.replace(/\.(jpeg|jpg)$/i, '')}</p>
+                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.name}</p>
                 </div>
                 <div class="quantity-control">
                     <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
@@ -1109,38 +1111,33 @@ function renderCartList() {
     }
     list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
 
-// ADDED: Display total before discount here
-list.innerHTML += `
+    list.innerHTML += `
         <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #e0f2f7;">
             <p style="font-weight: bold; margin: 0;">مبلغ کل : ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
         </div>
     `;
 
-// --- Discount Calculation ---
-const discountRate = calculateDiscountPercentage(totalSumBeforeDiscount);
-const discountAmount = totalSumBeforeDiscount * discountRate;
-let totalSumAfterDiscount = totalSumBeforeDiscount - discountAmount;
+    const discountRate = calculateDiscountPercentage(totalSumBeforeDiscount);
+    const discountAmount = totalSumBeforeDiscount * discountRate;
+    let totalSumAfterDiscount = totalSumBeforeDiscount - discountAmount;
 
-if (discountAmount > 0) {
-    list.innerHTML += `
+    if (discountAmount > 0) {
+        list.innerHTML += `
             <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
                 <p style="font-weight: bold; margin: 0; color: #e65100;">🎁 تخفیف (${discountAmount.toLocaleString()} ریال)</p>
                 <p style="margin: 0; font-size: 0.9em;">مبلغ پس از تخفیف: ${totalSumAfterDiscount.toLocaleString()} ریال</p>
             </div>
             <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
         `;
-}
-
+    }
 
     const baseShippingThreshold = 100000000; 
     const costPerThreshold = 600000;     
     let calculatedShippingCost = 0;
     let shippingDisplayMessage = "";
     
-    // Shipping calculation based on totalSumAfterDiscount
     if (totalSumAfterDiscount === 0) {
         calculatedShippingCost = 0;
-        
         shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
     } else {
         const numberOfThresholds = Math.ceil(totalSumAfterDiscount / baseShippingThreshold);
@@ -1153,7 +1150,7 @@ if (discountAmount > 0) {
             <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
         </div>
     `;
-    const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost; // Final total includes discount and shipping
+    const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost;
     totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
 }
 
@@ -1161,30 +1158,30 @@ function saveCart() {
   localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
 }
 
-const orderPhoneNumber = "989010195885"; // شماره تماس با پیش‌شماره ایران
+const orderPhoneNumber = "989010195885";
 
-function submitOrderWithWhatsApp() {
-    if (cart.size === 0) {
-        alert('سبد خرید شما خالی است.');
-        return;
-    }
-
+function validateCustomerInfo() {
     const customerName = document.getElementById('customerName').value.trim();
     const customerPhone = document.getElementById('customerPhone').value.trim();
     const customerAddress = document.getElementById('customerAddress').value.trim();
 
     if (!customerName || !customerPhone || !customerAddress) {
-        alert('لطفاً نام و نام خانوادگی، شماره موبایل و آدرس کامل تحویل را وارد کنید.');
-        return;
+        showNotification('لطفاً نام و نام خانوادگی، شماره موبایل و آدرس کامل تحویل را وارد کنید.');
+        return false;
     }
     
-    // Store customer info in local storage
     localStorage.setItem('customerName', customerName);
     localStorage.setItem('customerPhone', customerPhone);
     localStorage.setItem('customerAddress', customerAddress);
+    return true;
+}
 
-    // --- Generate the message content ---
+function generateOrderMessage() {
     let message = "🛍️ سفارش من :  \n";
+    const customerName = document.getElementById('customerName').value.trim();
+    const customerPhone = document.getElementById('customerPhone').value.trim();
+    const customerAddress = document.getElementById('customerAddress').value.trim();
+    
     message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
     message += `📱 شماره موبایل: ${customerPhone}\n`;
     message += `📍 آدرس تحویل: ${customerAddress}\n`;
@@ -1208,7 +1205,7 @@ function submitOrderWithWhatsApp() {
     for (let groupName in groupedItems) {
         message += `\n• ${groupName}  :\n`;
         groupedItems[groupName].forEach(item => {
-            message += `  - ${item.filename.replace(/\.(jpeg|jpg)$/i, '')} - تعداد: ${item.qty} عدد\n`;
+            message += `  - ${item.name} - تعداد: ${item.qty} عدد\n`;
         });
     }
 
@@ -1249,32 +1246,36 @@ function submitOrderWithWhatsApp() {
     message += shippingMessage;
     message += `\n💰 مبلغ نهایی قابل پرداخت: ${finalTotalAmountWithShipping.toLocaleString()} ریال`;
     message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
+    return message;
+}
 
+
+function submitOrderWithWhatsApp() {
+    if (cart.size === 0) {
+        showNotification('سبد خرید شما خالی است.');
+        return;
+    }
+    if (!validateCustomerInfo()) {
+        return;
+    }
+    
+    const message = generateOrderMessage();
     const whatsappUrl = `https://wa.me/${orderPhoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
-// این قسمت را برای بارگذاری اطلاعات مشتری هنگام بارگذاری صفحه یا نمایش سبد خرید اضافه کنید
 function loadCustomerInfo() {
     const customerName = localStorage.getItem('customerName');
     const customerPhone = localStorage.getItem('customerPhone');
     const customerAddress = localStorage.getItem('customerAddress');
     
-    if (customerName) {
-        document.getElementById('customerName').value = customerName;
-    }
-    if (customerPhone) {
-        document.getElementById('customerPhone').value = customerPhone;
-    }
-    if (customerAddress) {
-        document.getElementById('customerAddress').value = customerAddress;
-    }
+    if (customerName) document.getElementById('customerName').value = customerName;
+    if (customerPhone) document.getElementById('customerPhone').value = customerPhone;
+    if (customerAddress) document.getElementById('customerAddress').value = customerAddress;
 }
 
-// window.onload را برای بارگذاری اطلاعات مشتری تغییر دهید
-window.onload = function() {
-    // Check if there's a specific screen in the URL hash, otherwise show 'main'
-    const initialHash = window.location.hash.substring(1); // Remove '#'
+function handleLoad() {
+    const initialHash = window.location.hash.substring(1);
     if (initialHash && screens[initialHash]) {
         showScreen(initialHash);
     } else {
@@ -1282,15 +1283,27 @@ window.onload = function() {
     }
     history.replaceState({ screen: initialHash || 'main' }, '', `#${initialHash || 'main'}`);
     renderCartList();
-    loadCustomerInfo(); // <--- این خط را برای بارگذاری اولیه اضافه کنید
-};
+    loadCustomerInfo();
+
+    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); loadGroup(1); });
+    document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
+    document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
+    document.getElementById('loginAsAdminBtn').addEventListener('click', () => loginAsAdmin());
+    document.getElementById('bottomGroupSelect').addEventListener('change', (e) => loadGroup(parseInt(e.target.value)));
+    document.getElementById('showCartGalleryBtn').addEventListener('click', () => showScreen('cart'));
+    document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
+    document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
+    document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
+}
+
+window.addEventListener('load', handleLoad);
 
 </script>
 </div>
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.2').then(function(registration) { /* اینجا ورژن را به روز کنید */
+            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
