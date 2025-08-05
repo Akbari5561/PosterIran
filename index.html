@@ -64,7 +64,7 @@
         max-width: 900px; /* Max width for content */
         padding: 40px 20px; /* More padding */
         box-sizing: border-box;
-        background: rgba(6, 127, 181, 0.5); /* Semi-transparent blue background */
+        background: #067FB580; /* Semi-transparent blue background */
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* More prominent shadow */
         text-align: center;
@@ -184,19 +184,20 @@
   }
     /* Style for the Group Selection dropdown */
     .group-select-fixed {
-    width: 150px;   /* عرض ثابت برای دروپ‌داون گروه */
-    min-width: 120px; /* حداقل عرض */
-    max-width: 200px; /* حداکثر عرض */
-    padding: 4px;
-    border-radius: 6px;
-    border: 1px solid #FF0000;
-    margin: 5px;
-    box-sizing: border-box; /* برای محاسبه درست عرض */
-    text-align: right; /* متن راست‌چین باشه */
+        width: 180px;
+        min-width: 120px;
+        max-width: 200px;
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #FF0000;
+        margin: 5px;
+        box-sizing: border-box;
+        text-align: right;
+        font-size: 17px; /* فاندازه فونت را به ۱۷ پیکسل تغییر دادیم */
     }
     /* Main sections styling */
     #adminLogin, #gallery, #cartSection {
-        margin-top: 20px;
+        margin-top: 10px; فاصله گالری از بالا
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
         flex-direction: column; /* For consistent layout */
@@ -240,13 +241,21 @@
       box-sizing: border-box; /* Include padding/border in width */
     }
 
-    .image-container {
+    /* تغییرات: استفاده از کلاس جدید برای ظرف تصاویر داخل گالری */
+    .image-container-inner {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
-      flex-grow: 1; /* Allow container to grow */
+      flex-grow: 1;
+    }
+    
+    /* تغییرات: استایل عنوان گروه */
+    #gallery h2 {
+      text-align: center;
+      color: #1976D2;
+      margin: 20px 0;
     }
 
     img {
@@ -269,7 +278,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 0;
+        padding: 6px 0;
         border-bottom: 1px dashed #eee;
     }
     .cart-item:last-child {
@@ -295,7 +304,7 @@
         font-weight: bold;
     }
     .cart-item-actions button {
-      margin-left: 5px;
+      margin-left: 50px;
     }
     /* Controls at the top/bottom of gallery */
   .gallery-controls {
@@ -304,17 +313,17 @@
     justify-content: center; /* آیتم‌ها را در مرکز قرار می‌دهد */
     align-items: center;
     width: 100%;
-    padding: 10px 0;
-    background-color: #e0e7ff;/*بکگراند انتخاب گروه*/
-    border-top: 1px solid #c3d4e6;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    padding: 1px 0;
+    background-color: #BBDFF7;/*بکگراند انتخاب گروه*/
+    border-top: 2px solid #292C4B;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
     z-index: 100; /* Layer 4: Sticky gallery controls */
     gap: 10px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
 }
   .group-selection-wrapper {
       display: flex; /* این div خودش یک فلکس‌کانتینر می‌شود */
       align-items: center;
-      gap: 5px; /* فاصله بین لیبل و سلکت دروپ‌داون */
+      gap: 10px; /* فاصله بین لیبل و سلکت دروپ‌داون */
       margin-right: 10px; /* فاصله از دکمه "سبد خرید" (اگر در یک ردیف باشد) */
   }
     #gallery-bottom-controls {
@@ -335,7 +344,7 @@
     }
     .in-cart-display { 
         font-size: 0.85em; /*موجود در سبد*/
-        color: #007BFF; /* Blue color for in-cart message */
+        color: #4FC3F7; /* Blue color for in-cart message */
         font-weight: bold;
         margin-right: 0; /* Removed this as it's no longer next to select */
     }
@@ -388,7 +397,7 @@
       max-width: 300px;
     }
     .notification {
-      background-color: rgba(33, 150, 243, 0.9); /* آبی */
+      background-color: #2196F3E6; /* آبی */
       color: white;
       padding: 15px;
       border-radius: 8px;
@@ -455,7 +464,7 @@
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
     <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #4FC3F7; font-weight: bold;">  (مشاهده در نقشه)</a></p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;">  (مشاهده در نقشه)</a></p>
     <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
     <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
   </div>
@@ -477,8 +486,9 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه :</label>
+  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ⬅️</label>
     <select id="bottomGroupSelect" class="group-select-fixed">
+      <option value="all">همه محصولات</option>
       <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
       <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
       <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
@@ -508,7 +518,7 @@
 
   <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
-  <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری</button>
+  <button id="showGalleryCartBtn" style="background-color: #2196f3;">↩️بازگشت به  گالری</button>
   
 </div>
 
@@ -812,68 +822,106 @@ function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProducts
 
 function loadGroup(groupId) {
     const container = document.getElementById("imagesContainer");
-    container.innerHTML = "";
+    const isAllProducts = groupId === 'all';
     
-    const info = groupInfo[groupId];
-    if (!info) {
-        console.error(`Group with ID ${groupId} not found. Cannot load images.`);
-        return;
+    if (isAllProducts) {
+        container.innerHTML = `<h2>همه محصولات</h2>
+                               <div class="image-container-inner"></div>`;
+        const imagesContainerInner = document.querySelector(".image-container-inner");
+        
+        for (const id in groupInfo) {
+            if (groupInfo.hasOwnProperty(id)) {
+                const info = groupInfo[id];
+                imagesContainerInner.innerHTML += `<h3 style="width: 100%; text-align: center; margin-top: 25px; color: #1976D2;">${info.name}</h3>`;
+                
+                info.images.forEach(item => {
+                    const itemPrice = item.price || info.price;
+                    const imagePath = `Image/${info.name}/${item.filename}`;
+                    const itemUniqueId = `${id}-${item.filename}`;
+                    const currentCartItem = cart.get(itemUniqueId);
+                    const initialQty = currentCartItem ? currentCartItem.qty : 0;
+                    const isVariableCountGroup = info.type === 'variable-count';
+                    const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
+                    const isOtherProductsGroup = (id === '6');
+
+                    const box = document.createElement("div");
+                    box.className = "image-box";
+                    box.innerHTML = `
+                        <img src="${imagePath}" alt="${item.name}" loading="lazy">
+                        <p style="font-weight: bold; margin-bottom: 5px;">${item.name}</p>
+                        <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
+                            <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                                <label for="qty-select-${itemUniqueId}">تعداد :</label>
+                                <select id="qty-select-${itemUniqueId}" class="quantity-select">
+                                    ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                                </select>
+                            </div>
+                            <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+                        </div>
+                    `;
+                    imagesContainerInner.appendChild(box);
+                });
+            }
+        }
+    } else {
+        const info = groupInfo[groupId];
+        if (!info) {
+            console.error(`Group with ID ${groupId} not found. Cannot load images.`);
+            container.innerHTML = "";
+            return;
+        }
+
+        container.innerHTML = `<h2>${info.name}</h2>
+                               <div class="image-container-inner"></div>`;
+        const imagesContainerInner = document.querySelector(".image-container-inner");
+        const isVariableCountGroup = info.type === 'variable-count';
+        const isOtherProductsGroup = (groupId === '6');
+
+        info.images.forEach(item => {
+            const itemPrice = item.price || info.price;
+            const filename = item.filename;
+            const itemName = item.name;
+            const imagePath = `Image/${info.name}/${filename}`;
+            const itemUniqueId = `${groupId}-${filename}`;
+            const currentCartItem = cart.get(itemUniqueId);
+            const initialQty = currentCartItem ? currentCartItem.qty : 0;
+            const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
+            
+            const box = document.createElement("div");
+            box.className = "image-box";
+            box.innerHTML = `
+                <img src="${imagePath}" alt="${itemName}" loading="lazy">
+                <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
+                <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
+                <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
+                    <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                        <label for="qty-select-${itemUniqueId}">تعداد :</label>
+                        <select id="qty-select-${itemUniqueId}" class="quantity-select">
+                            ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                        </select>
+                    </div>
+                    <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+                </div>
+            `;
+            imagesContainerInner.appendChild(box);
+        });
     }
 
-    const isVariableCountGroup = info.type === 'variable-count';
-    const isOtherProductsGroup = (groupId === '6');
-
-    const itemsToRender = info.images.map(item => {
-        const itemPrice = item.price || info.price; // Get price from item or group
-        return {
-            filename: item.filename,
-            name: item.name,
-            price: itemPrice
-        };
-    });
-
-    itemsToRender.forEach(item => {
-        const filename = item.filename;
-        const itemName = item.name;
-        const itemPrice = item.price;
-        
-        const imagePath = `Image/${info.name}/${filename}`; 
-
-        const itemUniqueId = `${groupId}-${filename}`;
-        const currentCartItem = cart.get(itemUniqueId);
-        const initialQty = currentCartItem ? currentCartItem.qty : 0; 
-
-        const qtyMultiplier = isVariableCountGroup ? (info.images.find(img => img.filename === filename).qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
-
-        const box = document.createElement("div");
-        box.className = "image-box";
-        box.innerHTML = `
-            <img src="${imagePath}" alt="${itemName}" loading="lazy">
-            <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p> 
-            <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
-            <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
-                <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                    <label for="qty-select-${itemUniqueId}">تعداد :</label>
-                    <select id="qty-select-${itemUniqueId}" class="quantity-select">
-                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
-                    </select>
-                </div>
-                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
-            </div>
-        `;
-        container.appendChild(box);
-    });
-
-    document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    
-    // Attach event listeners to newly created selects
-    itemsToRender.forEach(item => {
-        const itemUniqueId = `${groupId}-${item.filename}`;
-        const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
-        if (qtySelect) {
-            qtySelect.addEventListener('change', () => addToCart(groupId, item.filename));
+    // Attach event listeners to newly created selects (for both 'all' and single group)
+    for (const id in groupInfo) {
+        if (groupInfo.hasOwnProperty(id)) {
+            groupInfo[id].images.forEach(item => {
+                const itemUniqueId = `${id}-${item.filename}`;
+                const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+                if (qtySelect) {
+                    qtySelect.addEventListener('change', () => addToCart(id, item.filename));
+                }
+            });
         }
-    });
+    }
+    
+    document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function addToCart(groupId, filename) {
@@ -1285,11 +1333,11 @@ function handleLoad() {
     renderCartList();
     loadCustomerInfo();
 
-    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); loadGroup(1); });
+    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); loadGroup('all'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
     document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
     document.getElementById('loginAsAdminBtn').addEventListener('click', () => loginAsAdmin());
-    document.getElementById('bottomGroupSelect').addEventListener('change', (e) => loadGroup(parseInt(e.target.value)));
+    document.getElementById('bottomGroupSelect').addEventListener('change', (e) => loadGroup(e.target.value));
     document.getElementById('showCartGalleryBtn').addEventListener('click', () => showScreen('cart'));
     document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
@@ -1303,7 +1351,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
