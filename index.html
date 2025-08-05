@@ -183,17 +183,17 @@
       text-align: center; /* متن داخلش وسط‌چین بشه */
   }
     /* Style for the Group Selection dropdown */
-    .group-select-fixed {
-        width: 180px;
-        min-width: 120px;
+    .group-select-fixed { دروپ‌داون انتخاب گروه
+        width: 160px;
+        min-width: 100px;
         max-width: 200px;
-        padding: 6px;
+        padding: 3px;
         border-radius: 6px;
-        border: 1px solid #FF0000;
+        border: 2px solid #29B6F6;
         margin: 5px;
         box-sizing: border-box;
         text-align: right;
-        font-size: 17px; /* فاندازه فونت را به ۱۷ پیکسل تغییر دادیم */
+        font-size: 16px; /* فاندازه فونت را به ۱۶ پیکسل تغییر دادیم */
     }
     /* Main sections styling */
     #adminLogin, #gallery, #cartSection {
@@ -518,7 +518,7 @@
 
   <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
-  <button id="showGalleryCartBtn" style="background-color: #2196f3;">↩️بازگشت به  گالری</button>
+  <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
   
 </div>
 
@@ -1351,7 +1351,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
