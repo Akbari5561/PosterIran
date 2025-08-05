@@ -183,7 +183,7 @@
       text-align: center; /* متن داخلش وسط‌چین بشه */
   }
     /* Style for the Group Selection dropdown */
-    .group-select-fixed { دروپ‌داون انتخاب گروه
+    .group-select-fixed { /* دروپ‌داون انتخاب گروه */
         width: 160px;
         min-width: 100px;
         max-width: 200px;
@@ -197,7 +197,7 @@
     }
     /* Main sections styling */
     #adminLogin, #gallery, #cartSection {
-        margin-top: 10px; فاصله گالری از بالا
+        margin-top: 10px; /* فاصله گالری از بالا */
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
         flex-direction: column; /* For consistent layout */
@@ -448,6 +448,29 @@
     .customer-info-form textarea {
       resize: vertical;
     }
+    
+    /* NEW: Apple Watch style time display */
+    .apple-watch-time {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-family: 'SF Pro Display', 'Vazirmatn', sans-serif;
+      font-weight: 500;
+      font-size: 1.2em;
+      padding: 8px 12px;
+      border-radius: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .apple-watch-time img {
+        height: 20px;
+        width: 20px;
+        border-radius: 0;
+    }
   </style>
   
 </head>
@@ -456,6 +479,10 @@
 <div id="particles-js"></div>
 
 <div id="mainSection">
+  <div class="apple-watch-time">
+      <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Apple Watch">
+      <span id="currentTime"></span>
+  </div>
   <div class="main-title-container">
     <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
@@ -930,17 +957,17 @@ function addToCart(groupId, filename) {
     
     const isVariableCountGroup = info.type === 'variable-count';
     const isOtherProductsGroup = (parseInt(groupId) === 6);
-
+    
     const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
     let selectedQty = parseInt(qtySelect.value);
-
+    
     // Find the specific item in the group
     const itemInGroup = info.images.find(img => img.filename === filename);
     if (!itemInGroup) {
         console.error(`Item with filename ${filename} not found in group ${groupId}.`);
         return;
     }
-
+    
     // Determine the price based on whether the item has its own price or uses the group price
     const itemPrice = itemInGroup.price || info.price;
     
@@ -955,16 +982,16 @@ function addToCart(groupId, filename) {
     
     if (isVariableCountGroup && (selectedQty % qtyMultiplier !== 0)) {
         showNotification(`برای این محصول، تعداد باید مضربی از ${qtyMultiplier} باشد.`);
-        qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0; 
+        qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
         return;
     }
-
-    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) { 
+    
+    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
         showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
         selectedQty = MAX_QTY_OTHER_PRODUCTS;
         qtySelect.value = selectedQty;
     }
-
+    
     const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
     
     if (selectedQty === 0) {
@@ -983,14 +1010,16 @@ function addToCart(groupId, filename) {
         saveCart();
         
         if (selectedQty > previousQty) {
-          showNotification(`${itemInGroup.name} به سبد خرید اضافه شد.`);
+            showNotification(`${itemInGroup.name} به سبد خرید اضافه شد.`);
+        } else if (selectedQty < previousQty) {
+            showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${selectedQty} عدد کاهش یافت.`);
         } else {
-          showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${selectedQty} عدد تغییر یافت.`);
+            showNotification(`تعداد ${itemInGroup.name} در سبد خرید تغییری نکرد و ${selectedQty} عدد باقی ماند.`);
         }
     }
     
     let inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
-
+    
     if (inCartDisplayElement) {
         inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
     }
@@ -1342,6 +1371,21 @@ function handleLoad() {
     document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
     document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
+    
+    // NEW: Function to update time
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const timeElement = document.getElementById('currentTime');
+      if (timeElement) {
+        timeElement.textContent = `${hours}:${minutes}`;
+      }
+    }
+    
+    // NEW: Update time every minute
+    updateTime();
+    setInterval(updateTime, 60000);
 }
 
 window.addEventListener('load', handleLoad);
@@ -1351,7 +1395,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.1').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
