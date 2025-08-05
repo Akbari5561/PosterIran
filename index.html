@@ -183,7 +183,7 @@
       text-align: center; /* متن داخلش وسط‌چین بشه */
   }
     /* Style for the Group Selection dropdown */
-    .group-select-fixed { /* دروپ‌داون انتخاب گروه */
+    .group-select-fixed { دروپ‌داون انتخاب گروه
         width: 160px;
         min-width: 100px;
         max-width: 200px;
@@ -197,7 +197,7 @@
     }
     /* Main sections styling */
     #adminLogin, #gallery, #cartSection {
-        margin-top: 10px; /* فاصله گالری از بالا */
+        margin-top: 10px; فاصله گالری از بالا
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
         flex-direction: column; /* For consistent layout */
@@ -448,29 +448,6 @@
     .customer-info-form textarea {
       resize: vertical;
     }
-    
-    /* NEW: Apple Watch style time display */
-    .apple-watch-time {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      font-family: 'SF Pro Display', 'Vazirmatn', sans-serif;
-      font-weight: 500;
-      font-size: 1.2em;
-      padding: 8px 12px;
-      border-radius: 12px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .apple-watch-time img {
-        height: 20px;
-        width: 20px;
-        border-radius: 0;
-    }
   </style>
   
 </head>
@@ -479,10 +456,6 @@
 <div id="particles-js"></div>
 
 <div id="mainSection">
-  <div class="apple-watch-time">
-      <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Apple Watch">
-      <span id="currentTime"></span>
-  </div>
   <div class="main-title-container">
     <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
@@ -521,7 +494,7 @@
       <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
       <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
       <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-      <option value="6">سایر محصولات</option>
+      
     </select>
   </div>
   <button id="showCartGalleryBtn">سبد خرید 🛒</button>
@@ -1371,21 +1344,6 @@ function handleLoad() {
     document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
     document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
-    
-    // NEW: Function to update time
-    function updateTime() {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const timeElement = document.getElementById('currentTime');
-      if (timeElement) {
-        timeElement.textContent = `${hours}:${minutes}`;
-      }
-    }
-    
-    // NEW: Update time every minute
-    updateTime();
-    setInterval(updateTime, 60000);
 }
 
 window.addEventListener('load', handleLoad);
@@ -1395,7 +1353,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.1').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.2').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
