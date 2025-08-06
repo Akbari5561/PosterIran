@@ -943,7 +943,7 @@ function loadGroup(groupId) {
             const box = document.createElement("div");
             box.className = "image-box";
             box.innerHTML = `
-                <img src="${imagePath}" alt="${itemName}" loading="lazy" onclick="openImageModal('${imagePath}')">
+                <img src="${imagePath}" alt="${itemName}" onclick="openImageModal('${imagePath}')">
                 <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
                 <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
                 <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
@@ -1448,7 +1448,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
