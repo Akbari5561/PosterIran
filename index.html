@@ -140,6 +140,7 @@
     }
     #clearCartButtonSection {
         margin-top: 20px;
+        display: none; /* Hide by default, show with JS */
     }
     button {
     background-color: #2196f3;
@@ -265,6 +266,7 @@
       height: auto; /* Reverted to auto for original aspect ratio */
       border-radius: 8px;
       margin-bottom: 5px;
+      cursor: pointer; /* اضافه شدن این خط برای نشان دادن قابلیت کلیک */
     }
 
     select, input[type="password"] {
@@ -450,6 +452,49 @@
     .customer-info-form textarea {
       resize: vertical;
     }
+
+    /* Modal for image zoom */
+    .image-modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1001; /* Should be on top of everything */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-modal-content {
+      position: relative;
+      margin: auto;
+      display: block;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
   
 </head>
@@ -522,6 +567,11 @@
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
   
+</div>
+
+<div id="image-modal" class="image-modal">
+  <span class="close" onclick="closeImageModal()">×</span>
+  <img class="image-modal-content" id="modal-image">
 </div>
 
 <div id="notification-container"></div>
@@ -762,6 +812,7 @@ function showScreen(screenName) {
     renderCartList();
     loadCustomerInfo();
   }
+  checkCartState();
 }
 
 window.addEventListener('popstate', (event) => {
@@ -777,6 +828,7 @@ window.addEventListener('popstate', (event) => {
             renderCartList();
             loadCustomerInfo();
         }
+        checkCartState();
     } else {
         showScreen('main');
     }
@@ -840,7 +892,7 @@ function loadGroup(groupId) {
                     const itemPrice = item.price || info.price;
                     const imagePath = `Image/${info.name}/${item.filename}`;
                     const itemUniqueId = `${id}-${item.filename}`;
-                    const currentCartItem = cart.get(itemUniqueId);
+                    const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
                     const initialQty = currentCartItem ? currentCartItem.qty : 0;
                     const isVariableCountGroup = info.type === 'variable-count';
                     const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
@@ -849,7 +901,7 @@ function loadGroup(groupId) {
                     const box = document.createElement("div");
                     box.className = "image-box";
                     box.innerHTML = `
-                        <img src="${imagePath}" alt="${item.name}" loading="lazy">
+                        <img src="${imagePath}" alt="${item.name}" loading="lazy" onclick="openImageModal('${imagePath}')">
                         <p style="font-weight: bold; margin-bottom: 5px;">${item.name}</p>
                         <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
                         <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
@@ -886,14 +938,14 @@ function loadGroup(groupId) {
             const itemName = item.name;
             const imagePath = `Image/${info.name}/${filename}`;
             const itemUniqueId = `${groupId}-${filename}`;
-            const currentCartItem = cart.get(itemUniqueId);
+            const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
             const initialQty = currentCartItem ? currentCartItem.qty : 0;
             const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
             
             const box = document.createElement("div");
             box.className = "image-box";
             box.innerHTML = `
-                <img src="${imagePath}" alt="${itemName}" loading="lazy">
+                <img src="${imagePath}" alt="${itemName}" loading="lazy" onclick="openImageModal('${imagePath}')">
                 <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
                 <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
                 <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
@@ -998,6 +1050,7 @@ function addToCart(groupId, filename) {
     if (inCartDisplayElement) {
         inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
     }
+    checkCartState();
 }
 
 function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
@@ -1039,6 +1092,7 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
         renderCartList();
         showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${newQty} عدد تغییر یافت.`);
     }
+    checkCartState();
 }
 
 function removeFromCart(itemUniqueId, showConfirm = true) {
@@ -1064,6 +1118,7 @@ function removeFromCart(itemUniqueId, showConfirm = true) {
             }
         }
     }
+    checkCartState();
 }
 
 function clearCart() {
@@ -1075,6 +1130,7 @@ function clearCart() {
         if (document.getElementById('gallery').style.display === 'flex') {
             loadGroup(document.getElementById('bottomGroupSelect').value);
         }
+        checkCartState();
     }
 }
 
@@ -1205,6 +1261,7 @@ function renderCartList() {
         </div>
     `;
     totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
+    checkCartState();
 }
 
 function saveCart() {
@@ -1327,6 +1384,28 @@ function loadCustomerInfo() {
     if (customerAddress) document.getElementById('customerAddress').value = customerAddress;
 }
 
+// Image Modal Functions
+function openImageModal(imageSrc) {
+  const modal = document.getElementById("image-modal");
+  const modalImg = document.getElementById("modal-image");
+  modal.style.display = "flex";
+  modalImg.src = imageSrc;
+}
+
+function closeImageModal() {
+  const modal = document.getElementById("image-modal");
+  modal.style.display = "none";
+}
+
+function checkCartState() {
+  const clearCartBtnSection = document.getElementById('clearCartButtonSection');
+  if (cart.size > 0) {
+    clearCartBtnSection.style.display = 'flex';
+  } else {
+    clearCartBtnSection.style.display = 'none';
+  }
+}
+
 function handleLoad() {
     const initialHash = window.location.hash.substring(1);
     if (initialHash && screens[initialHash]) {
@@ -1337,6 +1416,7 @@ function handleLoad() {
     history.replaceState({ screen: initialHash || 'main' }, '', `#${initialHash || 'main'}`);
     renderCartList();
     loadCustomerInfo();
+    checkCartState();
 
     document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); loadGroup('all'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
@@ -1356,7 +1436,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
