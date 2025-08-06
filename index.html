@@ -313,22 +313,21 @@
     /* Controls at the top/bottom of gallery */
   .gallery-controls {
       display: flex;
-    flex-wrap: wrap; /* اجازه می‌دهیم آیتم‌ها به خط بعدی شکسته شوند */
-    justify-content: center; /* آیتم‌ها را در مرکز قرار می‌دهد */
-    align-items: center;
-    width: 100%;
-    padding: 1px 0;
-    background-color: #BBDFF7;/*بکگراند انتخاب گروه*/
-    border-top: 2px solid #292C4B;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
-    z-index: 100; /* Layer 4: Sticky gallery controls */
-    gap: 10px; /* فاصله بین آیتم‌های اصلی فلکس (wrapper و دکمه) */
+      flex-direction: column; /* تغییر جدید برای چیدمان عمودی */
+      align-items: center; /* عناصر را در مرکز قرار می‌دهد */
+      gap: 10px; /* فاصله بین آیتم‌های فلکس */
+      width: 100%;
+      padding: 10px 0;
+      background-color: #BBDFF7;/*بکگراند انتخاب گروه*/
+      border-top: 2px solid #292C4B;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+      z-index: 100; /* Layer 4: Sticky gallery controls */
 }
   .group-selection-wrapper {
-      display: flex; /* این div خودش یک فلکس‌کانتینر می‌شود */
+      display: flex;
       align-items: center;
-      gap: 10px; /* فاصله بین لیبل و سلکت دروپ‌داون */
-      margin-right: 10px; /* فاصله از دکمه "سبد خرید" (اگر در یک ردیف باشد) */
+      gap: 10px;
+      margin-right: 0; /* حذف margin */
   }
     #gallery-bottom-controls {
         margin-top: auto; /* Push to bottom of gallery content */
@@ -352,42 +351,38 @@
         font-weight: bold;
         margin-right: 0; /* Removed this as it's no longer next to select */
     }
-    
+    /* New style for the wrapper of home and cart buttons in gallery */
+    .gallery-button-wrapper {
+        display: flex;
+        gap: 20px; /* Space between buttons, similar to main page */
+        align-items: center;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+    }
 @media (max-width: 600px) {
     .image-box {
         width: calc(50% - 15px); /* Changed for two-column layout on mobile */ /*برای دو آیتم در هر سطر با در نظر گرفتن gap !*/
     }
    .gallery-controls {
-    display: flex; /* مطمئن شوید که flexbox فعال است */
-    flex-wrap: wrap; /* اجازه می‌دهد آیتم‌ها به سطر بعدی منتقل شوند */
-    gap: 5px; /* فاصله بین آیتم‌ها */
-    justify-content: space-around; /* یا center برای تراز وسط */
-    align-items: flex-start; /* یا stretch بسته به نیاز */
+    flex-direction: column; /* Force column layout on mobile */
+    gap: 10px; /* Add some space between rows */
 }
-
-/* برای هر آیتم داخل gallery-controls */
-.gallery-controls > * {
-    flex: 1 1 calc(50% - 10px); /* برای دو آیتم در هر سطر با در نظر گرفتن gap */
-    max-width: calc(50% - 10px); /* اطمینان از عدم تجاوز از 50% */
-    box-sizing: border-box; /* برای جلوگیری از مشکلات پدینگ/بردر با عرض */
+/* Ensure the button wrapper takes full width on mobile */
+.gallery-button-wrapper, .group-selection-wrapper {
+    width: calc(100% - 20px);
+    justify-content: center;
+    margin: 0;
 }
-
-/* اگر در موبایل همچنان می‌خواهید ستونی باشند، می‌توانید یک Media Query اضافه کنید */
-@media (max-width: 768px) { /* مثال: برای صفحه‌های کوچکتر از 768 پیکسل */
-    .gallery-controls > * {
-        flex: 1 1 100%; /* یک آیتم در هر سطر */
-        max-width: 100%;
-    }
+/* Ensure buttons inside wrapper are full width */
+.gallery-button-wrapper button {
+    flex: 1 1 auto;
 }
-    .group-selection-wrapper {
-        width: calc(100% - 20px); /* در موبایل، wrapper هم تمام عرض شود */
-        justify-content: center; /* محتوای wrapper در موبایل وسط‌چین شود */
-        margin-right: 0; /* مارجین حذف شود */
+/* Ensure select dropdown is full width */
+.group-selection-wrapper select {
+    flex: 1 1 auto;
+}
+    .in-cart-display {
+        text-align: center;
     }
-    .gallery-controls button {
-        width: calc(100% - 20px);
-    }
-    /* نیازی به تغییر .gallery-controls select نیست زیرا با min/max-width کنترل می‌شود */
 }
   /* CSS برای اعلان‌های سبد خرید */
     #notification-container {
@@ -520,7 +515,7 @@
     <button id="showCartBtn">سبد خرید 🛒</button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">ابتدا سبد خرید مربوط به سفارش قبل را پاک کنید</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
    
 </div>
 </div>
@@ -533,18 +528,20 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-  <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ⬅️</label>
-    <select id="bottomGroupSelect" class="group-select-fixed">
-      <option value="all">همه محصولات</option>
-      <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
-      <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
-      <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
-      <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
-      <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-      
-    </select>
-  </div>
-  <button id="showCartGalleryBtn">سبد خرید 🛒</button>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ⬅️</label>
+      <select id="bottomGroupSelect" class="group-select-fixed">
+        <option value="all">همه محصولات</option>
+        <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+        <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
+        <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+        <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+        <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+        
+      </select>
+    </div>
+    <div class="gallery-button-wrapper">
+        <button id="showCartGalleryBtn">سبد خرید 🛒</button>
+    </div>
 </div> </div>
 <div id="cartSection">
   <h3>سبد خرید 🛒</h3>
@@ -566,7 +563,6 @@
   <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
-  
 </div>
 
 <div id="image-modal" class="image-modal">
@@ -1436,7 +1432,7 @@ window.addEventListener('load', handleLoad);
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.7').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
