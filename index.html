@@ -528,7 +528,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ⬅️</label>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ️:</label>
       <select id="bottomGroupSelect" class="group-select-fixed">
         <option value="all">همه محصولات</option>
         <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
@@ -536,6 +536,7 @@
         <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
         <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
         <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+        <option value="6">سایر محصولات</option>
         
       </select>
     </div>
@@ -777,7 +778,8 @@ const groupInfo = {
       { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
       { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
       { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 50 },
+      { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 50 },
+      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
     ],
   }
 };
@@ -1382,15 +1384,21 @@ function loadCustomerInfo() {
 
 // Image Modal Functions
 function openImageModal(imageSrc) {
-  const modal = document.getElementById("image-modal");
-  const modalImg = document.getElementById("modal-image");
-  modal.style.display = "flex";
-  modalImg.src = imageSrc;
+	const modal = document.getElementById("image-modal");
+	const modalImg = document.getElementById("modal-image");
+	modal.style.display = "flex";
+	modalImg.src = imageSrc;
+	// Push a new state to history when modal is opened
+	history.pushState({ modal: 'open' }, 'Image Modal', '#image-modal');
 }
 
 function closeImageModal() {
-  const modal = document.getElementById("image-modal");
-  modal.style.display = "none";
+	const modal = document.getElementById("image-modal");
+	modal.style.display = "none";
+	// If the current history state indicates the modal is open, go back one step.
+	if (history.state && history.state.modal === 'open') {
+		history.back();
+	}
 }
 
 function checkCartState() {
@@ -1426,13 +1434,21 @@ function handleLoad() {
 }
 
 window.addEventListener('load', handleLoad);
+// Add a listener for the browser's popstate event (back button)
+window.addEventListener('popstate', function(event) {
+	const modal = document.getElementById("image-modal");
+	// If the modal is currently open and the state is not the one we pushed, close the modal.
+	if (modal.style.display === 'flex' && (!event.state || event.state.modal !== 'open')) {
+		closeImageModal();
+	}
+});
 
 </script>
 </div>
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.7').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
