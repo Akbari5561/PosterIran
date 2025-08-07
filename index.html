@@ -314,69 +314,66 @@
   .gallery-controls {
       display: flex;
       flex-direction: column; /* تغییر جدید برای چیدمان عمودی */
-      align-items: center; /* عناصر را در مرکز قرار می‌دهد */
-      gap: 10px; /* فاصله بین آیتم‌های فلکس */
+      align-items: center;
+      gap: 10px;
       width: 100%;
       padding: 10px 0;
-      background-color: #BBDFF7;/*بکگراند انتخاب گروه*/
+      background-color: #BBDFF7;
       border-top: 2px solid #292C4B;
       box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
-      z-index: 100; /* Layer 4: Sticky gallery controls */
+      z-index: 100;
 }
   .group-selection-wrapper {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-right: 0; /* حذف margin */
+      margin-right: 0;
   }
     #gallery-bottom-controls {
-        margin-top: auto; /* Push to bottom of gallery content */
-        position: sticky; /* Make it sticky */
-        bottom: 0; /* Stick to the bottom */
+        margin-top: auto;
+        position: sticky;
+        bottom: 0;
         left: 0;
         right: 0;
-        border-bottom: none; /* No bottom border for the very bottom one */
+        border-bottom: none;
     }
     #gallery-top-controls {
         margin-bottom: 10px;
-        border-top: none; /* No top border for the very top one */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Shadow at the bottom */
+        border-top: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .gallery-controls button {
         margin: 0;
     }
     .in-cart-display { 
-        font-size: 0.85em; /*موجود در سبد*/
-        color: #4FC3F7; /* Blue color for in-cart message */
+        font-size: 0.85em;
+        color: #4FC3F7;
         font-weight: bold;
-        margin-right: 0; /* Removed this as it's no longer next to select */
+        margin-right: 0;
     }
     /* New style for the wrapper of home and cart buttons in gallery */
     .gallery-button-wrapper {
         display: flex;
-        gap: 20px; /* Space between buttons, similar to main page */
+        gap: 20px;
         align-items: center;
-        flex-wrap: wrap; /* Allow wrapping on small screens */
+        flex-wrap: wrap;
     }
 @media (max-width: 600px) {
     .image-box {
-        width: calc(50% - 15px); /* Changed for two-column layout on mobile */ /*برای دو آیتم در هر سطر با در نظر گرفتن gap !*/
+        width: calc(50% - 15px);
     }
    .gallery-controls {
-    flex-direction: column; /* Force column layout on mobile */
-    gap: 10px; /* Add some space between rows */
+    flex-direction: column;
+    gap: 10px;
 }
-/* Ensure the button wrapper takes full width on mobile */
 .gallery-button-wrapper, .group-selection-wrapper {
     width: calc(100% - 20px);
     justify-content: center;
     margin: 0;
 }
-/* Ensure buttons inside wrapper are full width */
 .gallery-button-wrapper button {
     flex: 1 1 auto;
 }
-/* Ensure select dropdown is full width */
 .group-selection-wrapper select {
     flex: 1 1 auto;
 }
@@ -389,20 +386,20 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 1000; /* Layer 5: Notifications */
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       gap: 10px;
       max-width: 300px;
     }
     .notification {
-      background-color: #2196F3E6; /* آبی */
+      background-color: #2196F3E6;
       color: white;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      opacity: 0; /* Start invisible */
-      transform: translateY(-20px); /* Start slightly below */
+      opacity: 0;
+      transform: translateY(-20px);
       transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
       font-size: 0.9em;
       direction: rtl;
@@ -450,9 +447,9 @@
 
     /* Modal for image zoom */
     .image-modal {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
-      z-index: 1001; /* Should be on top of everything */
+      z-index: 1001;
       left: 0;
       top: 0;
       width: 100%;
@@ -462,7 +459,6 @@
       justify-content: center;
       align-items: center;
     }
-
     .image-modal-content {
       position: relative;
       margin: auto;
@@ -472,7 +468,6 @@
       max-height: 90vh;
       object-fit: contain;
     }
-
     .close {
       position: absolute;
       top: 15px;
@@ -483,12 +478,61 @@
       transition: 0.3s;
       cursor: pointer;
     }
-
     .close:hover,
     .close:focus {
       color: #bbb;
       text-decoration: none;
       cursor: pointer;
+    }
+    .previous-orders-modal {
+        display: none;
+        position: fixed;
+        z-index: 1002;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        justify-content: center;
+        align-items: center;
+    }
+    .previous-orders-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 10px;
+        text-align: right;
+        max-height: 80vh; /* تغییر جدید برای محدود کردن ارتفاع */
+        overflow-y: auto; /* تغییر جدید برای فعال کردن اسکرول */
+    }
+    .previous-order-item {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .previous-order-item:last-child {
+        border-bottom: none;
+    }
+    .previous-order-item h4 {
+        color: #2196f3;
+        margin-top: 0;
+    }
+    .previous-order-item button {
+        margin-top: 10px;
+        background-color: #4CAF50;
+    }
+    .previous-order-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: flex-end;
+    }
+    .previous-order-buttons button.delete-btn {
+      background-color: #f44336;
     }
   </style>
   
@@ -514,9 +558,9 @@
     <button id="enterAsUserBtn">ورود به گالری</button>
     <button id="showCartBtn">سبد خرید 🛒</button>
   </div>
+  <button id="showPreviousOrdersBtn">سفارش‌های قبلی 📦</button>
   <div id="clearCartButtonSection">
     <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
-   
 </div>
 </div>
 
@@ -530,14 +574,12 @@
   <div id="gallery-bottom-controls" class="gallery-controls">
     <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ️:</label>
       <select id="bottomGroupSelect" class="group-select-fixed">
-        <option value="all">همه محصولات</option>
-        <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
+        <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
         <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
         <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
         <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
         <option value="6">سایر محصولات</option>
-        
       </select>
     </div>
     <div class="gallery-button-wrapper">
@@ -569,6 +611,14 @@
 <div id="image-modal" class="image-modal">
   <span class="close" onclick="closeImageModal()">×</span>
   <img class="image-modal-content" id="modal-image">
+</div>
+
+<div id="previous-orders-modal" class="previous-orders-modal">
+    <div class="previous-orders-content">
+        <span class="close" onclick="closePreviousOrdersModal()">×</span>
+        <h3>سفارش‌های قبلی</h3>
+        <div id="previousOrdersList"></div>
+    </div>
 </div>
 
 <div id="notification-container"></div>
@@ -874,105 +924,58 @@ function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProducts
 
 function loadGroup(groupId) {
     const container = document.getElementById("imagesContainer");
-    const isAllProducts = groupId === 'all';
-    
-    if (isAllProducts) {
-        container.innerHTML = `<h2>همه محصولات</h2>
-                               <div class="image-container-inner"></div>`;
-        const imagesContainerInner = document.querySelector(".image-container-inner");
+
+    const info = groupInfo[groupId];
+    if (!info) {
+        console.error(`Group with ID ${groupId} not found. Cannot load images.`);
+        container.innerHTML = "";
+        return;
+    }
+
+    container.innerHTML = `<h2>${info.name}</h2>
+                           <div class="image-container-inner"></div>`;
+    const imagesContainerInner = document.querySelector(".image-container-inner");
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (groupId === '6');
+
+    info.images.forEach(item => {
+        const itemPrice = item.price || info.price;
+        const filename = item.filename;
+        const itemName = item.name;
+        const imagePath = `Image/${info.name}/${filename}`;
+        const itemUniqueId = `${groupId}-${filename}`;
+        const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
+        const initialQty = currentCartItem ? currentCartItem.qty : 0;
+        const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
         
-        for (const id in groupInfo) {
-            if (groupInfo.hasOwnProperty(id)) {
-                const info = groupInfo[id];
-                imagesContainerInner.innerHTML += `<h3 style="width: 100%; text-align: center; margin-top: 25px; color: #1976D2;">${info.name}</h3>`;
-                
-                info.images.forEach(item => {
-                    const itemPrice = item.price || info.price;
-                    const imagePath = `Image/${info.name}/${item.filename}`;
-                    const itemUniqueId = `${id}-${item.filename}`;
-                    const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
-                    const initialQty = currentCartItem ? currentCartItem.qty : 0;
-                    const isVariableCountGroup = info.type === 'variable-count';
-                    const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
-                    const isOtherProductsGroup = (id === '6');
-
-                    const box = document.createElement("div");
-                    box.className = "image-box";
-                    box.innerHTML = `
-                        <img src="${imagePath}" alt="${item.name}" loading="lazy" onclick="openImageModal('${imagePath}')">
-                        <p style="font-weight: bold; margin-bottom: 5px;">${item.name}</p>
-                        <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
-                        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
-                            <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                                <label for="qty-select-${itemUniqueId}">تعداد :</label>
-                                <select id="qty-select-${itemUniqueId}" class="quantity-select">
-                                    ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
-                                </select>
-                            </div>
-                            <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
-                        </div>
-                    `;
-                    imagesContainerInner.appendChild(box);
-                });
-            }
-        }
-    } else {
-        const info = groupInfo[groupId];
-        if (!info) {
-            console.error(`Group with ID ${groupId} not found. Cannot load images.`);
-            container.innerHTML = "";
-            return;
-        }
-
-        container.innerHTML = `<h2>${info.name}</h2>
-                               <div class="image-container-inner"></div>`;
-        const imagesContainerInner = document.querySelector(".image-container-inner");
-        const isVariableCountGroup = info.type === 'variable-count';
-        const isOtherProductsGroup = (groupId === '6');
-
-        info.images.forEach(item => {
-            const itemPrice = item.price || info.price;
-            const filename = item.filename;
-            const itemName = item.name;
-            const imagePath = `Image/${info.name}/${filename}`;
-            const itemUniqueId = `${groupId}-${filename}`;
-            const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
-            const initialQty = currentCartItem ? currentCartItem.qty : 0;
-            const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
-            
-            const box = document.createElement("div");
-            box.className = "image-box";
-            box.innerHTML = `
-                <img src="${imagePath}" alt="${itemName}" onclick="openImageModal('${imagePath}')">
-                <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
-                <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
-                <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
-                    <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                        <label for="qty-select-${itemUniqueId}">تعداد :</label>
-                        <select id="qty-select-${itemUniqueId}" class="quantity-select">
-                            ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
-                        </select>
-                    </div>
-                    <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+        const box = document.createElement("div");
+        box.className = "image-box";
+        box.innerHTML = `
+            <img src="${imagePath}" alt="${itemName}" onclick="openImageModal('${imagePath}')">
+            <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
+            <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                    <label for="qty-select-${itemUniqueId}">تعداد :</label>
+                    <select id="qty-select-${itemUniqueId}" class="quantity-select">
+                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                    </select>
                 </div>
-            `;
-            imagesContainerInner.appendChild(box);
-        });
-    }
-
-    // Attach event listeners to newly created selects (for both 'all' and single group)
-    for (const id in groupInfo) {
-        if (groupInfo.hasOwnProperty(id)) {
-            groupInfo[id].images.forEach(item => {
-                const itemUniqueId = `${id}-${item.filename}`;
-                const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
-                if (qtySelect) {
-                    qtySelect.addEventListener('change', () => addToCart(id, item.filename));
-                }
-            });
-        }
-    }
+                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+            </div>
+        `;
+        imagesContainerInner.appendChild(box);
+    });
     
+    // Attach event listeners to newly created selects
+    info.images.forEach(item => {
+        const itemUniqueId = `${groupId}-${item.filename}`;
+        const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+        if (qtySelect) {
+            qtySelect.addEventListener('change', () => addToCart(groupId, item.filename));
+        }
+    });
+
     document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1284,8 +1287,49 @@ function validateCustomerInfo() {
     return true;
 }
 
-function generateOrderMessage() {
-    let message = "🛍️ سفارش من :  \n";
+function saveOrderToHistory(orderId) {
+    const currentCartArray = Array.from(cart.values());
+    if (currentCartArray.length === 0) return;
+
+    let ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+
+    const totalAmountBeforeDiscount = currentCartArray.reduce((acc, item) => acc + (item.qty * item.price), 0);
+    const discountRate = calculateDiscountPercentage(totalAmountBeforeDiscount);
+    const discountAmount = totalAmountBeforeDiscount * discountRate;
+    const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+    
+    const baseShippingThreshold = 100000000;
+    const costPerThreshold = 600000;
+    let calculatedShippingCost = 0;
+    if (totalAmountAfterDiscount > 0) {
+        const numberOfThresholds = Math.ceil(totalAmountAfterDiscount / baseShippingThreshold);
+        calculatedShippingCost = numberOfThresholds * costPerThreshold;
+    }
+
+    const finalTotalAmount = totalAmountAfterDiscount + calculatedShippingCost;
+
+    const newOrder = {
+        id: orderId,
+        date: new Date().toLocaleString('fa-IR'),
+        items: currentCartArray,
+        totalPrice: finalTotalAmount,
+        totalPriceBeforeDiscount: totalAmountBeforeDiscount,
+        discount: discountAmount,
+        shipping: calculatedShippingCost,
+        customerInfo: {
+            name: document.getElementById('customerName').value,
+            phone: document.getElementById('customerPhone').value,
+            address: document.getElementById('customerAddress').value
+        }
+    };
+    ordersHistory.push(newOrder);
+    localStorage.setItem('previousOrders', JSON.stringify(ordersHistory));
+}
+
+function generateOrderMessage(orderId) {
+    const orderDate = new Date().toLocaleString('fa-IR');
+    let message = `🗓️ تاریخ: ${orderDate}\n`;
+    message += `🛍️ سفارش من - شماره سفارش: ${orderId}\n`;
     const customerName = document.getElementById('customerName').value.trim();
     const customerPhone = document.getElementById('customerPhone').value.trim();
     const customerAddress = document.getElementById('customerAddress').value.trim();
@@ -1367,9 +1411,19 @@ function submitOrderWithWhatsApp() {
         return;
     }
     
-    const message = generateOrderMessage();
+    const orderId = Date.now().toString().slice(-4);
+    saveOrderToHistory(orderId);
+    const message = generateOrderMessage(orderId);
     const whatsappUrl = `https://wa.me/${orderPhoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+
+    cart.clear();
+    saveCart();
+    renderCartList();
+    showNotification('سفارش شما ثبت و سبد خرید پاک شد.');
+    if (document.getElementById('gallery').style.display === 'flex') {
+        loadGroup(document.getElementById('bottomGroupSelect').value);
+    }
 }
 
 function loadCustomerInfo() {
@@ -1422,7 +1476,7 @@ function handleLoad() {
     loadCustomerInfo();
     checkCartState();
 
-    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); loadGroup('all'); });
+    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
     document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
     document.getElementById('loginAsAdminBtn').addEventListener('click', () => loginAsAdmin());
@@ -1431,24 +1485,125 @@ function handleLoad() {
     document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
     document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
+    document.getElementById('showPreviousOrdersBtn').addEventListener('click', () => openPreviousOrdersModal());
 }
+
+// Previous Orders Modal Functions
+function openPreviousOrdersModal() {
+    const modal = document.getElementById("previous-orders-modal");
+    const list = document.getElementById("previousOrdersList");
+    list.innerHTML = "";
+
+    const ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+
+    if (ordersHistory.length === 0) {
+        list.innerHTML = "<p>شما هیچ سفارش قبلی ندارید.</p>";
+    } else {
+        ordersHistory.reverse().forEach(order => {
+            const orderDiv = document.createElement("div");
+            orderDiv.className = "previous-order-item";
+
+            let orderDetails = `<p><strong>تاریخ سفارش:</strong> ${order.date}</p>`;
+            orderDetails += `<p><strong>مبلغ کل:</strong> ${order.totalPrice.toLocaleString()} ریال</p>`;
+            
+            const groupedOrderItems = order.items.reduce((acc, item) => {
+                if (!acc[item.groupName]) {
+                    acc[item.groupName] = [];
+                }
+                acc[item.groupName].push(item);
+                return acc;
+            }, {});
+
+            orderDetails += `<ul>`;
+            for (const groupName in groupedOrderItems) {
+                if (groupedOrderItems.hasOwnProperty(groupName)) {
+                    orderDetails += `<li><strong>${groupName}:</strong></li>`;
+                    groupedOrderItems[groupName].forEach(item => {
+                        orderDetails += `<ul><li>${item.name} (${item.qty} عدد)</li></ul>`;
+                    });
+                }
+            }
+            orderDetails += `</ul>`;
+            
+            orderDiv.innerHTML = `
+                <h4>سفارش شماره: ${order.id}</h4>
+                ${orderDetails}
+                <div class="previous-order-buttons">
+                    <button onclick="reorderPreviousOrder(${order.id})">سفارش مجدد</button>
+                    <button class="delete-btn" onclick="deletePreviousOrder(${order.id})">حذف سفارش</button>
+                </div>
+            `;
+            list.appendChild(orderDiv);
+        });
+    }
+
+    modal.style.display = "flex";
+    if (history.state === null || history.state.modal !== 'previous-orders-open') {
+      history.pushState({ modal: 'previous-orders-open' }, 'Previous Orders Modal', '#previous-orders-modal');
+    }
+}
+
+function closePreviousOrdersModal() {
+    const modal = document.getElementById("previous-orders-modal");
+    modal.style.display = "none";
+    if (history.state && history.state.modal === 'previous-orders-open') {
+      history.back();
+    }
+}
+
+function reorderPreviousOrder(orderId) {
+    const ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+    const orderToReorder = ordersHistory.find(order => parseInt(order.id) === orderId);
+
+    if (orderToReorder) {
+        cart.clear(); // Clear the current cart
+        orderToReorder.items.forEach(item => {
+            const itemUniqueId = `${item.groupId}-${item.filename}`;
+            cart.set(itemUniqueId, item);
+        });
+        saveCart();
+        closePreviousOrdersModal();
+        showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد.`);
+        showScreen('cart');
+    } else {
+        showNotification('سفارش مورد نظر یافت نشد.');
+    }
+}
+
+function deletePreviousOrder(orderId) {
+    if (confirm(`آیا از حذف سفارش شماره ${orderId} مطمئن هستید؟`)) {
+        let ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+        ordersHistory = ordersHistory.filter(order => parseInt(order.id) !== orderId);
+        localStorage.setItem('previousOrders', JSON.stringify(ordersHistory));
+        showNotification(`سفارش شماره ${orderId} حذف شد.`);
+        // Re-render the modal to show the updated list
+        openPreviousOrdersModal();
+    }
+}
+
 
 window.addEventListener('load', handleLoad);
 // Add a listener for the browser's popstate event (back button)
 window.addEventListener('popstate', function(event) {
-	const modal = document.getElementById("image-modal");
-	// If the modal is currently open and the state is not the one we pushed, close the modal.
-	if (modal.style.display === 'flex' && (!event.state || event.state.modal !== 'open')) {
+	const imageModal = document.getElementById("image-modal");
+  const previousOrdersModal = document.getElementById("previous-orders-modal");
+
+	// If the image modal is open and the state is not the one we pushed, close it.
+	if (imageModal.style.display === 'flex' && (!event.state || event.state.modal !== 'open')) {
 		closeImageModal();
 	}
+  // If the previous orders modal is open and the state is not the one we pushed, close it.
+  if (previousOrdersModal.style.display === 'flex' && (!event.state || event.state.modal !== 'previous-orders-open')) {
+    closePreviousOrdersModal();
+  }
 });
 
 </script>
-</div>
+
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.0').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.3').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
