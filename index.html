@@ -534,6 +534,13 @@
     .previous-order-buttons button.delete-btn {
       background-color: #f44336;
     }
+    .cart-icon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    
   </style>
   
 </head>
@@ -556,7 +563,12 @@
   </div>
   <div id="loginSection">
     <button id="enterAsUserBtn">ورود به گالری</button>
-    <button id="showCartBtn">سبد خرید 🛒</button>
+    <button id="showCartBtn">
+        <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        سبد خرید 
+    </button>
   </div>
   <div id="clearCartButtonSection">
     <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
@@ -582,11 +594,27 @@
       </select>
     </div>
     <div class="gallery-button-wrapper">
-        <button id="showCartGalleryBtn">سبد خرید 🛒</button>
+        <button id="showHomeGalleryBtn" onclick="showScreen('main')">
+            <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+            </svg>
+            صفحه اصلی
+        </button>
+        <button id="showCartGalleryBtn">
+            <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            سبد خرید 
+        </button>
     </div>
 </div> </div>
 <div id="cartSection">
-  <h3>سبد خرید 🛒</h3>
+  <h3>
+    <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </svg>
+    سبد خرید 
+  </h3>
   <div id="cartList"></div>
   <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
@@ -606,6 +634,7 @@
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
   <button id="showPreviousOrdersBtn"style="background-color: #9C27B0;">سفارش‌های قبلی 📦</button>
+  
 </div>
 
 <div id="image-modal" class="image-modal">
@@ -1144,7 +1173,7 @@ function calculateDiscountPercentage(totalAmount) {
     else if (totalAmount >= 500000000) return 0.05;
     else if (totalAmount >= 400000000) return 0.04;
     else if (totalAmount >= 300000000) return 0.03;
-    else if (totalAmount >= 100000000) return 0.02;
+    else if (totalAmount >= 200000000) return 0.02;
     else return 0;
 }
 
@@ -1481,6 +1510,7 @@ function handleLoad() {
     document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
     document.getElementById('loginAsAdminBtn').addEventListener('click', () => loginAsAdmin());
     document.getElementById('bottomGroupSelect').addEventListener('change', (e) => loadGroup(e.target.value));
+    document.getElementById('showHomeGalleryBtn').addEventListener('click', () => showScreen('main'));
     document.getElementById('showCartGalleryBtn').addEventListener('click', () => showScreen('cart'));
     document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
@@ -1603,7 +1633,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
