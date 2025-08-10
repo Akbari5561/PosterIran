@@ -392,6 +392,7 @@
       gap: 10px;
       max-width: 300px;
     }
+    
     .notification {
       background-color: #2196F3E6;
       color: white;
@@ -927,6 +928,11 @@ function showNotification(message) {
             notification.remove();
         }, 500);
     }, 4000);
+}
+
+// ** اضافه کردن تابع جدید برای نمایش پیام خوش‌آمدگویی **
+function showWelcomeNotification(message) {
+    showNotification(message);
 }
 
 function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
@@ -1504,6 +1510,9 @@ function handleLoad() {
     renderCartList();
     loadCustomerInfo();
     checkCartState();
+    
+    // ** فراخوانی تابع نوتیفیکیشن در زمان بارگذاری کامل صفحه **
+    showWelcomeNotification('به فروشگاه پوستر ایران خوش آمدید.');
 
     document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
@@ -1633,7 +1642,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
