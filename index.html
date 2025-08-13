@@ -542,6 +542,40 @@
       margin-right: 5px;
     }
     
+    /* استایل‌های جدید برای بخش تصاویر متحرک */
+    .scrolling-images-container {
+      width: 100%;
+      overflow: hidden; 
+      white-space: nowrap; 
+      margin-top: 20px;
+      padding: 10px 0;
+      background-color: #BBDFF7;
+      border-top: 2px solid #292C4B;
+      position: relative; /* برای اطمینان از موقعیت صحیح انیمیشن */
+      z-index: 1; /* بالاتر از پس زمینه particles */
+    }
+    
+    .scrolling-images {
+      display: inline-block;
+      animation: scroll-left 30s linear infinite;
+    }
+    
+    .scrolling-images img {
+      height: 150px; 
+      width: auto;
+      margin: 0 10px;
+      border-radius: 8px;
+    }
+    
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    
   </style>
   
 </head>
@@ -652,6 +686,32 @@
 </div>
 
 <div id="notification-container"></div>
+
+<div class="scrolling-images-container">
+    <div class="scrolling-images">
+        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
+        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
+        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
+        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
+        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول ضرب.jpg" alt="جدول ضرب">
+        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
+        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
+        <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
+        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز اول (افقی).jpg" alt="حساب آموز اول (افقی)">
+        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول جمع و تفریق.jpg" alt="جدول جمع و تفریق">
+        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد 1 تا 100.jpg" alt="اعداد 1 تا 100">
+        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آناتومی بدن انسان.jpg" alt="آناتومی بدن انسان">
+        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
+        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
+        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
+        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
+        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول ضرب.jpg" alt="جدول ضرب">
+        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
+        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
+        <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 /* particles.js config */
@@ -1642,7 +1702,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.6').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.7').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
