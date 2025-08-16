@@ -544,22 +544,31 @@
     
     /* استایل‌های جدید برای بخش تصاویر متحرک */
     .scrolling-images-container {
-      width: 107%;
+      width: 100%; /* Changed to 100% to fill width */
       overflow: hidden; 
       white-space: nowrap; 
       margin-top: 0px;
       padding: 10px 0;
       background-color: #067FB500;
       border-top: 2px solid #067FB500;
-      position: relative; /* برای اطمینان از موقعیت صحیح انیمیشن */
+      position: relative; /* برای اطمینان از موقعیت صحیح انیمیشن و دکمه‌ها */
       z-index: 1; /* بالاتر از پس زمینه particles */
+      display: flex; /* For aligning arrows */
+      align-items: center; /* Center arrows vertically */
     }
     
     .scrolling-images {
       display: inline-block;
       animation: scroll-left 180s linear infinite;
+      /* Add these lines to allow pausing on hover */
+      animation-play-state: running; /* Default state */
+      transition: transform 0.3s ease-out; /* Smooth transition for manual scroll */
     }
     
+    .scrolling-images.paused {
+        animation-play-state: paused;
+    }
+
     .scrolling-images img {
       height: 150px; 
       width: auto;
@@ -569,13 +578,12 @@
     
     @keyframes scroll-left {
       0% {
-        transform: translateX(100%);
+        transform: translateX(0%); /* Changed from 100% to 0% for consistent scroll */
       }
       100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%); /* Scroll exactly half the total width of duplicated content */
       }
     }
-    
   </style>
   
 </head>
@@ -603,12 +611,12 @@
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز پایه سوم.jpg" alt="حساب آموز پایه سوم">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/ضرب و تمرین ضرب.jpg" alt="ضرب و تمرین ضرب">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-        
+
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/الفبای فارسی و شکل صداها.jpg" alt="الفبای فارسی و شکل صداها">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 350.jpg" alt="جدول ضرب کد 350">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 351.jpg" alt="جدول ضرب کد 351">
-        
+
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/اعداد همراه ساعت و محور.jpg" alt="اعداد همراه ساعت و محور">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش ضرب و تقسیم.jpg" alt="آموزش ضرب و تقسیم">
@@ -617,7 +625,7 @@
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول جمع و تفریق.jpg" alt="جدول جمع و تفریق">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-        
+
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی بدون شکل.jpg" alt="الفبای فارسی بدون شکل">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی شکل دار.jpg" alt="الفبای فارسی شکل دار">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد 1 تا 100.jpg" alt="اعداد 1 تا 100">
@@ -630,7 +638,7 @@
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تقسیم.jpg" alt="جدول تقسیم">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-        
+
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آناتومی بدن انسان.jpg" alt="آناتومی بدن انسان">
@@ -643,7 +651,7 @@
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/منظومه خورشیدی.jpg" alt="منظومه خورشیدی">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه جهان.jpg" alt="نقشه جهان">
-        
+
         <img src="Image/سایر محصولات/فلش کارت ضرب.jpeg" alt="فلش کارت ضرب">
         <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
         <img src="Image/سایر محصولات/دفترچه ای کوچک الفبا.jpeg" alt="دفترچه ای کوچک الفبا">
@@ -653,7 +661,7 @@
         <img src="Image/سایر محصولات/دفترچه ای بزرگ دوستی.jpeg" alt="دفترچه ای بزرگ دوستی">
         <img src="Image/سایر محصولات/فلش کارت اعداد.jpeg" alt="فلش کارت اعداد">
         <img src="Image/سایر محصولات/استیکر A4.jpeg" alt="استیکر A4">
-        
+
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/تمرین ضرب و تقسیم.jpg" alt="تمرین ضرب و تقسیم">
@@ -666,12 +674,12 @@
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز پایه سوم.jpg" alt="حساب آموز پایه سوم">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/ضرب و تمرین ضرب.jpg" alt="ضرب و تمرین ضرب">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-        
+
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/الفبای فارسی و شکل صداها.jpg" alt="الفبای فارسی و شکل صداها">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 350.jpg" alt="جدول ضرب کد 350">
         <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 351.jpg" alt="جدول ضرب کد 351">
-        
+
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/اعداد همراه ساعت و محور.jpg" alt="اعداد همراه ساعت و محور">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش ضرب و تقسیم.jpg" alt="آموزش ضرب و تقسیم">
@@ -680,7 +688,7 @@
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول جمع و تفریق.jpg" alt="جدول جمع و تفریق">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
         <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-        
+
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی بدون شکل.jpg" alt="الفبای فارسی بدون شکل">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی شکل دار.jpg" alt="الفبای فارسی شکل دار">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد 1 تا 100.jpg" alt="اعداد 1 تا 100">
@@ -693,7 +701,7 @@
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تقسیم.jpg" alt="جدول تقسیم">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
         <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-        
+
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آناتومی بدن انسان.jpg" alt="آناتومی بدن انسان">
@@ -706,7 +714,7 @@
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/منظومه خورشیدی.jpg" alt="منظومه خورشیدی">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
         <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه جهان.jpg" alt="نقشه جهان">
-        
+
         <img src="Image/سایر محصولات/فلش کارت ضرب.jpeg" alt="فلش کارت ضرب">
         <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
         <img src="Image/سایر محصولات/دفترچه ای کوچک الفبا.jpeg" alt="دفترچه ای کوچک الفبا">
@@ -769,7 +777,7 @@
         </button>
         <button id="showCartGalleryBtn">
             <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
             </svg>
             سبد خرید 
         </button>
@@ -1339,15 +1347,15 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.10;
-    else if (totalAmount >= 900000000) return 0.09;
-    else if (totalAmount >= 800000000) return 0.08;
-    else if (totalAmount >= 700000000) return 0.07;
-    else if (totalAmount >= 600000000) return 0.06;
-    else if (totalAmount >= 500000000) return 0.05;
-    else if (totalAmount >= 400000000) return 0.04;
-    else if (totalAmount >= 300000000) return 0.03;
-    else if (totalAmount >= 200000000) return 0.02;
+    if (totalAmount >= 1000000000) return 0.00;
+    else if (totalAmount >= 900000000) return 0.00;
+    else if (totalAmount >= 800000000) return 0.00;
+    else if (totalAmount >= 700000000) return 0.00;
+    else if (totalAmount >= 600000000) return 0.00;
+    else if (totalAmount >= 500000000) return 0.00;
+    else if (totalAmount >= 400000000) return 0.00;
+    else if (totalAmount >= 300000000) return 0.00;
+    else if (totalAmount >= 200000000) return 0.00;
     else return 0;
 }
 
@@ -1693,6 +1701,85 @@ function handleLoad() {
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
     document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
     document.getElementById('showPreviousOrdersBtn').addEventListener('click', () => openPreviousOrdersModal());
+
+    // New: Manual scrolling functionality (simplified for touch/drag)
+    const scrollingImagesContainer = document.querySelector('.scrolling-images-container');
+    const scrollingImages = document.querySelector('.scrolling-images');
+    let scrollTimeout;
+
+    // Function to pause automatic scrolling
+    function pauseScroll() {
+        scrollingImages.classList.add('paused');
+        clearTimeout(scrollTimeout);
+    }
+
+    // Function to resume automatic scrolling
+    function resumeScroll() {
+        // Only resume if not currently hovered over or being dragged
+        if (!scrollingImagesContainer.matches(':hover') && !isDragging) {
+            scrollingImages.classList.remove('paused');
+        }
+    }
+
+    // Handle touch/drag for manual scrolling
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    scrollingImagesContainer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        pauseScroll(); // Pause automatic scroll on drag start
+        startX = e.pageX - scrollingImagesContainer.offsetLeft;
+        scrollLeft = scrollingImagesContainer.scrollLeft;
+    });
+
+    scrollingImagesContainer.addEventListener('mouseleave', () => {
+        isDragging = false;
+        // Resume automatic scrolling after a short delay when mouse leaves
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(resumeScroll, 3000); 
+    });
+
+    scrollingImagesContainer.addEventListener('mouseup', () => {
+        isDragging = false;
+        // Resume automatic scrolling after a short delay when drag ends
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(resumeScroll, 3000); 
+    });
+
+    scrollingImagesContainer.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - scrollingImagesContainer.offsetLeft;
+        const walk = (x - startX) * 2; // Adjust scroll speed
+        scrollingImagesContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    // Handle touch events for mobile
+    scrollingImagesContainer.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        pauseScroll(); // Pause automatic scroll on touch start
+        startX = e.touches[0].pageX - scrollingImagesContainer.offsetLeft;
+        scrollLeft = scrollingImagesContainer.scrollLeft;
+    });
+
+    scrollingImagesContainer.addEventListener('touchend', () => {
+        isDragging = false;
+        // Resume automatic scrolling after a short delay when touch ends
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(resumeScroll, 3000); 
+    });
+
+    scrollingImagesContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - scrollingImagesContainer.offsetLeft;
+        const walk = (x - startX) * 2; // Adjust scroll speed
+        scrollingImagesContainer.scrollLeft = scrollLeft - walk;
+    });
+
+    // Initial check to ensure animation is running
+    scrollingImages.classList.remove('paused');
 }
 
 // Previous Orders Modal Functions
@@ -1810,7 +1897,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.2').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.3').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
