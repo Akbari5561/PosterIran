@@ -553,21 +553,21 @@
       border-top: 2px solid #067FB500;
       position: relative; /* برای اطمینان از موقعیت صحیح انیمیشن و دکمه‌ها */
       z-index: 1; /* بالاتر از پس زمینه particles */
-      display: flex; /* For aligning arrows */
+      /* display: flex; */ /* کامنت شده برای پنهان کردن کامل */
+      display: none; /* این خط را برای پنهان کردن کامل اضافه کنید */
       align-items: center; /* Center arrows vertically */
     }
     
     .scrolling-images {
       display: inline-block;
-      animation: scroll-left 180s linear infinite;
-      /* Add these lines to allow pausing on hover */
-      animation-play-state: running; /* Default state */
-      transition: transform 0.3s ease-out; /* Smooth transition for manual scroll */
+      /* animation: scroll-left 180s linear infinite; */ /* کامنت شده برای غیرفعال کردن اسکرول خودکار */
+      /* animation-play-state: running; */ /* کامنت شده */
+      /* transition: transform 0.3s ease-out; */ /* کامنت شده */
     }
     
-    .scrolling-images.paused {
-        animation-play-state: paused;
-    }
+    /* .scrolling-images.paused { */ /* کامنت شده */
+    /* animation-play-state: paused; */ /* کامنت شده */
+    /* } */ /* کامنت شده */
 
     .scrolling-images img {
       height: 150px; 
@@ -1078,14 +1078,13 @@ window.addEventListener('popstate', (event) => {
         if (event.state.screen === 'gallery') {
             const currentGroupId = document.getElementById('bottomGroupSelect').value;
             loadGroup(currentGroupId);
-        } else if (event.state.screen === 'cart') {
-            renderCartList();
-            loadCustomerInfo();
         }
-        checkCartState();
     } else {
         showScreen('main');
     }
+    renderCartList(); // Always render cart on popstate, as it might change visibility
+    loadCustomerInfo(); // Always load customer info on popstate
+    checkCartState(); // Always check cart state
 });
 
 function showNotification(message) {
@@ -1708,20 +1707,25 @@ function handleLoad() {
     let scrollTimeout;
 
     // Function to pause automatic scrolling
+    /*
     function pauseScroll() {
         scrollingImages.classList.add('paused');
         clearTimeout(scrollTimeout);
     }
+    */
 
     // Function to resume automatic scrolling
+    /*
     function resumeScroll() {
         // Only resume if not currently hovered over or being dragged
         if (!scrollingImagesContainer.matches(':hover') && !isDragging) {
             scrollingImages.classList.remove('paused');
         }
     }
+    */
 
     // Handle touch/drag for manual scrolling
+    /*
     let isDragging = false;
     let startX;
     let scrollLeft;
@@ -1777,9 +1781,10 @@ function handleLoad() {
         const walk = (x - startX) * 2; // Adjust scroll speed
         scrollingImagesContainer.scrollLeft = scrollLeft - walk;
     });
+    */
 
     // Initial check to ensure animation is running
-    scrollingImages.classList.remove('paused');
+    // scrollingImages.classList.remove('paused'); // کامنت شده
 }
 
 // Previous Orders Modal Functions
@@ -1897,7 +1902,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.3').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
