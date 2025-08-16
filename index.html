@@ -597,6 +597,14 @@
     <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
+  <div id="address">
+    <p>تهران : خیابان پانزده خرداد</p>
+    <p>بازار آهنگران ، کوچه مسجد جامع</p>
+    <p>پاساژ کاغذ و تحریر ، زیرزمین اول پلاک۷۴</p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;"> (مشاهده در نقشه)</a></p>
+    <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
+    <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
+</div>
   <div class="scrolling-images-container">
     <div class="scrolling-images">
         <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
@@ -738,14 +746,6 @@
   </div>
   <div id="clearCartButtonSection">
     <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
-</div>
-<div id="address">
-    <p>تهران : خیابان پانزده خرداد</p>
-    <p>بازار آهنگران ، کوچه مسجد جامع</p>
-    <p>پاساژ کاغذ و تحریر ، زیرزمین اول پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;"> (مشاهده در نقشه)</a></p>
-    <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
-    <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
 </div>
 
 </div>
@@ -1902,7 +1902,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.4').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
