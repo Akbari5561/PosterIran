@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Build; // Import Build class
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
         // فعال‌سازی جاوااسکریپت (برای سایت‌های مدرن)
         webSettings.setJavaScriptEnabled(true);
 
+        // *** حل مشکل تم تاریک برای دراپ‌دان‌ها ***
+        // این کد مطمئن می‌شود که WebView از تم تاریک سیستم‌عامل پیروی نمی‌کند
+        // تا رنگ‌های اصلی وب‌سایت حفظ شود.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            webSettings.setForceDark(WebSettings.FORCE_DARK_OFF);
+        }
+        
         // *** تغییرات جدید برای مدیریت کش WebView ***
         // تنظیم حالت کش به LOAD_NO_CACHE: این تنظیم WebView را مجبور می‌کند که
         // هر بار محتوا را از شبکه بارگذاری کند و از کش استفاده نکند.
