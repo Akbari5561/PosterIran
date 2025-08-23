@@ -1,4 +1,4 @@
-package com.posteriran.posteriran;
+package com.pixel.posteriran;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
