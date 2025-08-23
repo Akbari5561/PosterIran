@@ -25,72 +25,7 @@
   <style>
 /* Import Vazirmatn font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-.header-logo {
-    /* ... کدهای موجود برای .header-logo ... */
-    /* filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF); */ /* این خط را حذف یا کامنت کنید */
-    transition: filter 0.1s ease-in-out, opacity 0.5s ease-out; /* 'opacity' را برای محو شدن اضافه کنید */
-}
 
-/* Keyframes برای افکت نئون سوسو زننده */
-@keyframes neonFlicker {
-    0%, 100% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    5% {
-        filter: none; /* خاموش شدن کامل */
-        opacity: 0.2;
-    }
-    10% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF);
-        opacity: 0.7;
-    }
-    15% {
-        filter: none;
-        opacity: 0.3;
-    }
-    20% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    25% {
-        filter: none;
-        opacity: 0.4;
-    }
-    30% {
-        filter: drop-shadow(0 0 5px #00FFFF);
-        opacity: 0.8;
-    }
-    35% {
-        filter: none;
-        opacity: 0.2;
-    }
-    40% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF);
-        opacity: 0.9;
-    }
-    50% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    /* درصدهای باقی‌مانده برای ادامه انیمیشن و سپس ثابت شدن */
-    51%, 70% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-}
-
-/* Keyframes برای محو شدن هاله نور */
-@keyframes fadeOutGlow {
-    from {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    to {
-        filter: none; /* حذف کامل فیلتر سایه */
-        opacity: 1; /* لوگو خودش محو نشود */
-    }
-}
     body {
       font-family: 'Vazirmatn', sans-serif; /* Apply Vazirmatn font */
       direction: rtl;
@@ -152,14 +87,14 @@
     }
 
     .header-logo {
-        max-width: 180px; /* Adjusted size for the new layout */
+        max-width: 140px; /* Adjusted size for the new layout */
         height: auto;
         margin-bottom: -10px; /* Space between logo and title */
     }
 
     h1 {
         color: #FFFFFF; /* Deeper blue for main title */
-        font-size: 3em; /* Larger font size */
+        font-size: 2em; /* Larger font size */
         margin: 0; /* Remove default margin */
         text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         letter-spacing: 1.5px;
@@ -172,7 +107,7 @@
         
     }
     #subtitle {
-        font-size: 1.2em;
+        font-size: 0.8em;
         color: #FFFFFF;
         margin-top: 5px;
         position: relative; /* Ensure it's above pseudo-elements */
@@ -183,7 +118,7 @@
     }
     #address p {
         margin: 5px 0;
-        font-size: 1.1em;
+        font-size: 1em;
         color: #FFFFFF;
     }
     #address a {
@@ -1095,7 +1030,6 @@ const groupInfo = {
       { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
       { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
       { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
-      { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 220000 },
       { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
       { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
       { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
@@ -1169,6 +1103,11 @@ function showNotification(message) {
             notification.remove();
         }, 500);
     }, 4000);
+}
+
+// ** اضافه کردن تابع جدید برای نمایش پیام خوش‌آمدگویی **
+function showWelcomeNotification(message) {
+    showNotification(message);
 }
 
 function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
@@ -1747,6 +1686,9 @@ function handleLoad() {
     loadCustomerInfo();
     checkCartState();
     
+    // ** فراخوانی تابع نوتیفیکیشن در زمان بارگذاری کامل صفحه **
+    showWelcomeNotification('به فروشگاه پوستر ایران خوش آمدید.');
+
     document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
     document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
@@ -1960,7 +1902,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
@@ -1972,30 +1914,5 @@ window.addEventListener('popstate', function(event) {
 <footer style="text-align: center; margin-top: 10px; color: white;">
     <p>All rights reserved for Poster Iran © 2025</p>
 </footer>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const logo = document.querySelector('.header-logo');
-        const flickerDuration = 3000; // مدت زمان انیمیشن سوسو زدن (3 ثانیه)
-        const fadeOutDuration = 2000; // مدت زمان محو شدن هاله نور (2 ثانیه)
-        const animationName = 'neonFlicker';
-        const animationDuration = '2s'; // مدت زمان یک چرخه انیمیشن neonFlicker
-        
-        // ابتدا انیمیشن سوسو زدن را اعمال می‌کنیم
-        logo.style.animation = `${animationName} ${animationDuration} ease-in-out infinite`;
-        
-        // پس از مدت زمان سوسو زدن، انیمیشن را حذف می‌کنیم و انیمیشن محو شدن هاله را آغاز می‌کنیم
-        setTimeout(() => {
-            logo.style.animation = 'none'; // توقف انیمیشن سوسو زدن
-            // اعمال حالت نئون روشن نهایی قبل از شروع محو شدن
-            logo.style.filter = 'drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF)';
-            logo.style.opacity = '1';
-            
-            // شروع انیمیشن محو شدن هاله نور
-            setTimeout(() => {
-                logo.style.animation = `fadeOutGlow ${fadeOutDuration / 1000}s forwards`;
-            }, 100); // یک تاخیر کوچک برای اطمینان از اعمال شدن filter قبل از fadeOut
-        }, flickerDuration);
-    });
-</script>
 </body>
 </html>
