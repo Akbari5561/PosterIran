@@ -25,72 +25,7 @@
   <style>
 /* Import Vazirmatn font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-.header-logo {
-    /* ... کدهای موجود برای .header-logo ... */
-    /* filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF); */ /* این خط را حذف یا کامنت کنید */
-    transition: filter 0.1s ease-in-out, opacity 0.5s ease-out; /* 'opacity' را برای محو شدن اضافه کنید */
-}
 
-/* Keyframes برای افکت نئون سوسو زننده */
-@keyframes neonFlicker {
-    0%, 100% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    5% {
-        filter: none; /* خاموش شدن کامل */
-        opacity: 0.2;
-    }
-    10% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF);
-        opacity: 0.7;
-    }
-    15% {
-        filter: none;
-        opacity: 0.3;
-    }
-    20% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    25% {
-        filter: none;
-        opacity: 0.4;
-    }
-    30% {
-        filter: drop-shadow(0 0 5px #00FFFF);
-        opacity: 0.8;
-    }
-    35% {
-        filter: none;
-        opacity: 0.2;
-    }
-    40% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF);
-        opacity: 0.9;
-    }
-    50% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    /* درصدهای باقی‌مانده برای ادامه انیمیشن و سپس ثابت شدن */
-    51%, 70% {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-}
-
-/* Keyframes برای محو شدن هاله نور */
-@keyframes fadeOutGlow {
-    from {
-        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF);
-        opacity: 1;
-    }
-    to {
-        filter: none; /* حذف کامل فیلتر سایه */
-        opacity: 1; /* لوگو خودش محو نشود */
-    }
-}
     body {
       font-family: 'Vazirmatn', sans-serif; /* Apply Vazirmatn font */
       direction: rtl;
@@ -159,7 +94,7 @@
 
     h1 {
         color: #FFFFFF; /* Deeper blue for main title */
-        font-size: 3em; /* Larger font size */
+        font-size: 2em; /* Larger font size */
         margin: 0; /* Remove default margin */
         text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         letter-spacing: 1.5px;
@@ -172,7 +107,7 @@
         
     }
     #subtitle {
-        font-size: 1.2em;
+        font-size: 0.8em;
         color: #FFFFFF;
         margin-top: 5px;
         position: relative; /* Ensure it's above pseudo-elements */
@@ -183,7 +118,7 @@
     }
     #address p {
         margin: 5px 0;
-        font-size: 1.1em;
+        font-size: 1em;
         color: #FFFFFF;
     }
     #address a {
@@ -197,14 +132,14 @@
     }
 
     #loginSection, #clearCartButtonSection {
-        margin-top: 1px;
+        margin-top: 40px;
         display: flex;
         gap: 20px; /* Space between buttons */
         position: relative; /* Add this */
         z-index: 2; /* Layer 3: Buttons and controls on main section */
     }
     #clearCartButtonSection {
-        margin-top: 2px;
+        margin-top: 20px;
         display: none; /* Hide by default, show with JS */
     }
     button {
@@ -457,7 +392,6 @@
       gap: 10px;
       max-width: 300px;
     }
-    
     .notification {
       background-color: #2196F3E6;
       color: white;
@@ -607,48 +541,6 @@
       margin-right: 5px;
     }
     
-    /* استایل‌های جدید برای بخش تصاویر متحرک */
-    .scrolling-images-container {
-      width: 100%; /* Changed to 100% to fill width */
-      overflow: hidden; 
-      white-space: nowrap; 
-      margin-top: 0px;
-      padding: 10px 0;
-      background-color: #067FB500;
-      border-top: 2px solid #067FB500;
-      position: relative; /* برای اطمینان از موقعیت صحیح انیمیشن و دکمه‌ها */
-      z-index: 1; /* بالاتر از پس زمینه particles */
-      /* display: flex; */ /* کامنت شده برای پنهان کردن کامل */
-      display: none; /* این خط را برای پنهان کردن کامل اضافه کنید */
-      align-items: center; /* Center arrows vertically */
-    }
-    
-    .scrolling-images {
-      display: inline-block;
-      /* animation: scroll-left 180s linear infinite; */ /* کامنت شده برای غیرفعال کردن اسکرول خودکار */
-      /* animation-play-state: running; */ /* کامنت شده */
-      /* transition: transform 0.3s ease-out; */ /* کامنت شده */
-    }
-    
-    /* .scrolling-images.paused { */ /* کامنت شده */
-    /* animation-play-state: paused; */ /* کامنت شده */
-    /* } */ /* کامنت شده */
-
-    .scrolling-images img {
-      height: 150px; 
-      width: auto;
-      margin: 0 10px;
-      border-radius: 8px;
-    }
-    
-    @keyframes scroll-left {
-      0% {
-        transform: translateX(0%); /* Changed from 100% to 0% for consistent scroll */
-      }
-      100% {
-        transform: translateX(-50%); /* Scroll exactly half the total width of duplicated content */
-      }
-    }
   </style>
   
 </head>
@@ -658,148 +550,17 @@
 
 <div id="mainSection">
   <div class="main-title-container">
-      <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> 
-    <h1>پوستر ایران</h1>
+    <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
   <div id="address">
     <p>تهران : خیابان پانزده خرداد</p>
     <p>بازار آهنگران ، کوچه مسجد جامع</p>
-    <p>پاساژ کاغذ و تحریر ، زیرزمین اول پلاک۷۴</p>
-    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;"> (مشاهده در نقشه)</a></p>
+    <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک۷۴</p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;">  (مشاهده در نقشه)</a></p>
     <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
     <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
-</div>
-  <div class="scrolling-images-container">
-    <div class="scrolling-images">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/تمرین ضرب و تقسیم.jpg" alt="تمرین ضرب و تقسیم">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول دوستی کامل.jpg" alt="جدول دوستی کامل">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز اول (افقی).jpg" alt="حساب آموز اول (افقی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز دوم (افقی).jpg" alt="حساب آموز دوم (افقی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز دوم (عمودی).jpg" alt="حساب آموز دوم (عمودی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز پایه سوم.jpg" alt="حساب آموز پایه سوم">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/ضرب و تمرین ضرب.jpg" alt="ضرب و تمرین ضرب">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/الفبای فارسی و شکل صداها.jpg" alt="الفبای فارسی و شکل صداها">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 350.jpg" alt="جدول ضرب کد 350">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 351.jpg" alt="جدول ضرب کد 351">
-
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/اعداد همراه ساعت و محور.jpg" alt="اعداد همراه ساعت و محور">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش ضرب و تقسیم.jpg" alt="آموزش ضرب و تقسیم">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/تمرین ضرب و تقسیم.jpg" alt="تمرین ضرب و تقسیم">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول جمع و تفریق.jpg" alt="جدول جمع و تفریق">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی بدون شکل.jpg" alt="الفبای فارسی بدون شکل">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی شکل دار.jpg" alt="الفبای فارسی شکل دار">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد 1 تا 100.jpg" alt="اعداد 1 تا 100">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد ده دهی.jpg" alt="اعداد ده دهی">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد یک تا ده.jpg" alt="اعداد یک تا ده">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای انگلیسی.jpg" alt="الفبای انگلیسی">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول جمع.jpg" alt="جدول جمع">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تفریق.jpg" alt="جدول تفریق">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول ضرب.jpg" alt="جدول ضرب">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تقسیم.jpg" alt="جدول تقسیم">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آناتومی بدن انسان.jpg" alt="آناتومی بدن انسان">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/بدن من.jpg" alt="بدن من">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شکل صداها و الفبای فارسی.jpg" alt="شکل صداها و الفبای فارسی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آموزش زمان وساعت.jpg" alt="آموزش زمان وساعت">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/ضرب تمرینی ستونی.jpg" alt="ضرب تمرینی ستونی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/ضرب تمرینی مربعی.jpg" alt="ضرب تمرینی مربعی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/منظومه خورشیدی.jpg" alt="منظومه خورشیدی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه جهان.jpg" alt="نقشه جهان">
-
-        <img src="Image/سایر محصولات/فلش کارت ضرب.jpeg" alt="فلش کارت ضرب">
-        <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای کوچک الفبا.jpeg" alt="دفترچه ای کوچک الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای کوچک دوستی.jpeg" alt="دفترچه ای کوچک دوستی">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ ضرب.jpeg" alt="دفترچه ای بزرگ ضرب">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ الفبا.jpeg" alt="دفترچه ای بزرگ الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ دوستی.jpeg" alt="دفترچه ای بزرگ دوستی">
-        <img src="Image/سایر محصولات/فلش کارت اعداد.jpeg" alt="فلش کارت اعداد">
-        <img src="Image/سایر محصولات/استیکر A4.jpeg" alt="استیکر A4">
-
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/تمرین ضرب و تقسیم.jpg" alt="تمرین ضرب و تقسیم">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/جدول دوستی کامل.jpg" alt="جدول دوستی کامل">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز اول (افقی).jpg" alt="حساب آموز اول (افقی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز دوم (افقی).jpg" alt="حساب آموز دوم (افقی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز دوم (عمودی).jpg" alt="حساب آموز دوم (عمودی)">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/حساب آموز پایه سوم.jpg" alt="حساب آموز پایه سوم">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/ضرب و تمرین ضرب.jpg" alt="ضرب و تمرین ضرب">
-        <img src="Image/سایز ۲۹×۲۱ دوروچاپ/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/الفبای فارسی و شکل صداها.jpg" alt="الفبای فارسی و شکل صداها">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 350.jpg" alt="جدول ضرب کد 350">
-        <img src="Image/سایز ۵۰×۳۵ یکروچاپ/جدول ضرب کد 351.jpg" alt="جدول ضرب کد 351">
-
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/اعداد همراه ساعت و محور.jpg" alt="اعداد همراه ساعت و محور">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/الفبای فارسی و انگلیسی.jpg" alt="الفبای فارسی و انگلیسی">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش ضرب و تقسیم.jpg" alt="آموزش ضرب و تقسیم">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/تمرین ضرب و تقسیم.jpg" alt="تمرین ضرب و تقسیم">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول جمع و تفریق.jpg" alt="جدول جمع و تفریق">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۵۰×۳۵ دوروچاپ/آموزش زمان و ساعت.jpg" alt="آموزش زمان و ساعت">
-
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی بدون شکل.jpg" alt="الفبای فارسی بدون شکل">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای فارسی شکل دار.jpg" alt="الفبای فارسی شکل دار">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد 1 تا 100.jpg" alt="اعداد 1 تا 100">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد ده دهی.jpg" alt="اعداد ده دهی">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/اعداد یک تا ده.jpg" alt="اعداد یک تا ده">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/الفبای انگلیسی.jpg" alt="الفبای انگلیسی">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول جمع.jpg" alt="جدول جمع">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تفریق.jpg" alt="جدول تفریق">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول ضرب.jpg" alt="جدول ضرب">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تقسیم.jpg" alt="جدول تقسیم">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول تناوبی عناصر.jpg" alt="جدول تناوبی عناصر">
-        <img src="Image/سایز ۷۰×۵۰ یکروچاپ/جدول دوستی.jpg" alt="جدول دوستی">
-
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شهرک الفبا.jpg" alt="شهرک الفبا">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/جدول دوستی تمرینی.jpg" alt="جدول دوستی تمرینی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آناتومی بدن انسان.jpg" alt="آناتومی بدن انسان">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/بدن من.jpg" alt="بدن من">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/شکل صداها و الفبای فارسی.jpg" alt="شکل صداها و الفبای فارسی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/آموزش زمان وساعت.jpg" alt="آموزش زمان وساعت">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/ضرب تمرینی ستونی.jpg" alt="ضرب تمرینی ستونی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/ضرب تمرینی مربعی.jpg" alt="ضرب تمرینی مربعی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/محیط و مساحت اشکال هندسی.jpg" alt="محیط و مساحت اشکال هندسی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/منظومه خورشیدی.jpg" alt="منظومه خورشیدی">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه ایران.jpg" alt="نقشه ایران">
-        <img src="Image/سایز ۷۰×۵۰ یووی‌دار/نقشه جهان.jpg" alt="نقشه جهان">
-
-        <img src="Image/سایر محصولات/فلش کارت ضرب.jpeg" alt="فلش کارت ضرب">
-        <img src="Image/سایر محصولات/فلش کارت الفبا.jpeg" alt="فلش کارت الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای کوچک الفبا.jpeg" alt="دفترچه ای کوچک الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای کوچک دوستی.jpeg" alt="دفترچه ای کوچک دوستی">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ ضرب.jpeg" alt="دفترچه ای بزرگ ضرب">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ الفبا.jpeg" alt="دفترچه ای بزرگ الفبا">
-        <img src="Image/سایر محصولات/دفترچه ای بزرگ دوستی.jpeg" alt="دفترچه ای بزرگ دوستی">
-        <img src="Image/سایر محصولات/فلش کارت اعداد.jpeg" alt="فلش کارت اعداد">
-        <img src="Image/سایر محصولات/استیکر A4.jpeg" alt="استیکر A4">
-    </div>
-</div>
-  
+  </div>
   <div id="loginSection">
     <button id="enterAsUserBtn">ورود به گالری</button>
     <button id="showCartBtn">
@@ -812,7 +573,6 @@
   <div id="clearCartButtonSection">
     <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
 </div>
-
 </div>
 
 <div id="adminLogin">
@@ -891,7 +651,6 @@
 </div>
 
 <div id="notification-container"></div>
-
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 /* particles.js config */
@@ -1056,7 +815,6 @@ const groupInfo = {
     price: 200000,
     images: [
       { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
-      { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی شکل دار" },
       { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
       { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
       { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
@@ -1095,7 +853,6 @@ const groupInfo = {
       { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
       { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
       { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
-      { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 220000 },
       { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
       { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
       { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
@@ -1144,13 +901,14 @@ window.addEventListener('popstate', (event) => {
         if (event.state.screen === 'gallery') {
             const currentGroupId = document.getElementById('bottomGroupSelect').value;
             loadGroup(currentGroupId);
+        } else if (event.state.screen === 'cart') {
+            renderCartList();
+            loadCustomerInfo();
         }
+        checkCartState();
     } else {
         showScreen('main');
     }
-    renderCartList(); // Always render cart on popstate, as it might change visibility
-    loadCustomerInfo(); // Always load customer info on popstate
-    checkCartState(); // Always check cart state
 });
 
 function showNotification(message) {
@@ -1169,11 +927,6 @@ function showNotification(message) {
             notification.remove();
         }, 500);
     }, 4000);
-}
-
-// ** اضافه کردن تابع جدید برای نمایش پیام خوش‌آمدگویی **
-function showWelcomeNotification(message) {
-    showNotification(message);
 }
 
 function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
@@ -1412,15 +1165,15 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.00;
-    else if (totalAmount >= 900000000) return 0.00;
-    else if (totalAmount >= 800000000) return 0.00;
-    else if (totalAmount >= 700000000) return 0.00;
-    else if (totalAmount >= 600000000) return 0.00;
-    else if (totalAmount >= 500000000) return 0.00;
-    else if (totalAmount >= 400000000) return 0.00;
-    else if (totalAmount >= 300000000) return 0.00;
-    else if (totalAmount >= 200000000) return 0.00;
+    if (totalAmount >= 1000000000) return 0.10;
+    else if (totalAmount >= 900000000) return 0.09;
+    else if (totalAmount >= 800000000) return 0.08;
+    else if (totalAmount >= 700000000) return 0.07;
+    else if (totalAmount >= 600000000) return 0.06;
+    else if (totalAmount >= 500000000) return 0.05;
+    else if (totalAmount >= 400000000) return 0.04;
+    else if (totalAmount >= 300000000) return 0.03;
+    else if (totalAmount >= 200000000) return 0.02;
     else return 0;
 }
 
@@ -1751,9 +1504,6 @@ function handleLoad() {
     renderCartList();
     loadCustomerInfo();
     checkCartState();
-    
-    // ** فراخوانی تابع نوتیفیکیشن در زمان بارگذاری کامل صفحه **
-    showWelcomeNotification('به فروشگاه پوستر ایران خوش آمدید.');
 
     document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
@@ -1766,91 +1516,6 @@ function handleLoad() {
     document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
     document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
     document.getElementById('showPreviousOrdersBtn').addEventListener('click', () => openPreviousOrdersModal());
-
-    // New: Manual scrolling functionality (simplified for touch/drag)
-    const scrollingImagesContainer = document.querySelector('.scrolling-images-container');
-    const scrollingImages = document.querySelector('.scrolling-images');
-    let scrollTimeout;
-
-    // Function to pause automatic scrolling
-    /*
-    function pauseScroll() {
-        scrollingImages.classList.add('paused');
-        clearTimeout(scrollTimeout);
-    }
-    */
-
-    // Function to resume automatic scrolling
-    /*
-    function resumeScroll() {
-        // Only resume if not currently hovered over or being dragged
-        if (!scrollingImagesContainer.matches(':hover') && !isDragging) {
-            scrollingImages.classList.remove('paused');
-        }
-    }
-    */
-
-    // Handle touch/drag for manual scrolling
-    /*
-    let isDragging = false;
-    let startX;
-    let scrollLeft;
-
-    scrollingImagesContainer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        pauseScroll(); // Pause automatic scroll on drag start
-        startX = e.pageX - scrollingImagesContainer.offsetLeft;
-        scrollLeft = scrollingImagesContainer.scrollLeft;
-    });
-
-    scrollingImagesContainer.addEventListener('mouseleave', () => {
-        isDragging = false;
-        // Resume automatic scrolling after a short delay when mouse leaves
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(resumeScroll, 3000); 
-    });
-
-    scrollingImagesContainer.addEventListener('mouseup', () => {
-        isDragging = false;
-        // Resume automatic scrolling after a short delay when drag ends
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(resumeScroll, 3000); 
-    });
-
-    scrollingImagesContainer.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - scrollingImagesContainer.offsetLeft;
-        const walk = (x - startX) * 2; // Adjust scroll speed
-        scrollingImagesContainer.scrollLeft = scrollLeft - walk;
-    });
-
-    // Handle touch events for mobile
-    scrollingImagesContainer.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        pauseScroll(); // Pause automatic scroll on touch start
-        startX = e.touches[0].pageX - scrollingImagesContainer.offsetLeft;
-        scrollLeft = scrollingImagesContainer.scrollLeft;
-    });
-
-    scrollingImagesContainer.addEventListener('touchend', () => {
-        isDragging = false;
-        // Resume automatic scrolling after a short delay when touch ends
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(resumeScroll, 3000); 
-    });
-
-    scrollingImagesContainer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - scrollingImagesContainer.offsetLeft;
-        const walk = (x - startX) * 2; // Adjust scroll speed
-        scrollingImagesContainer.scrollLeft = scrollLeft - walk;
-    });
-    */
-
-    // Initial check to ensure animation is running
-    // scrollingImages.classList.remove('paused'); // کامنت شده
 }
 
 // Previous Orders Modal Functions
@@ -1968,7 +1633,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.9').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
@@ -1980,30 +1645,5 @@ window.addEventListener('popstate', function(event) {
 <footer style="text-align: center; margin-top: 10px; color: white;">
     <p>All rights reserved for Poster Iran © 2025</p>
 </footer>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const logo = document.querySelector('.header-logo');
-        const flickerDuration = 3000; // مدت زمان انیمیشن سوسو زدن (3 ثانیه)
-        const fadeOutDuration = 2000; // مدت زمان محو شدن هاله نور (2 ثانیه)
-        const animationName = 'neonFlicker';
-        const animationDuration = '2s'; // مدت زمان یک چرخه انیمیشن neonFlicker
-        
-        // ابتدا انیمیشن سوسو زدن را اعمال می‌کنیم
-        logo.style.animation = `${animationName} ${animationDuration} ease-in-out infinite`;
-        
-        // پس از مدت زمان سوسو زدن، انیمیشن را حذف می‌کنیم و انیمیشن محو شدن هاله را آغاز می‌کنیم
-        setTimeout(() => {
-            logo.style.animation = 'none'; // توقف انیمیشن سوسو زدن
-            // اعمال حالت نئون روشن نهایی قبل از شروع محو شدن
-            logo.style.filter = 'drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #00FFFF) drop-shadow(0 0 30px #00FFFF)';
-            logo.style.opacity = '1';
-            
-            // شروع انیمیشن محو شدن هاله نور
-            setTimeout(() => {
-                logo.style.animation = `fadeOutGlow ${fadeOutDuration / 1000}s forwards`;
-            }, 100); // یک تاخیر کوچک برای اطمینان از اعمال شدن filter قبل از fadeOut
-        }, flickerDuration);
-    });
-</script>
 </body>
 </html>
