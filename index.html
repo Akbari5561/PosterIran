@@ -789,7 +789,7 @@ const groupInfo = {
       { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
       { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
       { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-      { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+      { filename: "اعداد همراه با ساعت و محور.jpg", name: "اعداد همراه با ساعت و محور" },
     ]
   },
   2: {
@@ -1641,7 +1641,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
