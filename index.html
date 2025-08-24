@@ -571,8 +571,11 @@
     </button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. خرید خود را کامل کنید یا برای ثبت سفارش جدید، آن را پاک کنید.</button>
 </div>
+<footer style="text-align: center; margin-top: 10px; color: white;">
+    <p>All rights reserved for Poster Iran © 2025</p>
+</footer>
 </div>
 
 <div id="adminLogin">
@@ -583,7 +586,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ️:</label>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">وه ️:</label>
       <select id="bottomGroupSelect" class="group-select-fixed">
         <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -776,9 +779,11 @@ const groupInfo = {
       { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
       { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
       { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
+      { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
       { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
       { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
       { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+      { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" }, 
       { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
       { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
       { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },
@@ -807,6 +812,7 @@ const groupInfo = {
       { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
       { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
       { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+      { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
       { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
     ]
   },
@@ -814,6 +820,7 @@ const groupInfo = {
     name: "سایز ۷۰×۵۰ یکروچاپ",
     price: 200000,
     images: [
+      { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
       { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
       { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
       { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
@@ -1633,7 +1640,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
@@ -1641,9 +1648,5 @@ window.addEventListener('popstate', function(event) {
         });
     }
 </script>
-
-<footer style="text-align: center; margin-top: 10px; color: white;">
-    <p>All rights reserved for Poster Iran © 2025</p>
-</footer>
 </body>
 </html>
