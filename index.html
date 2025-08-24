@@ -586,7 +586,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">وه ️:</label>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">️انتخاب گروه >> </label>
       <select id="bottomGroupSelect" class="group-select-fixed">
         <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -1641,7 +1641,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.4').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
