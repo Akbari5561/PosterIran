@@ -94,7 +94,7 @@
 
     h1 {
         color: #FFFFFF; /* Deeper blue for main title */
-        font-size: 2em; /* Larger font size */
+        font-size: 3em; /* Larger font size */
         margin: 0; /* Remove default margin */
         text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         letter-spacing: 1.5px;
@@ -107,7 +107,7 @@
         
     }
     #subtitle {
-        font-size: 0.8em;
+        font-size: 1.2em;
         color: #FFFFFF;
         margin-top: 5px;
         position: relative; /* Ensure it's above pseudo-elements */
@@ -392,6 +392,7 @@
       gap: 10px;
       max-width: 300px;
     }
+    
     .notification {
       background-color: #2196F3E6;
       color: white;
@@ -571,11 +572,8 @@
     </button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. خرید خود را کامل کنید یا برای ثبت سفارش جدید، آن را پاک کنید.</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
 </div>
-<footer style="text-align: center; margin-top: 10px; color: white;">
-    <p>All rights reserved for Poster Iran © 2025</p>
-</footer>
 </div>
 
 <div id="adminLogin">
@@ -586,7 +584,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">️انتخاب گروه >> </label>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ️:</label>
       <select id="bottomGroupSelect" class="group-select-fixed">
         <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -771,104 +769,104 @@ particlesJS('particles-js', {
 
 <script>
 const groupInfo = {
-  1: {
-    name: "سایز ۲۹×۲۱ دوروچاپ",
-    price: 100000,
-    images: [
-      { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
-      { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
-      { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
-      { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
-      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
-      { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
-      { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
-      { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" }, 
-      { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
-      { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
-      { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },
-      { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
-      { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
-      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-      { filename: "اعداد همراه با ساعت و محور.jpg", name: "اعداد همراه با ساعت و محور" },
-    ]
-  },
-  2: {
-    name: "سایز ۵۰×۳۵ یکروچاپ",
-    price: 100000,
-    images: [
-      { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
-      { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
-      { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
-      { filename: "جدول ضرب کد 351.jpg", name: "جدول ضرب کد 351" },
-    ]
-  },
-  3: {
-    name: "سایز ۵۰×۳۵ دوروچاپ",
-    price: 200000,
-    images: [
-      { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
-      { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
-      { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
-      { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
-      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-      { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
-      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
-      { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
-      { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
-    ]
-  },
-  4: {
-    name: "سایز ۷۰×۵۰ یکروچاپ",
-    price: 200000,
-    images: [
-      { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
-      { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
-      { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
-      { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
-      { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
-      { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
-      { filename: "جدول جمع.jpg", name: "جدول جمع" },
-      { filename: "جدول تفریق.jpg", name: "جدول تفریق" },
-      { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
-      { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
-      { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-      { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
-    ]
-  },
-  5: {
-    name: "سایز ۷۰×۵۰ یووی‌دار",
-    price: 250000,
-    images: [
-      { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
-      { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
-      { filename: "آناتومی بدن انسان.jpg", name: "آناتومی بدن انسان" },
-      { filename: "بدن من.jpg", name: "بدن من" },
-      { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
-      { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
-      { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
-      { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
-      { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
-      { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
-      { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
-      { filename: "نقشه جهان.jpg", name: "نقشه جهان" },
-    ]
-  },
-  6: {
-    name: "سایر محصولات",
-    type: "variable-count",
-    defaultQtyMultiplier: 12,
-    images: [
-      { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
-      { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
-      { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
-      { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
-      { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
-      { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
-      { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-      { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 50 },
-      { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
-    ],
-  }
+    1: {
+        name: "سایز ۲۹×۲۱ دوروچاپ",
+        price: 100000,
+        images: [
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
+            { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+            { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
+            { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
+            { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
+            { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },
+            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+            { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "اعداد همراه با ساعت و محور.jpg", name: "اعداد همراه با ساعت و محور" },
+        ]
+    },
+    2: {
+        name: "سایز ۵۰×۳۵ یکروچاپ",
+        price: 100000,
+        images: [
+            { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول ضرب کد 351.jpg", name: "جدول ضرب کد 351" },
+        ]
+    },
+    3: {
+        name: "سایز ۵۰×۳۵ دوروچاپ",
+        price: 200000,
+        images: [
+            { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
+            { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+        ]
+    },
+    4: {
+        name: "سایز ۷۰×۵۰ یکروچاپ",
+        price: 200000,
+        images: [
+            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+            { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
+            { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
+            { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
+            { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+            { filename: "جدول جمع.jpg", name: "جدول جمع" },
+            { filename: "جدول تفریق.jpg", name: "جدول تفریق" },
+            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
+            { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+        ]
+    },
+    5: {
+        name: "سایز ۷۰×۵۰ یووی‌دار",
+        price: 250000,
+        images: [
+            { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "آناتومی بدن انسان.jpg", name: "آناتومی بدن انسان" },
+            { filename: "بدن من.jpg", name: "بدن من" },
+            { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
+            { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
+            { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
+            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+            { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
+            { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
+            { filename: "نقشه جهان.jpg", name: "نقشه جهان" },
+        ]
+    },
+    6: {
+        name: "سایر محصولات",
+        type: "variable-count",
+        defaultQtyMultiplier: 12,
+        images: [
+            { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
+            { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
+            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
+            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 },
+            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
+            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
+            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 50 },
+            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
+        ],
+    }
 };
 const allowedQuantities = [0, 10, 20, 30, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
@@ -935,6 +933,11 @@ function showNotification(message) {
             notification.remove();
         }, 500);
     }, 4000);
+}
+
+// ** اضافه کردن تابع جدید برای نمایش پیام خوش‌آمدگویی **
+function showWelcomeNotification(message) {
+    showNotification(message);
 }
 
 function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
@@ -1173,15 +1176,15 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.10;
-    else if (totalAmount >= 900000000) return 0.09;
-    else if (totalAmount >= 800000000) return 0.08;
-    else if (totalAmount >= 700000000) return 0.07;
-    else if (totalAmount >= 600000000) return 0.06;
-    else if (totalAmount >= 500000000) return 0.05;
-    else if (totalAmount >= 400000000) return 0.04;
-    else if (totalAmount >= 300000000) return 0.03;
-    else if (totalAmount >= 200000000) return 0.02;
+    if (totalAmount >= 1000000000) return 0.00;
+    else if (totalAmount >= 900000000) return 0.00;
+    else if (totalAmount >= 800000000) return 0.00;
+    else if (totalAmount >= 700000000) return 0.00;
+    else if (totalAmount >= 600000000) return 0.00;
+    else if (totalAmount >= 500000000) return 0.00;
+    else if (totalAmount >= 400000000) return 0.00;
+    else if (totalAmount >= 300000000) return 0.00;
+    else if (totalAmount >= 200000000) return 0.00;
     else return 0;
 }
 
@@ -1512,6 +1515,9 @@ function handleLoad() {
     renderCartList();
     loadCustomerInfo();
     checkCartState();
+    
+    // ** فراخوانی تابع نوتیفیکیشن در زمان بارگذاری کامل صفحه **
+    showWelcomeNotification('به فروشگاه پوستر ایران خوش آمدید.');
 
     document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
     document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
@@ -1641,7 +1647,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
@@ -1649,5 +1655,9 @@ window.addEventListener('popstate', function(event) {
         });
     }
 </script>
+
+<footer style="text-align: center; margin-top: 10px; color: white;">
+    <p>All rights reserved for Poster Iran © 2025</p>
+</footer>
 </body>
 </html>
