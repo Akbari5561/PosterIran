@@ -820,7 +820,7 @@ const groupInfo = {
         price: 200000,
         images: [
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
-            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
             { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
@@ -1647,7 +1647,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.7').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
