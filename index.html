@@ -572,7 +572,7 @@
     </button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای ثبت سفارش جدید، آن را پاک کنید.</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای تکمیل سفارش به سبد خرید بروید یا برای ثبت سفارش جدید، آن را پاک کنید.</button>
 </div>
 </div>
 
@@ -830,7 +830,6 @@ const groupInfo = {
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
         ]
     },
     5: {
@@ -1648,7 +1647,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
