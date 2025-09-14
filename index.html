@@ -823,10 +823,10 @@ const groupInfo = {
             { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
-            { filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" },
+            { /*filename: "اعداد یک تا ده.jpg", name: "اعداد یک تا ده" */},
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
-            { filename: "جدول تفریق.jpg", name: "جدول تفریق" },
+            { /*filename: "جدول تفریق.jpg", name: "جدول تفریق"*/ },
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
@@ -837,13 +837,13 @@ const groupInfo = {
         price: 250000,
         images: [
             { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
-            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { /*filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی"*/ },
             { filename: "آناتومی بدن انسان.jpg", name: "آناتومی بدن انسان" },
             { filename: "بدن من.jpg", name: "بدن من" },
             { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
             { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
             { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
-            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { /*filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی"*/ },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
             { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
@@ -855,7 +855,7 @@ const groupInfo = {
         type: "variable-count",
         defaultQtyMultiplier: 12,
         images: [
-            { filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 },
+            { /*filename: "فلش کارت ضرب.jpeg", name: "فلش کارت ضرب", price: 180000 */},
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
             { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
             /*{ filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 220000 }*/,
@@ -1647,7 +1647,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
