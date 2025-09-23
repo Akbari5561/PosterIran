@@ -820,6 +820,7 @@ const groupInfo = {
         images: [
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
@@ -839,6 +840,8 @@ const groupInfo = {
             { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
             { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
             { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
+            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
             { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
@@ -1640,7 +1643,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
