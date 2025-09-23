@@ -835,6 +835,7 @@ const groupInfo = {
         price: 250000,
         images: [
             { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "آناتومی بدن انسان.jpg", name: "آناتومی بدن انسان" },
             { filename: "بدن من.jpg", name: "بدن من" },
             { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
@@ -1643,7 +1644,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
