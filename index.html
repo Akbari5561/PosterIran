@@ -852,7 +852,7 @@ const groupInfo = {
     6: {
         name: "سایر محصولات",
         type: "variable-count",
-        defaultQtyMultiplier: 12,
+        defaultQtyMultiplier: 60,
         images: [
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
             { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 240000 },
@@ -865,7 +865,7 @@ const groupInfo = {
         ],
     }
 };
-const allowedQuantities = [0, 10, 20, 30, 50, 100, 200, 300, 400, 500];
+const allowedQuantities = [0, 20, 30, 50, 100, 200, 300, 400, 500];
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
 const MAX_QTY_OTHER_PRODUCTS = 1200;
 
@@ -1644,7 +1644,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
