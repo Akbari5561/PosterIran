@@ -832,7 +832,7 @@ const groupInfo = {
     },
     5: {
         name: "سایز ۷۰×۵۰ یووی‌دار",
-        price: 250000,
+        price: 260000,
         images: [
             { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
@@ -855,12 +855,12 @@ const groupInfo = {
         defaultQtyMultiplier: 12,
         images: [
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
-            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 220000 },
-            { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 220000 },
-            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 280000 },
-            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 280000 },
-            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 280000 },
-            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 240000, qtyMultiplier: 50 },
+            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 240000 },
+            { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 240000 },
+            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 290000 },
+            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 290000 },
+            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 290000 },
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 260000, qtyMultiplier: 50 },
             { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
         ],
     }
@@ -1644,7 +1644,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
