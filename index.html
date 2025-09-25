@@ -861,6 +861,7 @@ const groupInfo = {
             { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 290000 },
             { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 290000 },
             { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 280000, qtyMultiplier: 50 },
+            { filename: "فلش کارت نگاره نشانه‌.jpeg", name: "فلش کارت فلش کارت نگاره نشانه", price: 280000, qtyMultiplier: 50 },
             { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
         ],
     }
@@ -1644,7 +1645,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=1.9').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=1.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
