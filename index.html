@@ -1070,7 +1070,7 @@ function addToCart(groupId, filename) {
             filename: filename,
             groupName: info.name,
             name: itemInGroup.name,
-            price: itemPrice, // Correctly assigns the price
+            price: itemPrice, // Correctly assigns the price at the time of adding
             qty: selectedQty
         });
         saveCart();
@@ -1201,9 +1201,22 @@ function renderCartList() {
     }
 
     cart.forEach(item => {
+        // --- START OF FIX: بازیابی قیمت لحظه‌ای از منبع (groupInfo) ---
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
+
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        // --- END OF FIX ---
+
         if (!grouped[item.groupName]) grouped[item.groupName] = [];
-        grouped[item.groupName].push(item);
-        totalSumBeforeDiscount += item.qty * item.price;
+        // استفاده از actualPrice برای نمایش و محاسبات
+        grouped[item.groupName].push({ ...item, price: actualPrice }); 
+        
+        // استفاده از actualPrice برای محاسبه مبلغ کل قبل از تخفیف
+        totalSumBeforeDiscount += item.qty * actualPrice;
 
         if (!groupedSummaries[item.groupName]) {
             groupedSummaries[item.groupName] = {
@@ -1212,7 +1225,8 @@ function renderCartList() {
             };
         }
         groupedSummaries[item.groupName].totalQty += item.qty;
-        groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
+        // استفاده از actualPrice برای محاسبه مبلغ خلاصه گروه
+        groupedSummaries[item.groupName].totalPrice += item.qty * actualPrice;
     });
 
     for (let groupName in grouped) {
@@ -1331,7 +1345,21 @@ function saveOrderToHistory(orderId) {
 
     let ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
 
-    const totalAmountBeforeDiscount = currentCartArray.reduce((acc, item) => acc + (item.qty * item.price), 0);
+    // --- FIX APPLIED HERE: Recalculate based on current prices (implicitly done through generateOrderMessage's logic, but for history we need explicit calculation)
+    let totalAmountBeforeDiscount = 0;
+    currentCartArray.forEach(item => {
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
+
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        totalAmountBeforeDiscount += item.qty * actualPrice; 
+    });
+    // --- END OF FIX for History Saving ---
+
+
     const discountRate = calculateDiscountPercentage(totalAmountBeforeDiscount);
     const discountAmount = totalAmountBeforeDiscount * discountRate;
     const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
@@ -1381,19 +1409,33 @@ function generateOrderMessage(orderId) {
     let groupedSummaries = {};
 
     cart.forEach(item => {
+        // --- START OF FIX: بازیابی قیمت لحظه‌ای از منبع (groupInfo) ---
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
+
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        // --- END OF FIX ---
+        
         if (!groupedItems[item.groupName]) groupedItems[item.groupName] = [];
         groupedItems[item.groupName].push(item);
-        totalAmountBeforeDiscount += item.qty * item.price;
+        
+        // استفاده از actualPrice برای محاسبه مبلغ کل قبل از تخفیف
+        totalAmountBeforeDiscount += item.qty * actualPrice;
+        
         if (!groupedSummaries[item.groupName]) {
             groupedSummaries[item.groupName] = { totalQty: 0, totalPrice: 0 };
         }
         groupedSummaries[item.groupName].totalQty += item.qty;
-        groupedSummaries[item.groupName].totalPrice += item.qty * item.price;
+        // استفاده از actualPrice برای محاسبه مبلغ خلاصه گروه
+        groupedSummaries[item.groupName].totalPrice += item.qty * actualPrice;
     });
 
-    message += "\n🔆🔅 جزئیات  سفارش\n";
+    message += "\n🔆🔅 جزئیات سفارش\n";
     for (let groupName in groupedItems) {
-        message += `\n• ${groupName}  :\n`;
+        message += `\n• ${groupName} :\n`;
         groupedItems[groupName].forEach(item => {
             message += `  - ${item.name} - تعداد: ${item.qty} عدد\n`;
         });
@@ -1599,6 +1641,9 @@ function reorderPreviousOrder(orderId) {
 
     if (orderToReorder) {
         cart.clear(); // Clear the current cart
+        // توجه: در هنگام سفارش مجدد، آیتم‌ها با همان price ذخیره‌شده در History وارد می‌شوند،
+        // اما چون رندر سبد خرید (renderCartList) و ارسال سفارش (generateOrderMessage)
+        // اصلاح شده‌اند و قیمت را از groupInfo می‌خوانند، قیمت‌ها به صورت اتوماتیک به‌روز خواهند شد.
         orderToReorder.items.forEach(item => {
             const itemUniqueId = `${item.groupId}-${item.filename}`;
             cart.set(itemUniqueId, item);
@@ -1645,7 +1690,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.1').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.2').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
