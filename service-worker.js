@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'my-pwa-cache-v2.2'; // شماره نسخه جدیدتر
+const CACHE_NAME = 'my-pwa-cache-v2.3'; // شماره نسخه جدیدتر
 const urlsToCache = [
   '/',
   '/index.html',
