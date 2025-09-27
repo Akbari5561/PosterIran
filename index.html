@@ -843,7 +843,6 @@ const groupInfo = {
             { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
             { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
             { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
-            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
             { filename: "نقشه ایران.jpg", name: "نقشه ایران" },
             { filename: "نقشه جهان.jpg", name: "نقشه جهان" },
@@ -1544,8 +1543,48 @@ function checkCartState() {
   }
 }
 
+// تابع اعتبارسنجی و پاکسازی سبد خرید از محصولات حذف شده (جدید)
+function cleanCartOfInvalidItems() {
+    let changed = false;
+    
+    // روی تمام آیتم‌های ذخیره شده در سبد خرید تکرار می‌کنیم
+    Array.from(cart.entries()).forEach(([itemUniqueId, cartItem]) => {
+        // شناسه منحصر به فرد کالا (مانند '1-A123.jpg') را به شناسه گروه و نام فایل تقسیم می‌کنیم
+        const [groupId, filename] = itemUniqueId.split('-');
+        
+        // 1. بررسی می‌کنیم که آیا شناسه گروه (groupId) هنوز در لیست محصولات اصلی (groupInfo) وجود دارد؟
+        const group = groupInfo[groupId];
+        if (!group) {
+            cart.delete(itemUniqueId); // اگر گروه حذف شده، کالا را از سبد حذف کن
+            changed = true;
+            console.warn(`Removed item ${itemUniqueId}: Group ID ${groupId} no longer exists.`);
+            return; // به آیتم بعدی سبد برو
+        }
+        
+        // 2. بررسی می‌کنیم که آیا فایل/محصول خاص (filename) هنوز در داخل آن گروه وجود دارد؟
+        const productExists = group.images.some(img => img.filename === filename);
+        if (!productExists) {
+            cart.delete(itemUniqueId); // اگر محصول خاص حذف شده، کالا را از سبد حذف کن
+            changed = true;
+            console.warn(`Removed item ${itemUniqueId}: Filename ${filename} no longer exists in Group ${groupId}.`);
+        }
+    });
+
+    // اگر تغییری در سبد خرید ایجاد شد، آن را ذخیره کرده و وضعیت صفحه را به‌روزرسانی می‌کنیم
+    if (changed) {
+        saveCart(); // ذخیره سبد خرید تمیز شده در localStorage
+        checkCartState(); // به‌روزرسانی وضعیت دکمه‌های سبد خرید در صفحه
+        console.log('Cart cleaned up. Invalid items removed.');
+    }
+}
+
+
 function handleLoad() {
     const initialHash = window.location.hash.substring(1);
+
+    // 1. پاکسازی سبد خرید از آیتم‌های نامعتبر قبل از هر عملیات نمایش یا رندر (جدید)
+    cleanCartOfInvalidItems(); 
+    
     if (initialHash && screens[initialHash]) {
         showScreen(initialHash);
     } else {
@@ -1690,7 +1729,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.3').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
