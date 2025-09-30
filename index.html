@@ -23,6 +23,7 @@
   <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png">
   
   <style>
+  
 /* Import Vazirmatn font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
@@ -805,13 +806,12 @@ const groupInfo = {
         images: [
             { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
             { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
-            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
             { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
             /*{ filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
             { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
-            { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },*/
+            { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },*/
         ]
     },
     4: {
@@ -1729,7 +1729,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.6').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
