@@ -803,12 +803,12 @@ const groupInfo = {
         name: "سایز ۵۰×۳۵ دوروچاپ",
         price: 220000,
         images: [
-            { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
             { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
             { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
-            /*{ filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            /*{ filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
             { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
             { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },*/
         ]
@@ -1728,7 +1728,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.2').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.3').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
