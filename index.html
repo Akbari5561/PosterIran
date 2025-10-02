@@ -592,7 +592,7 @@
         <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
         <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
         <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-        <option value="6">سایر محصولات</option>
+        </*option value="6">سایر مصولات</option*/>
       </select>
     </div>
     <div class="gallery-button-wrapper">
@@ -784,10 +784,9 @@ const groupInfo = {
             { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
             { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
-            { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*{ filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },*/
-           /*{ filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },*/
+           /*{ filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },{ filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },*/
         ]
     },
     2: {
@@ -1729,7 +1728,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.0').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.1').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
