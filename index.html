@@ -776,17 +776,24 @@ const groupInfo = {
         images: [
             { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
             { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
-            { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
+            { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
             { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
             { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
             { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
             { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
-            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            /*{ filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },*/
-           /*{ filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },{ filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },*/
+            /*{ filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
+            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
+            { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
+            { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
+            { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },*/
+           /*{ filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },{ filename: "اعداد.jpg", name: "اعداد" },
+           { filename: "جدول تقریب.jpg", name: "جدول تقریب" },
+           { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },*/
         ]
     },
     2: {
@@ -1728,7 +1735,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.3').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.4').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
