@@ -818,8 +818,6 @@ const groupInfo = {
         name: "سایز ۷۰×۵۰ یکروچاپ",
         price: 220000,
         images: [
-            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
-            { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
@@ -827,7 +825,9 @@ const groupInfo = {
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            /*{ filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
+            /*{ filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
     },
     5: {
@@ -1173,12 +1173,12 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.10;
-    else if (totalAmount >= 900000000) return 0.10;
-    else if (totalAmount >= 800000000) return 0.10;
-    else if (totalAmount >= 700000000) return 0.10;
-    else if (totalAmount >= 600000000) return 0.10;
-    else if (totalAmount >= 500000000) return 0.10;
+    if (totalAmount >= 1000000000) return 0.09;
+    else if (totalAmount >= 900000000) return 0.09;
+    else if (totalAmount >= 800000000) return 0.09;
+    else if (totalAmount >= 700000000) return 0.09;
+    else if (totalAmount >= 600000000) return 0.09;
+    else if (totalAmount >= 500000000) return 0.09;
     else if (totalAmount >= 400000000) return 0.00;
     else if (totalAmount >= 300000000) return 0.00;
     else if (totalAmount >= 200000000) return 0.00;
@@ -1729,7 +1729,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.0').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
