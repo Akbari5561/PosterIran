@@ -1173,12 +1173,12 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.00;
-    else if (totalAmount >= 900000000) return 0.00;
-    else if (totalAmount >= 800000000) return 0.00;
-    else if (totalAmount >= 700000000) return 0.00;
-    else if (totalAmount >= 600000000) return 0.00;
-    else if (totalAmount >= 500000000) return 0.00;
+    if (totalAmount >= 1000000000) return 0.10;
+    else if (totalAmount >= 900000000) return 0.10;
+    else if (totalAmount >= 800000000) return 0.10;
+    else if (totalAmount >= 700000000) return 0.10;
+    else if (totalAmount >= 600000000) return 0.10;
+    else if (totalAmount >= 500000000) return 0.10;
     else if (totalAmount >= 400000000) return 0.00;
     else if (totalAmount >= 300000000) return 0.00;
     else if (totalAmount >= 200000000) return 0.00;
@@ -1729,7 +1729,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2.7').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
