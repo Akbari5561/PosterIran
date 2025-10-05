@@ -144,7 +144,7 @@
         display: none; /* Hide by default, show with JS */
     }
     button {
-    background-color: #65B0EC;
+    background-color: #BF73F3;
     color: white;
     border: none;
     padding: 4px 20px;
@@ -319,7 +319,7 @@
       gap: 10px;
       width: 100%;
       padding: 10px 0;
-      background-color: #BBDFF7;
+      background-color: #FFFFFF;
       border-top: 2px solid #292C4B;
       box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
       z-index: 100;
@@ -554,6 +554,7 @@
   <div class="main-title-container">
     <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
+    <p id="subtitle">>>> مححصولات جدید بزودی <<<</</p>
   </div>
   <div id="address">
     <p>تهران : خیابان پانزده خرداد</p>
@@ -573,7 +574,7 @@
     </button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای سفارش جدید سبد خرید را پاک کنید و برای تکمیل آن وارد گالری شوید .</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای تکمیل آن وارد گالری شوید یا برای سفارش جدید سبد خرید را پاک کنید . </button>
 </div>
 </div>
 
@@ -1683,19 +1684,47 @@ function closePreviousOrdersModal() {
 function reorderPreviousOrder(orderId) {
     const ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
     const orderToReorder = ordersHistory.find(order => parseInt(order.id) === orderId);
-
+    let invalidItemsCount = 0; // شمارنده برای اطلاع‌رسانی به کاربر
+    
     if (orderToReorder) {
-        cart.clear(); // Clear the current cart
-        // توجه: در هنگام سفارش مجدد، آیتم‌ها با همان price ذخیره‌شده در History وارد می‌شوند،
-        // اما چون رندر سبد خرید (renderCartList) و ارسال سفارش (generateOrderMessage)
-        // اصلاح شده‌اند و قیمت را از groupInfo می‌خوانند، قیمت‌ها به صورت اتوماتیک به‌روز خواهند شد.
+        cart.clear(); // پاک کردن سبد خرید فعلی
+        
         orderToReorder.items.forEach(item => {
             const itemUniqueId = `${item.groupId}-${item.filename}`;
+            
+            // --- شروع بررسی اعتبار ---
+            const group = groupInfo[item.groupId];
+            
+            // 1. بررسی وجود Group ID 
+            if (!group) {
+                invalidItemsCount++;
+                console.warn(`Skipped reorder item ${itemUniqueId}: Group ID ${item.groupId} no longer exists.`);
+                return;
+            }
+            
+            // 2. بررسی وجود فایل (محصول) در داخل گروه
+            const productExists = group.images.some(img => img.filename === item.filename);
+            if (!productExists) {
+                invalidItemsCount++;
+                console.warn(`Skipped reorder item ${itemUniqueId}: Filename ${item.filename} no longer exists in Group ${item.groupId}.`);
+                return;
+            }
+            // --- پایان بررسی اعتبار ---
+            
+            // اگر معتبر است، به سبد خرید اضافه کن
             cart.set(itemUniqueId, item);
         });
+        
         saveCart();
         closePreviousOrdersModal();
-        showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد.`);
+        
+        // نمایش نوتیفیکیشن مشروط
+        if (invalidItemsCount > 0) {
+            showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد. (${invalidItemsCount} محصول نامعتبر/حذف شده نادیده گرفته شد.)`);
+        } else {
+            showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد.`);
+        }
+        
         showScreen('cart');
     } else {
         showNotification('سفارش مورد نظر یافت نشد.');
@@ -1735,7 +1764,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.6').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.7').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
