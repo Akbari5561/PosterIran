@@ -144,7 +144,7 @@
         display: none; /* Hide by default, show with JS */
     }
     button {
-    background-color: #2196f3;
+    background-color: #65B0EC;
     color: white;
     border: none;
     padding: 4px 20px;
@@ -187,17 +187,17 @@
       text-align: center; /* متن داخلش وسط‌چین بشه */
   }
     /* Style for the Group Selection dropdown */
-    .group-select-fixed { /* دروپ‌داون انتخاب گروه */
+    .group-select-fixed { /* دروپ‌داون انتخاب سایزهای دیگر */
         width: 160px;
         min-width: 100px;
         max-width: 200px;
-        padding: 3px;
-        border-radius: 6px;
-        border: 2px solid #29B6F6;
+        padding: 6px;
+        border-radius: 20px;
+        border: 2px solid #1044E3;
         margin: 5px;
         box-sizing: border-box;
         text-align: right;
-        font-size: 16px; /* فاندازه فونت را به ۱۶ پیکسل تغییر دادیم */
+        font-size: 18px; /* فاندازه فونت را به ۱۸ پیکسل تغییر دادیم */
     }
     /* Main sections styling */
     #adminLogin, #gallery, #cartSection {
@@ -573,7 +573,7 @@
     </button>
   </div>
   <div id="clearCartButtonSection">
-    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است.</button>
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای سفارش جدید سبد خرید را پاک کنید و برای تکمیل آن وارد گالری شوید .</button>
 </div>
 </div>
 
@@ -585,7 +585,7 @@
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
   <div id="gallery-bottom-controls" class="gallery-controls">
-    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب گروه ️:</label>
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">انتخاب‌سایزهای‌دیگر >> </label>
       <select id="bottomGroupSelect" class="group-select-fixed">
         <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         <option value="2">سایز ۵۰×۳۵ یکروچاپ</option>
@@ -775,7 +775,6 @@ const groupInfo = {
         price: 110000,
         images: [
             { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
-            { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
             { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
@@ -793,7 +792,8 @@ const groupInfo = {
             { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
            { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },{ filename: "اعداد.jpg", name: "اعداد" },
            { filename: "جدول تقریب.jpg", name: "جدول تقریب" },
-           { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },*/
+           { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+           { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },*/
         ]
     },
     2: {
@@ -1735,7 +1735,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.5').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.6').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
