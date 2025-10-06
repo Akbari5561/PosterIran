@@ -593,7 +593,7 @@
         <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
         <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
         <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-        </*option value="6">سایر مصولات</option*/>
+        
       </select>
     </div>
     <div class="gallery-button-wrapper">
@@ -630,7 +630,7 @@
     <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" inputmode="numeric">
 
     <label for="customerAddress">آدرس کامل تحویل:</label>
-    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد و کد پستی (اختیاری)" rows="4" required></textarea>
+    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد" rows="4" required></textarea>
   </div>
 
   <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
@@ -770,10 +770,13 @@ particlesJS('particles-js', {
 </script>
 
 <script>
+// تغییرات اعمال شده: آرایه allowedQuantities از حالت سراسری حذف شده و به گروه های زیر اضافه شده است.
 const groupInfo = {
     1: {
         name: "سایز ۲۹×۲۱ دوروچاپ",
         price: 110000,
+        // آرایه مخصوص گروه ۱
+        allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
             { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
@@ -783,10 +786,11 @@ const groupInfo = {
             { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
             { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
             { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
+            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*{ filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
-            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
+            
             { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
             { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
             { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
@@ -800,6 +804,8 @@ const groupInfo = {
     2: {
         name: "سایز ۵۰×۳۵ یکروچاپ",
         price: 110000,
+        // آرایه مخصوص گروه ۲
+        allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
@@ -810,6 +816,8 @@ const groupInfo = {
     3: {
         name: "سایز ۵۰×۳۵ دوروچاپ",
         price: 220000,
+        // آرایه مخصوص گروه ۳
+        allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
@@ -824,6 +832,8 @@ const groupInfo = {
     4: {
         name: "سایز ۷۰×۵۰ یکروچاپ",
         price: 220000,
+        // آرایه مخصوص گروه ۴
+        allowedQuantities: [0, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
@@ -840,6 +850,8 @@ const groupInfo = {
     5: {
         name: "سایز ۷۰×۵۰ یووی‌دار",
         price: 280000,
+        // آرایه مخصوص گروه ۵
+        allowedQuantities: [0, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
             { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
@@ -872,7 +884,7 @@ const groupInfo = {
         ],
     }
 };
-const allowedQuantities = [0, 20, 30, 50, 100, 200, 300, 400, 500, 1000];
+// آرایه سراسری allowedQuantities حذف شده است.
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
 const MAX_QTY_OTHER_PRODUCTS = 1200;
 
@@ -944,10 +956,20 @@ function showWelcomeNotification(message) {
     showNotification(message);
 }
 
-function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false) {
+// ** تابع generateQuantityOptions تغییر یافته برای پشتیبانی از آرایه مخصوص هر گروه **
+function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false, groupAllowedQuantities = null) {
     let optionsHtml = '';
     const maxQtyForOtherProducts = MAX_QTY_OTHER_PRODUCTS;
 
+    // منطق جدید: استفاده از آرایه مجاز گروهی (برای گروه‌های ۱ تا ۵)
+    if (groupAllowedQuantities && !isOtherProductsGroup && qtyMultiplier === 1) {
+        groupAllowedQuantities.forEach(qty => { 
+            optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
+        });
+        return optionsHtml; // پایان تابع در این حالت
+    }
+    
+    // منطق قبلی برای گروه‌های با تعداد متغیر (مانند گروه ۶) یا گروه‌هایی با qtyMultiplier > 1
     if (isOtherProductsGroup) {
         optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
         for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) {
@@ -958,11 +980,9 @@ function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProducts
         for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) {
             optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
         }
-    } else {
-        allowedQuantities.forEach(qty => {
-            optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
-        });
-    }
+    } 
+    // بخش else که از allowedQuantities سراسری استفاده می‌کرد حذف شده است.
+    
     return optionsHtml;
 }
 
@@ -979,6 +999,10 @@ function loadGroup(groupId) {
     container.innerHTML = `<h2>${info.name}</h2>
                            <div class="image-container-inner"></div>`;
     const imagesContainerInner = document.querySelector(".image-container-inner");
+    
+    // ** خط جدید **: دریافت آرایه مقادیر مجاز گروه
+    const groupAllowedQuantities = info.allowedQuantities || null; 
+    
     const isVariableCountGroup = info.type === 'variable-count';
     const isOtherProductsGroup = (groupId === '6');
 
@@ -1002,7 +1026,7 @@ function loadGroup(groupId) {
                 <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
                     <label for="qty-select-${itemUniqueId}">تعداد :</label>
                     <select id="qty-select-${itemUniqueId}" class="quantity-select">
-                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup)}
+                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup, groupAllowedQuantities)}
                     </select>
                 </div>
                 <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
@@ -1247,6 +1271,9 @@ function renderCartList() {
             }
             const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
             const isOtherProductsGroup = (parseInt(item.groupId) === 6);
+            
+            // ** خط جدید **: دریافت آرایه مقادیر مجاز گروه برای سبد خرید
+            const groupAllowedQuantitiesForCart = group.allowedQuantities || null;
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "cart-item";
@@ -1257,7 +1284,7 @@ function renderCartList() {
                 <div class="quantity-control">
                     <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
                                 onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
-                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem, isOtherProductsGroup)} </select>
+                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem, isOtherProductsGroup, groupAllowedQuantitiesForCart)} </select>
                    
                 </div>
             `;
@@ -1764,7 +1791,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.7').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.8').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
