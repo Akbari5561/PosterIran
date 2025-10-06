@@ -835,15 +835,15 @@ const groupInfo = {
         // آرایه مخصوص گروه ۴
         allowedQuantities: [0, 30, 50, 100, 200, 300, 400, 500], 
         images: [
+            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "جدول جمع.jpg", name: "جدول جمع" },
+            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
+            { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*{ filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
-            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
-            { filename: "جدول جمع.jpg", name: "جدول جمع" },
-            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
-            { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
     },
@@ -1791,7 +1791,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=3.8').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=3.9').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
