@@ -791,7 +791,6 @@ const groupInfo = {
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*{ filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
-            
             { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
             { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
             { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
@@ -828,7 +827,6 @@ const groupInfo = {
             { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
             { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*{ filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
-            
             { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
             */
         ]
@@ -849,7 +847,6 @@ const groupInfo = {
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*
-            
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
     },
@@ -879,17 +876,14 @@ const groupInfo = {
         defaultQtyMultiplier: 60,
         images: [
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 180000 },
-            
             { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 240000 },
-            
             { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 290000 },
             { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 290000 },
             { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 290000 },
             { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
             /*
             { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 280000, qtyMultiplier: 50 },
-
-{ filename: "فلش کارت نگاره نشانه‌.jpeg", name: "فلش کارت نگاره نشانه", price: 280000, qtyMultiplier: 50 },
+            { filename: "فلش کارت نگاره نشانه‌.jpeg", name: "فلش کارت نگاره نشانه", price: 280000, qtyMultiplier: 50 },
             { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 240000 },
             */
         ],
@@ -1802,7 +1796,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=4.0').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=4.1').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
