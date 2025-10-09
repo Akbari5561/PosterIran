@@ -897,7 +897,7 @@ const groupInfo = {
 };
 // آرایه سراسری allowedQuantities حذف شده است.
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-const MAX_QTY_OTHER_PRODUCTS = 1200;
+const MAX_QTY_OTHER_PRODUCTS = 960;
 
 const screens = {
   main: document.getElementById('mainSection'),
@@ -1216,11 +1216,11 @@ function clearCart() {
 
 function calculateDiscountPercentage(totalAmount) {
     if (totalAmount >= 1000000000) return 0.09;
-    else if (totalAmount >= 900000000) return 0.09;
-    else if (totalAmount >= 800000000) return 0.09;
-    else if (totalAmount >= 700000000) return 0.09;
-    else if (totalAmount >= 600000000) return 0.09;
-    else if (totalAmount >= 500000000) return 0.09;
+    else if (totalAmount >= 900000000) return 0.05;
+    else if (totalAmount >= 800000000) return 0.05;
+    else if (totalAmount >= 700000000) return 0.05;
+    else if (totalAmount >= 600000000) return 0.05;
+    else if (totalAmount >= 500000000) return 0.05;
     else if (totalAmount >= 400000000) return 0.00;
     else if (totalAmount >= 300000000) return 0.00;
     else if (totalAmount >= 200000000) return 0.00;
@@ -1802,7 +1802,7 @@ window.addEventListener('popstate', function(event) {
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=4.1').then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=4.0').then(function(registration) {
                 console.log('✅ Service Worker ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
