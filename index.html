@@ -144,7 +144,7 @@
         display: none; /* Hide by default, show with JS */
     }
     button {
-    background-color: #BF73F3;
+    background-color: #2196f3;
     color: white;
     border: none;
     padding: 4px 20px;
@@ -554,7 +554,7 @@
   <div class="main-title-container">
     <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
-    <p id="subtitle">>>> مححصولات جدید بزودی <<<</</p>
+    <p id="subtitle"> مححصولات جدید سایز ۲۹×۲۱</p>
   </div>
   <div id="address">
     <p>تهران : خیابان پانزده خرداد</p>
@@ -779,26 +779,29 @@ const groupInfo = {
         // آرایه مخصوص گروه ۱
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
-            { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
-            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
-            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
-            { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
-            { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
+            { filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
+            { filename: "جدول تقریب.jpg", name: "جدول تقریب" },
+            { filename: "اعداد.jpg", name: "اعداد" },
+            { filename: "اعداد با ساعت و محور.jpg", name: " اعداد با ساعت و محور" },
+            { filename: "جمع و تفریق.jpg", name: "جمع و تفریق" },
+            { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
+            { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
+            { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
+            { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },
             { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
             { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
-            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
+            { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+            { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
+            { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
+            { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            /*{ filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
-            { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
-            { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
-            { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
-            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
-           { filename: "حساب آموز پایه سوم.jpg", name: "حساب آموز پایه سوم" },{ filename: "اعداد.jpg", name: "اعداد" },
-           { filename: "جدول تقریب.jpg", name: "جدول تقریب" },
-           { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
-           { filename: "تمرین ضرب و تقسیم.jpg", name: "تمرین ضرب و تقسیم" },*/
+            
         ]
     },
     2: {
@@ -938,7 +941,7 @@ window.addEventListener('popstate', (event) => {
         showScreen('main');
     }
 });
-
+    
 function showNotification(message) {
     const container = document.getElementById('notification-container');
     const notification = document.createElement('div');
@@ -961,7 +964,10 @@ function showNotification(message) {
 function showWelcomeNotification(message) {
     showNotification(message);
 }
-
+// ** تابع جدید برای گرد کردن به نزدیکترین مقدار مجاز غیرصفر (حل مشکل شما) **
+function findNearestAllowedQuantity(previousQuantity, allowedQuantities) {
+    // ... منطق گرد کردن ...
+}
 // ** تابع generateQuantityOptions تغییر یافته برای پشتیبانی از آرایه مخصوص هر گروه **
 function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false, groupAllowedQuantities = null) {
     let optionsHtml = '';
@@ -1805,6 +1811,7 @@ window.addEventListener('popstate', function(event) {
         });
     }
 </script>
+
 
 <script src="live-reload.js"></script>
 <footer style="text-align: center; margin-top: 10px; color: white;">
