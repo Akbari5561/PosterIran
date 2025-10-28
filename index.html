@@ -125,9 +125,11 @@
         font-weight: bold; /* پررنگ‌تر شدن برای برجسته‌سازی */
         font-size: 1.3em; /* کمی بزرگتر از زیرنویس عادی */
     }
-    
     #address {
         z-index: 1; /* Bring to front */
+        border-top: 2px solid #FFFFFF; /* NEW: Separator as requested for 'above address' change */
+        padding-top: 15px; /* NEW: Space above the separator */
+        margin-top: 15px; /* NEW: Space below title section */
     }
     #address p {
         margin: 5px 0;
@@ -143,7 +145,6 @@
     #address a:hover {
         color: #1976D2;
     }
-
     #loginSection, #clearCartButtonSection {
         margin-top: 40px;
         display: flex;
