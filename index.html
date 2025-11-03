@@ -187,11 +187,27 @@
     button.clear-cart-btn:hover {
       background-color: #fb8c00;
     }
+    /* NEW: Style for the cart button when it has items */
+    #showCartBtn.cart-has-items {
+        background-color: #Ff9800; /* Bright Yellow (Amber) - Requested color */
+        color: #FFFFFF; /* Dark text for better contrast */
+        border: 2px solid #FFC1; /* Darker yellow border */
+        font-weight: bold; /* Make the text bolder */
+    }
+    #showCartBtn.cart-has-items:hover {
+        background-color: #FFC106; /* Darker on hover */
+        border-color: #FFC107;
+        transform: translateY(-3px); /* Keep the lift effect */
+    }
+    /* Ensure the SVG icon also changes color for contrast */
+    #showCartBtn.cart-has-items svg.cart-icon {
+        fill: #FFFFFF;
+    }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
       padding: 8px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #FFFFFF;
       margin: 5px;
       width: 70px; /* عرض ثابت برای جا شدن عدد چهار رقمی */
       min-width: 50px; /* حداقل عرض مجاز */
@@ -206,7 +222,7 @@
         max-width: 200px;
         padding: 6px;
         border-radius: 20px;
-        border: 2px solid #1044E3;
+        border: 2px solid #EC045D;
         margin: 5px;
         box-sizing: border-box;
         text-align: right;
@@ -856,6 +872,7 @@ const groupInfo = {
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
@@ -863,7 +880,7 @@ const groupInfo = {
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*
-            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+            
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
@@ -912,7 +929,7 @@ const groupInfo = {
 };
 // آرایه سراسری allowedQuantities حذف شده است.
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-const MAX_QTY_OTHER_PRODUCTS = 960;
+const MAX_QTY_OTHER_PRODUCTS = 480;
 
 const screens = {
   main: document.getElementById('mainSection'),
@@ -1598,14 +1615,26 @@ function closeImageModal() {
 }
 
 function checkCartState() {
-  const clearCartBtnSection = document.getElementById('clearCartButtonSection');
-  if (cart.size > 0) {
-    clearCartBtnSection.style.display = 'flex';
-  } else {
-    clearCartBtnSection.style.display = 'none';
-  }
+    const cartEmpty = cart.size === 0;
+    const clearCartSection = document.getElementById('clearCartButtonSection');
+    const showCartButton = document.getElementById('showCartBtn'); // شناسه دکمه سبد خرید در صفحه اصلی
+    
+    // 1. نمایش یا پنهان کردن دکمه هشدار "سبد خرید دارای محصول است"
+    if (cartEmpty) {
+        clearCartSection.style.display = 'none';
+    } else {
+        clearCartSection.style.display = 'flex';
+    }
+    
+    // 2. تغییر رنگ دکمه اصلی سبد خرید
+    if (showCartButton) {
+        if (cartEmpty) {
+            showCartButton.classList.remove('cart-has-items');
+        } else {
+            showCartButton.classList.add('cart-has-items');
+        }
+    }
 }
-
 // تابع اعتبارسنجی و پاکسازی سبد خرید از محصولات حذف شده (جدید)
 function cleanCartOfInvalidItems() {
     let changed = false;
