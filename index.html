@@ -54,6 +54,53 @@
       background-position: 50% 50%;
       z-index: -1; /* Layer 1: Bottommost layer for background */
     }
+    /* Cart Drawer Styles - New Implementation for Sliding from Left */
+#cartSection {
+    background: #fff; /* بکگراند سبد خرید */
+    padding: 15px;
+    border-radius: 0 10px 10px 0; /* گوشه‌های گرد در سمت راست */
+    text-align: right;
+    /* Drawer positioning and animation */
+    display: flex; 
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 350px; 
+    max-width: 85%; /* برای نمایش بهتر در موبایل */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    z-index: 1050; 
+    transform: translateX(-100%); /* حالت پنهان: کاملاً به چپ رفته */
+    transition: transform 0.4s ease-in-out; /* انیمیشن نرم */
+    overflow-y: auto; /* امکان اسکرول داخل سبد خرید */
+}
+#cartSection.cart-open {
+    transform: translateX(0); /* حالت باز: نمایش کامل */
+}
+/* Overlay for background */
+#cart-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* نیمه شفاف کردن پس زمینه */
+    z-index: 1040; /* زیر سبد خرید، روی محتوای اصلی */
+    cursor: pointer;
+}
+#cart-overlay.open {
+    display: block;
+}
+/* Mobile adjustment */
+@media (max-width: 400px) {
+    #cartSection {
+        width: 100%; 
+        max-width: 100%;
+        border-radius: 0; /* تمام صفحه برای نمایش بهتر */
+    }
+}
 
     /* Enhanced Hero Section for the main page */
     #mainSection {
@@ -229,7 +276,7 @@
         font-size: 18px; /* اندازه فونت را به ۱۸ پیکسل تغییر دادیم */
     }
     /* Main sections styling */
-    #adminLogin, #gallery, #cartSection {
+    #adminLogin, #gallery {
         margin-top: 10px; /* فاصله گالری از بالا */
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
@@ -873,7 +920,6 @@ const groupInfo = {
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی  شکل دار.jpg", name: "الفبای فارسی  شکل دار" },
-            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
@@ -881,7 +927,7 @@ const groupInfo = {
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             /*
-            
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
@@ -907,11 +953,10 @@ const groupInfo = {
         ]
     },
     6: {
-        name: "سایر محصولات", 
-    price: 0, 
-    type: 'variable-count', 
-    defaultQtyMultiplier: 60,
-    images: [
+        name: "سایر محصولات",
+        type: "variable-count",
+        defaultQtyMultiplier: 60,
+        images: [
             { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 300000 },
             { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 250000 },
             { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 300000 },
@@ -920,13 +965,7 @@ const groupInfo = {
             { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 250000 },
             { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 320000, qtyMultiplier: 60 },
             { filename: "فلش کارت نگاره نشانه‌.jpeg", name: "فلش کارت نگاره نشانه", price: 320000, qtyMultiplier: 60 },
-            {
-    filename: "استیکر A4.jpg",
-    name: "استیکر A4",
-    price: 55000,
-    qtyMultiplier: 100
-}
-            
+            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
             /*
             
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 220000 },
@@ -937,8 +976,7 @@ const groupInfo = {
 };
 // آرایه سراسری allowedQuantities حذف شده است.
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-const MAX_QTY_OTHER_PRODUCTS = 480; // محدودیت پیش‌فرض ۴۸۰
-const MAX_QTY_A4_STICKER = 2400; // محدودیت جدید برای استیکر A4
+const MAX_QTY_OTHER_PRODUCTS = 480;
 
 const screens = {
   main: document.getElementById('mainSection'),
@@ -1136,26 +1174,12 @@ function addToCart(groupId, filename) {
         qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
         return;
     }
-    // [کد پیشنهادی برای جایگزینی بلوک اعتبارسنجی در تابع addToCart]
-if (selectedProduct.maxQty && selectedQty > selectedProduct.maxQty) {
-    // محدودیت maxQty خاص محصول (مثلاً 2400 برای استیکر A4) را اعمال کن
-    showNotification(`حداکثر تعداد مجاز برای این محصول ${selectedProduct.maxQty} عدد است.`);
-    selectedQty = selectedProduct.maxQty;
-    qtySelect.value = selectedQty;
-}
-// [کد پیشنهادی برای جایگزینی بلوک اعتبارسنجی در تابع addToCart]
-if (selectedProduct.maxQty && selectedQty > selectedProduct.maxQty) {
-    // محدودیت maxQty خاص محصول (مثلاً 2400 برای استیکر A4) را اعمال کن
-    showNotification(`حداکثر تعداد مجاز برای این محصول ${selectedProduct.maxQty} عدد است.`);
-    selectedQty = selectedProduct.maxQty;
-    qtySelect.value = selectedQty;
-}
-else if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
-    // اگر maxQty تعریف نشده بود، و محصول در گروه 6 (سایر محصولات) بود، محدودیت عمومی 480 را اعمال کن
-    showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
-    selectedQty = MAX_QTY_OTHER_PRODUCTS;
-    qtySelect.value = selectedQty;
-}
+    
+    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        selectedQty = MAX_QTY_OTHER_PRODUCTS;
+        qtySelect.value = selectedQty;
+    }
     
     const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
     
@@ -1197,60 +1221,41 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
     const isVariableCountGroup = info.type === 'variable-count';
     const isOtherProductsGroup = (parseInt(groupId) === 6);
     let itemInGroup;
-    
-    // پیدا کردن آیتم در گروه
     if (isVariableCountGroup) {
-        itemInGroup = info.images.find(img => img.filename === filename);
+      itemInGroup = info.images.find(img => img.filename === filename);
     } else {
-        itemInGroup = info.images.find(img => img.filename === filename);
+      itemInGroup = info.images.find(img => img.filename === filename);
     }
-    
+
     let newQty = parseInt(selectElement.value);
-    
-    // ** محاسبه حداکثر تعداد مجاز برای این محصول **
-    const itemMaxQty = isOtherProductsGroup ? (itemInGroup.maxQty || MAX_QTY_OTHER_PRODUCTS) : Infinity;
-    
-    // ** اعمال محدودیت جدید (۲۴۰۰ یا ۴۸۰) **
-    if (isOtherProductsGroup && newQty > itemMaxQty) {
-        showNotification(`حداکثر تعداد مجاز برای محصول ${itemInGroup.name} ${itemMaxQty} عدد است.`);
-        newQty = itemMaxQty;
-        selectElement.value = newQty;
-    }
-    
+
     if (isNaN(newQty) || newQty < 0) {
         console.error("Invalid quantity selected from dropdown.");
         renderCartList();
         return;
     }
     
-    // ** منطق اصلی: اگر تعداد صفر است، حذف کن. در غیر این صورت، به‌روزرسانی کن. **
+    if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        newQty = MAX_QTY_OTHER_PRODUCTS;
+        selectElement.value = newQty;
+    }
+    
     if (newQty === 0) {
         const itemToRemove = cart.get(itemUniqueId);
         if (itemToRemove) {
-            removeFromCart(itemUniqueId, false); // فرض بر این است که removeFromCart بیرون این تابع تعریف شده است
+            removeFromCart(itemUniqueId, false);
         }
     } else {
-        // اگر تعداد > 0 است
         let item = cart.get(itemUniqueId);
-        if (item) {
-            item.qty = newQty;
-            cart.set(itemUniqueId, item);
-        } else {
-            // اگر به هر دلیلی آیتم وجود نداشت (برای اطمینان)
-            cart.set(itemUniqueId, {
-                groupId: groupId,
-                filename: filename,
-                name: itemInGroup.name,
-                qty: newQty
-            });
-        }
-        
+        item.qty = newQty;
+        cart.set(itemUniqueId, item);
         saveCart();
         renderCartList();
         showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${newQty} عدد تغییر یافت.`);
     }
     checkCartState();
-} // ** بستن تابع updateCartItemQuantityFromDropdown **
+}
 
 function removeFromCart(itemUniqueId, showConfirm = true) {
     const itemToRemove = cart.get(itemUniqueId);
