@@ -54,53 +54,6 @@
       background-position: 50% 50%;
       z-index: -1; /* Layer 1: Bottommost layer for background */
     }
-    /* Cart Drawer Styles - New Implementation for Sliding from Left */
-#cartSection {
-    background: #fff; /* بکگراند سبد خرید */
-    padding: 15px;
-    border-radius: 0 10px 10px 0; /* گوشه‌های گرد در سمت راست */
-    text-align: right;
-    /* Drawer positioning and animation */
-    display: flex; 
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 350px; 
-    max-width: 85%; /* برای نمایش بهتر در موبایل */
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-    z-index: 1050; 
-    transform: translateX(-100%); /* حالت پنهان: کاملاً به چپ رفته */
-    transition: transform 0.4s ease-in-out; /* انیمیشن نرم */
-    overflow-y: auto; /* امکان اسکرول داخل سبد خرید */
-}
-#cartSection.cart-open {
-    transform: translateX(0); /* حالت باز: نمایش کامل */
-}
-/* Overlay for background */
-#cart-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* نیمه شفاف کردن پس زمینه */
-    z-index: 1040; /* زیر سبد خرید، روی محتوای اصلی */
-    cursor: pointer;
-}
-#cart-overlay.open {
-    display: block;
-}
-/* Mobile adjustment */
-@media (max-width: 400px) {
-    #cartSection {
-        width: 100%; 
-        max-width: 100%;
-        border-radius: 0; /* تمام صفحه برای نمایش بهتر */
-    }
-}
 
     /* Enhanced Hero Section for the main page */
     #mainSection {
@@ -234,27 +187,11 @@
     button.clear-cart-btn:hover {
       background-color: #fb8c00;
     }
-    /* NEW: Style for the cart button when it has items */
-    #showCartBtn.cart-has-items {
-        background-color: #Ff9800; /* Bright Yellow (Amber) - Requested color */
-        color: #FFFFFF; /* Dark text for better contrast */
-        border: 2px solid #FFC1; /* Darker yellow border */
-        font-weight: bold; /* Make the text bolder */
-    }
-    #showCartBtn.cart-has-items:hover {
-        background-color: #FFC106; /* Darker on hover */
-        border-color: #FFC107;
-        transform: translateY(-3px); /* Keep the lift effect */
-    }
-    /* Ensure the SVG icon also changes color for contrast */
-    #showCartBtn.cart-has-items svg.cart-icon {
-        fill: #FFFFFF;
-    }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
       padding: 8px;
       border-radius: 6px;
-      border: 1px solid #FFFFFF;
+      border: 1px solid #ccc;
       margin: 5px;
       width: 70px; /* عرض ثابت برای جا شدن عدد چهار رقمی */
       min-width: 50px; /* حداقل عرض مجاز */
@@ -269,14 +206,14 @@
         max-width: 200px;
         padding: 6px;
         border-radius: 20px;
-        border: 2px solid #EC045D;
+        border: 2px solid #1044E3;
         margin: 5px;
         box-sizing: border-box;
         text-align: right;
         font-size: 18px; /* اندازه فونت را به ۱۸ پیکسل تغییر دادیم */
     }
     /* Main sections styling */
-    #adminLogin, #gallery {
+    #adminLogin, #gallery, #cartSection {
         margin-top: 10px; /* فاصله گالری از بالا */
         flex-grow: 1; /* Allow sections to take available space */
         display: none; /* Hidden by default, controlled by JS */
@@ -875,8 +812,8 @@ const groupInfo = {
             { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
             { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
-            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             /*{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             */
             
@@ -1662,26 +1599,14 @@ function closeImageModal() {
 }
 
 function checkCartState() {
-    const cartEmpty = cart.size === 0;
-    const clearCartSection = document.getElementById('clearCartButtonSection');
-    const showCartButton = document.getElementById('showCartBtn'); // شناسه دکمه سبد خرید در صفحه اصلی
-    
-    // 1. نمایش یا پنهان کردن دکمه هشدار "سبد خرید دارای محصول است"
-    if (cartEmpty) {
-        clearCartSection.style.display = 'none';
-    } else {
-        clearCartSection.style.display = 'flex';
-    }
-    
-    // 2. تغییر رنگ دکمه اصلی سبد خرید
-    if (showCartButton) {
-        if (cartEmpty) {
-            showCartButton.classList.remove('cart-has-items');
-        } else {
-            showCartButton.classList.add('cart-has-items');
-        }
-    }
+  const clearCartBtnSection = document.getElementById('clearCartButtonSection');
+  if (cart.size > 0) {
+    clearCartBtnSection.style.display = 'flex';
+  } else {
+    clearCartBtnSection.style.display = 'none';
+  }
 }
+
 // تابع اعتبارسنجی و پاکسازی سبد خرید از محصولات حذف شده (جدید)
 function cleanCartOfInvalidItems() {
     let changed = false;
