@@ -828,9 +828,10 @@ const groupInfo = {
             { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
             { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
             { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
             { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             /*{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },*/
+            */
             
         ]
     },
@@ -906,10 +907,11 @@ const groupInfo = {
         ]
     },
     6: {
-        name: "سایر محصولات",
-        type: "variable-count",
-        defaultQtyMultiplier: 60,
-        images: [
+        name: "سایر محصولات", 
+    price: 0, 
+    type: 'variable-count', 
+    defaultQtyMultiplier: 60,
+    images: [
             { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 300000 },
             { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 250000 },
             { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 300000 },
@@ -918,7 +920,13 @@ const groupInfo = {
             { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 250000 },
             { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 320000, qtyMultiplier: 60 },
             { filename: "فلش کارت نگاره نشانه‌.jpeg", name: "فلش کارت نگاره نشانه", price: 320000, qtyMultiplier: 60 },
-            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 55000, qtyMultiplier: 100 },
+            {
+    filename: "استیکر A4.jpg",
+    name: "استیکر A4",
+    price: 55000,
+    qtyMultiplier: 100
+}
+            
             /*
             
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 220000 },
@@ -929,7 +937,8 @@ const groupInfo = {
 };
 // آرایه سراسری allowedQuantities حذف شده است.
 let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
-const MAX_QTY_OTHER_PRODUCTS = 480;
+const MAX_QTY_OTHER_PRODUCTS = 480; // محدودیت پیش‌فرض ۴۸۰
+const MAX_QTY_A4_STICKER = 2400; // محدودیت جدید برای استیکر A4
 
 const screens = {
   main: document.getElementById('mainSection'),
@@ -1127,12 +1136,26 @@ function addToCart(groupId, filename) {
         qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
         return;
     }
-    
-    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
-        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
-        selectedQty = MAX_QTY_OTHER_PRODUCTS;
-        qtySelect.value = selectedQty;
-    }
+    // [کد پیشنهادی برای جایگزینی بلوک اعتبارسنجی در تابع addToCart]
+if (selectedProduct.maxQty && selectedQty > selectedProduct.maxQty) {
+    // محدودیت maxQty خاص محصول (مثلاً 2400 برای استیکر A4) را اعمال کن
+    showNotification(`حداکثر تعداد مجاز برای این محصول ${selectedProduct.maxQty} عدد است.`);
+    selectedQty = selectedProduct.maxQty;
+    qtySelect.value = selectedQty;
+}
+// [کد پیشنهادی برای جایگزینی بلوک اعتبارسنجی در تابع addToCart]
+if (selectedProduct.maxQty && selectedQty > selectedProduct.maxQty) {
+    // محدودیت maxQty خاص محصول (مثلاً 2400 برای استیکر A4) را اعمال کن
+    showNotification(`حداکثر تعداد مجاز برای این محصول ${selectedProduct.maxQty} عدد است.`);
+    selectedQty = selectedProduct.maxQty;
+    qtySelect.value = selectedQty;
+}
+else if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
+    // اگر maxQty تعریف نشده بود، و محصول در گروه 6 (سایر محصولات) بود، محدودیت عمومی 480 را اعمال کن
+    showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+    selectedQty = MAX_QTY_OTHER_PRODUCTS;
+    qtySelect.value = selectedQty;
+}
     
     const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
     
@@ -1174,41 +1197,60 @@ function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
     const isVariableCountGroup = info.type === 'variable-count';
     const isOtherProductsGroup = (parseInt(groupId) === 6);
     let itemInGroup;
+    
+    // پیدا کردن آیتم در گروه
     if (isVariableCountGroup) {
-      itemInGroup = info.images.find(img => img.filename === filename);
+        itemInGroup = info.images.find(img => img.filename === filename);
     } else {
-      itemInGroup = info.images.find(img => img.filename === filename);
+        itemInGroup = info.images.find(img => img.filename === filename);
     }
-
+    
     let newQty = parseInt(selectElement.value);
-
+    
+    // ** محاسبه حداکثر تعداد مجاز برای این محصول **
+    const itemMaxQty = isOtherProductsGroup ? (itemInGroup.maxQty || MAX_QTY_OTHER_PRODUCTS) : Infinity;
+    
+    // ** اعمال محدودیت جدید (۲۴۰۰ یا ۴۸۰) **
+    if (isOtherProductsGroup && newQty > itemMaxQty) {
+        showNotification(`حداکثر تعداد مجاز برای محصول ${itemInGroup.name} ${itemMaxQty} عدد است.`);
+        newQty = itemMaxQty;
+        selectElement.value = newQty;
+    }
+    
     if (isNaN(newQty) || newQty < 0) {
         console.error("Invalid quantity selected from dropdown.");
         renderCartList();
         return;
     }
     
-    if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
-        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
-        newQty = MAX_QTY_OTHER_PRODUCTS;
-        selectElement.value = newQty;
-    }
-    
+    // ** منطق اصلی: اگر تعداد صفر است، حذف کن. در غیر این صورت، به‌روزرسانی کن. **
     if (newQty === 0) {
         const itemToRemove = cart.get(itemUniqueId);
         if (itemToRemove) {
-            removeFromCart(itemUniqueId, false);
+            removeFromCart(itemUniqueId, false); // فرض بر این است که removeFromCart بیرون این تابع تعریف شده است
         }
     } else {
+        // اگر تعداد > 0 است
         let item = cart.get(itemUniqueId);
-        item.qty = newQty;
-        cart.set(itemUniqueId, item);
+        if (item) {
+            item.qty = newQty;
+            cart.set(itemUniqueId, item);
+        } else {
+            // اگر به هر دلیلی آیتم وجود نداشت (برای اطمینان)
+            cart.set(itemUniqueId, {
+                groupId: groupId,
+                filename: filename,
+                name: itemInGroup.name,
+                qty: newQty
+            });
+        }
+        
         saveCart();
         renderCartList();
         showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${newQty} عدد تغییر یافت.`);
     }
     checkCartState();
-}
+} // ** بستن تابع updateCartItemQuantityFromDropdown **
 
 function removeFromCart(itemUniqueId, showConfirm = true) {
     const itemToRemove = cart.get(itemUniqueId);
