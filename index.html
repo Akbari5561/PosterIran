@@ -54,6 +54,41 @@
       background-position: 50% 50%;
       z-index: -1; /* Layer 1: Bottommost layer for background */
     }
+    
+    /* NEW: Keyframes for the scrolling effect */
+    @keyframes scroll-rtl {
+        from {
+            transform: translateX(100%); /* Start off-screen right */
+        }
+        to {
+            transform: translateX(-100%); /* End off-screen left */
+        }
+    }
+
+    /* NEW: Style for the scrolling background text */
+    #scrolling-text-bg {
+        position: absolute; /* Use fixed to cover the whole viewport, behind main content */
+        top: 43%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
+        white-space: nowrap; /* Prevent the text from wrapping */
+        font-size: 10em; /* Very large font size */
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.08); /* White with very low opacity */
+        pointer-events: none; /* Make sure it doesn't interfere with clicks */
+        overflow: hidden; /* Hide the text when it's off-screen */
+        z-index: 0; /* Layer 2: Behind main content (z-index: 1) but above particles (z-index: -1) */
+        animation: scroll-rtl 25s linear infinite; /* Apply the animation: 25s duration, linear speed, infinite loop */
+    }
+    
+    /* Adjust for smaller screens */
+    @media (max-width: 768px) {
+        #scrolling-text-bg {
+            font-size: 3.5em;
+        }
+    }
 
     /* Enhanced Hero Section for the main page */
     #mainSection {
@@ -201,7 +236,7 @@
   }
     /* Style for the Group Selection dropdown */
     .group-select-fixed { /* دروپ‌داون انتخاب سایزهای دیگر */
-        width: 160px;
+        width: 200px;
         min-width: 100px;
         max-width: 200px;
         padding: 6px;
@@ -562,6 +597,8 @@
 <body>
 
 <div id="particles-js"></div>
+
+<div id="scrolling-text-bg">POSTER IRAN</div>
 
 <div id="mainSection">
   <div class="main-title-container">
