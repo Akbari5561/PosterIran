@@ -114,11 +114,6 @@
         position: relative; /* Ensure it's above pseudo-elements */
         z-index: 1; /* Bring to front */
     }
-    .subtitle-text {
-        color: #FFC107; /* رنگ جدید: زرد پررنگ (آمبر) */
-        font-weight: bold; /* پررنگ‌تر شدن برای برجسته‌سازی */
-        font-size: 1.3em; /* کمی بزرگتر از زیرنویس عادی */
-    }
     /* ************** تنظیمات محصولات جدید ************** */
     .subtitle-text {
         color: #FFC107; /* رنگ جدید: زرد پررنگ (آمبر) */
@@ -187,10 +182,10 @@
     button.clear-cart-btn:hover {
       background-color: #fb8c00;
     }
-    /* NEW: Style for the cart button when it has items */
+    /* NEW: Style for the cart button when it has items *//*تنظینات کلید سبد خرید*/
     #showCartBtn.cart-has-items {
-        background-color: #FFC107; /* Bright Yellow (Amber) - Requested color */
-        color: #333; /* Dark text for better contrast */
+        background-color: #ff9800; /* Bright Yellow (Amber) - Requested color */
+        color: #FDF5F5; /* Dark text for better contrast */
         border: 2px solid #FFA000; /* Darker yellow border */
         font-weight: bold; /* Make the text bolder */
     }
@@ -201,7 +196,7 @@
     }
     /* Ensure the SVG icon also changes color for contrast */
     #showCartBtn.cart-has-items svg.cart-icon {
-        fill: #333;
+        fill: #FFFFFF;
     }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
@@ -901,7 +896,7 @@ const groupInfo = {
             { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
             { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد" },
             { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار" },
-            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر." },
             { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
             { filename: "نقشـه ایـران.jpg", name: "نقشـه ایـران" },
             { filename: "نقشـه جهـان.jpg", name: "نقشـه جهـان" },
