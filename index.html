@@ -47,7 +47,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: #030C41; /* Dark blue background color for the particles */
+      background-color: #000033; /* Dark blue background color for the particles */
       background-image: url("");
       background-repeat: no-repeat;
       background-size: cover;
@@ -186,6 +186,22 @@
     }
     button.clear-cart-btn:hover {
       background-color: #fb8c00;
+    }
+    /* NEW: Style for the cart button when it has items */
+    #showCartBtn.cart-has-items {
+        background-color: #FFC107; /* Bright Yellow (Amber) - Requested color */
+        color: #333; /* Dark text for better contrast */
+        border: 2px solid #FFA000; /* Darker yellow border */
+        font-weight: bold; /* Make the text bolder */
+    }
+    #showCartBtn.cart-has-items:hover {
+        background-color: #FFA000; /* Darker on hover */
+        border-color: #FFC107;
+        transform: translateY(-3px); /* Keep the lift effect */
+    }
+    /* Ensure the SVG icon also changes color for contrast */
+    #showCartBtn.cart-has-items svg.cart-icon {
+        fill: #333;
     }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
@@ -883,6 +899,9 @@ const groupInfo = {
             { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
             { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
             { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد" },
+            { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
             { filename: "نقشـه ایـران.jpg", name: "نقشـه ایـران" },
             { filename: "نقشـه جهـان.jpg", name: "نقشـه جهـان" },
@@ -1600,14 +1619,26 @@ function closeImageModal() {
 }
 
 function checkCartState() {
-  const clearCartBtnSection = document.getElementById('clearCartButtonSection');
-  if (cart.size > 0) {
-    clearCartBtnSection.style.display = 'flex';
-  } else {
-    clearCartBtnSection.style.display = 'none';
-  }
+    const cartEmpty = cart.size === 0;
+    const clearCartSection = document.getElementById('clearCartButtonSection');
+    const showCartButton = document.getElementById('showCartBtn'); // شناسه دکمه سبد خرید در صفحه اصلی
+    
+    // 1. نمایش یا پنهان کردن دکمه هشدار "سبد خرید دارای محصول است"
+    if (cartEmpty) {
+        clearCartSection.style.display = 'none';
+    } else {
+        clearCartSection.style.display = 'flex';
+    }
+    
+    // 2. تغییر رنگ دکمه اصلی سبد خرید
+    if (showCartButton) {
+        if (cartEmpty) {
+            showCartButton.classList.remove('cart-has-items');
+        } else {
+            showCartButton.classList.add('cart-has-items');
+        }
+    }
 }
-
 // تابع اعتبارسنجی و پاکسازی سبد خرید از محصولات حذف شده (جدید)
 function cleanCartOfInvalidItems() {
     let changed = false;
