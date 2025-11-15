@@ -1337,8 +1337,7 @@ function renderCartList() {
         });
     }
 
-    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
-    list.innerHTML += `<h3 style="margin-bottom: 10px;">خلاصه سفارش بر اساس گروه:</h3>`;
+    list.innerHTML += `<h3 style="margin-top: 30px; border-bottom: 2px solid #00C853; padding-bottom: 10px; color: #00C853; text-align: right;">خلاصه سفارش بر اساس گروه:</h3>`;
     for (let groupName in groupedSummaries) {
         const summary = groupedSummaries[groupName];
         list.innerHTML += `
@@ -1387,8 +1386,8 @@ function renderCartList() {
     const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost;
 
     list.innerHTML += `
-        <div style="padding: 8px; margin-top: 10px; border-radius: 5px; text-align: right;">
-            <p style="font-weight: bold; margin: 0;">${shippingDisplayMessage}</p>
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #d1c4e9;">
+            <p style="font-weight: bold; margin: 0; color: #512DA8;">${shippingDisplayMessage.trim()}</p>
         </div>
     `;
     totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
