@@ -1384,12 +1384,14 @@ function renderCartList() {
     }
 
     const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost;
+    
 
     list.innerHTML += `
         <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #d1c4e9;">
             <p style="font-weight: bold; margin: 0; color: #512DA8;">${shippingDisplayMessage.trim()}</p>
         </div>
     `;
+    
     totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
     checkCartState();
 }
@@ -1477,10 +1479,10 @@ function generateOrderMessage(orderId) {
     const customerPhone = document.getElementById('customerPhone').value.trim();
     const customerAddress = document.getElementById('customerAddress').value.trim();
     
+    message += `📍 آدرس تحویل: ${customerAddress}\n`;
     message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
     message += `📱 شماره موبایل: ${customerPhone}\n`;
-    message += `📍 آدرس تحویل: ${customerAddress}\n`;
-
+    
     let totalAmountBeforeDiscount = 0;
     let groupedItems = {};
     let groupedSummaries = {};
@@ -1517,7 +1519,7 @@ function generateOrderMessage(orderId) {
             message += `  - ${item.name} - تعداد: ${item.qty} عدد\n`;
         });
     }
-
+    
     message += "               ---------------------------------------\n";
     message += "\n🔶🔸 خلاصه سفارش بر اساس گروه\n";
     for (let groupName in groupedSummaries) {
