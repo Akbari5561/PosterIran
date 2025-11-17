@@ -868,14 +868,13 @@ const groupInfo = {
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
-            { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+            /*{ filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            /*
-            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
@@ -1350,7 +1349,7 @@ function renderCartList() {
     list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
 
     list.innerHTML += `
-        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #e0f2f7;">
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
             <p style="font-weight: bold; margin: 0;">مبلغ کل : ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
         </div>
     `;
@@ -1387,7 +1386,7 @@ function renderCartList() {
     
 
     list.innerHTML += `
-        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #d1c4e9;">
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
             <p style="font-weight: bold; margin: 0; color: #512DA8;">${shippingDisplayMessage.trim()}</p>
         </div>
     `;
@@ -1395,6 +1394,7 @@ function renderCartList() {
     totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
     checkCartState();
 }
+
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
