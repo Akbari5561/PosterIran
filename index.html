@@ -54,7 +54,43 @@
       background-position: 50% 50%;
       z-index: -1; /* Layer 1: Bottommost layer for background */
     }
+    /* Animation Keyframes - جهت اسکرول از چپ به راست تغییر داده شد */
+    @keyframes scroll {
+      0% { transform: translateX(-100%); } /* شروع از سمت چپ خارج از صفحه */
+      999% { transform: translateX(100%); } /* پایان در سمت راست خارج از صفحه */
+    }
 
+    /* Style for the scrolling text container */
+    .marquee-container {
+      width: 100%;
+      overflow: hidden; /* پنهان کردن متن خارج از کانتینر */
+      white-space: nowrap; /* جلوگیری از شکستن خط متن */
+      box-sizing: border-box;
+      padding: 0px 0;
+      margin-top: 0px;
+      margin-bottom: -30px;
+      background-color: #AE87F5; /* رنگ زرد برای برجسته شدن */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1; /* اطمینان از قرارگیری در بالای ذرات پس‌زمینه */
+      direction: ltr; /* جهت حرکت باید چپ به راست باشد تا متن روان حرکت کند */
+    }
+
+    /* Style for the scrolling text itself */
+    .scrolling-text {
+      display: inline-block;
+      color: #333;
+      font-size: 1.1em;
+      font-weight: bold;
+      /* اعمال انیمیشن: اسم، مدت زمان، سرعت، تکرار */
+      animation: scroll 80s linear infinite; 
+      padding-left: 100%; /* اضافه کردن پدینگ از چپ برای شروع درست حرکت */
+    }
+
+    /* *************************************** */
+    /* ** پایان استایل‌های متن متحرک ** */
+    /* *************************************** */
     /* Enhanced Hero Section for the main page */
     #mainSection {
         margin-top: 0;
@@ -151,8 +187,9 @@
         margin-top: 20px;
         display: none; /* Hide by default, show with JS */
     }
+    /* تنظیمات کلید ورود به گالری و سبد خرید */
     button {
-    background-color: #714A9C;
+    background-color: #9C4BF7;
     color: white;
     border: none;
     padding: 4px 20px;
@@ -578,7 +615,11 @@
   <div class="main-title-container">
     <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.png" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
-    <p class="subtitle-text"> </p>
+  </div>
+  <div class="marquee-container">
+      <p class="scrolling-text">انتشارات پوستر ایران با افتخار یکی از پیشگامان در زمینه تولید و چاپ پوستر در کشور است. ما با تکیه بر سال‌ها تجربه در زمینه چاپ و شناخت دقیق از نیازهای نظام آموزشی، مجموعه‌ای از پوسترهای جذاب، کاربردی و هماهنگ با محتوای کتب درسی مدارس تهیه کرده‌ایم تا فرآیند یادگیری را برای دانش‌آموزان ساده‌تر، عمیق‌تر و لذت‌بخش‌تر کنیم.
+
+پوسترهای آموزشی با طراحی حرفه‌ای، چاپ تمام‌رنگی، با کیفیت عالی و محتوای استاندارد، ابزاری کارآمد برای معلمان، دانش‌آموزان و مدارس در سراسر کشور به شمار می‌آیند. "پوستر ایران" همواره در تلاش است تا با نوآوری و پایبندی به اصول آموزشی، نقش مؤثری در ارتقاء سطح آموزش ایفا کند  ⬅</p>
   </div>
   <div id="loginSection">
     <button id="enterAsUserBtn">ورود به گالری</button>
