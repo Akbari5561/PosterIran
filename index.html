@@ -910,11 +910,12 @@ const groupInfo = {
         images: [
             { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
-            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
-            /*{ filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+            /*
+            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+            { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
             { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
@@ -1858,6 +1859,7 @@ function reorderPreviousOrder(orderId) {
         showNotification('سفارش مورد نظر یافت نشد.');
     }
 }
+
 
 function deletePreviousOrder(orderId) {
     if (confirm(`آیا از حذف سفارش شماره ${orderId} مطمئن هستید؟`)) {
