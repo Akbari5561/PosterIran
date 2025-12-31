@@ -25,7 +25,7 @@
   <meta property="og:image" content="/icons/og-image.jpg?v=1.0">
   <meta property="og:url" content="https://akbari5561.github.io/PosterIran/">
 
-  <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.">
+  <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp">
   
   <style>
   .music-btn {
@@ -154,6 +154,114 @@
         z-index: 1; /* Bring to front */
         
     }
+    /* کانتینر اصلی در گوشه بالا سمت چپ */
+#clock-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* استایل ساعت آنالوگ */
+#analog-clock {
+    width: 60px;
+    height: 60px;
+    border-radius: 48px;
+    border: 3px solid #F5F5F5;
+    position: relative;
+    cursor: pointer;
+    background-color: #1a1a1a; /* رنگ پس‌زمینه پایه */
+    /* اضافه کردن یک لایه تیره ملایم روی لوگو برای وضوح عقربه‌ها */
+background-blend-mode: overlay;
+background-color: rgba(0, 0, 0, 0.4);
+/* تنظیم لوگوی صفحه به عنوان پس‌زمینه ساعت */
+    background-image: url('https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp');
+    background-size: 85%; /* اندازه لوگو داخل ساعت */
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    z-index: 20; /* قرارگیری در لایه رویی نسبت به بخش دیجیتال */
+    flex-shrink: 0;
+}
+#digital-info {
+    /* تنظیمات قبلی بماند */
+    position: relative; /* یا مطلق نسبت به کانتینر ساعت */
+    pointer-events: auto; /* اطمینان از اینکه کلیک روی خودش را می‌فهمد */
+}
+
+/* استایل عقربه‌ها */
+.hand {
+    position: absolute;
+    transform-origin: bottom center;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    border-radius: 2px;
+    background-color: white;
+    transition: transform 0.1s cubic-bezier(0, 0, 0, 1);
+}
+
+/* استایل عقربه‌ها - تکمیل شده */
+.hour { width: 3px; height: 16px; top: 14px; background-color: white; }
+.minute { width: 2px; height: 22px; top: 8px; background-color: #ddd; }
+.second { width: 1px; height: 26px; top: 4px; background-color: #ff3b30; } /* عقربه ثانیه قرمز */
+
+/* استایل نشانگرهای دور ساعت */
+.tick {
+    position: absolute;
+    width: 1px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    left: 50%;
+    top: 50%;
+    transform-origin: center bottom;
+}
+
+/* نشانگرهای ساعت (هر ۵ دقیقه) */
+.tick.hour-tick {
+    width: 2px;
+    height: 6px;
+    background-color: #F5F5F5;
+}
+
+/* نقطه مرکزی ساعت */
+.center-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+/* استایل بخش دیجیتال (زمان و تاریخ) */
+#digital-info {
+    background-color: #0D50A9;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    min-width: 190px; 
+    transform: translateX(-100%); 
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    direction: rtl; 
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#digital-info.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
 
     .header-logo {
         max-width: 1800px; /* Adjusted size for the new layout */
@@ -640,12 +748,24 @@
   
 </head>
 <body>
+    <div id="clock-container">
+    <div id="digital-info" class="visible">
+    <div id="digital-time"></div> <div id="digital-date"></div> 
+</div>
+
+    <div id="analog-clock">
+        <div class="hand hour" id="hour-hand"></div>
+        <div class="hand minute" id="minute-hand"></div>
+        <div class="hand second" id="second-hand"></div>
+        <div class="center-dot"></div>
+    </div>
+</div>
     
 <div id="particles-js"></div>
 
 <div id="mainSection">
   <div class="main-title-container">
-    <img src="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
+    <img src="https://akbari5561.github.io/PosterIran/icons/2025.webp" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
     <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
   </div>
   <div class="marquee-container">
@@ -1054,7 +1174,82 @@ window.addEventListener('popstate', (event) => {
         showScreen('main');
     }
 });
+function updateClock() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours();
+
+    // محاسبه درجات
+    const secondsDeg = (seconds / 60) * 360;
+    const minutesDeg = ((minutes / 60) * 360) + ((seconds / 60) * 6);
+    const hoursDeg = ((hours % 12 / 12) * 360) + ((minutes / 60) * 30);
+
+    // اعمال چرخش به عقربه‌ها
+    document.getElementById('second-hand').style.transform = `translateX(-50%) rotate(${secondsDeg}deg)`;
+    document.getElementById('minute-hand').style.transform = `translateX(-50%) rotate(${minutesDeg}deg)`;
+    document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${hoursDeg}deg)`;
     
+    // آپدیت بخش دیجیتال
+    const digitalInfo = document.getElementById('digital-info');
+    if (digitalInfo && digitalInfo.classList.contains('visible')) {
+        updateDigitalInfo(now);
+    }
+}
+
+function updateDigitalInfo(now) {
+    // نمایش زمان دیجیتال
+    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const timeString = now.toLocaleTimeString('en-US', timeOptions);
+    document.getElementById('digital-time').textContent = timeString;
+
+    // نمایش تاریخ شمسی
+    const weekDays = ["یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه"];
+    const dayOfWeek = weekDays[now.getDay()];
+    const jalaliDate = new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now).split('/');
+    const [year, month, day] = jalaliDate;
+    document.getElementById('digital-date').textContent = `${dayOfWeek} ${year}/${month}/${day}`;
+}
+
+// اجرای آپدیت هر ثانیه
+setInterval(updateClock, 1000);
+updateClock();
+    // اضافه کردن قابلیت کلیک برای نمایش/مخفی کردن تاریخ و زمان دیجیتال
+// دریافت المان‌ها
+const analogClock = document.getElementById('analog-clock');
+const digitalInfo = document.getElementById('digital-info');
+
+if (analogClock && digitalInfo) {
+    analogClock.addEventListener('click', function(e) {
+        e.stopPropagation();
+        digitalInfo.classList.toggle('visible');
+    });
+}
+
+function createClockTicks() {
+    const clock = document.getElementById('analog-clock');
+    if (!clock) return;
+    
+    for (let i = 0; i < 60; i++) {
+        const tick = document.createElement('div');
+        tick.className = 'tick';
+        
+        // اگر مضرب ۵ باشد، خط ساعت است (ضخیم‌تر)
+        if (i % 5 === 0) {
+            tick.classList.add('hour-tick');
+        }
+        
+        // محاسبه چرخش و فاصله از مرکز (شعاع حدود ۲۶ پیکسل)
+        tick.style.transform = `translate(-50%, -100%) rotate(${i * 6}deg) translateY(-24px)`;
+        
+        // اضافه کردن به ابتدای ساعت تا زیر عقربه‌ها قرار بگیرند
+        clock.prepend(tick);
+    }
+}
+
+// فراخوانی تابع برای ساخت خطوط
+createClockTicks();
+
 function showNotification(message) {
     const container = document.getElementById('notification-container');
     const notification = document.createElement('div');
