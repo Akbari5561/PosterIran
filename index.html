@@ -187,7 +187,14 @@ background-color: rgba(0, 0, 0, 0.4);
     z-index: 20; /* قرارگیری در لایه رویی نسبت به بخش دیجیتال */
     flex-shrink: 0;
 }
-#digital-info {
+#digital-clock {
+    display: none; /* یا opacity: 0; */
+    transition: opacity 0.5s ease-in-out;
+}
+##digital-clock {
+    display: none; /* یا opacity: 0; */
+    transition: opacity 0.5s ease-in-out;
+}ital-info {
     /* تنظیمات قبلی بماند */
     position: relative; /* یا مطلق نسبت به کانتینر ساعت */
     pointer-events: auto; /* اطمینان از اینکه کلیک روی خودش را می‌فهمد */
@@ -247,9 +254,9 @@ background-color: rgba(0, 0, 0, 0.4);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     min-width: 190px; 
-    transform: translateX(-100%); 
+    transform: translateX(-100%); display: none; /* پنهان سازی اولیه */
     opacity: 0;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transition: opacity 0.9s ease-in-out, transform 0.9s ease-out;
     direction: rtl; 
     margin-right: 10px;
     display: flex;
@@ -257,6 +264,7 @@ background-color: rgba(0, 0, 0, 0.4);
     justify-content: space-between; 
     align-items: center;
 }
+
 
 #digital-info.visible {
     transform: translateX(0);
@@ -750,7 +758,7 @@ background-color: rgba(0, 0, 0, 0.4);
 </head>
 <body>
     <div id="clock-container">
-    <div id="digital-info" class="visible">
+    <div id="digital-info">
     <div id="digital-time"></div> <div id="digital-date"></div> 
 </div>
 
@@ -2164,6 +2172,26 @@ window.addEventListener('click', function() {
         });
     }
 }, { once: true });
+window.addEventListener('load', function() {
+    const clock = document.getElementById('digital-clock');
+    
+    // ۱. زمان انتظار برای پایان پیام خوش‌آمدگویی (مثلاً ۳ ثانیه)
+    setTimeout(() => {
+        if (clock) {
+            clock.style.display = 'block'; // ظاهر شدن ساعت
+            clock.style.opacity = '1';
+            
+            // ۲. مخفی شدن دوباره بعد از ۵ ثانیه ماندگاری
+            setTimeout(() => {
+                clock.style.opacity = '0';
+                // بعد از اتمام انیمیشن کاملاً حذف شود
+                setTimeout(() => {
+                    clock.style.display = 'none';
+                }, 500); 
+            }, 5000); // ۵ ثانیه نمایش
+        }
+    }, 3000); // زمان انتظار برای شروع (متناسب با طول پیام خوش‌آمدگویی شما)
+});
 </script>
 <script src="live-reload.js"></script>
 
