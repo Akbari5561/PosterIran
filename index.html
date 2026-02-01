@@ -79,7 +79,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: #FFFFFF; /* Dark blue background color for the particles */
+      background-color: #FCF5F4; /* Dark blue background color for the particles */
       background-image: url("akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp");
       background-repeat: no-repeat;
       background-size: cover;
@@ -101,7 +101,7 @@
       padding: 0px 0;
       margin-top: 0px;
       margin-bottom: -30px;
-      background-color: #FFFFFF; /* رنگ زرد برای برجسته شدن */
+      background-color: #0D2440; /* رنگ زرد برای برجسته شدن */
       border-radius: 8px;
       /*box-shadow: 0 4px 8px rgba(0,0,0,0.2);*/
       position: relative;
@@ -112,7 +112,7 @@
     /* Style for the scrolling text itself */
     .scrolling-text {
       display: inline-block;
-      color: #043BC88F;
+      color: #FFFFFF;
       font-size: 1.2em;
       font-weight: bold;
       /* اعمال انیمیشن: اسم، مدت زمان، سرعت، تکرار */
@@ -311,7 +311,7 @@ background-color: #0D2440;
         font-size: 1.3em; /* کمی بزرگتر از زیرنویس عادی */
     }
     #address {
-        background#Fffffff;
+        background#FCF5F4f;
         padding: 8px;
         border-radius: 10px;
         margin-top: 30px;
@@ -398,7 +398,7 @@ background-color: #0D2440;
     }
     /* Ensure the SVG icon also changes color for contrast */
     #showCartBtn.cart-has-items svg.cart-icon {
-        fill: #FFFFFF;
+        fill: #FCF5F4;
     }
     /* Style for quantity dropdowns in both gallery and cart */
     .quantity-select {
@@ -892,7 +892,7 @@ background-color: #0D2440;
 <audio id="bgMusic" loop>
   <source src="https://raw.githubusercontent.com/Akbari5561/PosterIran/main/ludovico.mp3" type="audio/mpeg">
 </audio>
-
+<div id="gallery-container"></div>
 <div id="music-control" class="music-btn">
   <span id="music-icon">🔇</span>
 </div>
@@ -909,7 +909,7 @@ particlesJS('particles-js', {
       }
     },
     "color": {
-      "value": "#ffffff"
+      "value": "#0D2440"
     },
     "shape": {
       "type": "circle",
@@ -949,7 +949,7 @@ particlesJS('particles-js', {
     "line_linked": {
       "enable": true,
       "distance": 150,
-      "color": "#ffffff",
+      "color": "#0D2440",
       "opacity": 0.4,
       "width": 1
     },
@@ -1152,26 +1152,52 @@ const screens = {
   cart: document.getElementById('cartSection')
 };
 
-function showScreen(screenName) {
-  for (let key in screens) {
-    screens[key].style.display = 'none';
-  }
-  screens[screenName].style.display = 'flex';
-  
-  if (history.state === null || history.state.screen !== screenName) {
-    history.pushState({ screen: screenName }, '', `#${screenName}`);
-  }
-
-  if (screenName === 'gallery') {
-    const currentGroupId = document.getElementById('bottomGroupSelect').value;
-    loadGroup(currentGroupId);
-  } else if (screenName === 'cart') {
-    renderCartList();
-    loadCustomerInfo();
-  }
-  checkCartState();
+function showScreen(screenId) {
+    // ۱. مخفی کردن تمام بخش‌ها
+    const sections = ['mainSection', 'adminLogin', 'gallery', 'cartSection'];
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+    
+    // ۲. مدیریت نمایش بخش انتخاب شده و ساعت
+    if (screenId === 'main') {
+        document.getElementById('mainSection').style.display = 'flex';
+        // نمایش ساعت فقط در صفحه اصلی
+        const clock = document.getElementById('clock-container');
+        if (clock) clock.style.display = 'flex';
+    } else {
+        const targetId = (screenId === 'gallery') ? 'gallery' :
+            (screenId === 'cart') ? 'cartSection' :
+            (screenId === 'admin') ? 'adminLogin' : '';
+        
+        if (targetId) {
+            document.getElementById(targetId).style.display = 'flex';
+        }
+        // مخفی کردن ساعت در صفحات دیگر
+        const clock = document.getElementById('clock-container');
+        if (clock) clock.style.display = 'none';
+        
+        // ۳. اجرای منطق مخصوص هر صفحه (بخش حیاتی برای حل مشکل شما)
+        if (screenId === 'gallery') {
+            // پیدا کردن گروه انتخاب شده در دروپ‌داون و بارگذاری محصولات آن
+            const currentGroupId = document.getElementById('bottomGroupSelect').value;
+            if (typeof loadGroup === 'function') {
+                loadGroup(currentGroupId); // این خط محصولات گروه ۱ را نمایش می‌دهد
+            }
+        } else if (screenId === 'cart') {
+            if (typeof renderCartList === 'function') {
+                renderCartList();
+                loadCustomerInfo();
+            }
+        }
+    }
+    
+    // ۴. به‌روزرسانی تاریخچه مرورگر
+    if (history.state?.screen !== screenId) {
+        history.pushState({ screen: screenId }, '', `#${screenId}`);
+    }
 }
-
 window.addEventListener('popstate', (event) => {
     if (event.state && event.state.screen) {
         for (let key in screens) {
@@ -2182,26 +2208,36 @@ window.addEventListener('click', function() {
 }, { once: true });
 window.addEventListener('load', function() {
     const clock = document.getElementById('digital-info');
+    const container = document.getElementById('clock-container');
     
-    // ۱. نمایش ساعت ۴ ثانیه بعد از ورود (کمی بعد از پیام خوش‌آمدگویی)
+    // ۱. نمایش ساعت ۴ ثانیه بعد از ورود (بدون حذف خودکار)
     setTimeout(() => {
         if (clock) {
-            clock.style.display = 'flex'; // ظاهر شدن در ساختار صفحه
-            // ایجاد یک وقفه بسیار کوتاه برای اینکه انیمیشن Transition عمل کند
+            clock.style.display = 'flex';
             setTimeout(() => {
                 clock.classList.add('visible');
             }, 50);
-            
-            // ۲. مخفی شدن خودکار بعد از ۷ ثانیه ماندگاری
-            setTimeout(() => {
+        }
+    }, 4000);
+    
+    // ۲. قابلیت حذف و نمایش دستی با کلیک روی کانتینر ساعت (آنالوگ یا دیجیتال)
+    if (container) {
+        container.addEventListener('click', function() {
+            if (clock.classList.contains('visible')) {
+                // اگر باز است، آن را می‌بندد
                 clock.classList.remove('visible');
-                // حذف کامل از صفحه بعد از اتمام انیمیشن محو شدن
                 setTimeout(() => {
                     clock.style.display = 'none';
-                }, 500); 
-            }, 7000); 
-        }
-    }, 4000); 
+                }, 500);
+            } else {
+                // اگر بسته است، آن را باز می‌کند
+                clock.style.display = 'flex';
+                setTimeout(() => {
+                    clock.classList.add('visible');
+                }, 50);
+            }
+        });
+    }
 });
 </script>
 <script src="live-reload.js"></script>
