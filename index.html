@@ -311,7 +311,7 @@ background-color: #0D2440;
         font-size: 1.3em; /* کمی بزرگتر از زیرنویس عادی */
     }
     #address {
-        background#FCF5F4f;
+        background #FCF5F4;
         padding: 8px;
         border-radius: 10px;
         margin-top: 30px;
@@ -322,6 +322,7 @@ background-color: #0D2440;
     }
     #address {
         z-index: 1; /* Bring to front */
+        background-color: #FCF5F4;
         border-top: 10px solid #0D2440; /* NEW: Separator as requested for 'above address' change */
         padding-top: 15px; /* NEW: Space above the separator */
         margin-top: 15px; /* NEW: Space below title section */
@@ -869,6 +870,9 @@ background-color: #0D2440;
   </div>
 
   <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
+  <button id="submitOrderEitaaBtn" onclick="submitOrderWithEitaa()" style="background-color: #ff6600; color: white;">
+   ارسال سفارش با ایتا
+</button>
   <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
   <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
   <button id="showPreviousOrdersBtn"style="background-color: #9C27B0;">سفارش‌های قبلی 📦</button>
@@ -1016,7 +1020,7 @@ particlesJS('particles-js', {
 const groupInfo = {
     1: {
         name: "سایز ۲۹×۲۱ دوروچاپ",
-        price: 125000,
+        price: 150000,
         // آرایه مخصوص گروه ۱
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1049,19 +1053,19 @@ const groupInfo = {
     },
     2: {
         name: "سایز ۵۰×۳۵ یکروچاپ",
-        price: 125000,
+        price: 150000,
         // آرایه مخصوص گروه ۲
         allowedQuantities: [0, 50], 
         images: [
-            /*{ filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
+            { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
             { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
-            /*{ filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
-            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },*/
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
         ]
     },
     3: {
         name: "سایز ۵۰×۳۵ دوروچاپ",
-        price: 250000,
+        price: 300000,
         // آرایه مخصوص گروه ۳
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1079,17 +1083,16 @@ const groupInfo = {
     },
     4: {
         name: "سایز ۷۰×۵۰ یکروچاپ",
-        price: 250000,
+        price: 300000,
         // آرایه مخصوص گروه ۴
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
             { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
             { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
-           
+            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "جدول جمع.jpg", name: "جدول جمع" },
             { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             /*
-             { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
             { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
             { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
@@ -1099,7 +1102,7 @@ const groupInfo = {
     },
     5: {
         name: "سایز ۷۰×۵۰ یووی‌دار",
-        price: 350000,
+        price: 400000,
         // آرایه مخصوص گروه ۵
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1592,6 +1595,11 @@ function renderCartList() {
         totalDisplay.textContent = `مبلغ کل: 0 ریال`;
         return;
     }
+    // در انتهای تابع renderCartList اضافه شود:
+const eitaaBtn = document.getElementById('submitOrderEitaaBtn');
+if (eitaaBtn) {
+    eitaaBtn.style.display = (cart.size === 0) ? 'none' : 'block';
+}
 
     cart.forEach(item => {
         // --- START OF FIX: بازیابی قیمت لحظه‌ای از منبع (groupInfo) ---
@@ -2165,6 +2173,38 @@ window.addEventListener('popstate', function(event) {
     closePreviousOrdersModal();
   }
 });
+function submitOrderWithEitaa() {
+    if (cart.size === 0) {
+        showNotification('سبد خرید شما خالی است.');
+        return;
+    }
+    if (!validateCustomerInfo()) return;
+    
+    // ایجاد شناسه سفارش
+    const orderId = Date.now().toString().slice(-4);
+    
+    // ذخیره در تاریخچه
+    saveOrderToHistory(orderId);
+    
+    // تولید متن سفارش (با استفاده از تابعی که در فایل دارید)
+    const message = generateOrderMessage(orderId);
+    
+    // آیدی ایتا شما (بدون @)
+    const eitaaID = "PosterIran";
+    
+    // کپی متن در حافظه و باز کردن ایتا
+    navigator.clipboard.writeText(message).then(() => {
+        alert("✅ متن سفارش کپی شد.\nدر صفحه باز شده ایتا، پیام را Paste و برای ما ارسال کنید.");
+        window.open(`https://eitaa.com/${eitaaID}`, '_blank');
+        
+        // پاک کردن سبد خرید پس از ارسال (اختیاری)
+        cart.clear();
+        saveCart();
+        renderCartList();
+    }).catch(err => {
+        console.error('خطا در کپی متن: ', err);
+    });
+}
 
 </script>
 
