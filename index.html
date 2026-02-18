@@ -1,1179 +1,2287 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پوستر ایران | فروشگاه پوسترهای آموزشی</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Vazirmatn', sans-serif; scroll-behavior: smooth; }
-        .hero-gradient { background: linear-gradient(135deg, #0d2440 0%, #1e40af 100%); }
-        .image-box { transition: transform 0.3s ease; }
-        .image-box:hover { transform: translateY(-5px); }
-        .hidden-section { display: none; }
-        .qty-select { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-        
-        /* استایل اعلان (Toast) */
-        /* استایل جدید و ملایم‌تر برای اعلان */
-#toast {
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    top: 20px; /* قرارگیری در بالای صفحه */
-}
-.qty-container {
-    position: relative;
-    display: flex;
-    items-center: center;
-    gap: 0.75rem;
-    background: white;
-    padding: 0.3rem 0.75rem;
-    border-radius: 0.75rem;
-    border: 2px solid #e0e7ff; /* blue-100 */
-}
-/* باکس اصلی کنترل تعداد در سبد خرید */
-.qty-container-mini {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    width: 100px;
-    height: 32px;
-    overflow: hidden;
-}
+  <meta charset="UTF-8">
+  <title>پوستر ایران</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" as="style" onload="this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap">
+</noscript>
 
-/* دراپ‌دان کاملاً مخفی که فقط روی عدد عمل می‌کند */
-.qty-select-overlay {
-    position: absolute;
-    left: 33.33%;
-    width: 33.33%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 10;
-}
+  <link rel="icon" href="/icons/favicon.ico?v=1.0" type="image/x-icon">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=1.0" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167x167.png?v=1.0">
+  <link rel="manifest" href="/icons/manifest.json?v=1.0">
+  <meta name="theme-color" content="#714A9C">
+  <meta property="og:title" content="پوستر ایران">
+  <meta property="og:description" content="چاپ انواع پوسترهای آموزشی">
+  <meta property="og:image" content="/icons/og-image.jpg?v=1.0">
+  <meta property="og:url" content="https://akbari5561.github.io/PosterIran/">
 
-.qty-btn {
-    width: 32px;
-    height: 100%;
+  <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp">
+  
+  <style>
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2563eb;
-    transition: background 0.2s;
+    cursor: pointer;
+    z-index: 1000;
+    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
+    transition: all 0.3s ease;
 }
 
-.qty-btn:hover { background: #eff6ff; }
-/* وضعیت پنهان (خارج از صفحه در بالا) */
-.toast-hidden {
-    opacity: 0 !important;
-    transform: translate(-50%, -100px) scale(0.9) !important;
-    pointer-events: none;
+.music-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.4);
 }
 
-/* وضعیت نمایان (لغزش به پایین) */
-.toast-visible {
-    opacity: 1 !important;
-    transform: translate(-50%, 20px) scale(1) !important;
+#music-icon {
+    font-size: 20px;
 }
-    </style>
+  
+/* Import Vazirmatn font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Vazirmatn', sans-serif; /* Apply Vazirmatn font */
+      direction: r#6D0B9Dtl;
+      background: #43399E; /* Softer background#543AFB */
+      color: #333;
+      padding: 0; /* Remove default body padding */
+      margin: 0; /* Remove default body margin */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure body takes full viewport height */
+      align-items: center; /* Center content horizontally */
+      justify-content: center; /* Center content vertically */
+      position: relative; /* Add this to position particles relative to body */
+    }
+
+    /* Particles.js container styling */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #FCF5F4; /* Dark blue background color for the particles */
+      background-image: url("akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+      z-index: -1; /* Layer 1: Bottommost layer for background */
+    }
+    /* Animation Keyframes - جهت اسکرول از چپ به راست تغییر داده شد */
+    @keyframes scroll {
+      0% { transform: translateX(-100%); } /* شروع از سمت چپ خارج از صفحه */
+      999% { transform: translateX(100%); } /* پایان در سمت راست خارج از صفحه */
+    }
+
+    /* Style for the scrolling text container */
+    .marquee-container {
+      width: 100%;
+      overflow: hidden; /* پنهان کردن متن خارج از کانتینر */
+      white-space: nowrap; /* جلوگیری از شکستن خط متن */
+      box-sizing: border-box;
+      padding: 0px 0;
+      margin-top: 0px;
+      margin-bottom: -30px;
+      background-color: #0D2440; /* رنگ زرد برای برجسته شدن */
+      border-radius: 8px;
+      /*box-shadow: 0 4px 8px rgba(0,0,0,0.2);*/
+      position: relative;
+      z-index: 1; /* اطمینان از قرارگیری در بالای ذرات پس‌زمینه */
+      direction: ltr; /* جهت حرکت باید چپ به راست باشد تا متن روان حرکت کند */
+    }
+
+    /* Style for the scrolling text itself */
+    .scrolling-text {
+      display: inline-block;
+      color: #FFFFFF;
+      font-size: 1.2em;
+      font-weight: bold;
+      /* اعمال انیمیشن: اسم، مدت زمان، سرعت، تکرار */
+      animation: scroll 70s linear infinite; 
+      padding-left: 100%; /* اضافه کردن پدینگ از چپ برای شروع درست حرکت */
+    }
+
+    /* *************************************** */
+    /* ** پایان استایل‌های متن متحرک ** */
+    /* *************************************** */
+    /* Enhanced Hero Section for the main page */
+    #mainSection {
+        margin-top: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 900px; /* Max width for content */
+        padding: 40px 20px; /* More padding */
+        box-sizing: border-box;
+        background: #067FB500; /* Semi-transparent blue background */
+        border-radius: 20px;
+        /*box-shadow: 0 10px 30px rgba(0,0,0,0.15);*/ /* More prominent shadow */
+        text-align: center;
+        position: relative;
+        z-index: 1; /* Layer 2: Main content */
+    }
+    
+    .main-title-container {
+        margin-bottom: 10px;
+        padding: 0px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Stack logo, h1, h2 */
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+        
+    }
+    /* کانتینر اصلی در گوشه بالا سمت چپ */
+#clock-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* استایل ساعت آنالوگ */
+#analog-clock {
+    width: 60px;
+    height: 60px;
+    border-radius: 48px;
+    border: 2px solid #7BA4D0;
+    position: relative;
+    cursor: pointer;
+    background-color: #1A1A1A; /* رنگ پس‌زمینه پایه */
+    /* اضافه کردن یک لایه تیره ملایم روی لوگو برای وضوح عقربه‌ها */
+background-color: #0D2440;
+/* تنظیم لوگوی صفحه به عنوان پس‌زمینه ساعت */
+    background-image: url('https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp');
+    background-size: 80%; /* اندازه لوگو داخل ساعت */
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);*/
+    z-index: 20; /* قرارگیری در لایه رویی نسبت به بخش دیجیتال */
+    flex-shrink: 0;
+}
+#digital-info {
+    /* تنظیمات قبلی بماند */
+    position: relative; /* یا مطلق نسبت به کانتینر ساعت */
+    pointer-events: auto; /* اطمینان از اینکه کلیک روی خودش را می‌فهمد */
+}
+
+/* استایل عقربه‌ها */
+.hand {
+    position: absolute;
+    transform-origin: bottom center;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    border-radius: 2px;
+    background-color: white;
+    transition: transform 0.1s cubic-bezier(0, 0, 0, 1);
+}
+
+/* استایل عقربه‌ها */
+.hour { width: 3px; height: 16px; top: 14px; background-color: white; }
+.minute { width: 2px; height: 22px; top: 8px; background-color: #ddd; }
+.second { width: 1px; height: 26px; top: 4px; background-color: #ff3b30; } /* عقربه ثانیه قرمز */
+
+/* استایل نشانگرهای دور ساعت */
+.tick {
+    position: absolute;
+    width: 1px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    left: 50%;
+    top: 50%;
+    transform-origin: center bottom;
+}
+
+/* نشانگرهای ساعت (هر ۵ دقیقه) */
+.tick.hour-tick {
+    width: 2px;
+    height: 6px;
+    background-color: #7BA4D0;
+}
+
+/* نقطه مرکزی ساعت */
+.center-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+#digital-clock {
+    display: none; /* یا opacity: 0; */
+    transition: opacity 0.5s ease-in-out;
+}
+/* استایل بخش دیجیتال (زمان و تاریخ) */
+#digital-info {
+    background-color: #0D2440;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 8px;
+    border: 2px solid #7BA4D0;
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);*/
+    min-width: 190px; 
+    transform: translateX(-100%); 
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    direction: rtl; 
+    margin-right: 10px;
+    display: none; /* اضافه شد: پنهان‌سازی فیزیکی در ابتدا */
+    align-items: center;
+    justify-content: space-between;
+}
+
+#digital-info.visible {
+    display: flex; /* نمایش فیزیکی */
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#digital-info {
+    display: none; /* پنهان سازی اولیه */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+}
+
+    .header-logo {
+        max-width: 1800px; /* Adjusted size for the new layout */
+        height: auto;
+        margin-bottom: -1px; /* Space between logo and title */
+        margin-top: 50px; /* این خط را اضافه کنید - مقدار را به دلخواه تغییر دهید */
+        border: 0px solid #F5104E;
+}
+
+    h1 {
+        color: #0D2440; /* Deeper blue for main title */
+        font-size: 3em; /* Larger font size */
+        margin: 0; /* Remove default margin */
+        /*text-shadow: 2px 2px 5px rgba(0,0,0,0.1);*/
+        letter-spacing: 1.5px;
+        border: 0px solid #F5104E;
+    }
+    h2 {
+        color: #0D2440; /* Slightly lighter blue for subtitle */
+        font-size: 1.2em;
+        margin-top: 10px; /* Space below h1 */
+        margin-bottom: 0px; /* No extra space below h2 */
+        
+    }
+    #subtitle {
+        font-size: 1.2em;
+        color: black;
+        margin-top: 5px;
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+        border: 0px solid #F5104E;
+    }
+    /* ************** تنظیمات محصولات جدید ************** */
+    .subtitle-text {
+        color: #FFC107; /* رنگ جدید: زرد پررنگ (آمبر) */
+        font-weight: bold; /* پررنگ‌تر شدن برای برجسته‌سازی */
+        font-size: 1.3em; /* کمی بزرگتر از زیرنویس عادی */
+    }
+    #address {
+        background #FCF5F4;
+        padding: 8px;
+        border-radius: 10px;
+        margin-top: 30px;
+        /*box-shadow: 0 2px 10px rgba(1, 1, 15, 0.78);*/
+        line-height: 1.8;
+        position: relative; /* Ensure it's above pseudo-elements */
+        z-index: 1; /* Bring to front */
+    }
+    #address {
+        z-index: 1; /* Bring to front */
+        background-color: #FCF5F4;
+        border-top: 10px solid #0D2440; /* NEW: Separator as requested for 'above address' change */
+        padding-top: 15px; /* NEW: Space above the separator */
+        margin-top: 15px; /* NEW: Space below title section */
+    }
+    #address p {
+        margin: 5px 0;
+        font-size: 1.1em;
+        color: #0D2440;
+    }
+    #address a {
+        color: #444; /* Darker blue for links */
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    #address a:hover {
+        color: #0D2440;
+    }
+    #loginSection, #clearCartButtonSection {
+        margin-top: 40px;
+        display: flex;
+        gap: 20px; /* Space between buttons */
+        position: relative; /* Add this */
+        z-index: 2; /* Layer 3: Buttons and controls on main section */
+    }
+    #clearCartButtonSection {
+        margin-top: 20px;
+        display: none; /* Hide by default, show with JS */
+    }
+    /* تنظیمات کلید ورود به گالری و سبد خرید */
+    button {
+    background-color: #0D2440;
+    color: white;
+    border: none;
+    padding: 4px 20px;
+    margin: 5px;
+    /*box-shadow: 0  2px 5px rgba(1, 1, 5);*/
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 2px solid #7BA4D0;
+}
+    button:hover {
+      background-color: ##0D2440;
+      transform: translateY(-3px); /* Lift effect on hover */
+      /*box-shadow: 0 6px 15px rgba(0,0,0,0.3);*/
+    }
+    button.remove-btn {
+      background-color: #f44336;
+      /*box-shadow: none;*/ /* No shadow for small buttons */
+    }
+    button.remove-btn:hover {
+      background-color: #d32f2f;
+      transform: none; /* No lift for small buttons */
+    }
+    button.clear-cart-btn {
+      background-color: #ff9800; /* Orange for clear cart */
+    }
+    button.clear-cart-btn:hover {
+      background-color: #fb8c00;
+    }
+    /* NEW: Style for the cart button when it has items *//*تنظینات کلید سبد خرید*/
+    #showCartBtn.cart-has-items {
+        background-color: #ff9800; /* Bright Yellow (Amber) - Requested color */
+        color: #0D2440; /* Dark text for better contrast */
+        border: 2px solid #0D2440;
+        font-weight: bold; /* Make the text bolder */
+    }
+    #showCartBtn.cart-has-items:hover {
+        background-color: #FFA000; /* Darker on hover */
+        border-color: #FFC107;
+        transform: translateY(-3px); /* Keep the lift effect */
+    }
+    /* Ensure the SVG icon also changes color for contrast */
+    #showCartBtn.cart-has-items svg.cart-icon {
+        fill: #FCF5F4;
+    }
+    /* Style for quantity dropdowns in both gallery and cart */
+    .quantity-select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: 70px; /* عرض ثابت برای جا شدن عدد چهار رقمی */
+      min-width: 50px; /* حداقل عرض مجاز */
+      max-width: 70px; /* حداکثر عرض مجاز */
+      box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
+      text-align: center; /* متن داخلش وسط‌چین بشه */
+  }
+    /* Style for the Group Selection dropdown */
+    .group-select-fixed { /* دروپ‌داون انتخاب سایزهای دیگر */
+        width: 260px;
+        min-width: 100px;
+        max-width: 200px;
+        padding: 6px;
+        border-radius: 20px;
+        border: 2px solid #7BA4D0;
+        margin: 5px;
+        box-sizing: border-box;
+        text-align: right;
+        font-size: 18px; /* اندازه فونت را به ۱۸ پیکسل تغییر دادیم */
+    }
+    /* Main sections styling */
+    #gallery, #cartSection {
+        margin-top: 10px; /* فاصله گالری از بالا */
+        flex-grow: 1; /* Allow sections to take available space */
+        display: none; /* Hidden by default, controlled by JS */
+        flex-direction: column; /* For consistent layout */
+    }
+    /* استایل برای فیلدهای ورودی تعداد در گالری */
+    .quantity-input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: 60px; /* عرض ثابت برای جا شدن عدد سه رقمی */
+      min-width: 50px; /* حداقل عرض مجاز */
+      max-width: 70px; /* حداکثر عرض مجاز */
+      box-sizing: border-box; /* برای اینکه پدینگ و بردر روی عرض حساب بشن */
+      text-align: center; /* متن داخلش وسط‌چین بشه */
+    }
+    
+    #cartSection {
+      background: #fff; /* بکگراند سبد خرید */
+      padding: 15px;
+      border-radius: 10px;
+      text-align: right;
+    }
+    #address {
+      margin-top: 10px;
+    }
+    .image-box {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      /*box-shadow: 0 0 5px #01579B;*/
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(50% - 15px); /* Default for 2 items per row with gap */
+      box-sizing: border-box; /* Include padding/border in width */
+    }
+
+    /* تغییرات: استفاده از کلاس جدید برای ظرف تصاویر داخل گالری */
+    .image-container-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-grow: 1;
+    }
+    
+    /* تغییرات: استایل عنوان گروه */
+    #gallery h2 {
+      text-align: center;
+      color: #FFC107; ;
+      margin: 20px 0;
+    }
+
+    img {
+      width: 100%;
+      height: auto; /* Reverted to auto for original aspect ratio */
+      border-radius: 8px;
+      margin-bottom: 5px;
+      cursor: pointer; /* اضافه شدن این خط برای نشان دادن قابلیت کلیک */
+    }
+
+    select, input[type="password"] {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 5px;
+      width: calc(100% - 10px); /* Adjust width */
+      box-sizing: border-box; /* Include padding/border in width */
+    }
+    /* خط بین محصولات در سبد خرید */
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px dashed #7BA4D0;
+    }
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .cart-item-info {
+        text-align: right;
+        flex-grow: 1; /* Allow info section to take available space */
+        margin-left: 10px; /* Space between info and controls */
+    }
+    .cart-item-actions {
+        display: flex;
+        align-items: center;
+    }
+    .cart-item-actions span {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    .cart-item-actions button {
+      margin-left: 50px;
+    }
+    /* Controls at the top/bottom of gallery */
+  .gallery-controls {
+      display: flex;
+      flex-direction: column; /* تغییر جدید برای چیدمان عمودی */
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #E7F0FA;
+      border-top: 2px solid #0D2440;
+      /*box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);*/
+      z-index: 100;
+}
+  .group-selection-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 0;
+  }
+    #gallery-bottom-controls {
+        margin-top: auto;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: none;
+    }
+    #gallery-top-controls {
+        margin-bottom: 10px;
+        border-top: none;
+        /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);*/
+    }
+    .gallery-controls button {
+        margin: 0;
+    }
+    /* تنظیمات موجود در سبد خرید */
+    .in-cart-display { 
+        font-size: 0.85em;
+        color: #4FC3F7;
+        font-weight: bold;
+        margin-right: 0;
+    }
+    /* صفحه پایین گالری */
+    .gallery-button-wrapper {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+@media (max-width: 600px) {
+    .image-box {
+        width: calc(50% - 15px);
+    }
+   .gallery-controls {
+    flex-direction: column;
+    gap: 10px;
+}
+.gallery-button-wrapper, .group-selection-wrapper {
+    width: calc(100% - 20px);
+    justify-content: center;
+    margin: 0;
+}
+.gallery-button-wrapper button {
+    flex: 1 1 auto;
+}
+.group-selection-wrapper select {
+    flex: 1 1 auto;
+}
+    .in-cart-display {
+        text-align: center;
+    }
+}
+  /* CSS برای اعلان‌های سبد خرید */
+    #notification-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 300px;
+    }
+    
+    .notification {
+      background-color: #2196F3;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);*/
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      font-size: 0.9em;
+      direction: rtl;
+    }
+    .notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .notification.hide {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    /* استایل برای فرم اطلاعات مشتری */
+    .customer-info-form {
+      margin-top: 20px;
+      text-align: right;
+      background-color: #fffde7;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+    .customer-info-form h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .customer-info-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .customer-info-form input[type="text"],
+    .customer-info-form input[type="tel"],
+    .customer-info-form textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .customer-info-form textarea {
+      resize: vertical;
+    }
+
+    /* Modal for image zoom */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .image-modal-content {
+      position: relative;
+      margin: auto;
+      display: block;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #F1F1F1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .previous-orders-modal {
+        display: none;
+        position: fixed;
+        z-index: 1002;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        justify-content: center;
+        align-items: center;
+    }
+    .previous-orders-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 10px;
+        text-align: right;
+        max-height: 80vh; /* تغییر جدید برای محدود کردن ارتفاع */
+        overflow-y: auto; /* تغییر جدید برای فعال کردن اسکرول */
+    }
+    .previous-order-item {
+        border-bottom: 1px solid #EEEEEE;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .previous-order-item:last-child {
+        border-bottom: none;
+    }
+    .previous-order-item h4 {
+        color: #2196f3;
+        margin-top: 0;
+    }
+    .previous-order-item button {
+        margin-top: 10px;
+        background-color: #4CAF50;
+    }
+    .previous-order-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: flex-end;
+    }
+    .previous-order-buttons button.delete-btn {
+      background-color: #f44336;
+    }
+    .cart-icon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    
+  </style>
+  
 </head>
-<body class="bg-gray-50 text-gray-900 pb-20">
+<body>
+    <div id="clock-container">
+    <div id="digital-info">
+    <div id="digital-time"></div> <div id="digital-date"></div> 
+</div>
 
-    <div id="toast" class="fixed top-0 left-1/2 -translate-x-1/2 z-[1000] px-6 py-3 rounded-2xl flex flex-col items-center gap-1 border border-white/40 bg-white/80 text-blue-900 shadow-xl toast-hidden">
-    <div class="flex items-center gap-3">
-        <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white shadow-sm">
-            <i class="fas fa-check text-[10px]"></i>
-        </div>
-        <span id="toastText" class="font-bold text-xs">آیتم اضافه شد</span>
+    <div id="analog-clock">
+        <div class="hand hour" id="hour-hand"></div>
+        <div class="hand minute" id="minute-hand"></div>
+        <div class="hand second" id="second-hand"></div>
+        <div class="center-dot"></div>
     </div>
-    <span id="toastGroup" class="text-[10px] text-blue-600 opacity-80"></span>
 </div>
-    <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="showScreen('home')">
-                <img src="https://akbari5561.github.io/PosterIran/icons/logo.png" alt="Logo" class="h-10 w-10">
-                <span class="text-xl font-bold text-blue-900">پوستر ایران</span>
-            </div>
-            <nav class="hidden md:flex gap-8 font-medium">
-                <a href="#benefits" class="hover:text-blue-600 transition">مزایا</a>
-                <a href="#products" class="hover:text-blue-600 transition">محصولات</a>
-                <a href="#faq" class="hover:text-blue-600 transition">سوالات متداول</a>
-            </nav>
-            <div class="flex gap-4">
-                <button onclick="showScreen('cart')" class="relative bg-blue-100 text-blue-800 p-2 rounded-full hover:bg-blue-200 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span class="cartBadge absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full hidden">0</span>
-                </button>
-            </div>
-        </div>
-    </header>
+    
+<div id="particles-js"></div>
+<div id="mainSection">
+  <div class="main-title-container">
+    <img src="https://akbari5561.github.io/PosterIran/icons/PosterIran.webp" alt="Poster Iran Logo" class="header-logo"> <h1>پوستر ایران</h1>
+    <p id="subtitle">چاپ انواع پوسترهای آموزشی</p>
+  </div>
+  <div class="marquee-container">
+      <p class="scrolling-text">انتشارات پوستر ایران با افتخار یکی از پیشگامان در زمینه تولید و چاپ پوستر در کشور است. ما با تکیه بر سال‌ها تجربه در زمینه چاپ و شناخت دقیق از نیازهای نظام آموزشی، مجموعه‌ای از پوسترهای جذاب، کاربردی و هماهنگ با محتوای کتب درسی مدارس تهیه کرده‌ایم تا فرآیند یادگیری را برای دانش‌آموزان ساده‌تر، عمیق‌تر و لذت‌بخش‌تر کنیم.
 
-    <main class="pt-20">
-        <section id="homeScreen">
-            <div id="resumeOrder" class="hidden bg-yellow-400/20 border border-yellow-500 p-3 rounded-2xl mb-6 flex items-center justify-between animate-bounce">
-    <span class="text-sm font-bold text-yellow-900">⚠️ شما یک سفارش تکمیل نشده دارید!</span>
-    <button onclick="showScreen('cart')" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs">ادامه خرید</button>
-</div>
-            <div class="hero-gradient text-white py-20 px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-    یادگیری را به یک <span class="text-yellow-400">ماجراجویی بصری</span> تبدیل کنید!
-</h1>
-                <p class="text-lg md:text-xl mb-10 text-blue-100 leading-relaxed">
-    مجموعه‌ای از پوسترهای آموزشی حرفه‌ای، همگام با کتب درسی؛ طراحی شده برای معلمان خلاق و دانش‌آموزانی که به دنبال یادگیری عمیق‌تر هستند.
-</p>
-
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="showScreen('gallery')" class="bg-yellow-500 text-blue-900 px-10 py-4 rounded-xl text-xl font-bold hover:bg-yellow-400 transition transform hover:scale-105 shadow-2xl">مشاهده گالری محصولات</button>
-                    <div id="pendingOrderNotice" class="hidden mt-6 mx-4 p-4 bg-yellow-50 border-2 border-yellow-400 rounded-2xl flex items-center justify-between animate-pulse">
-    <div class="flex items-center gap-3">
-        <span class="text-2xl">🛒</span>
-        <div>
-            <p class="font-bold text-yellow-800 text-sm">شما یک سبد خرید ناتمام دارید!</p>
-            <p class="text-xs text-yellow-700">اقلام قبلی هنوز در سبد شما موجود است.</p>
-        </div>
-    </div>
-    <button onclick="showScreen('cart')" class="bg-yellow-500 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-md">مشاهده سبد</button>
-</div>
-                    <a href="#benefits" class="border-2 border-white/30 bg-white/10 px-10 py-4 rounded-xl text-xl font-bold hover:bg-white/20 transition">چرا پوستر آموزشی؟</a>
-                </div>
-            </div>
-            
-            <div id="benefits" class="py-20 container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">چرا محیط‌های آموزشی به پوسترهای ما نیاز دارند؟</h2>
-                    <p class="text-gray-600">فراتر از یک دکوراسیون ساده؛ ما ابزار یادگیری می‌سازیم.</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-10">
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
-                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-blue-900">افزایش ۵۰ درصدی تمرکز</h3>
-                        <p class="text-gray-600">تحقیقات نشان داده که یادگیری بصری ماندگاری مطالب را در ذهن دانش‌آموزان تا چندین برابر افزایش می‌دهد.</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
-                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-green-900">مطابق با استانداردهای آموزش</h3>
-                        <p class="text-gray-600">تمامی محتواها بر اساس آخرین تغییرات کتب درسی طراحی شده و مورد تایید مدرسان برتر است.</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
-                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 text-purple-900">دوام و ماندگاری بالا</h3>
-                        <p class="text-gray-600">استفاده از پوشش‌های UV و کاغذهای باکیفیت که در برابر نور و رطوبت کلاس درس مقاوم هستند.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="faq" class="py-20 container mx-auto px-6 max-w-3xl">
-        <h2 class="text-3xl font-bold text-center mb-12">سوالات متداول</h2>
-        <div class="space-y-4">
-            <details class="group bg-white rounded-xl p-6 border border-gray-200">
-                <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-blue-900">
-                    چگونه می‌توانم سفارش خود را ثبت کنم؟
-                    <span class="group-open:rotate-180 transition">↓</span>
-                </summary>
-                <p class="mt-4 text-gray-600 leading-relaxed">
-                    شما می‌توانید از طریق ورود به گالری و انتخاب محصولات، سفارش خود را به صورت مستقیم در واتس‌آپ یا ایتا برای کارشناسان ما ارسال کنید.
-                </p>
-            </details>
-            <details class="group bg-white rounded-xl p-6 border border-gray-200">
-                <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-blue-900">
-                    آیا ارسال به شهرستان دارید؟
-                    <span class="group-open:rotate-180 transition">↓</span>
-                </summary>
-                <p class="mt-4 text-gray-600 leading-relaxed">
-                    بله، پوستر ایران محصولات خود را از طریق پست و باربری به تمام نقاط کشور ارسال می‌کند.
-                </p>
-            </details>
-        </div>
-    </section>
-
-        <section id="galleryScreen" class="hidden-section container mx-auto px-4 py-10">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-blue-50 p-6 rounded-2xl">
-                <div>
-                    <h2 class="text-3xl font-bold text-blue-900">گالری محصولات</h2>
-                    <p class="text-gray-500">سایز مورد نظر را انتخاب و تعداد هر محصول را تعیین کنید.</p>
-                </div>
-                <select id="groupSelect" onchange="loadImages()" class="w-full md:w-72 p-4 rounded-2xl border-2 border-slate-100 bg-white font-bold text-blue-800 outline-none">
-                    <option value="1">سایز ۲۹×۲۱ دوروچاپ</option>
-                    <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
-                    <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
-                    <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
-                    <option value="6">سایر محصولات</option>
-                </select>
-            </div>
-            <div id="imagesContainer" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10"></div>
-        </section>
-
-        <section id="cartScreen" class="hidden-section container mx-auto px-4 py-10 max-w-4xl">
-            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-gray-100">
-                <div class="flex items-center gap-3 mb-8 border-b pb-4">
-                    <h2 class="text-3xl font-bold text-gray-800">🛒 سبد خرید شما</h2>
-                </div>
-                <div id="cartList" class="space-y-4 mb-8"></div>
-                <div class="bg-blue-50 p-6 rounded-2xl mb-8 flex justify-between items-center">
-                    <span class="text-xl font-bold text-blue-900">مبلغ قابل پرداخت:</span>
-                    <span id="totalPrice" class="text-2xl font-black text-blue-700">۰ ریال</span>
-                </div>
-                <div class="space-y-4 bg-gray-50 p-6 rounded-2xl">
-    <input type="text" id="customerName" oninput="saveCustomerData()" placeholder="نام و نام خانوادگی" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500">
-    <input type="tel" id="customerPhone" oninput="saveCustomerData()" placeholder="شماره موبایل" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500">
-    <textarea id="customerAddress" oninput="saveCustomerData()" placeholder="آدرس دقیق پستی" rows="3" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-</div>
-                <div class="mt-8 p-4 bg-blue-50 rounded-2xl border-2 border-dashed border-blue-200">
-    <p class="text-blue-800 text-sm font-bold mb-4 text-center">
-        🚀 مرحله نهایی: یکی از پیام‌رسان‌های زیر را برای ارسال لیست انتخاب کنید:
-    </p>
-
-    <div class="grid grid-cols-2 gap-3">
-        <button onclick="submitOrder('whatsapp')" 
-            class="flex flex-col items-center justify-center bg-green-500 text-white py-3 rounded-2xl shadow-lg hover:bg-green-600 active:scale-95 transition-all">
-            <span class="text-xl mb-1">💬</span>
-            <span class="font-bold text-sm">ارسال واتس‌آپ</span>
-        </button>
-
-        <button onclick="submitOrder('eitaa')" 
-            class="flex flex-col items-center justify-center bg-orange-500 text-white py-3 rounded-2xl shadow-lg hover:bg-orange-600 active:scale-95 transition-all">
-            <span class="text-xl mb-1">🟠</span>
-            <span class="font-bold text-sm">ارسال در ایتا</span>
-        </button>
-    </div>
-
-    <button onclick="clearCart()" class="w-full mt-4 text-gray-400 text-xs hover:text-red-500 transition">
-        🗑️ انصراف و پاک کردن سبد خرید
+پوسترهای آموزشی با طراحی حرفه‌ای، چاپ تمام‌رنگی، با کیفیت عالی و محتوای استاندارد، ابزاری کارآمد برای معلمان، دانش‌آموزان و مدارس در سراسر کشور به شمار می‌آیند. "پوستر ایران" همواره در تلاش است تا با نوآوری و پایبندی به اصول آموزشی، نقش مؤثری در ارتقاء سطح آموزش ایفا کند</p>
+  </div>
+  <div id="loginSection">
+    <button id="enterAsUserBtn">ورود به گالری</button>
+    <button id="showCartBtn">
+        <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        سبد خرید
     </button>
 </div>
-            </div>
-        </section>
-
-        <section id="aboutScreen" class="hidden-section container mx-auto px-4 py-10 max-w-4xl">
-            <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-    <h2 class="text-3xl font-bold text-blue-900 mb-6">درباره ما</h2>
-    <p class="text-gray-700 leading-8 mb-6 text-justify">انتشارات پوستر ایران با افتخار یکی از پیشگامان در زمینه تولید و چاپ پوستر در کشور است. ما با تکیه بر سال‌ها تجربه در زمینه چاپ و شناخت دقیق از نیازهای نظام آموزشی، مجموعه‌ای از پوسترهای جذاب، کاربردی و هماهنگ با محتوای کتب درسی مدارس تهیه کرده‌ایم تا فرآیند یادگیری را برای دانش‌آموزان ساده‌تر، عمیق‌تر و لذت‌بخش‌تر کنیم.
-
-پوسترهای آموزشی با طراحی حرفه‌ای، چاپ تمام‌رنگی، با کیفیت عالی و محتوای استاندارد، ابزاری کارآمد برای معلمان، دانش‌آموزان و مدارس در سراسر کشور به شمار می‌آیند. "پوستر ایران" همواره در تلاش است تا با نوآوری و پایبندی به اصول آموزشی، نقش مؤثری در ارتقاء سطح آموزش ایفا کند.</p>
-    <div class="space-y-4 text-gray-600">
-        <p> تهران: خیابان پانزده خرداد ، بازار آهنگران ، کوچه مسجدجامع ، پاساژ کاغذوتحریر، زیرزمن اول ، پلاک ۷۴</p>
-        <p>📞 تلفن: ۰۲۱۵۵۶۱۱۸۷۵</p>
-        <p>📱 موبایل: ۰۹۰۱۰۱۹۵۸۸۵</p>
-    </div>
-            </div>
-        </section>
-        <section id="historyScreen" class="hidden-section container mx-auto px-4 py-10 max-w-4xl">
-    <div class="bg-white rounded-3xl shadow-xl p-6 border">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 pb-4 border-b">📜 تاریخچه سفارشات</h2>
-        <div id="historyList" class="space-y-6">
-            <p class="text-gray-400 text-center py-10">هنوز هیچ سفارشی ثبت نشده است.</p>
-        </div>
-    </div>
-</section>
-    </main>
-
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-gray-200 z-[100] flex justify-around items-center py-2 shadow-lg">
-        <button onclick="showScreen('home')" id="nav-home" class="flex flex-col items-center gap-1 text-blue-700 transition flex-1">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-            <span class="text-[10px] font-bold">خانه</span>
-        </button>
-        <button onclick="showScreen('gallery')" id="nav-gallery" class="flex flex-col items-center gap-1 text-gray-500 transition flex-1">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-            <span class="text-[10px] font-bold">گالری</span>
-        </button>
-        <button onclick="showScreen('cart')" id="nav-cart" class="flex flex-col items-center gap-1 text-gray-500 transition flex-1 relative">
-            <div class="relative">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                <span class="cartBadge absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full hidden">0</span>
-            </div>
-            <span class="text-[10px] font-bold">سبد خرید</span>
-        </button>
-        <button onclick="showScreen('history')" id="nav-history" class="flex flex-col items-center gap-1 text-gray-500 flex-1">
-    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <span class="text-[10px] font-bold">سفارشات</span>
-</button>
-        <button onclick="showScreen('about')" id="nav-about" class="flex flex-col items-center gap-1 text-gray-500 transition flex-1">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span class="text-[10px] font-bold">درباره ما</span>
-        </button>
-    </nav>
-
-    <script>
-        // ۱. توابع کمکی تبدیل اعداد و اعلان
-        function toPersianDigits(n) {
-            const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            return n.toString().replace(/\d/g, x => farsiDigits[x]);
-        }
-
-        function toPersianPrice(n) {
-            return toPersianDigits(n.toLocaleString());
-        }
-
-        let toastTimer; // این متغیر باید بیرون از تابع باشد
-
-function showToast(message, groupName = "") {
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toastText');
-    const toastGroup = document.getElementById('toastGroup');
-    
-    toastText.innerText = message;
-    toastGroup.innerText = groupName ? ` ${groupName}` : "";
-    
-    toast.classList.remove('toast-hidden');
-    toast.classList.add('toast-visible');
-
-    setTimeout(() => {
-        toast.classList.remove('toast-visible');
-        toast.classList.add('toast-hidden');
-    }, 3000);
-}
-
-        // ۲. داده‌های محصولات
-        const groupInfo = {
-            1: { name: "سایز ۲۹×۲۱ دوروچاپ", images: [
-                { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-                { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-                { filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-                { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-                { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-                { filename: "اعداد.jpg", name: "اعداد ساده", price: 125000, allowedQuantities: [0, 50, 100, 200, 300, 400, 500] },
-            ]},
-            3: { name: "سایز ۵۰×۳۵ دوروچاپ", images: [
-                { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل", price: 250000, allowedQuantities: [0, 50, 100, 200] },
-                { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت", price: 250000, allowedQuantities: [0, 50, 100, 200] },
-            ]},
-            4: { name: "سایز ۷۰×۵۰ یکروچاپ", images: [
-                { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار", price: 250000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "جدول دوستی.jpg", name: "جدول دوستی", price: 250000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "جدول ضرب.jpg", name: "جدول ضرب", price: 250000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "جدول جمع.jpg", name: "جدول جمع", price: 250000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100", price: 250000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-            ]},
-            5: { name: "سایز ۷۰×۵۰ یووی", images: [
-                { filename: "شهرک الفبا.jpg", name: "شهرک الفبا", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "آناتـومی بـدن انسـان.jpg", name: "آناتـومی بـدن انسـان", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "بـدن من.jpg", name: "بـدن من", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "نقشـه ایـران.webp", name: "نقشـه ایـران", price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-                { filename: "نقشـه جهـان.webp", name: "نقشـه جهـان" , price: 350000, allowedQuantities: [0, 20, 50, 100, 200, 300, 500] },
-            ]},
-            6: { name: "سایر محصولات", images: [
-                { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 350000, allowedQuantities: [0, 60, 120, 240, 480] },
-                { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 300000, allowedQuantities: [0, 60, 120, 240, 480] },
-                { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 350000, allowedQuantities: [0, 60, 120, 240, 480] },
-                { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 65000, allowedQuantities: [0, 100, 200, 300, 400, 500, 1200, 2400] },
-            ]}
-        };
-
-        let cart = {};
-
-        // ۳. مدیریت صفحات
-        function showScreen(screenId, shouldScroll = true) {
-    // مخفی کردن تمام بخش‌ها
-    document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden-section'));
-    
-    // نمایش بخش مورد نظر
-    const targetScreen = document.getElementById(screenId + 'Screen');
-    if (targetScreen) {
-        targetScreen.classList.remove('hidden-section');
-    }
-    
-    // به‌روزرسانی استایل دکمه‌های ناوبری (منوی پایین)
-    document.querySelectorAll('nav button').forEach(btn => {
-        btn.classList.replace('text-blue-700', 'text-gray-500');
-    });
-    const activeNav = document.getElementById('nav-' + screenId);
-    if (activeNav) {
-        activeNav.classList.replace('text-gray-500', 'text-blue-700');
-    }
-    
-    // اجرای منطق‌های خاص هر صفحه
-    if (screenId === 'history') updateHistoryDisplay();
-    if (screenId === 'cart') updateCartDisplay();
-    if (screenId === 'gallery') loadImages(); 
-    
-    // حل مشکل پرش صفحه: فقط اگر درخواست شده بود به بالا برو
-    if (shouldScroll) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
-        // ۴. نمایش گالری تصاویر
-        function loadImages() {
-            const groupId = document.getElementById('groupSelect').value;
-            const info = groupInfo[groupId];
-            const container = document.getElementById('imagesContainer');
-            container.innerHTML = '';
-            
-            if (!info) return;
-            
-            info.images.forEach(img => {
-                const productId = info.name + "_" + img.filename;
-                const currentQty = cart[productId]?.quantity || 0;
-                const qtys = img.allowedQuantities || [0, 50, 100, 200];
-                
-                const box = document.createElement('div');
-                box.className = 'image-box bg-white p-3 rounded-2xl border shadow-sm flex flex-col items-center';
-                
-                let optionsHtml = qtys.map(q =>
-                    `<option value="${q}" ${q === currentQty ? 'selected' : ''}>${toPersianDigits(q)}</option>`
-                ).join('');
-                
-                box.innerHTML = `
-                    <img src="https://akbari5561.github.io/PosterIran/Images/${encodeURIComponent(img.filename)}" class="w-full h-32 object-contain mb-2 rounded-lg bg-gray-50">
-                    <h4 class="font-bold text-[11px] text-center h-8 overflow-hidden text-blue-900 mb-1">${img.name}</h4>
-                    <p class="text-blue-600 font-black text-[12px] mb-2">${toPersianPrice(img.price)} ریال</p>
-                    
-                    <div class="flex items-center justify-between w-full bg-blue-50 rounded-xl p-1 border border-blue-100 relative">
-                        <button onclick="updateStep('${img.filename}', '${img.name}', ${img.price}, 1, ${JSON.stringify(qtys)}, '${info.name}')" 
-                                class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-blue-600 font-bold z-10">+</button>
-                        
-                        <div class="flex-1 flex justify-center items-center h-8 relative">
-                            <span class="font-bold text-blue-900 text-sm">${toPersianDigits(currentQty)}</span>
-                            <select onchange="addToCart('${img.filename}', '${img.name}', this.value, ${img.price}, '${info.name}'); loadImages();" 
-                                    class="qty-select">
-                                ${optionsHtml}
-                            </select>
-                        </div>
-
-                        <button onclick="updateStep('${img.filename}', '${img.name}', ${img.price}, -1, ${JSON.stringify(qtys)}, '${info.name}')" 
-                                class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-red-500 font-bold z-10">-</button>
-                    </div>
-                `;
-                container.appendChild(box);
-            });
-        }
-
-        // ۵. مدیریت تغییر تعداد و افزودن به سبد
-        function updateStep(filename, name, price, direction, allowedQtys, groupName) {
-    const productId = groupName + "_" + filename;
-    const currentQty = cart[productId]?.quantity || 0;
-    const currentIndex = allowedQtys.indexOf(currentQty);
-    let nextIndex = currentIndex + direction;
-
-    if (nextIndex >= 0 && nextIndex < allowedQtys.length) {
-        const newQty = allowedQtys[nextIndex];
-        // اضافه کردن پارامتر آخر (allowedQtys) بسیار مهم است
-        addToCart(filename, name, newQty, price, groupName, allowedQtys);
-        loadImages();
-    }
-}
-
-        function addToCart(filename, name, qty, price, groupName, allowedQtys) {
-    const productId = groupName + "_" + filename;
-    if (qty === 0) {
-        delete cart[productId];
-    } else {
-        cart[productId] = {
-            filename: filename,
-            name: name,
-            quantity: qty,
-            price: price,
-            groupName: groupName,
-            allowedQtys: allowedQtys // ذخیره لیست گام‌ها برای سبد خرید
-        };
-    }
-    updateBadge();
-    saveCartToStorage();
-    showToast(`${name} (${toPersianDigits(qty)} عدد)`, groupName);
-}
-
-        function updateBadge() {
-            const count = Object.keys(cart).length;
-            document.querySelectorAll('.cartBadge').forEach(badge => {
-                badge.innerText = toPersianDigits(count);
-                badge.classList.toggle('hidden', count === 0);
-            });
-        }
-
-        // ۶. نمایش سبد خرید و ارسال سفارش
-        function updateCartDisplay() {
-    validateCart();
-    const list = document.getElementById('cartList');
-    const totalDisplay = document.getElementById('totalPrice');
-    const items = Object.values(cart);
-    
-    if (items.length === 0) {
-        list.innerHTML = `
-            <div class="text-center py-20">
-                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-200">
-                    <i class="fas fa-shopping-basket text-2xl"></i>
-                </div>
-                <p class="text-gray-400 font-bold">سبد خرید شما خالی است</p>
-            </div>`;
-        totalDisplay.innerText = '۰ ریال';
-        return;
-    }
-
-    const grouped = items.reduce((acc, item) => {
-        const gName = item.groupName || "سایر محصولات";
-        (acc[gName] = acc[gName] || []).push(item);
-        return acc;
-    }, {});
-
-    let total = 0;
-    let htmlContent = '';
-
-    // بخش ۱: لیست محصولات (فقط نمایش تعداد و نام)
-    for (const gName in grouped) {
-        htmlContent += `
-        <div class="mb-4 bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
-            <div class="bg-gray-50/80 px-5 py-2 border-b border-gray-100 flex items-center gap-2">
-                <div class="w-1 h-3 bg-blue-600 rounded-full"></div>
-                <span class="text-[10px] font-black text-gray-700">${gName}</span>
-            </div>
-            <div class="divide-y divide-gray-50">`;
-
-        grouped[gName].forEach(item => {
-            const itemTotal = item.quantity * item.price;
-            total += itemTotal;
-            htmlContent += `
-            <div class="p-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0">
-    <img src="https://akbari5561.github.io/PosterIran/Image/${encodeURIComponent(item.filename)}" 
-         class="w-full h-full object-cover" 
-         onerror="this.src='https://via.placeholder.com/100?text=Poster'">
+<div id="clearCartButtonSection">
+    <button id="clearCartMainBtn" class="clear-cart-btn">توجه: سبد خرید شما دارای محصول است. برای تکمیل آن وارد گالری شوید یا برای سفارش جدید سبد خرید را پاک کنید </button>
 </div>
-                    <div>
-                        <h4 class="text-[11px] font-bold text-gray-800">${item.name}</h4>
-                        <p class="text-[10px] text-blue-600 font-bold mt-0.5">${toPersianDigits(item.quantity)} عدد</p>
-                    </div>
-                </div>
-                <div class="text-[11px] font-black text-gray-900">${toPersianPrice(itemTotal)} ریال</div>
-            </div>`;
-        });
-        htmlContent += `</div></div>`;
-    }
+  <div id="address">
+    <p>تهران : خیابان پانزده خرداد</p>
+    <p>بازار آهنگران ، کوچه مسجد جامع</p>
+    <p>پاساژ کاغذ و تحریر ، زیرزمین اول  پلاک ۷۴</p>
+    <p> <a href="https://maps.google.com/?cid=1396884775989221050&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="text-decoration: none; color: #2196f3; font-weight: bold;">  (مشاهده در نقشه)</a></p>
+    <p>تلفـن : ۰۲۱۵۵۶۱۱۸۷۵</p>
+    <p>موبایل : ۰۹۰۱۰۱۹۵۸۸۵</p>
+  </div>
+  
+</div>
 
-    // بخش ۲: خلاصه سفارش بر اساس گروه (مجدداً اضافه شد)
-    htmlContent += `
-    <div class="mt-6 p-5 bg-blue-50/50 rounded-[2rem] border-2 border-blue-100/50">
-        <h3 class="text-[11px] font-black text-blue-900 mb-4 flex items-center gap-2">
-            <i class="fas fa-chart-pie"></i> خلاصه گروه‌ها:
-        </h3>
-        <div class="space-y-3">`;
-
-    for (const gName in grouped) {
-        let gQty = 0;
-        let gTotal = 0;
-        grouped[gName].forEach(item => {
-            gQty += Number(item.quantity);
-            gTotal += (item.quantity * item.price);
-        });
-
-        htmlContent += `
-            <div class="flex flex-col border-b border-blue-100/30 pb-2 last:border-0">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="text-[11px] font-bold text-gray-700">${gName}</span>
-                    <span class="text-[11px] font-black text-blue-600">${toPersianPrice(gTotal)} ریال</span>
-                </div>
-                <span class="text-[9px] text-gray-500 italic">تعداد کل این دسته: ${toPersianDigits(gQty)} عدد</span>
-            </div>`;
-    }
-    htmlContent += `</div></div>`;
-
-    // بخش ۳: فاکتور نهایی
-    let discountPercent = (total >= 1000000000) ? 0.1 : (total >= 500000000 ? 0.07 : (total >= 200000000 ? 0.05 : 0));
-    let discount = total * discountPercent;
-    let afterDiscount = total - discount;
-    let packageCount = Math.floor(afterDiscount / 140000000) + 1;
-    let shipping = packageCount * 800000;
-    let finalPayable = afterDiscount + shipping;
-
-    htmlContent += `
-    <div class="mt-6 p-6 bg-slate-900 rounded-[2.5rem] text-white shadow-xl">
-        <div class="space-y-3 mb-6">
-            <div class="flex justify-between text-[11px] opacity-60"><span>مجموع کالاها:</span><span>${toPersianPrice(total)}</span></div>
-            ${discount > 0 ? `<div class="flex justify-between text-[11px] text-emerald-400"><span>تخفیف (${toPersianDigits(Math.round(discountPercent*100))}٪):</span><span>${toPersianPrice(discount)}-</span></div>` : ''}
-            <div class="flex justify-between text-[11px] opacity-60"><span>هزینه ارسال (${toPersianDigits(packageCount)} بسته):</span><span>${toPersianPrice(shipping)}</span></div>
-        </div>
-        <div class="flex justify-between items-center pt-4 border-t border-white/10">
-            <div class="flex flex-col">
-                <span class="text-[10px] opacity-50">مبلغ قابل پرداخت:</span>
-                <span class="font-black text-xl text-yellow-400 mt-1">${toPersianPrice(finalPayable)} <small class="text-[10px]">ریال</small></span>
-            </div>
-            <i class="fas fa-file-invoice-dollar text-3xl opacity-20"></i>
-        </div>
-    </div>`;
-
-    list.innerHTML = htmlContent;
-    totalDisplay.innerText = toPersianPrice(finalPayable) + ' ریال';
-}
-
-function changeQtyStepFromCart(productId, direction) {
-    const item = cart[productId];
-    if (!item || !item.allowedQtys) return;
-    const steps = item.allowedQtys;
-    const currentIndex = steps.indexOf(item.quantity);
-    let nextIndex = currentIndex + direction;
-    if (nextIndex >= 0 && nextIndex < steps.length) {
-        addToCart(item.filename, item.name, steps[nextIndex], item.price, item.groupName, steps);
-        updateCartDisplay();
-        if(typeof loadImages === "function") loadImages();
-    }
-}
-        function clearCart() {
-    if(confirm('آیا از پاک کردن سبد خرید مطمئن هستید؟')) {
-        cart = {}; // خالی کردن متغیر در برنامه
-        saveCartToStorage(); // بروزرسانی LocalStorage
-        updateBadge(); // صفر کردن عدد روی آیکون سبد
+<div id="gallery">
+  <div id="imagesContainer" class="image-container"></div>
+  <div id="gallery-bottom-controls" class="gallery-controls">
+    <div class="group-selection-wrapper"> <label for="bottomGroupSelect">دسته بندی‌ها : ⬅  </label>
+      <select id="bottomGroupSelect" class="group-select-fixed">
+        <option value="1" selected>سایز ۲۹×۲۱ دوروچاپ</option>
         
-        // حذف نشانگرهای مربوط به سفارشات ناتمام
-        localStorage.removeItem('cart_submitted'); 
-        // اگر متغیر دیگری برای پیگیری سبد ناتمام دارید اینجا اضافه کنید
+        <option value="3">سایز ۵۰×۳۵ دوروچاپ</option>
+        <option value="4">سایز ۷۰×۵۰ یکروچاپ</option>
+        <option value="5">سایز ۷۰×۵۰ یووی‌دار</option>
+        <option value="6">سایر محصولات</option>
         
-        showScreen('gallery'); // بازگشت به صفحه اصلی
-        showToast('سبد خرید با موفقیت پاک شد', 'حذف');
-        
-        // نوسازی نمایش سبد خرید (اگر در آن صفحه باشد)
-        if (typeof updateCartDisplay === 'function') updateCartDisplay();
-    }
-}
+      </select>
+    </div>
+    <div class="gallery-button-wrapper">
+        <button id="showHomeGalleryBtn" onclick="showScreen('main')">
+            <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+            </svg>
+            صفحه اصلی
+        </button>
+        <button id="showCartGalleryBtn">
+            <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            سبد خرید 
+        </button>
+    </div>
+</div> </div>
+<div id="cartSection">
+  <h3>
+    <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </svg>
+    سبد خرید 
+  </h3>
+  <div id="cartList"></div>
+  <p id="totalPrice" style="font-weight: bold; font-size: 1.1em; margin-top: 15px;"></p>
 
-        function submitOrder(platform) {
-    const name = document.getElementById('customerName').value;
-    const phone = document.getElementById('customerPhone').value;
-    const address = document.getElementById('customerAddress').value;
-    
-    if (!name || !phone || !address || Object.keys(cart).length === 0) {
-        alert('لطفاً اطلاعات پستی را تکمیل کنید و مطمئن شوید سبد خرید خالی نیست.');
-        return;
-    }
-    
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('fa-IR');
-    const timeStr = now.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-    const orderNum = getOrderNumber(); // دریافت شماره سفارش از localStorage
-    
-    let text = `🗓️ تاریخ: ${dateStr} | ساعت: ${timeStr}\n`;
-    text += `🛍️ سفارش جدید - شماره: ${toPersianDigits(orderNum)}\n`;
-    text += `👤 نام‌ونام‌خانوادگی: ${name}\n`;
-    text += `📱 همراه: ${phone}\n`;
-    text += `📍 آدرس: ${address}\n\n`;
-    text += `📋 جزئیات سفارش:\n`;
-    text += `---------------------------------------\n`;
-    
-    const items = Object.values(cart);
-    const grouped = items.reduce((acc, item) => {
-    (acc[item.groupName] = acc[item.groupName] || []).push(item); // تغییر به groupName
-    return acc;
-}, {});
-    
-    let total = 0;
-    let groupSummariesText = `📊 خلاصه سفارش بر اساس گروه:\n\n`;
-    
-    for (const groupName in grouped) {
-        let groupQty = 0;
-        let groupTotal = 0;
-        text += `\n🔹 ${groupName}:\n`;
-        
-        grouped[groupName].forEach(item => {
-            let itemSum = item.quantity * item.price;
-            text += `- ${item.name}: ${toPersianDigits(item.quantity)} عدد\n`;
-            groupQty += item.quantity;
-            groupTotal += itemSum;
-            total += itemSum;
-        });
-        
-        // تولید بخش خلاصه برای انتهای پیام (مطابق درخواست شما)
-        groupSummariesText += `${groupName}:\nتعداد کل: ${toPersianDigits(groupQty)} عدد - مجموع قیمت: ${toPersianPrice(groupTotal)} ریال\n\n`;
-    }
-    
-    // محاسبات نهایی مبلغ
-    let discountPercent = (total >= 1000000000) ? 0.10 : (total >= 500000000 ? 0.07 : (total >= 200000000 ? 0.05 : 0));
-    let discountAmount = total * discountPercent;
-    let afterDiscount = total - discountAmount;
-    let packageCount = Math.floor(afterDiscount / 140000000) + 1;
-    let shippingCost = packageCount * 800000;
-    let finalPayable = afterDiscount + shippingCost;
-    
-    text += `\n---------------------------------------\n`;
-    text += groupSummariesText; // درج بخش درخواستی شما
-    text += `---------------------------------------\n\n`;
-    text += `💵 جمع کل: ${toPersianPrice(total)} ریال\n`;
-    
-    if (discountAmount > 0) {
-        text += `🎁 تخفیف ویژه: ${toPersianPrice(discountAmount)} ریال (${toPersianDigits(Math.round(discountPercent * 100))}٪))\n`;
-    }
-    
-    text += `🚚 هزینه باربری: ${toPersianPrice(shippingCost)} ریال\n`;
-    text += `💰 مبلغ قابل پرداخت: ${toPersianPrice(finalPayable)} ریال\n\n`;
-    text += `✅ سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد. پوستر ایران`;
-    
-    // کپی متن و ارسال
-    addToHistory();
-    incrementOrderNumber();
-    
-    navigator.clipboard.writeText(text).then(() => {
-        // در داخل تابع submitOrder
-if (platform === 'eitaa') {
-    navigator.clipboard.writeText(text).then(() => {
-        showToast("متن سفارش کپی شد. در ایتا بچسبانید (Paste)", "سیستم", "success");
-        setTimeout(() => {
-            window.open(`https://eitaa.com/@PosterIran`, '_blank');
-        }, 1000);
-    });
-}
-        
-        cart = {};
-        saveCartToStorage();
-        updateBadge();
-        
-        const url = platform === 'whatsapp' ?
-            `https://wa.me/989010195885?text=${encodeURIComponent(text)}` :
-            `https://eitaa.com/@PosterIran`;
-        
-        window.open(url);
-        setTimeout(() => showScreen('history'), 1000);
-    });
-}
-// تابع برای ذخیره اطلاعات در حافظه مرورگر
-function saveCustomerData() {
-    const customerData = {
-        name: document.getElementById('customerName').value,
-        phone: document.getElementById('customerPhone').value,
-        address: document.getElementById('customerAddress').value
-    };
-    localStorage.setItem('customer_info', JSON.stringify(customerData));
-}
+  <div class="customer-info-form">
+    <h4>اطلاعات مشتری:</h4>
+    <label for="customerName">نام و نام خانوادگی:</label>
+    <input type="text" id="customerName" placeholder="نام و نام خانوادگی خود را وارد کنید" required>
 
-// تابع برای خواندن اطلاعات از حافظه مرورگر
-function loadCustomerData() {
-    const savedData = localStorage.getItem('customer_info');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        document.getElementById('customerName').value = data.name || '';
-        document.getElementById('customerPhone').value = data.phone || '';
-        document.getElementById('customerAddress').value = data.address || '';
+    <label for="customerPhone">شماره موبایل:</label>
+    <input type="tel" id="customerPhone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required pattern="09[0-9]{9}" inputmode="numeric">
+
+    <label for="customerAddress">آدرس کامل تحویل:</label>
+    <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد" rows="4" required></textarea>
+  </div>
+
+  <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
+  <button id="submitOrderEitaaBtn" onclick="submitOrderWithEitaa()" style="background-color: #ff6600; color: white;">
+   ارسال سفارش با ایتا
+</button>
+  <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
+  <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
+  <button id="showPreviousOrdersBtn"style="background-color: #9C27B0;">سفارش‌های قبلی 📦</button>
+  
+</div>
+
+<div id="image-modal" class="image-modal">
+  <span class="close" onclick="closeImageModal()">×</span>
+  <img class="image-modal-content" id="modal-image">
+</div>
+
+<div id="previous-orders-modal" class="previous-orders-modal">
+    <div class="previous-orders-content">
+        <span class="close" onclick="closePreviousOrdersModal()">×</span>
+        <h3>سفارش‌های قبلی</h3>
+        <div id="previousOrdersList"></div>
+    </div>
+</div>
+
+<div id="notification-container"></div>
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/Akbari5561/PosterIran/main/ludovico.mp3" type="audio/mpeg">
+</audio>
+<div id="gallery-container"></div>
+<div id="music-control" class="music-btn">
+  <span id="music-icon">🔇</span>
+</div>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+/* particles.js config */
+particlesJS('particles-js', {
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#0D2440"
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "polygon": {
+        "nb_sides": 5
+      },
+      "image": {
+        "src": "img/github.svg",
+        "width": 100,
+        "height": 100
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#0D2440",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 0.5,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
     }
-}
-
-// اجرای تابع لود بلافاصله پس از باز شدن صفحه
-window.addEventListener('DOMContentLoaded', loadCustomerData);
-// ۱. این تابع را برای بررسی وضعیت سبد هنگام ورود به سایت استفاده کنید
-function validateCartOnLoad() {
-    const savedCartStr = localStorage.getItem('cart');
-    
-    // اگر سبد خریدی در حافظه وجود داشته باشد
-    if (savedCartStr) {
-        try {
-            const tempCart = JSON.parse(savedCartStr);
-            const itemsInCart = Object.keys(tempCart).length;
-
-            // فقط در صورتی پیام بده که:
-            // ۱. سبد خرید واقعاً دارای محصول باشد (بزرگتر از صفر)
-            // ۲. نشانگر ثبت نشدن (cart_submitted) در حافظه باشد
-            if (itemsInCart > 0 && localStorage.getItem('cart_submitted')) {
-                
-                // نمایش پیام با تاخیر اندک برای بهتر دیده شدن
-                setTimeout(() => {
-                    showCustomAlert(
-                        "سبد خرید ناتمام", 
-                        `شما تعداد ${toPersianDigits(itemsInCart)} قلم کالا در سبد خرید دارید که ثبت نهایی نشده‌اند. لطفاً جهت تکمیل سفارش به سبد خرید مراجعه کنید.`
-                    );
-                }, 1000);
-                
-            } else if (itemsInCart === 0) {
-                // اگر سبد خالی است، نشانگر ناتمام بودن را هم پاک کن تا تداخل ایجاد نشود
-                localStorage.removeItem('cart_submitted');
-            }
-        } catch (e) {
-            console.error("خطا در خواندن سبد خرید:", e);
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
         }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
     }
-}
-
-// ۲. فراخوانی تابع هنگام لود شدن کامل صفحه
-window.addEventListener('load', () => {
-    // ابتدا سبد خرید را از حافظه بارگذاری کن (تابع موجود در کد خودتان)
-    loadCartFromStorage(); 
-    
-    // سپس بررسی کن که آیا نیاز به نمایش پیام "سبد ناتمام" هست یا خیر
-    validateCartOnLoad();
-    
-    // بروزرسانی آیکون سبد خرید
-    updateBadge();
+  },
+  "retina_detect": true
 });
-// تابع برای گرفتن شماره سفارش فعلی
-function getOrderNumber() {
-    let currentNumber = localStorage.getItem('order_counter');
-    if (!currentNumber) {
-        // اگر بار اول است، شماره را ۱ قرار بده
-        localStorage.setItem('order_counter', '1');
-        return 1;
-    }
-    return parseInt(currentNumber);
-}
+</script>
 
-// تابع برای افزایش شماره سفارش برای دفعه بعدی
-function incrementOrderNumber() {
-    let nextNumber = getOrderNumber() + 1;
-    localStorage.setItem('order_counter', nextNumber.toString());
-}
-// ذخیره سبد خرید در localStorage
-const STORAGE_KEY = 'poster_iran_cart';
-
-function saveCartToStorage() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-}
-
-function loadCartFromStorage() {
-    const savedCart = localStorage.getItem(STORAGE_KEY);
-    if (savedCart) {
-        try {
-            cart = JSON.parse(savedCart);
-            updateBadge();
-            checkPendingOrder();
-        } catch (e) {
-            cart = {};
-        }
+<script>
+// تغییرات اعمال شده: آرایه allowedQuantities از حالت سراسری حذف شده و به گروه های زیر اضافه شده است.
+const groupInfo = {
+    1: {
+        name: "سایز ۲۹×۲۱ دوروچاپ",
+        price: 150000,
+        // آرایه مخصوص گروه ۱
+        allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
+        images: [
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
+            { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
+            { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
+            { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+            { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
+            { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
+            { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
+            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
+            { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
+            { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
+            { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+            { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
+            { filename: "اعداد.jpg", name: "اعداد ساده" },
+            { filename: "اعداد با ساعت و محور.jpg", name: " اعداد با ساعت و محور" },
+            { filename: "جمع و تفریق.jpg", name: "جمع و تفریق" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
+            
+            /*{ filename: "جدول تقریب اعداد.jpg", name: "جدول تقریب اعداد" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            */
+            
+        ]
+    },
+    2: {
+        name: "سایز ۵۰×۳۵ یکروچاپ",
+        price: 150000,
+        // آرایه مخصوص گروه ۲
+        allowedQuantities: [0, 50], 
+        images: [
+            { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+        ]
+    },
+    3: {
+        name: "سایز ۵۰×۳۵ دوروچاپ",
+        price: 300000,
+        // آرایه مخصوص گروه ۳
+        allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
+        images: [
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
+            /*{ filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
+            */
+        ]
+    },
+    4: {
+        name: "سایز ۷۰×۵۰ یکروچاپ",
+        price: 300000,
+        // آرایه مخصوص گروه ۴
+        allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
+        images: [
+            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
+            { filename: "جدول جمع.jpg", name: "جدول جمع" },
+            { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
+            /*
+            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+            { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
+            { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
+        ]
+    },
+    5: {
+        name: "سایز ۷۰×۵۰ یووی‌دار",
+        price: 400000,
+        // آرایه مخصوص گروه ۵
+        allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
+        images: [
+            { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
+            { filename: "آناتـومی بـدن انسـان.jpg", name: "آناتـومی بـدن انسـان" },
+            { filename: "بـدن من.jpg", name: "بـدن من" },
+            { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
+            { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
+            { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
+            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد" },
+            { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
+            { filename: "نقشـه ایـران.webp", name: "نقشـه ایـران" },
+            { filename: "نقشـه جهـان.webp", name: "نقشـه جهـان" },
+            /*{ filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
+            */
+        ]
+    },
+    6: {
+        name: "سایر محصولات",
+        type: "variable-count",
+        defaultQtyMultiplier: 60,
+        images: [
+            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 350000 },
+            { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 300000 },
+            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 350000 },
+            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 300000 },
+            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 350000 },
+            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 300000 },
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 350000, qtyMultiplier: 60 },
+            { filename: "فلش کارت نگاره ها و نشانه ها.jpeg", name: "فلش کارت نگاره‌ها و نشانه‌ها", price: 350000, qtyMultiplier: 60 },
+            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 65000, qtyMultiplier: 100 },
+            /*
+            
+            { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 220000 },
+            
+            */
+        ],
     }
-}
-
-// اجرای تابع لود بلافاصله پس از باز شدن صفحه
-window.addEventListener('DOMContentLoaded', () => {
-    loadCustomerData();
-    loadCartFromStorage();
-});
-function checkPendingCart() {
-    const itemsCount = Object.keys(cart).length;
-    if (itemsCount === 0) return; // اگر سبد خالی بود، کلاً ادامه نده و پیامی نشان نده
-    
-    // بقیه کدهای نمایش آلرت...
-}
-function checkPendingOrder() {
-    const notice = document.getElementById('pendingOrderNotice');
-    const isCartEmpty = Object.keys(cart).length === 0;
-    
-    // اگر در صفحه اصلی بودیم و سبد پر بود، نمایش بده
-    if (!isCartEmpty) {
-        notice.classList.remove('hidden');
-    } else {
-        notice.classList.add('hidden');
-    }
-}
-window.addEventListener('DOMContentLoaded', () => {
-    loadCustomerData(); // تابعی که خودتان داشتید
-    
-    // بازیابی سبد خرید
-    const savedCart = localStorage.getItem('saved_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateBadge();
-        
-        // اگر سبد خالی نبود، دکمه سفارش ناتمام را نشان بده
-        if (Object.keys(cart).length > 0) {
-            document.getElementById('resumeOrder')?.classList.remove('hidden');
-        }
-    }
-});
-// ذخیره سفارش در تاریخچه (این تابع را در انتهای تابع submitOrder صدا بزنید)
-function addToHistory() {
-    if (Object.keys(cart).length === 0) return;
-    
-    let history = JSON.parse(localStorage.getItem('order_history') || '[]');
-    
-    let itemsArray = Object.values(cart);
-    let rawTotal = itemsArray.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
-    // محاسبات تخفیف و باربری
-    let discountPercent = (rawTotal >= 1000000000) ? 0.10 : (rawTotal >= 500000000 ? 0.07 : (rawTotal >= 200000000 ? 0.05 : 0));
-    let afterDiscount = rawTotal - (rawTotal * discountPercent);
-    let packageCount = Math.floor(afterDiscount / 140000000) + 1;
-    let finalPayable = afterDiscount + (packageCount * 800000);
-    
-    const newOrder = {
-    id: Date.now(),
-    orderNumber: getOrderNumber(),
-    date: new Date().toLocaleDateString('fa-IR'),
-    time: new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }),
-    items: JSON.parse(JSON.stringify(cart)), // کل شیء سبد شامل groupName ذخیره می‌شود
-    total: finalPayable
 };
+// آرایه سراسری allowedQuantities حذف شده است.
+let cart = new Map(JSON.parse(localStorage.getItem('cart') || '[]'));
+const MAX_QTY_OTHER_PRODUCTS = 480;
+
+const screens = {
+  main: document.getElementById('mainSection'),
+  gallery: document.getElementById('gallery'),
+  cart: document.getElementById('cartSection')
+};
+
+function showScreen(screenId) {
+    // ۱. مخفی کردن تمام بخش‌ها
+    const sections = ['mainSection', 'adminLogin', 'gallery', 'cartSection'];
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
     
-    history.unshift(newOrder);
-    localStorage.setItem('order_history', JSON.stringify(history.slice(0, 15))); // ذخیره تا ۱۵ سفارش آخر
+    // ۲. مدیریت نمایش بخش انتخاب شده و ساعت
+    if (screenId === 'main') {
+        document.getElementById('mainSection').style.display = 'flex';
+        // نمایش ساعت فقط در صفحه اصلی
+        const clock = document.getElementById('clock-container');
+        if (clock) clock.style.display = 'flex';
+    } else {
+        const targetId = (screenId === 'gallery') ? 'gallery' :
+            (screenId === 'cart') ? 'cartSection' :
+            (screenId === 'admin') ? 'adminLogin' : '';
+        
+        if (targetId) {
+            document.getElementById(targetId).style.display = 'flex';
+        }
+        // مخفی کردن ساعت در صفحات دیگر
+        const clock = document.getElementById('clock-container');
+        if (clock) clock.style.display = 'none';
+        
+        // ۳. اجرای منطق مخصوص هر صفحه (بخش حیاتی برای حل مشکل شما)
+        if (screenId === 'gallery') {
+            // پیدا کردن گروه انتخاب شده در دروپ‌داون و بارگذاری محصولات آن
+            const currentGroupId = document.getElementById('bottomGroupSelect').value;
+            if (typeof loadGroup === 'function') {
+                loadGroup(currentGroupId); // این خط محصولات گروه ۱ را نمایش می‌دهد
+            }
+        } else if (screenId === 'cart') {
+            if (typeof renderCartList === 'function') {
+                renderCartList();
+                loadCustomerInfo();
+            }
+        }
+    }
+    
+    // ۴. به‌روزرسانی تاریخچه مرورگر
+    if (history.state?.screen !== screenId) {
+        history.pushState({ screen: screenId }, '', `#${screenId}`);
+    }
 }
-// نمایش لیست تاریخچه
-function updateHistoryDisplay() {
-    const list = document.getElementById('historyList');
-    const history = JSON.parse(localStorage.getItem('order_history') || '[]');
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.screen) {
+        for (let key in screens) {
+            screens[key].style.display = 'none';
+        }
+        screens[event.state.screen].style.display = 'flex';
+        if (event.state.screen === 'gallery') {
+            const currentGroupId = document.getElementById('bottomGroupSelect').value;
+            loadGroup(currentGroupId);
+        } else if (event.state.screen === 'cart') {
+            renderCartList();
+            loadCustomerInfo();
+        }
+        checkCartState();
+    } else {
+        showScreen('main');
+    }
+});
+function updateClock() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours();
+
+    // محاسبه درجات
+    const secondsDeg = (seconds / 60) * 360;
+    const minutesDeg = ((minutes / 60) * 360) + ((seconds / 60) * 6);
+    const hoursDeg = ((hours % 12 / 12) * 360) + ((minutes / 60) * 30);
+
+    // اعمال چرخش به عقربه‌ها
+    document.getElementById('second-hand').style.transform = `translateX(-50%) rotate(${secondsDeg}deg)`;
+    document.getElementById('minute-hand').style.transform = `translateX(-50%) rotate(${minutesDeg}deg)`;
+    document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${hoursDeg}deg)`;
     
-    if (history.length === 0) {
-        list.innerHTML = `
-            <div class="text-center py-16">
-                <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-file-invoice text-3xl text-gray-300"></i>
+    // آپدیت بخش دیجیتال
+    const digitalInfo = document.getElementById('digital-info');
+    if (digitalInfo && digitalInfo.classList.contains('visible')) {
+        updateDigitalInfo(now);
+    }
+}
+
+function updateDigitalInfo(now) {
+    // نمایش زمان دیجیتال
+    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const timeString = now.toLocaleTimeString('en-US', timeOptions);
+    document.getElementById('digital-time').textContent = timeString;
+
+    // نمایش تاریخ شمسی
+    const weekDays = ["یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه"];
+    const dayOfWeek = weekDays[now.getDay()];
+    const jalaliDate = new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now).split('/');
+    const [year, month, day] = jalaliDate;
+    document.getElementById('digital-date').textContent = `${dayOfWeek} ${year}/${month}/${day}`;
+}
+
+// اجرای آپدیت هر ثانیه
+setInterval(updateClock, 1000);
+updateClock();
+    // اضافه کردن قابلیت کلیک برای نمایش/مخفی کردن تاریخ و زمان دیجیتال
+// دریافت المان‌ها
+const analogClock = document.getElementById('analog-clock');
+const digitalInfo = document.getElementById('digital-info');
+
+if (analogClock && digitalInfo) {
+    analogClock.addEventListener('click', function(e) {
+        e.stopPropagation();
+        digitalInfo.classList.toggle('visible');
+    });
+}
+
+function createClockTicks() {
+    const clock = document.getElementById('analog-clock');
+    if (!clock) return;
+    
+    for (let i = 0; i < 60; i++) {
+        const tick = document.createElement('div');
+        tick.className = 'tick';
+        
+        // اگر مضرب ۵ باشد، خط ساعت است (ضخیم‌تر)
+        if (i % 5 === 0) {
+            tick.classList.add('hour-tick');
+        }
+        
+        // محاسبه چرخش و فاصله از مرکز (شعاع حدود ۲۶ پیکسل)
+        tick.style.transform = `translate(-50%, -100%) rotate(${i * 6}deg) translateY(-24px)`;
+        
+        // اضافه کردن به ابتدای ساعت تا زیر عقربه‌ها قرار بگیرند
+        clock.prepend(tick);
+    }
+}
+
+// فراخوانی تابع برای ساخت خطوط
+createClockTicks();
+
+function showNotification(message) {
+    const container = document.getElementById('notification-container');
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    container.appendChild(notification);
+    void notification.offsetWidth;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        notification.classList.add('hide');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 4000);
+}
+
+// ** اضافه کردن تابع جدید برای نمایش پیام خوش‌آمدگویی **
+function showWelcomeNotification(message) {
+    showNotification(message);
+}
+// ** تابع جدید برای گرد کردن به نزدیکترین مقدار مجاز غیرصفر (حل مشکل شما) **
+function findNearestAllowedQuantity(previousQuantity, allowedQuantities) {
+    // ... منطق گرد کردن ...
+}
+// ** تابع generateQuantityOptions تغییر یافته برای پشتیبانی از آرایه مخصوص هر گروه **
+function generateQuantityOptions(selectedQty, qtyMultiplier = 1, isOtherProductsGroup = false, groupAllowedQuantities = null) {
+    let optionsHtml = '';
+    const maxQtyForOtherProducts = MAX_QTY_OTHER_PRODUCTS;
+
+    // منطق جدید: استفاده از آرایه مجاز گروهی (برای گروه‌های ۱ تا ۵)
+    if (groupAllowedQuantities && !isOtherProductsGroup && qtyMultiplier === 1) {
+        groupAllowedQuantities.forEach(qty => { 
+            optionsHtml += `<option value="${qty}" ${qty === selectedQty ? 'selected' : ''}>${qty}</option>`;
+        });
+        return optionsHtml; // پایان تابع در این حالت
+    }
+    
+    // منطق قبلی برای گروه‌های با تعداد متغیر (مانند گروه ۶) یا گروه‌هایی با qtyMultiplier > 1
+    if (isOtherProductsGroup) {
+        optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
+        for (let i = qtyMultiplier; i <= maxQtyForOtherProducts; i += qtyMultiplier) {
+            optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
+        }
+    } else if (qtyMultiplier > 1) {
+        optionsHtml += `<option value="0" ${selectedQty === 0 ? 'selected' : ''}>0</option>`;
+        for (let i = qtyMultiplier; i <= 5000; i += qtyMultiplier) {
+            optionsHtml += `<option value="${i}" ${i === selectedQty ? 'selected' : ''}>${i}</option>`;
+        }
+    } 
+    // بخش else که از allowedQuantities سراسری استفاده می‌کرد حذف شده است.
+    
+    return optionsHtml;
+}
+
+function loadGroup(groupId) {
+    const container = document.getElementById("imagesContainer");
+
+    const info = groupInfo[groupId];
+    if (!info) {
+        console.error(`Group with ID ${groupId} not found. Cannot load images.`);
+        container.innerHTML = "";
+        return;
+    }
+
+    container.innerHTML = `<h2>${info.name}</h2>
+                           <div class="image-container-inner"></div>`;
+    const imagesContainerInner = document.querySelector(".image-container-inner");
+    
+    // ** خط جدید **: دریافت آرایه مقادیر مجاز گروه
+    const groupAllowedQuantities = info.allowedQuantities || null; 
+    
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (groupId === '6');
+
+    info.images.forEach(item => {
+        const itemPrice = item.price || info.price;
+        const filename = item.filename;
+        const itemName = item.name;
+        const imagePath = `Image/${info.name}/${filename}`;
+        const itemUniqueId = `${groupId}-${filename}`;
+        const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
+        const initialQty = currentCartItem ? currentCartItem.qty : 0;
+        const qtyMultiplier = isVariableCountGroup ? (item.qtyMultiplier || info.defaultQtyMultiplier || 1) : 1;
+        
+        const box = document.createElement("div");
+        box.className = "image-box";
+        box.innerHTML = `
+            <img src="${imagePath}" alt="${itemName}" onclick="openImageModal('${imagePath}')">
+            <p style="font-weight: bold; margin-bottom: 5px;">${itemName}</p>
+            <p style="color: #4CAF50; font-weight: bold;">قیمت: ${itemPrice.toLocaleString()} ریال</p>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; justify-content: center;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                    <label for="qty-select-${itemUniqueId}">تعداد :</label>
+                    <select id="qty-select-${itemUniqueId}" class="quantity-select">
+                        ${generateQuantityOptions(initialQty, qtyMultiplier, isOtherProductsGroup, groupAllowedQuantities)}
+                    </select>
                 </div>
-                <p class="text-gray-400 font-bold">تاریخچه سفارشات شما خالی است.</p>
-            </div>`;
+                <p id="in-cart-display-${itemUniqueId}" class="in-cart-display" style="margin-top: 5px;">موجود در سبد: ${initialQty} عدد</p>
+            </div>
+        `;
+        imagesContainerInner.appendChild(box);
+    });
+    
+    // Attach event listeners to newly created selects
+    info.images.forEach(item => {
+        const itemUniqueId = `${groupId}-${item.filename}`;
+        const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+        if (qtySelect) {
+            qtySelect.addEventListener('change', () => addToCart(groupId, item.filename));
+        }
+    });
+
+    document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function addToCart(groupId, filename) {
+    const info = groupInfo[groupId];
+    const itemUniqueId = `${groupId}-${filename}`;
+    
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (parseInt(groupId) === 6);
+    
+    const qtySelect = document.getElementById(`qty-select-${itemUniqueId}`);
+    let selectedQty = parseInt(qtySelect.value);
+    
+    // Find the specific item in the group
+    const itemInGroup = info.images.find(img => img.filename === filename);
+    if (!itemInGroup) {
+        console.error(`Item with filename ${filename} not found in group ${groupId}.`);
         return;
     }
     
-    list.innerHTML = history.map((order, index) => {
-        const items = Object.values(order.items);
-        const groupedItems = items.reduce((acc, item) => {
-            const gName = item.groupName || "سایر محصولات";
-            (acc[gName] = acc[gName] || []).push(item);
-            return acc;
-        }, {});
+    // Determine the price based on whether the item has its own price or uses the group price
+    const itemPrice = itemInGroup.price || info.price;
+    
+    const qtyMultiplier = isVariableCountGroup ? (itemInGroup.qtyMultiplier || info.defaultQtyMultiplier) : 1;
+    
+    if (isNaN(selectedQty) || selectedQty < 0) {
+        showNotification("لطفا تعداد معتبری را انتخاب کنید.");
+        selectedQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
+        qtySelect.value = selectedQty;
+        return;
+    }
+    
+    if (isVariableCountGroup && (selectedQty % qtyMultiplier !== 0)) {
+        showNotification(`برای این محصول، تعداد باید مضربی از ${qtyMultiplier} باشد.`);
+        qtySelect.value = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
+        return;
+    }
+    
+    if (isOtherProductsGroup && selectedQty > MAX_QTY_OTHER_PRODUCTS) {
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        selectedQty = MAX_QTY_OTHER_PRODUCTS;
+        qtySelect.value = selectedQty;
+    }
+    
+    const previousQty = cart.has(itemUniqueId) ? cart.get(itemUniqueId).qty : 0;
+    
+    if (selectedQty === 0) {
+        if (cart.has(itemUniqueId)) {
+            removeFromCart(itemUniqueId, false);
+        }
+    } else {
+        cart.set(itemUniqueId, {
+            groupId: groupId,
+            filename: filename,
+            groupName: info.name,
+            name: itemInGroup.name,
+            price: itemPrice, // Correctly assigns the price at the time of adding
+            qty: selectedQty
+        });
+        saveCart();
         
-        return `
-        <div class="bg-white border border-gray-100 rounded-[2rem] overflow-hidden shadow-sm mb-6 transition-all hover:shadow-md">
-            <div class="bg-blue-50/50 px-6 py-4 flex justify-between items-center border-b border-blue-100/50">
-                <div class="flex items-center gap-3">
-                    <div class="bg-blue-600 text-white w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
-                        <i class="fas fa-shopping-bag text-sm"></i>
-                    </div>
-                    <div>
-                        <span class="block text-[10px] text-blue-500 font-bold">سفارش شماره ${toPersianDigits(order.orderNumber)}</span>
-                        <span class="text-xs font-black text-gray-800">${order.date} <span class="text-gray-300 mx-1">|</span> ${order.time}</span>
-                    </div>
-                </div>
-                <button onclick="deleteFromHistory(${order.id})" class="text-gray-300 hover:text-red-500 transition-colors p-2">
-                    <i class="fas fa-trash-alt text-sm"></i>
-                </button>
-            </div>
-
-            <div class="p-6">
-                <div class="space-y-4">
-                    ${Object.keys(groupedItems).map(groupName => `
-                        <div class="bg-gray-50/50 rounded-2xl p-3 border border-gray-100">
-                            <h4 class="text-[10px] font-black text-blue-900 mb-2 pb-2 border-b border-gray-200/50 flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                                ${groupName}
-                            </h4>
-                            <div class="space-y-2">
-                                ${groupedItems[groupName].map(item => `
-                                    <div class="flex justify-between items-center text-[11px]">
-                                        <span class="text-gray-600">${item.name}</span>
-                                        <span class="font-bold text-gray-900">${toPersianDigits(item.quantity)} عدد</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-
-            <div class="px-6 pb-6 pt-2">
-                <div class="flex justify-between items-center mb-4 px-2">
-                    <span class="text-xs text-gray-500 font-bold">مبلغ نهایی پرداختی:</span>
-                    <span class="text-sm font-black text-green-600">${toPersianPrice(order.total)} ریال</span>
-                </div>
-                <button onclick='reorder(${JSON.stringify(order.items)})' 
-                        class="w-full bg-blue-600 text-white py-4 rounded-2xl text-xs font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-                    <i class="fas fa-redo text-[10px]"></i>
-                    سفارش مجدد این لیست
-                </button>
-            </div>
-        </div>
-        `;
-    }).join('');
+        if (selectedQty > previousQty) {
+            showNotification(`${itemInGroup.name} تعداد ${selectedQty} عدد به سبد خرید اضافه شد.`);
+        } else if (selectedQty < previousQty) {
+            showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${selectedQty} عدد کاهش یافت.`);
+        } else {
+            showNotification(`تعداد ${itemInGroup.name} در سبد خرید تغییری نکرد و ${selectedQty} عدد باقی ماند.`);
+        }
+    }
+    
+    let inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
+    
+    if (inCartDisplayElement) {
+        inCartDisplayElement.textContent = `موجود در سبد: ${selectedQty} عدد`;
+    }
+    checkCartState();
 }
 
-// تابع جدید برای حذف یک مورد خاص از تاریخچه
-function deleteFromHistory(orderId) {
-    if (confirm('آیا از حذف این سفارش از تاریخچه مطمئن هستید؟')) {
-        let history = JSON.parse(localStorage.getItem('order_history') || '[]');
-        history = history.filter(order => order.id !== orderId);
-        localStorage.setItem('order_history', JSON.stringify(history));
-        updateHistoryDisplay();
-        showToast("سفارش از تاریخچه حذف شد", "مدیریت");
+function updateCartItemQuantityFromDropdown(selectElement, itemUniqueId) {
+    const [groupId, filename] = itemUniqueId.split('-');
+    const info = groupInfo[groupId];
+    const isVariableCountGroup = info.type === 'variable-count';
+    const isOtherProductsGroup = (parseInt(groupId) === 6);
+    let itemInGroup;
+    if (isVariableCountGroup) {
+      itemInGroup = info.images.find(img => img.filename === filename);
+    } else {
+      itemInGroup = info.images.find(img => img.filename === filename);
+    }
+
+    let newQty = parseInt(selectElement.value);
+
+    if (isNaN(newQty) || newQty < 0) {
+        console.error("Invalid quantity selected from dropdown.");
+        renderCartList();
+        return;
+    }
+    
+    if (isOtherProductsGroup && newQty > MAX_QTY_OTHER_PRODUCTS) {
+        showNotification(`حداکثر تعداد مجاز برای محصولات گروه "سایر محصولات" ${MAX_QTY_OTHER_PRODUCTS} عدد است.`);
+        newQty = MAX_QTY_OTHER_PRODUCTS;
+        selectElement.value = newQty;
+    }
+    
+    if (newQty === 0) {
+        const itemToRemove = cart.get(itemUniqueId);
+        if (itemToRemove) {
+            removeFromCart(itemUniqueId, false);
+        }
+    } else {
+        let item = cart.get(itemUniqueId);
+        item.qty = newQty;
+        cart.set(itemUniqueId, item);
+        saveCart();
+        renderCartList();
+        showNotification(`تعداد ${itemInGroup.name} در سبد خرید به ${newQty} عدد تغییر یافت.`);
+    }
+    checkCartState();
+}
+
+function removeFromCart(itemUniqueId, showConfirm = true) {
+    const itemToRemove = cart.get(itemUniqueId);
+    if (!itemToRemove) return;
+
+    if (showConfirm && !confirm('آیا مطمئنید می‌خواهید این محصول را از سبد حذف کنید؟')) {
+        return;
+    }
+
+    cart.delete(itemUniqueId);
+    saveCart();
+    renderCartList();
+    showNotification(`${itemToRemove.name} از سبد خرید حذف شد.`);
+
+    if (document.getElementById('gallery').style.display === 'flex') {
+        const qtySelectInGallery = document.getElementById(`qty-select-${itemUniqueId}`);
+        if (qtySelectInGallery) {
+            qtySelectInGallery.value = 0;
+            const inCartDisplayElement = document.getElementById(`in-cart-display-${itemUniqueId}`);
+            if (inCartDisplayElement) {
+                inCartDisplayElement.textContent = `موجود در سبد: 0 عدد`;
+            }
+        }
+    }
+    checkCartState();
+}
+
+function clearCart() {
+    if (confirm('آیا مطمئنید می‌خواهید کل سبد خرید را پاک کنید؟')) {
+        cart.clear();
+        saveCart();
+        renderCartList();
+        showNotification('سبد خرید شما پاک شد.');
+        if (document.getElementById('gallery').style.display === 'flex') {
+            loadGroup(document.getElementById('bottomGroupSelect').value);
+        }
+        checkCartState();
     }
 }
 
-// تابع کمکی برای اشتراک‌گذاری (اختیاری)
-function shareOrder(orderNum) {
-    showToast(`جزئیات سفارش ${toPersianDigits(orderNum)} آماده کپی است`, "اشتراک‌گذاری");
+function calculateDiscountPercentage(totalAmount) {
+    if (totalAmount >= 1000000000) return 0.09;
+    else if (totalAmount >= 900000000) return 0.05;
+    else if (totalAmount >= 800000000) return 0.05;
+    else if (totalAmount >= 700000000) return 0.05;
+    else if (totalAmount >= 600000000) return 0.05;
+    else if (totalAmount >= 500000000) return 0.05;
+    else if (totalAmount >= 400000000) return 0.00;
+    else if (totalAmount >= 300000000) return 0.00;
+    else if (totalAmount >= 200000000) return 0.00;
+    else return 0;
 }
 
-function reorderFromHistory(oldItems) {
-    const itemsToAdd = Object.values(oldItems);
-    itemsToAdd.forEach(item => {
-        // اطمینان از ارسال groupName که در تاریخچه ذخیره شده بود
-        addToCart(item.filename, item.name, item.quantity, item.price, item.groupName || 'عمومی');
-    });
-    
-    showToast("محصولات به سبد خرید شما اضافه شدند", "تاریخچه", "success");
-    showScreen('cart');
+function renderCartList() {
+    const list = document.getElementById("cartList");
+    const totalDisplay = document.getElementById("totalPrice");
+    list.innerHTML = "";
+    let grouped = {};
+    let groupedSummaries = {};
+    let totalSumBeforeDiscount = 0;
+
+    if (cart.size === 0) {
+        list.innerHTML = "<p>سبد خرید شما خالی است.</p>";
+        totalDisplay.textContent = `مبلغ کل: 0 ریال`;
+        return;
+    }
+    // در انتهای تابع renderCartList اضافه شود:
+const eitaaBtn = document.getElementById('submitOrderEitaaBtn');
+if (eitaaBtn) {
+    eitaaBtn.style.display = (cart.size === 0) ? 'none' : 'block';
 }
-// قابلیت سفارش مجدد
-function reorder(items) {
-    if(confirm('آیا می‌خواهید این اقلام به سبد خرید فعلی شما اضافه شوند؟')) {
-        const allValidProductIds = [];
-        Object.values(groupInfo).forEach(group => {
-            group.images.forEach(img => {
-                allValidProductIds.push(group.name + "_" + img.filename);
-            });
-        });
 
-        let missingItemsDetails = [];
+    cart.forEach(item => {
+        // --- START OF FIX: بازیابی قیمت لحظه‌ای از منبع (groupInfo) ---
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
 
-        for (const id in items) {
-            if (allValidProductIds.includes(id)) {
-                cart[id] = items[id];
-            } else {
-                const item = items[id];
-                missingItemsDetails.push(`🔸 ${item.group} : ${item.name}`);
-            }
-        }
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        // --- END OF FIX ---
 
-        saveCartToStorage();
-        updateBadge();
+        if (!grouped[item.groupName]) grouped[item.groupName] = [];
+        // استفاده از actualPrice برای نمایش و محاسبات
+        grouped[item.groupName].push({ ...item, price: actualPrice }); 
         
-        if (missingItemsDetails.length > 0) {
-            alert("❌ موارد زیر دیگر در لیست موجود نیستند و به سبد اضافه نشدند:\n\n" + missingItemsDetails.join("\n"));
+        // استفاده از actualPrice برای محاسبه مبلغ کل قبل از تخفیف
+        totalSumBeforeDiscount += item.qty * actualPrice;
+
+        if (!groupedSummaries[item.groupName]) {
+            groupedSummaries[item.groupName] = {
+                totalQty: 0,
+                totalPrice: 0
+            };
+        }
+        groupedSummaries[item.groupName].totalQty += item.qty;
+        // استفاده از actualPrice برای محاسبه مبلغ خلاصه گروه
+        groupedSummaries[item.groupName].totalPrice += item.qty * actualPrice;
+    });
+
+    for (let groupName in grouped) {
+    list.innerHTML += `<h4 style="margin-top: 45px; margin-bottom: 0px; text-align: right; border-bottom: 1px dashed #eee; padding-bottom: 5px; color: #4CAF50;">${groupName}</h4>`;
+    grouped[groupName].forEach(item => {
+                const itemUniqueId = `${item.groupId}-${item.filename}`;
+            
+            const group = groupInfo[item.groupId]; 
+            let itemDetail = null;
+            if (group.type === 'variable-count') {
+                itemDetail = group.images.find(img => img.filename === item.filename);
+            }
+            const qtyMultiplierForCartItem = itemDetail ? (itemDetail.qtyMultiplier || group.defaultQtyMultiplier || 1) : 1; 
+            const isOtherProductsGroup = (parseInt(item.groupId) === 6);
+            
+            // ** خط جدید **: دریافت آرایه مقادیر مجاز گروه برای سبد خرید
+            const groupAllowedQuantitiesForCart = group.allowedQuantities || null;
+
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "cart-item";
+            itemDiv.innerHTML = `
+                <div class="cart-item-info">
+                    <p style="font-weight: bold; margin-bottom: 3px;"> ${item.name}</p>
+                </div>
+                <div class="quantity-control">
+                    <select id="cart-qty-select-${itemUniqueId}" class="quantity-select"
+                                onchange="updateCartItemQuantityFromDropdown(this, '${itemUniqueId}')">
+                            ${generateQuantityOptions(item.qty, qtyMultiplierForCartItem, isOtherProductsGroup, groupAllowedQuantitiesForCart)} </select>
+                   
+                </div>
+            `;
+            list.appendChild(itemDiv);
+        });
+    }
+
+    list.innerHTML += `<h3 style="margin-top: 30px; border-bottom: 2px solid #00C853; padding-bottom: 10px; color: #00C853; text-align: right;">خلاصه سفارش بر اساس گروه:</h3>`;
+    for (let groupName in groupedSummaries) {
+        const summary = groupedSummaries[groupName];
+        list.innerHTML += `
+            <div style="background-color: #e8f5e9; padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right;">
+                <p style="font-weight: bold; margin: 0;">${groupName}:</p>
+                <p style="margin: 0; font-size: 0.9em;">تعداد کل: ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال</p>
+            </div>
+        `;
+    }
+    list.innerHTML += `<hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">`;
+
+    list.innerHTML += `
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
+            <p style="font-weight: bold; margin: 0;">مبلغ کل : ${totalSumBeforeDiscount.toLocaleString()} ریال</p>
+        </div>
+    `;
+
+    const discountRate = calculateDiscountPercentage(totalSumBeforeDiscount);
+    const discountAmount = totalSumBeforeDiscount * discountRate;
+    let totalSumAfterDiscount = totalSumBeforeDiscount - discountAmount;
+
+    if (discountAmount > 0) {
+        list.innerHTML += `
+            <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
+                <p style="font-weight: bold; margin: 0; color: #e65100;">🎁 تخفیف (${discountAmount.toLocaleString()} ریال)</p>
+                <p style="margin: 0; font-size: 0.9em;">مبلغ پس از تخفیف: ${totalSumAfterDiscount.toLocaleString()} ریال</p>
+            </div>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
+        `;
+    }
+
+    const baseShippingThreshold = 140000000; 
+    const costPerThreshold = 800000;     
+    let calculatedShippingCost = 0;
+    let shippingDisplayMessage = "";
+    
+    if (totalSumAfterDiscount === 0) {
+        calculatedShippingCost = 0;
+        shippingDisplayMessage = `\n🚚 هزینه باربری: 0 ریال`;
+    } else {
+        const numberOfThresholds = Math.ceil(totalSumAfterDiscount / baseShippingThreshold);
+        calculatedShippingCost = numberOfThresholds * costPerThreshold;
+        shippingDisplayMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
+    }
+
+    const finalTotalWithShipping = totalSumAfterDiscount + calculatedShippingCost;
+    
+
+    list.innerHTML += `
+        <div style="padding: 8px; margin-bottom: 5px; border-radius: 5px; text-align: right; background-color: #ffe0b2;">
+            <p style="font-weight: bold; margin: 0; color: #512DA8;">${shippingDisplayMessage.trim()}</p>
+        </div>
+    `;
+    
+    totalDisplay.textContent = `💰 مبلغ قابل پرداخت : ${finalTotalWithShipping.toLocaleString()} ریال`;
+    checkCartState();
+}
+
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(Array.from(cart.entries())));
+}
+
+const orderPhoneNumber = "989010195885";
+
+function validateCustomerInfo() {
+    const customerName = document.getElementById('customerName').value.trim();
+    const customerPhone = document.getElementById('customerPhone').value.trim();
+    const customerAddress = document.getElementById('customerAddress').value.trim();
+
+    if (!customerName || !customerPhone || !customerAddress) {
+        showNotification('لطفاً نام و نام خانوادگی، شماره موبایل و آدرس کامل تحویل را وارد کنید.');
+        return false;
+    }
+    
+    localStorage.setItem('customerName', customerName);
+    localStorage.setItem('customerPhone', customerPhone);
+    localStorage.setItem('customerAddress', customerAddress);
+    return true;
+}
+
+function saveOrderToHistory(orderId) {
+    const currentCartArray = Array.from(cart.values());
+    if (currentCartArray.length === 0) return;
+
+    let ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+
+    // --- FIX APPLIED HERE: Recalculate based on current prices (implicitly done through generateOrderMessage's logic, but for history we need explicit calculation)
+    let totalAmountBeforeDiscount = 0;
+    currentCartArray.forEach(item => {
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
+
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        totalAmountBeforeDiscount += item.qty * actualPrice; 
+    });
+    // --- END OF FIX for History Saving ---
+
+
+    const discountRate = calculateDiscountPercentage(totalAmountBeforeDiscount);
+    const discountAmount = totalAmountBeforeDiscount * discountRate;
+    const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+    
+    const baseShippingThreshold = 120000000;
+    const costPerThreshold = 800000;
+    let calculatedShippingCost = 0;
+    if (totalAmountAfterDiscount > 0) {
+        const numberOfThresholds = Math.ceil(totalAmountAfterDiscount / baseShippingThreshold);
+        calculatedShippingCost = numberOfThresholds * costPerThreshold;
+    }
+
+    const finalTotalAmount = totalAmountAfterDiscount + calculatedShippingCost;
+
+    const newOrder = {
+        id: orderId,
+        date: new Date().toLocaleString('fa-IR'),
+        items: currentCartArray,
+        totalPrice: finalTotalAmount,
+        totalPriceBeforeDiscount: totalAmountBeforeDiscount,
+        discount: discountAmount,
+        shipping: calculatedShippingCost,
+        customerInfo: {
+            name: document.getElementById('customerName').value,
+            phone: document.getElementById('customerPhone').value,
+            address: document.getElementById('customerAddress').value
+        }
+    };
+    ordersHistory.push(newOrder);
+    localStorage.setItem('previousOrders', JSON.stringify(ordersHistory));
+}
+
+function generateOrderMessage(orderId) {
+    const orderDate = new Date().toLocaleString('fa-IR');
+    let message = `🗓️ تاریخ: ${orderDate}\n`;
+    message += `🛍️ سفارش من - شماره سفارش: ${orderId}\n`;
+    const customerName = document.getElementById('customerName').value.trim();
+    const customerPhone = document.getElementById('customerPhone').value.trim();
+    const customerAddress = document.getElementById('customerAddress').value.trim();
+    
+    message += `📍 آدرس تحویل: ${customerAddress}\n`;
+    message += `\n👤 نام و نام خانوادگی: ${customerName}\n`;
+    message += `📱 شماره موبایل: ${customerPhone}\n`;
+    
+    let totalAmountBeforeDiscount = 0;
+    let groupedItems = {};
+    let groupedSummaries = {};
+
+    cart.forEach(item => {
+        // --- START OF FIX: بازیابی قیمت لحظه‌ای از منبع (groupInfo) ---
+        const group = groupInfo[item.groupId];
+        if (!group) return; 
+
+        const itemDetail = group.images.find(img => img.filename === item.filename);
+        const actualPrice = (group.type === 'variable-count' && itemDetail && itemDetail.price) 
+                            ? itemDetail.price 
+                            : group.price;
+        // --- END OF FIX ---
+        
+        if (!groupedItems[item.groupName]) groupedItems[item.groupName] = [];
+        groupedItems[item.groupName].push(item);
+        
+        // استفاده از actualPrice برای محاسبه مبلغ کل قبل از تخفیف
+        totalAmountBeforeDiscount += item.qty * actualPrice;
+        
+        if (!groupedSummaries[item.groupName]) {
+            groupedSummaries[item.groupName] = { totalQty: 0, totalPrice: 0 };
+        }
+        groupedSummaries[item.groupName].totalQty += item.qty;
+        // استفاده از actualPrice برای محاسبه مبلغ خلاصه گروه
+        groupedSummaries[item.groupName].totalPrice += item.qty * actualPrice;
+    });
+
+    message += "\n🔆🔅 جزئیات سفارش\n";
+    for (let groupName in groupedItems) {
+        message += `\n• ${groupName} :\n`;
+        groupedItems[groupName].forEach(item => {
+            message += `  - ${item.name} - تعداد: ${item.qty} عدد\n`;
+        });
+    }
+    
+    message += "               ---------------------------------------\n";
+    message += "\n🔶🔸 خلاصه سفارش بر اساس گروه\n";
+    for (let groupName in groupedSummaries) {
+        const summary = groupedSummaries[groupName];
+        message += `* ${groupName}: تعداد کل ${summary.totalQty} عدد - مجموع قیمت: ${summary.totalPrice.toLocaleString()} ریال\n`;
+    }
+    message += "               ---------------------------------------\n";
+
+    const discountRate = calculateDiscountPercentage(totalAmountBeforeDiscount);
+    const discountAmount = totalAmountBeforeDiscount * discountRate;
+    const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
+
+    message += `\n💵 مبلغ کل : ${totalAmountBeforeDiscount.toLocaleString()} ریال`;
+    if (discountAmount > 0) {
+        message += `\n🎁 تخفیف : ${discountAmount.toLocaleString()} ریال`;
+        message += `\n💵 مبلغ پس از تخفیف: ${totalAmountAfterDiscount.toLocaleString()} ریال`;
+    }
+
+    const baseShippingThreshold = 120000000;
+    const costPerThreshold = 800000;
+    let calculatedShippingCost = 0;
+    let shippingMessage = "";
+    
+    if (totalAmountAfterDiscount === 0) {
+        calculatedShippingCost = 0;
+        shippingMessage = "\n🚚 هزینه باربری: 0 ریال";
+    } else {
+        const numberOfThresholds = Math.ceil(totalAmountAfterDiscount / baseShippingThreshold);
+        calculatedShippingCost = numberOfThresholds * costPerThreshold;
+        shippingMessage = `\n🚚 هزینه‌باربری‌(‌${numberOfThresholds} بسته) : ${calculatedShippingCost.toLocaleString()} ریال `;
+    }
+
+    const finalTotalAmountWithShipping = totalAmountAfterDiscount + calculatedShippingCost;
+
+    message += shippingMessage;
+    message += `\n💰 مبلغ نهایی قابل پرداخت: ${finalTotalAmountWithShipping.toLocaleString()} ریال`;
+    message += `\n\n✅  سفارش شما با موفقیت ثبت شد . در اسرع وقت سفارش شما بررسی و هماهنگی لازم با شما صورت می‌گیرد.`;
+    return message;
+}
+
+
+function submitOrderWithWhatsApp() {
+    if (cart.size === 0) {
+        showNotification('سبد خرید شما خالی است.');
+        return;
+    }
+    if (!validateCustomerInfo()) {
+        return;
+    }
+    
+    const orderId = Date.now().toString().slice(-4);
+    saveOrderToHistory(orderId);
+    const message = generateOrderMessage(orderId);
+    const whatsappUrl = `https://wa.me/${orderPhoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
+    cart.clear();
+    saveCart();
+    renderCartList();
+    showNotification('سفارش شما ثبت و سبد خرید پاک شد.');
+    if (document.getElementById('gallery').style.display === 'flex') {
+        loadGroup(document.getElementById('bottomGroupSelect').value);
+    }
+}
+
+function loadCustomerInfo() {
+    const customerName = localStorage.getItem('customerName');
+    const customerPhone = localStorage.getItem('customerPhone');
+    const customerAddress = localStorage.getItem('customerAddress');
+    
+    if (customerName) document.getElementById('customerName').value = customerName;
+    if (customerPhone) document.getElementById('customerPhone').value = customerPhone;
+    if (customerAddress) document.getElementById('customerAddress').value = customerAddress;
+}
+
+// Image Modal Functions
+function openImageModal(imageSrc) {
+	const modal = document.getElementById("image-modal");
+	const modalImg = document.getElementById("modal-image");
+	modal.style.display = "flex";
+	modalImg.src = imageSrc;
+	// Push a new state to history when modal is opened
+	history.pushState({ modal: 'open' }, 'Image Modal', '#image-modal');
+}
+
+function closeImageModal() {
+	const modal = document.getElementById("image-modal");
+	modal.style.display = "none";
+	// If the current history state indicates the modal is open, go back one step.
+	if (history.state && history.state.modal === 'open') {
+		history.back();
+	}
+}
+
+function checkCartState() {
+    const cartEmpty = cart.size === 0;
+    const clearCartSection = document.getElementById('clearCartButtonSection');
+    const showCartButton = document.getElementById('showCartBtn'); // شناسه دکمه سبد خرید در صفحه اصلی
+    
+    // 1. نمایش یا پنهان کردن دکمه هشدار "سبد خرید دارای محصول است"
+    if (cartEmpty) {
+        clearCartSection.style.display = 'none';
+    } else {
+        clearCartSection.style.display = 'flex';
+    }
+    
+    // 2. تغییر رنگ دکمه اصلی سبد خرید
+    if (showCartButton) {
+        if (cartEmpty) {
+            showCartButton.classList.remove('cart-has-items');
+        } else {
+            showCartButton.classList.add('cart-has-items');
+        }
+    }
+}
+// تابع اعتبارسنجی و پاکسازی سبد خرید از محصولات حذف شده (جدید)
+function cleanCartOfInvalidItems() {
+    let changed = false;
+    
+    // روی تمام آیتم‌های ذخیره شده در سبد خرید تکرار می‌کنیم
+    Array.from(cart.entries()).forEach(([itemUniqueId, cartItem]) => {
+        // شناسه منحصر به فرد کالا (مانند '1-A123.jpg') را به شناسه گروه و نام فایل تقسیم می‌کنیم
+        const [groupId, filename] = itemUniqueId.split('-');
+        
+        // 1. بررسی می‌کنیم که آیا شناسه گروه (groupId) هنوز در لیست محصولات اصلی (groupInfo) وجود دارد؟
+        const group = groupInfo[groupId];
+        if (!group) {
+            cart.delete(itemUniqueId); // اگر گروه حذف شده، کالا را از سبد حذف کن
+            changed = true;
+            console.warn(`Removed item ${itemUniqueId}: Group ID ${groupId} no longer exists.`);
+            return; // به آیتم بعدی سبد برو
+        }
+        
+        // 2. بررسی می‌کنیم که آیا فایل/محصول خاص (filename) هنوز در داخل آن گروه وجود دارد؟
+        const productExists = group.images.some(img => img.filename === filename);
+        if (!productExists) {
+            cart.delete(itemUniqueId); // اگر محصول خاص حذف شده، کالا را از سبد حذف کن
+            changed = true;
+            console.warn(`Removed item ${itemUniqueId}: Filename ${filename} no longer exists in Group ${groupId}.`);
+        }
+    });
+
+    // اگر تغییری در سبد خرید ایجاد شد، آن را ذخیره کرده و وضعیت صفحه را به‌روزرسانی می‌کنیم
+    if (changed) {
+        saveCart(); // ذخیره سبد خرید تمیز شده در localStorage
+        checkCartState(); // به‌روزرسانی وضعیت دکمه‌های سبد خرید در صفحه
+        console.log('Cart cleaned up. Invalid items removed.');
+    }
+}
+
+
+function handleLoad() {
+    const initialHash = window.location.hash.substring(1);
+
+    // 1. پاکسازی سبد خرید از آیتم‌های نامعتبر قبل از هر عملیات نمایش یا رندر (جدید)
+    cleanCartOfInvalidItems(); 
+    
+    if (initialHash && screens[initialHash]) {
+        showScreen(initialHash);
+    } else {
+        showScreen('main');
+    }
+    history.replaceState({ screen: initialHash || 'main' }, '', `#${initialHash || 'main'}`);
+    renderCartList();
+    loadCustomerInfo();
+    checkCartState();
+    
+    // ** فراخوانی تابع نوتیفیکیشن در زمان بارگذاری کامل صفحه **
+    showWelcomeNotification('به فروشگاه پوستر ایران خوش آمدید.');
+
+    document.getElementById('enterAsUserBtn').addEventListener('click', () => { showScreen('gallery'); });
+    document.getElementById('showCartBtn').addEventListener('click', () => showScreen('cart'));
+    document.getElementById('clearCartMainBtn').addEventListener('click', () => clearCart());
+    
+    document.getElementById('bottomGroupSelect').addEventListener('change', (e) => loadGroup(e.target.value));
+    document.getElementById('showHomeGalleryBtn').addEventListener('click', () => showScreen('main'));
+    document.getElementById('showCartGalleryBtn').addEventListener('click', () => showScreen('cart'));
+    document.getElementById('submitOrderBtn').addEventListener('click', () => submitOrderWithWhatsApp());
+    document.getElementById('clearCartCartBtn').addEventListener('click', () => clearCart());
+    document.getElementById('showGalleryCartBtn').addEventListener('click', () => showScreen('gallery'));
+    document.getElementById('showPreviousOrdersBtn').addEventListener('click', () => openPreviousOrdersModal());
+}
+
+// Previous Orders Modal Functions
+function openPreviousOrdersModal() {
+    const modal = document.getElementById("previous-orders-modal");
+    const list = document.getElementById("previousOrdersList");
+    list.innerHTML = "";
+
+    const ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+
+    if (ordersHistory.length === 0) {
+        list.innerHTML = "<p>شما هیچ سفارش قبلی ندارید.</p>";
+    } else {
+        ordersHistory.reverse().forEach(order => {
+            const orderDiv = document.createElement("div");
+            orderDiv.className = "previous-order-item";
+
+            let orderDetails = `<p><strong>تاریخ سفارش:</strong> ${order.date}</p>`;
+            orderDetails += `<p><strong>مبلغ کل:</strong> ${order.totalPrice.toLocaleString()} ریال</p>`;
+            
+            const groupedOrderItems = order.items.reduce((acc, item) => {
+                if (!acc[item.groupName]) {
+                    acc[item.groupName] = [];
+                }
+                acc[item.groupName].push(item);
+                return acc;
+            }, {});
+
+            orderDetails += `<ul>`;
+            for (const groupName in groupedOrderItems) {
+                if (groupedOrderItems.hasOwnProperty(groupName)) {
+                    orderDetails += `<li><strong>${groupName}:</strong></li>`;
+                    groupedOrderItems[groupName].forEach(item => {
+                        orderDetails += `<ul><li>${item.name} (${item.qty} عدد)</li></ul>`;
+                    });
+                }
+            }
+            orderDetails += `</ul>`;
+            
+            orderDiv.innerHTML = `
+                <h4>سفارش شماره: ${order.id}</h4>
+                ${orderDetails}
+                <div class="previous-order-buttons">
+                    <button onclick="reorderPreviousOrder(${order.id})">سفارش مجدد</button>
+                    <button class="delete-btn" onclick="deletePreviousOrder(${order.id})">حذف سفارش</button>
+                </div>
+            `;
+            list.appendChild(orderDiv);
+        });
+    }
+
+    modal.style.display = "flex";
+    if (history.state === null || history.state.modal !== 'previous-orders-open') {
+      history.pushState({ modal: 'previous-orders-open' }, 'Previous Orders Modal', '#previous-orders-modal');
+    }
+}
+
+function closePreviousOrdersModal() {
+    const modal = document.getElementById("previous-orders-modal");
+    modal.style.display = "none";
+    if (history.state && history.state.modal === 'previous-orders-open') {
+      history.back();
+    }
+}
+
+function reorderPreviousOrder(orderId) {
+    const ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+    const orderToReorder = ordersHistory.find(order => parseInt(order.id) === orderId);
+    let invalidItemsCount = 0; // شمارنده برای اطلاع‌رسانی به کاربر
+    
+    if (orderToReorder) {
+        cart.clear(); // پاک کردن سبد خرید فعلی
+        
+        orderToReorder.items.forEach(item => {
+            const itemUniqueId = `${item.groupId}-${item.filename}`;
+            
+            // --- شروع بررسی اعتبار ---
+            const group = groupInfo[item.groupId];
+            
+            // 1. بررسی وجود Group ID 
+            if (!group) {
+                invalidItemsCount++;
+                console.warn(`Skipped reorder item ${itemUniqueId}: Group ID ${item.groupId} no longer exists.`);
+                return;
+            }
+            
+            // 2. بررسی وجود فایل (محصول) در داخل گروه
+            const productExists = group.images.some(img => img.filename === item.filename);
+            if (!productExists) {
+                invalidItemsCount++;
+                console.warn(`Skipped reorder item ${itemUniqueId}: Filename ${item.filename} no longer exists in Group ${item.groupId}.`);
+                return;
+            }
+            // --- پایان بررسی اعتبار ---
+            
+            // اگر معتبر است، به سبد خرید اضافه کن
+            cart.set(itemUniqueId, item);
+        });
+        
+        
+        
+        saveCart();
+        closePreviousOrdersModal();
+        
+        // نمایش نوتیفیکیشن مشروط
+        if (invalidItemsCount > 0) {
+            showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد. (${invalidItemsCount} محصول نامعتبر/حذف شده نادیده گرفته شد.)`);
+        } else {
+            showNotification(`سفارش شماره ${orderId} به سبد خرید اضافه شد.`);
         }
         
         showScreen('cart');
-        showToast("سبد خرید به‌روزرسانی شد", "فروشگاه", "success");
+    } else {
+        showNotification('سفارش مورد نظر یافت نشد.');
     }
 }
-window.addEventListener('DOMContentLoaded', () => {
-    loadCustomerData();
-    loadCartFromStorage();
+
+
+function deletePreviousOrder(orderId) {
+    if (confirm(`آیا از حذف سفارش شماره ${orderId} مطمئن هستید؟`)) {
+        let ordersHistory = JSON.parse(localStorage.getItem('previousOrders') || '[]');
+        ordersHistory = ordersHistory.filter(order => parseInt(order.id) !== orderId);
+        localStorage.setItem('previousOrders', JSON.stringify(ordersHistory));
+        showNotification(`سفارش شماره ${orderId} حذف شد.`);
+        // Re-render the modal to show the updated list
+        openPreviousOrdersModal();
+    }
+}
+
+
+window.addEventListener('load', handleLoad);
+// Add a listener for the browser's popstate event (back button)
+window.addEventListener('popstate', function(event) {
+	const imageModal = document.getElementById("image-modal");
+  const previousOrdersModal = document.getElementById("previous-orders-modal");
+
+	// If the image modal is open and the state is not the one we pushed, close it.
+	if (imageModal.style.display === 'flex' && (!event.state || event.state.modal !== 'open')) {
+		closeImageModal();
+	}
+  // If the previous orders modal is open and the state is not the one we pushed, close it.
+  if (previousOrdersModal.style.display === 'flex' && (!event.state || event.state.modal !== 'previous-orders-open')) {
+    closePreviousOrdersModal();
+  }
+});
+function submitOrderWithEitaa() {
+    if (cart.size === 0) {
+        showNotification('سبد خرید شما خالی است.');
+        return;
+    }
+    if (!validateCustomerInfo()) return;
     
-    // اگر سبد خرید پر بود، پیام هشدار را نشان بده
-    const resumeSection = document.getElementById('resumeOrder');
-    if (Object.keys(cart).length > 0) {
-        resumeSection?.classList.remove('hidden');
+    // ایجاد شناسه سفارش
+    const orderId = Date.now().toString().slice(-4);
+    
+    // ذخیره در تاریخچه
+    saveOrderToHistory(orderId);
+    
+    // تولید متن سفارش (با استفاده از تابعی که در فایل دارید)
+    const message = generateOrderMessage(orderId);
+    
+    // آیدی ایتا شما (بدون @)
+    const eitaaID = "PosterIran";
+    
+    // کپی متن در حافظه و باز کردن ایتا
+    navigator.clipboard.writeText(message).then(() => {
+        alert("✅ متن سفارش کپی شد.\nدر صفحه باز شده ایتا، پیام را Paste و برای ما ارسال کنید.");
+        window.open(`https://eitaa.com/${eitaaID}`, '_blank');
+        
+        // پاک کردن سبد خرید پس از ارسال (اختیاری)
+        cart.clear();
+        saveCart();
+        renderCartList();
+    }).catch(err => {
+        console.error('خطا در کپی متن: ', err);
+    });
+}
+
+</script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js?v=4.3').then(function(registration) {
+                console.log('✅ Service Worker ثبت شد: ', registration.scope);
+            }).catch(function(error) {
+                console.log('❌ ثبت Service Worker شکست خورد:', error);
+            });
+        });
+    }
+</script>
+<script>
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('music-control');
+const musicIcon = document.getElementById('music-icon');
+
+// عملکرد دکمه برای قطع و وصل دستی
+musicBtn.addEventListener('click', function(e) {
+    e.stopPropagation(); 
+    if (audio.paused) {
+        audio.play();
+        musicIcon.innerText = "🔊";
     } else {
-        resumeSection?.classList.add('hidden');
+        audio.pause();
+        musicIcon.innerText = "🔇";
     }
 });
-// تابع بررسی موجود بودن محصولات در لیست اصلی
-function validateCart() {
-    if (!cart || Object.keys(cart).length === 0) return;
-    
-    let removedItemsDetails = [];
-    let updatedPriceItems = [];
-    const validProductsMap = {};
-    
-    // ایجاد نقشه محصولات موجود بر اساس لیست اصلی
-    Object.values(groupInfo).forEach(group => {
-        group.images.forEach(img => {
-            const id = group.name + "_" + img.filename;
-            validProductsMap[id] = {
-                price: img.price,
-                group: group.name,
-                name: img.name
-            };
+
+// پخش خودکار با اولین کلیک در صفحه (بدون قید و شرط)
+window.addEventListener('click', function() {
+    if (audio.paused) {
+        audio.play().then(() => {
+            musicIcon.innerText = "🔊";
+            console.log("پخش موزیک آغاز شد.");
+        }).catch(err => {
+            console.log("پخش خودکار توسط مرورگر مسدود شده است، نیاز به تعامل بیشتر دارد.");
         });
-    });
-    
-    for (const productId in cart) {
-        if (!validProductsMap[productId]) {
-            // مورد اول: محصول در لیست نیست (حذف شده یا مخفی شده)
-            removedItemsDetails.push(`🔹 ${cart[productId].groupName} : ${cart[productId].name}`);
-            // مورد دوم: محصول هست ولی قیمت تغییر کرده
-            const currentPriceInCart = cart[productId].price;
-            const latestPriceInList = validProductsMap[productId].price;
-            
-            if (currentPriceInCart !== latestPriceInList) {
-                cart[productId].price = latestPriceInList;
-                updatedPriceItems.push(`🔸 ${cart[productId].name} (قیمت جدید: ${toPersianPrice(latestPriceInList)} ریال)`);
-            }
-        }
     }
+}, { once: true });
+window.addEventListener('load', function() {
+    const clock = document.getElementById('digital-info');
+    const container = document.getElementById('clock-container');
     
-    if (removedItemsDetails.length > 0 || updatedPriceItems.length > 0) {
-        saveCartToStorage();
-        updateBadge();
-        
-        let message = "";
-        if (removedItemsDetails.length > 0) {
-            message += "<b class='text-red-600'>موارد حذف شده (عدم موجودی):</b><br>" + removedItemsDetails.join("<br>") + "<br><br>";
+    // ۱. نمایش ساعت ۴ ثانیه بعد از ورود (بدون حذف خودکار)
+    setTimeout(() => {
+        if (clock) {
+            clock.style.display = 'flex';
+            setTimeout(() => {
+                clock.classList.add('visible');
+            }, 50);
         }
-        if (updatedPriceItems.length > 0) {
-            message += "<b class='text-blue-600'>موارد به‌روزرسانی قیمت:</b><br>" + updatedPriceItems.join("<br>");
-        }
-        
-        showCustomAlert("به‌روزرسانی خودکار سبد", message);
-    }
-}
-function showCustomAlert(title, message) {
-    const modal = document.createElement('div');
-    modal.className = "fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/70 backdrop-blur-sm";
-    modal.innerHTML = `
-        <div class="bg-white rounded-[2rem] p-8 max-w-sm w-full shadow-2xl transform transition-all border-b-8 border-blue-600">
-            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-bell text-blue-600 text-2xl"></i>
-            </div>
-            <h3 class="text-gray-900 font-black text-center mb-4 text-sm">${title}</h3>
-            <div class="text-[11px] text-gray-600 leading-relaxed mb-8 text-right bg-gray-50 p-4 rounded-xl border border-gray-100">
-                ${message}
-            </div>
-            <button onclick="this.parentElement.parentElement.remove()" 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs shadow-lg shadow-blue-200 transition active:scale-95">
-                تایید و مشاهده سبد خرید
-            </button>
-        </div>
-    `;
-    document.body.appendChild(modal);
-}
-/**
- * تابع اصلی برای راه اندازی برنامه هنگام بارگذاری صفحه
- * این تابع جایگزین کد قبلی window.addEventListener('load') شما می‌شود
- */
-function initializeApplication() {
-    // ۱. بارگذاری داده‌ها از حافظه مرورگر
-    loadCartFromStorage();
+    }, 4000);
     
-    // ۲. بررسی وجود سبد خرید ناتمام و نمایش هشدار هوشمند
-    const savedCartStr = localStorage.getItem('cart');
-    const isSubmitted = localStorage.getItem('cart_submitted');
-
-    if (savedCartStr) {
-        try {
-            const tempCart = JSON.parse(savedCartStr);
-            const itemsCount = Object.keys(tempCart).length;
-
-            // فقط اگر سبد واقعاً پر باشد و قبلاً دکمه نهایی کردن زده نشده باشد
-            if (itemsCount > 0 && isSubmitted) {
+    // ۲. قابلیت حذف و نمایش دستی با کلیک روی کانتینر ساعت (آنالوگ یا دیجیتال)
+    if (container) {
+        container.addEventListener('click', function() {
+            if (clock.classList.contains('visible')) {
+                // اگر باز است، آن را می‌بندد
+                clock.classList.remove('visible');
                 setTimeout(() => {
-                    showCustomAlert(
-                        "سبد خرید ناتمام", 
-                        `شما تعداد <b>${toPersianDigits(itemsCount)}</b> قلم کالا در سبد خرید دارید که ثبت نهایی نشده‌اند. لطفا جهت تکمیل سفارش به بخش سبد خرید مراجعه کنید.`
-                    );
-                }, 1200);
-            } 
-            // اگر سبد خالی است اما نشانگر ناتمام باقی مانده، پاکسازی کن
-            else if (itemsCount === 0) {
-                localStorage.removeItem('cart_submitted');
+                    clock.style.display = 'none';
+                }, 500);
+            } else {
+                // اگر بسته است، آن را باز می‌کند
+                clock.style.display = 'flex';
+                setTimeout(() => {
+                    clock.classList.add('visible');
+                }, 50);
             }
-        } catch (error) {
-            console.error("خطا در پردازش داده‌های حافظه:", error);
-        }
+        });
     }
-
-    // ۳. بروزرسانی رابط کاربری (UI)
-    updateBadge();      // آپدیت عدد روی آیکون سبد خرید
-    if(typeof loadImages === 'function') loadImages(); // بارگذاری تصاویر گالری
-}
-
-// اجرای تابع زمانی که کل ساختار صفحه (DOM) لود شد
-window.addEventListener('DOMContentLoaded', initializeApplication);
-    </script>
+});
+</script>
 <script src="live-reload.js"></script>
+
 </body>
 </html>
