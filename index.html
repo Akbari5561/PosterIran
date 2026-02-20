@@ -485,6 +485,7 @@ function showToast(message, groupName = "") {
     if (gallerySection) window.scrollTo({ top: gallerySection.offsetTop - 20, behavior: 'smooth' });
     
     const groupId = document.getElementById('groupSelect').value;
+    const baseUrl = "https://akbari5561.github.io/PosterIran/images/";
     const info = groupInfo[groupId];
     const container = document.getElementById('imagesContainer');
     container.innerHTML = '';
