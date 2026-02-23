@@ -1695,7 +1695,7 @@ if (eitaaBtn) {
         `;
     }
 
-    const baseShippingThreshold = 140000000; 
+    const baseShippingThreshold = 200000000; 
     const costPerThreshold = 800000;     
     let calculatedShippingCost = 0;
     let shippingDisplayMessage = "";
@@ -1770,7 +1770,7 @@ function saveOrderToHistory(orderId) {
     const discountAmount = totalAmountBeforeDiscount * discountRate;
     const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
     
-    const baseShippingThreshold = 120000000;
+    const baseShippingThreshold = 200000000;
     const costPerThreshold = 800000;
     let calculatedShippingCost = 0;
     if (totalAmountAfterDiscount > 0) {
