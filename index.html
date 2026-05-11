@@ -55,13 +55,72 @@
 #music-icon {
     font-size: 20px;
 }
+/* استایل پاپ‌آپ نصب اپلیکیشن */
+#install-banner {
+display: none; /* در حالت عادی مخفی است */
+position: fixed;
+bottom: 20px;
+left: 20px;
+right: 20px;
+background-color: #ffffff;
+box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+border-radius: 15px;
+padding: 15px;
+z-index: 9999;
+align-items: center;
+justify-content: space-between;
+border: 1px solid #ddd;
+animation: slideUp 0.5s ease-out;
+}
+‌
+@keyframes slideUp {
+from { transform: translateY(100%); }
+to { transform: translateY(0); }
+}
+‌
+.install-content {
+display: flex;
+align-items: center;
+}
+‌
+.install-icon {
+width: 50px;
+height: 50px;
+border-radius: 10px;
+margin-right: 15px;
+}
+‌
+.install-text {
+font-size: 14px;
+color: #333;
+font-family: Tahoma, sans-serif;
+}
+‌
+.install-btn {
+background-color: #1e40af;
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 8px;
+cursor: pointer;
+font-size: 13px;
+}
+‌
+.close-banner {
+background: none;
+border: none;
+font-size: 18px;
+color: #888;
+cursor: pointer;
+margin-right: 10px;
+}
   
 /* Import Vazirmatn font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
 
     body {
       font-family: 'Vazirmatn', sans-serif; /* Apply Vazirmatn font */
-      direction: r#6D0B9Dtl;
+      direction: #6D0B9D;
       background: #43399E; /* Softer background#543AFB */
       color: #333;
       padding: 0; /* Remove default body padding */
@@ -367,7 +426,7 @@ background-color: #0D2440;
     border: 2px solid #7BA4D0;
 }
     button:hover {
-      background-color: ##0D2440;
+      background-color: #0D2440;
       transform: translateY(-3px); /* Lift effect on hover */
       /*box-shadow: 0 6px 15px rgba(0,0,0,0.3);*/
     }
@@ -817,6 +876,19 @@ background-color: #0D2440;
   </div>
   
 </div>
+<div id="install-banner">
+    <div class="install-content">
+        <img src="./icons/logo.png" alt="Logo" class="install-icon">
+        <div class="install-text">
+            <strong>پوستر ایران</strong><br>
+            برای دسترسی سریع‌تر، نصب کنید
+        </div>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <button class="install-btn" id="btnInstall">نصب</button>
+        <button class="close-banner" id="btnClose">×</button>
+    </div>
+</div>
 
 <div id="gallery">
   <div id="imagesContainer" class="image-container"></div>
@@ -1020,7 +1092,7 @@ particlesJS('particles-js', {
 const groupInfo = {
     1: {
         name: "سایز ۲۹×۲۱ دوروچاپ",
-        price: 150000,
+        price: 200000,
         // آرایه مخصوص گروه ۱
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1053,7 +1125,7 @@ const groupInfo = {
     },
     /*2: {
         name: "سایز ۵۰×۳۵ یکروچاپ",
-        price: 150000,
+        price: 200000,
         // آرایه مخصوص گروه ۲
         allowedQuantities: [0, 50], 
         images: [
@@ -1065,7 +1137,7 @@ const groupInfo = {
     },*/
     3: {
         name: "سایز ۵۰×۳۵ دوروچاپ",
-        price: 300000,
+        price: 350000,
         // آرایه مخصوص گروه ۳
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1083,7 +1155,7 @@ const groupInfo = {
     },
     4: {
         name: "سایز ۷۰×۵۰ یکروچاپ",
-        price: 300000,
+        price: 350000,
         // آرایه مخصوص گروه ۴
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1102,7 +1174,7 @@ const groupInfo = {
     },
     5: {
         name: "سایز ۷۰×۵۰ یووی‌دار",
-        price: 400000,
+        price: 500000,
         // آرایه مخصوص گروه ۵
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
@@ -1129,15 +1201,15 @@ const groupInfo = {
         type: "variable-count",
         defaultQtyMultiplier: 60,
         images: [
-            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 350000 },
-            { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 300000 },
-            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 350000 },
-            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 300000 },
-            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 350000 },
-            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 300000 },
-            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 350000, qtyMultiplier: 60 },
-            { filename: "فلش کارت نگاره ها و نشانه ها.jpeg", name: "فلش کارت نگاره‌ها و نشانه‌ها", price: 350000, qtyMultiplier: 60 },
-            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 80000, qtyMultiplier: 100 },
+            { filename: "دفترچه ای بزرگ ضرب.jpeg", name: "دفترچه ای بزرگ ضرب", price: 500000 },
+            { filename: "دفترچه ای کوچک ضرب.jpeg", name: "دفترچه ای کوچک ضرب", price: 380000 },
+            { filename: "دفترچه ای بزرگ الفبا.jpeg", name: "دفترچه ای بزرگ الفبا", price: 500000 },
+            { filename: "دفترچه ای کوچک الفبا.jpeg", name: "دفترچه ای کوچک الفبا", price: 380000 },
+            { filename: "دفترچه ای بزرگ دوستی.jpeg", name: "دفترچه ای بزرگ دوستی", price: 500000 },
+            { filename: "دفترچه ای کوچک دوستی.jpeg", name: "دفترچه ای کوچک دوستی", price: 380000 },
+            { filename: "فلش کارت اعداد.jpeg", name: "فلش کارت اعداد", price: 450000, qtyMultiplier: 60 },
+            { filename: "فلش کارت نگاره ها و نشانه ها.jpeg", name: "فلش کارت نگاره‌ها و نشانه‌ها", price: 450000, qtyMultiplier: 60 },
+            { filename: "استیکر A4.jpeg", name: "استیکر A4", price: 150000, qtyMultiplier: 100 },
             /*
             
             { filename: "فلش کارت الفبا.jpeg", name: "فلش کارت الفبا", price: 220000 },
@@ -1570,12 +1642,12 @@ function clearCart() {
 }
 
 function calculateDiscountPercentage(totalAmount) {
-    if (totalAmount >= 1000000000) return 0.09;
-    else if (totalAmount >= 900000000) return 0.05;
-    else if (totalAmount >= 800000000) return 0.05;
-    else if (totalAmount >= 700000000) return 0.05;
-    else if (totalAmount >= 600000000) return 0.05;
-    else if (totalAmount >= 500000000) return 0.05;
+    if (totalAmount >= 1000000000) return 0.1;
+    else if (totalAmount >= 900000000) return 0.00;
+    else if (totalAmount >= 800000000) return 0.00;
+    else if (totalAmount >= 700000000) return 0.00;
+    else if (totalAmount >= 600000000) return 0.00;
+    else if (totalAmount >= 500000000) return 0.00;
     else if (totalAmount >= 400000000) return 0.00;
     else if (totalAmount >= 300000000) return 0.00;
     else if (totalAmount >= 200000000) return 0.00;
@@ -1696,7 +1768,7 @@ if (eitaaBtn) {
     }
 
     const baseShippingThreshold = 200000000; 
-    const costPerThreshold = 800000;     
+    const costPerThreshold = 1000000;     
     let calculatedShippingCost = 0;
     let shippingDisplayMessage = "";
     
@@ -1771,7 +1843,7 @@ function saveOrderToHistory(orderId) {
     const totalAmountAfterDiscount = totalAmountBeforeDiscount - discountAmount;
     
     const baseShippingThreshold = 200000000;
-    const costPerThreshold = 800000;
+    const costPerThreshold = 1000000;
     let calculatedShippingCost = 0;
     if (totalAmountAfterDiscount > 0) {
         const numberOfThresholds = Math.ceil(totalAmountAfterDiscount / baseShippingThreshold);
@@ -1865,8 +1937,8 @@ function generateOrderMessage(orderId) {
         message += `\n💵 مبلغ پس از تخفیف: ${totalAmountAfterDiscount.toLocaleString()} ریال`;
     }
 
-    const baseShippingThreshold = 120000000;
-    const costPerThreshold = 800000;
+    const baseShippingThreshold = 200000000;
+    const costPerThreshold = 1000000;
     let calculatedShippingCost = 0;
     let shippingMessage = "";
     
@@ -2280,6 +2352,48 @@ window.addEventListener('load', function() {
         });
     }
 });
+</script>
+<script>
+    let deferredPrompt;
+    const installBanner = document.getElementById('install-banner');
+    const btnInstall = document.getElementById('btnInstall');
+    const btnClose = document.getElementById('btnClose');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // جلوگیری از نمایش خودکار مرورگر
+        e.preventDefault();
+        // ذخیره رویداد برای استفاده بعدی
+        deferredPrompt = e;
+        // نمایش پاپ‌آپ اختصاصی ما
+        installBanner.style.display = 'flex ';
+});
+
+btnInstall.addEventListener('click', async () => {
+
+        if (deferredPrompt) {
+            // نمایش دیالوگ نصب مرورگر
+            deferredPrompt.prompt();
+            // صبر می‌کنیم تا کاربر تصمیم بگیرد
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            // ریست کردن رویداد
+            deferredPrompt = null;
+            // مخفی کردن پاپ‌آپ
+            installBanner.style.display = 'none';
+        }
+    });
+    btnClose.addEventListener('click', () => {
+        installBanner.style.display = 'none';
+        // ذخیره در localStorage که اگر کاربر بست، دوباره بلافاصله ظاهر نشود
+        localStorage.setItem('install_prompt_dismissed', 'true');
+    });
+
+    // بررسی اینکه آیا قبلاً کاربر پاپ‌آپ را بسته است یا خیر
+    window.addEventListener('load', () => {
+        if (localStorage.getItem('install_prompt_dismissed') === 'true') {
+            installBanner.style.display = 'none';
+        }
+    });
 </script>
 <script src="live-reload.js"></script>
 
