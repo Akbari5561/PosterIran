@@ -28,33 +28,7 @@
   <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp">
   
   <style>
-  .music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
-    transition: all 0.3s ease;
-}
-
-.music-btn:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.4);
-}
-
-#music-icon {
-    font-size: 20px;
-}
+  
 /* استایل پاپ‌آپ نصب اپلیکیشن */
 #install-banner {
 display: none; /* در حالت عادی مخفی است */
@@ -1035,13 +1009,7 @@ background-color: #0D2440;
     </div>
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/Akbari5561/PosterIran/main/Memories.mp3" type="audio/mpeg">
-</audio>
 <div id="gallery-container"></div>
-<div id="music-control" class="music-btn">
-  <span id="music-icon">🔇</span>
-</div>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 /* particles.js config */
@@ -2362,33 +2330,7 @@ function submitOrderWithEitaa() {
     }
 </script>
 <script>
-const audio = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('music-control');
-const musicIcon = document.getElementById('music-icon');
 
-// عملکرد دکمه برای قطع و وصل دستی
-musicBtn.addEventListener('click', function(e) {
-    e.stopPropagation(); 
-    if (audio.paused) {
-        audio.play();
-        musicIcon.innerText = "🔊";
-    } else {
-        audio.pause();
-        musicIcon.innerText = "🔇";
-    }
-});
-
-// پخش خودکار با اولین کلیک در صفحه (بدون قید و شرط)
-window.addEventListener('click', function() {
-    if (audio.paused) {
-        audio.play().then(() => {
-            musicIcon.innerText = "🔊";
-            console.log("پخش موزیک آغاز شد.");
-        }).catch(err => {
-            console.log("پخش خودکار توسط مرورگر مسدود شده است، نیاز به تعامل بیشتر دارد.");
-        });
-    }
-}, { once: true });
 window.addEventListener('load', function() {
     const clock = document.getElementById('digital-info');
     const container = document.getElementById('clock-container');
