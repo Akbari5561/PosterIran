@@ -28,33 +28,6 @@
   <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp">
   
   <style>
-  .music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
-    transition: all 0.3s ease;
-}
-
-.music-btn:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.4);
-}
-
-#music-icon {
-    font-size: 20px;
-}
 /* استایل پاپ‌آپ نصب اپلیکیشن */
 #install-banner {
 display: none; /* در حالت عادی مخفی است */
@@ -965,13 +938,7 @@ background-color: #0D2440;
 </div>
 
 <div id="notification-container"></div>
-<audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/Akbari5561/PosterIran/main/Memories.mp3" type="audio/mpeg">
-</audio>
 <div id="gallery-container"></div>
-<div id="music-control" class="music-btn">
-  <span id="music-icon">🔇</span>
-</div>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 /* particles.js config */
@@ -1096,29 +1063,29 @@ const groupInfo = {
         // آرایه مخصوص گروه ۱
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "جدول دوستی تمرینی.webp", name: "جدول دوستی تمرینی" },
-            { filename: "جدول دوستی کامل.webp", name: "جدول دوستی کامل" },
-            { filename: "ضرب و تقسیم حیوانات.webp", name: "ضرب و تقسیم حیوانات" },
-            { filename: "ضرب و تقسیم.webp", name: "ضرب و تقسیم" },
-            { filename: "ضرب و تقسیم تمرینی.webp", name: "ضرب و تقسیم تمرینی" },
-            { filename: "ضرب و تمرین ضرب.webp", name: "ضرب و تمرین ضرب" },
-            { filename: "حساب آموز ششم.webp", name: "حساب آموز ششم" },
-            { filename: "حساب آموز پنجم.webp", name: "حساب آموز پنجم" },
-            { filename: "حساب آموز چهارم.webp", name: "حساب آموز چهارم" },
-            { filename: "حساب آموز سوم.webp", name: "حساب آموز سوم" },
-            { filename: "حساب آموز دوم (افقی).webp", name: "حساب آموز دوم (افقی)" },
-            { filename: "حساب آموز دوم (عمودی).webp", name: "حساب آموز دوم (عمودی)" },
-            { filename: "حساب آموز اول (افقی).webp", name: "حساب آموز اول (افقی)" },
-            { filename: "حساب آموز اول (عمودی).webp", name: "حساب آموز اول (عمودی)" },
-            { filename: "اعداد.webp", name: "اعداد ساده" },
-            { filename: "اعداد با ساعت و محور.webp", name: " اعداد با ساعت و محور" },
-            { filename: "جمع و تفریق.webp", name: "جمع و تفریق" },
-            { filename: "آموزش زمان و ساعت.webp", name: "آموزش زمان و ساعت" },
-            { filename: "الفبای فارسی و انگلیسی.webp", name: "الفبای فارسی و انگلیسی" },
-            { filename: "محیط و مساحت اشکال هندسی.webp", name: "محیط و مساحت اشکال هندسی" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "ضرب و تقسیم حیوانات.jpg", name: "ضرب و تقسیم حیوانات" },
+            { filename: "ضرب و تقسیم.jpg", name: "ضرب و تقسیم" },
+            { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
+            { filename: "ضرب و تمرین ضرب.jpg", name: "ضرب و تمرین ضرب" },
+            { filename: "حساب آموز ششم.jpg", name: "حساب آموز ششم" },
+            { filename: "حساب آموز پنجم.jpg", name: "حساب آموز پنجم" },
+            { filename: "حساب آموز چهارم.jpg", name: "حساب آموز چهارم" },
+            { filename: "حساب آموز سوم.jpg", name: "حساب آموز سوم" },
+            { filename: "حساب آموز دوم (افقی).jpg", name: "حساب آموز دوم (افقی)" },
+            { filename: "حساب آموز دوم (عمودی).jpg", name: "حساب آموز دوم (عمودی)" },
+            { filename: "حساب آموز اول (افقی).jpg", name: "حساب آموز اول (افقی)" },
+            { filename: "حساب آموز اول (عمودی).jpg", name: "حساب آموز اول (عمودی)" },
+            { filename: "اعداد.jpg", name: "اعداد ساده" },
+            { filename: "اعداد با ساعت و محور.jpg", name: " اعداد با ساعت و محور" },
+            { filename: "جمع و تفریق.jpg", name: "جمع و تفریق" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            { filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "محیط و مساحت اشکال هندسی.jpg", name: "محیط و مساحت اشکال هندسی" },
             
-            /*{ filename: "جدول تقریب اعداد.webp", name: "جدول تقریب اعداد" },
-            { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
+            /*{ filename: "جدول تقریب اعداد.jpg", name: "جدول تقریب اعداد" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
             */
             
         ]
@@ -1129,10 +1096,10 @@ const groupInfo = {
         // آرایه مخصوص گروه ۲
         allowedQuantities: [0, 50], 
         images: [
-            { filename: "الفبای فارسی و شکل صداها.webp", name: "الفبای فارسی و شکل صداها" },
-            { filename: "جدول ضرب کد 350.webp", name: "جدول ضرب کد 350" },
-            { filename: "جدول ضرب کد 350.webp", name: "جدول ضرب کد 350" },
-            { filename: "جدول دوستی.webp", name: "جدول دوستی" },
+            { filename: "الفبای فارسی و شکل صداها.jpg", name: "الفبای فارسی و شکل صداها" },
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول ضرب کد 350.jpg", name: "جدول ضرب کد 350" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
         ]
     },*/
     3: {
@@ -1141,15 +1108,15 @@ const groupInfo = {
         // آرایه مخصوص گروه ۳
         allowedQuantities: [0, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "جدول دوستی کامل.webp", name: "جدول دوستی کامل" },
-            { filename: "ضرب و تقسیم تمرینی.webp", name: "ضرب و تقسیم تمرینی" },
-            { filename: "آموزش زمان و ساعت.webp", name: "آموزش زمان و ساعت" },
-            /*{ filename: "الفبای فارسی و انگلیسی.webp", name: "الفبای فارسی و انگلیسی" },
-            { filename: "جدول جمع و تفریق.webp", name: "جدول جمع و تفریق" },
-            { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
-            { filename: "اعداد همراه ساعت و محور.webp", name: "اعداد همراه ساعت و محور" },
-            { filename: "جدول دوستی تمرینی.webp", name: "جدول دوستی تمرینی" },
-            { filename: "آموزش ضرب و تقسیم.webp", name: "آموزش ضرب و تقسیم" },
+            { filename: "جدول دوستی کامل.jpg", name: "جدول دوستی کامل" },
+            { filename: "ضرب و تقسیم تمرینی.jpg", name: "ضرب و تقسیم تمرینی" },
+            { filename: "آموزش زمان و ساعت.jpg", name: "آموزش زمان و ساعت" },
+            /*{ filename: "الفبای فارسی و انگلیسی.jpg", name: "الفبای فارسی و انگلیسی" },
+            { filename: "جدول جمع و تفریق.jpg", name: "جدول جمع و تفریق" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "اعداد همراه ساعت و محور.jpg", name: "اعداد همراه ساعت و محور" },
+            { filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "آموزش ضرب و تقسیم.jpg", name: "آموزش ضرب و تقسیم" },
             */
         ]
     },
@@ -1159,17 +1126,17 @@ const groupInfo = {
         // آرایه مخصوص گروه ۴
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "الفبای فارسی شکل دار.webp", name: "الفبای فارسی شکل دار" },
-            { filename: "جدول دوستی.webp", name: "جدول دوستی" },
-            { filename: "جدول جمع.webp", name: "جدول جمع" },
-            { filename: "اعداد 1 تا 100.webp", name: "اعداد 1 تا 100" },
+            { filename: "الفبای فارسی شکل دار.jpg", name: "الفبای فارسی شکل دار" },
+            { filename: "جدول دوستی.jpg", name: "جدول دوستی" },
+            { filename: "جدول جمع.jpg", name: "جدول جمع" },
+            { filename: "اعداد 1 تا 100.jpg", name: "اعداد 1 تا 100" },
             /*
-            { filename: "جدول ضرب.webp", name: "جدول ضرب" },
-            { filename: "الفبای فارسی بدون شکل.webp", name: "الفبای فارسی بدون شکل" },
-            { filename: "الفبای انگلیسی.webp", name: "الفبای انگلیسی" },
-            { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
-            { filename: "جدول تقسیم.webp", name: "جدول تقسیم" },
-            { filename: "اعداد ده دهی.webp", name: "اعداد ده دهی" },*/
+            { filename: "جدول ضرب.jpg", name: "جدول ضرب" },
+            { filename: "الفبای فارسی بدون شکل.jpg", name: "الفبای فارسی بدون شکل" },
+            { filename: "الفبای انگلیسی.jpg", name: "الفبای انگلیسی" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "جدول تقسیم.jpg", name: "جدول تقسیم" },
+            { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
         ]
     },
     5: {
@@ -1178,21 +1145,21 @@ const groupInfo = {
         // آرایه مخصوص گروه ۵
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "شهرک الفبا.webp", name: "شهرک الفبا" },
-            { filename: "آناتـومی بـدن انسـان.webp", name: "آناتـومی بـدن انسـان" },
-            { filename: "بـدن من.webp", name: "بـدن من" },
-            { filename: "شکل صداها و الفبای فارسی.webp", name: "شکل صداها و الفبای فارسی" },
-            { filename: "آموزش زمان وساعت.webp", name: "آموزش زمان وساعت" },
-            { filename: "ضرب تمرینی ستونی.webp", name: "ضرب تمرینی ستونی" },
-            { filename: "ضرب تمرینی مربعی.webp", name: "ضرب تمرینی مربعی" },
-            { filename: "اعداد یک تا صد.webp", name: "اعداد یک تا صد" },
-            { filename: "اعداد ده تا هزار.webp", name: "اعداد ده تا هزار" },
-            { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
-            { filename: "برنامه هفتگی.webp", name: "برنامه هفتگی" },
-            { filename: "نقشـه ایـران.webp", name: "نقشـه ایـران" },
-            { filename: "نقشـه جهـان.webp", name: "نقشـه جهـان" },
-            /*{ filename: "جدول دوستی تمرینی.webp", name: "جدول دوستی تمرینی" },
-            { filename: "منظومه خورشیدی.webp", name: "منظومه خورشیدی" },
+            { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
+            { filename: "آناتـومی بـدن انسـان.jpg", name: "آناتـومی بـدن انسـان" },
+            { filename: "بـدن من.jpg", name: "بـدن من" },
+            { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
+            { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
+            { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
+            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
+            { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد" },
+            { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار" },
+            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
+            { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
+            { filename: "نقشـه ایـران.jpg", name: "نقشـه ایـران" },
+            { filename: "نقشـه جهـان.jpg", name: "نقشـه جهـان" },
+            /*{ filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
+            { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
             */
         ]
     },
@@ -1448,7 +1415,7 @@ function loadGroup(groupId) {
         const itemPrice = item.price || info.price;
         const filename = item.filename;
         const itemName = item.name;
-        const webpFilename = filename.replace(/\.(jpg|jpeg|png)$/i, '.webp'); const imagePath = `image/${info.name}/${webpFilename}`;
+        const imagePath = `Image/${info.name}/${filename}`;
         const itemUniqueId = `${groupId}-${filename}`;
         const currentCartItem = cart.has(itemUniqueId) ? cart.get(itemUniqueId) : null;
         const initialQty = currentCartItem ? currentCartItem.qty : 0;
@@ -2292,33 +2259,6 @@ function submitOrderWithEitaa() {
     }
 </script>
 <script>
-const audio = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('music-control');
-const musicIcon = document.getElementById('music-icon');
-
-// عملکرد دکمه برای قطع و وصل دستی
-musicBtn.addEventListener('click', function(e) {
-    e.stopPropagation(); 
-    if (audio.paused) {
-        audio.play();
-        musicIcon.innerText = "🔊";
-    } else {
-        audio.pause();
-        musicIcon.innerText = "🔇";
-    }
-});
-
-// پخش خودکار با اولین کلیک در صفحه (بدون قید و شرط)
-window.addEventListener('click', function() {
-    if (audio.paused) {
-        audio.play().then(() => {
-            musicIcon.innerText = "🔊";
-            console.log("پخش موزیک آغاز شد.");
-        }).catch(err => {
-            console.log("پخش خودکار توسط مرورگر مسدود شده است، نیاز به تعامل بیشتر دارد.");
-        });
-    }
-}, { once: true });
 window.addEventListener('load', function() {
     const clock = document.getElementById('digital-info');
     const container = document.getElementById('clock-container');
