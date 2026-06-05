@@ -28,7 +28,33 @@
   <link rel="preload" as="image" href="https://akbari5561.github.io/PosterIran/icons/apple-touch-icon-180x180.webp">
   
   <style>
-  
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+#music-icon {
+    font-size: 20px;
+}
 /* استایل پاپ‌آپ نصب اپلیکیشن */
 #install-banner {
 display: none; /* در حالت عادی مخفی است */
@@ -799,83 +825,11 @@ background-color: #0D2440;
       vertical-align: middle;
       margin-right: 5px;
     }
-    /* استایل کانتینر کاشی‌ها */
-.tiles-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    grid-auto-rows: minmax(80px, auto);
-    gap: 12px;
-    margin-top: 25px;
-    direction: rtl;
-}
-
-/* استایل عمومی دکمه‌های کاشی */
-.tile-btn {
-    margin: 0 !important; /* حذف مارجین‌های قبلی */
-    padding: 15px !important;
-    font-size: 16px !important;
-    font-weight: bold;
-    border-radius: 12px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.tile-btn:hover {
-    transform: scale(1.03) !important;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* تعریف ابعاد ناهماهنگ و رنگ‌ها برای هر کاشی */
-.tile-whatsapp {
-    background-color: #25D366 !important;
-    color: white !important;
-    grid-column: span 2; /* عریض‌تر شدن کاشی واتس‌آپ */
-    font-size: 18px !important;
-}
-
-.tile-eitaa {
-    background-color: #ff6600 !important;
-    color: white !important;
-}
-
-.tile-clear {
-    background-color: #f44336 !important;
-    color: white !important;
-}
-
-.tile-gallery {
-    background-color: #2196f3 !important;
-    color: white !important;
-    grid-row: span 2; /* بلندتر شدن کاشی بازگشت به گالری از نظر ارتفاع */
-}
-
-.tile-orders {
-    background-color: #9C27B0 !important;
-    color: white !important;
-}
-
-/* بهینه‌سازی برای صفحات موبایل کوچک */
-@media (max-width: 480px) {
-    .tiles-container {
-        grid-template-columns: 1fr 1fr; /* دو ستونه شدن در موبایل */
-    }
-    .tile-whatsapp {
-        grid-column: span 2;
-    }
-    .tile-gallery {
-        grid-row: span 1; /* نرمال شدن ارتفاع در موبایل برای چیدمان بهتر */
-    }
-}
     
   </style>
   
 </head>
 <body>
-    <div id="notification-container"></div>
     <div id="clock-container">
     <div id="digital-info">
     <div id="digital-time"></div> <div id="digital-date"></div> 
@@ -987,13 +941,14 @@ background-color: #0D2440;
     <textarea id="customerAddress" placeholder="آدرس دقیق، شامل استان، شهر، خیابان، کوچه، پلاک، واحد" rows="4" required></textarea>
   </div>
 
-  <!-- جستجو کنید و این بخش را در انتهای `#cartSection` جایگزین کنید -->
-<div class="tiles-container">
-    <button id="submitOrderBtn" class="tile-btn tile-whatsapp">ارسال سفارش با واتس‌آپ (در‌حال‌حاضر‌فقط‌با‌فیلترشکن‌)</button>
-    <button id="submitOrderEitaaBtn" onclick="submitOrderWithEitaa()" class="tile-btn tile-eitaa">ارسال سفارش با ایتا</button>
-    <button id="clearCartCartBtn" class="tile-btn tile-clear">پاک کردن کل‌سبد‌خرید</button>
-    <button id="showGalleryCartBtn" class="tile-btn tile-gallery">بازگشت به گالری 🔙</button>
-    <button id="showPreviousOrdersBtn" class="tile-btn tile-orders">سفارش‌های قبلی 📦</button>
+  <button id="submitOrderBtn" style="background-color: #25D366;">ارسال سفارش با واتس‌آپ</button>
+  <button id="submitOrderEitaaBtn" onclick="submitOrderWithEitaa()" style="background-color: #ff6600; color: white;">
+   ارسال سفارش با ایتا
+</button>
+  <button id="clearCartCartBtn" class="clear-cart-btn">پاک کردن کل سبد خرید</button>
+  <button id="showGalleryCartBtn" style="background-color: #2196f3;">بازگشت به گالری 🔙 </button>
+  <button id="showPreviousOrdersBtn"style="background-color: #9C27B0;">سفارش‌های قبلی 📦</button>
+  
 </div>
 
 <div id="image-modal" class="image-modal">
@@ -1009,7 +964,14 @@ background-color: #0D2440;
     </div>
 </div>
 
+<div id="notification-container"></div>
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/Akbari5561/PosterIran/main/Memories.mp3" type="audio/mpeg">
+</audio>
 <div id="gallery-container"></div>
+<div id="music-control" class="music-btn">
+  <span id="music-icon">🔇</span>
+</div>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
 /* particles.js config */
@@ -1207,7 +1169,7 @@ const groupInfo = {
             { filename: "الفبای انگلیسی.webp", name: "الفبای انگلیسی" },
             { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
             { filename: "جدول تقسیم.webp", name: "جدول تقسیم" },
-            { filename: "اعداد ده دهی.jpg", name: "اعداد ده دهی" },*/
+            { filename: "اعداد ده دهی.webp", name: "اعداد ده دهی" },*/
         ]
     },
     5: {
@@ -1216,21 +1178,21 @@ const groupInfo = {
         // آرایه مخصوص گروه ۵
         allowedQuantities: [0, 20, 30, 50, 100, 200, 300, 400, 500], 
         images: [
-            { filename: "شهرک الفبا.jpg", name: "شهرک الفبا" },
-            { filename: "آناتـومی بـدن انسـان.jpg", name: "آناتـومی بـدن انسـان" },
-            { filename: "بـدن من.jpg", name: "بـدن من" },
-            { filename: "شکل صداها و الفبای فارسی.jpg", name: "شکل صداها و الفبای فارسی" },
-            { filename: "آموزش زمان وساعت.jpg", name: "آموزش زمان وساعت" },
-            { filename: "ضرب تمرینی ستونی.jpg", name: "ضرب تمرینی ستونی" },
-            { filename: "ضرب تمرینی مربعی.jpg", name: "ضرب تمرینی مربعی" },
-            { filename: "اعداد یک تا صد.jpg", name: "اعداد یک تا صد" },
-            { filename: "اعداد ده تا هزار.jpg", name: "اعداد ده تا هزار" },
-            { filename: "جدول تناوبی عناصر.jpg", name: "جدول تناوبی عناصر" },
-            { filename: "برنامه هفتگی.jpg", name: "برنامه هفتگی" },
+            { filename: "شهرک الفبا.webp", name: "شهرک الفبا" },
+            { filename: "آناتـومی بـدن انسـان.webp", name: "آناتـومی بـدن انسـان" },
+            { filename: "بـدن من.webp", name: "بـدن من" },
+            { filename: "شکل صداها و الفبای فارسی.webp", name: "شکل صداها و الفبای فارسی" },
+            { filename: "آموزش زمان وساعت.webp", name: "آموزش زمان وساعت" },
+            { filename: "ضرب تمرینی ستونی.webp", name: "ضرب تمرینی ستونی" },
+            { filename: "ضرب تمرینی مربعی.webp", name: "ضرب تمرینی مربعی" },
+            { filename: "اعداد یک تا صد.webp", name: "اعداد یک تا صد" },
+            { filename: "اعداد ده تا هزار.webp", name: "اعداد ده تا هزار" },
+            { filename: "جدول تناوبی عناصر.webp", name: "جدول تناوبی عناصر" },
+            { filename: "برنامه هفتگی.webp", name: "برنامه هفتگی" },
             { filename: "نقشـه ایـران.webp", name: "نقشـه ایـران" },
             { filename: "نقشـه جهـان.webp", name: "نقشـه جهـان" },
-            /*{ filename: "جدول دوستی تمرینی.jpg", name: "جدول دوستی تمرینی" },
-            { filename: "منظومه خورشیدی.jpg", name: "منظومه خورشیدی" },
+            /*{ filename: "جدول دوستی تمرینی.webp", name: "جدول دوستی تمرینی" },
+            { filename: "منظومه خورشیدی.webp", name: "منظومه خورشیدی" },
             */
         ]
     },
@@ -2330,7 +2292,33 @@ function submitOrderWithEitaa() {
     }
 </script>
 <script>
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('music-control');
+const musicIcon = document.getElementById('music-icon');
 
+// عملکرد دکمه برای قطع و وصل دستی
+musicBtn.addEventListener('click', function(e) {
+    e.stopPropagation(); 
+    if (audio.paused) {
+        audio.play();
+        musicIcon.innerText = "🔊";
+    } else {
+        audio.pause();
+        musicIcon.innerText = "🔇";
+    }
+});
+
+// پخش خودکار با اولین کلیک در صفحه (بدون قید و شرط)
+window.addEventListener('click', function() {
+    if (audio.paused) {
+        audio.play().then(() => {
+            musicIcon.innerText = "🔊";
+            console.log("پخش موزیک آغاز شد.");
+        }).catch(err => {
+            console.log("پخش خودکار توسط مرورگر مسدود شده است، نیاز به تعامل بیشتر دارد.");
+        });
+    }
+}, { once: true });
 window.addEventListener('load', function() {
     const clock = document.getElementById('digital-info');
     const container = document.getElementById('clock-container');
@@ -2406,22 +2394,6 @@ btnInstall.addEventListener('click', async () => {
             installBanner.style.display = 'none';
         }
     });
-    if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('سرویس ورکر فعال شد', reg))
-            .catch(err => console.log('خطا در ثبت سرویس ورکر', err));
-    });
-}
-</script>
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(reg => console.log('سرویس‌ورکر با موفقیت ثبت شد:', reg.scope))
-                .catch(err => console.log('خطا در ثبت سرویس‌ورکر:', err));
-        });
-    }
 </script>
 <script src="live-reload.js"></script>
 
