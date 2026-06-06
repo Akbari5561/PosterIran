@@ -31,12 +31,20 @@ self.addEventListener('activate', event => {
     })
   );
 });
-// مرحله دریافت درخواست: اول از کش بخوان، اگر نبود از اینترنت
+// جایگزین کردن این کد در بخش fetch فایل service-worker.js
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-    .then(response => {
-      return response || fetch(event.request);
-    })
+    fetch(event.request)
+      .then(response => {
+        // اگر اینترنت وصل بود، نسخه جدید را در کش هم آپدیت کن
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, response.clone());
+          return response;
+        });
+      })
+      .catch(() => {
+        // اگر اینترنت قطع بود، فایل را از کش بخوان
+        return caches.match(event.request);
+      })
   );
 });
