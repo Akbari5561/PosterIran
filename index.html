@@ -1472,7 +1472,7 @@ window.addEventListener("popstate", function(event) {
     <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            // اضافه شدن نقطه (.) برای اصلاح مسیر در گیت‌هاب پیجز
+            // تغییر ورژن از 4.3 به 4.4 در هنگام آپدیت سایت
             navigator.serviceWorker.register('./service-worker.js?v=4.4').then(function(registration) {
                 console.log('✅ Service Worker با موفقیت ثبت شد: ', registration.scope);
             }).catch(function(error) {
