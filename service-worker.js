@@ -2,6 +2,7 @@ const CACHE_NAME = 'poster-iran-v1';
 const assetsToCache = [
   './',
   './index.html',
+  './manifest.json',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png'
 ];
