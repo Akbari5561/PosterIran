@@ -1,22 +1,23 @@
 {
+  "name": "پوستر ایران",
   "short_name": "پوستر ایران",
-  "name": "پوستر ایران - اپلیکیشن رسمی",
-  "description": "اپلیکیشن اختصاصی پوستر ایران برای مشاهده محتوا",
-  "icons": [
-      {
-        "src": "icons/icon-192x192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "icons/icon-512x512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-  ],
   "start_url": "./index.html",
-  "background_color": "#ffffff",
   "display": "standalone",
-  "scope": "./",
-  "theme_color": "#1e40af"
+  "background_color": "#1e40af",
+  "theme-color": "#1e40af",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
