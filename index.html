@@ -2252,7 +2252,7 @@ function submitOrderWithEitaa() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             // اضافه شدن نقطه (.) برای اصلاح مسیر در گیت‌هاب پیجز
-            navigator.serviceWorker.register('./service-worker.js?v=4.6').then(function(registration) {
+            navigator.serviceWorker.register('./service-worker.js?v=4.7').then(function(registration) {
                 console.log('✅ Service Worker با موفقیت ثبت شد: ', registration.scope);
             }).catch(function(error) {
                 console.log('❌ ثبت Service Worker شکست خورد:', error);
