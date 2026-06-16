@@ -204,15 +204,15 @@
 <body class="bg-gray-50 text-gray-900 pb-24">
     <div class="container mx-auto">
 
-    <!-- اعلان پاپ‌آپ سراسری با طراحی مدرن و شیشه‌ای -->
-    <div id="toast" class="fixed top-0 left-1/2 -translate-x-1/2 z-[1000] px-6 py-3.5 rounded-2xl flex flex-col items-center gap-1 border shadow-2xl transition-all duration-500 backdrop-blur-lg toast-hidden">
+    <!-- اعلان پاپ‌آپ سراسری با آیکون پویا -->
+    <div id="toast" class="fixed top-0 left-1/2 -translate-x-1/2 z-[1000] px-6 py-3 rounded-2xl flex flex-col items-center gap-1 border border-white/40 bg-white/80 text-blue-900 shadow-xl toast-hidden">
         <div class="flex items-center gap-3">
-            <div id="toastIconContainer" class="w-6 h-6 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300">
+            <div id="toastIconContainer" class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white shadow-sm transition-all duration-300">
                 <i id="toastIcon" class="fas fa-check text-[10px]"></i>
             </div>
             <span id="toastText" class="font-bold text-xs">آیتم اضافه شد</span>
         </div>
-        <span id="toastGroup" class="text-[10px] opacity-95 font-semibold"></span>
+        <span id="toastGroup" class="text-[10px] text-blue-600 opacity-80 font-medium"></span>
     </div>
 
     <!-- هدر سایت -->
@@ -556,12 +556,20 @@
         <img id="modalImage" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl border-2 border-white/20 object-contain shadow-white/10 opacity-0 scale-95 transition-all duration-300 z-20" src="" alt="بزرگنمایی" onclick="event.stopPropagation()">
     </div>
 
-    <!-- پاپ‌آپ نصب PWA -->
-    <div id="install-banner" style="display:none; position:fixed; bottom:20px; left:20px; right:20px; background:white; padding:15px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.3); z-index:9999; flex-direction:column; align-items:center; border: 1px solid #ddd;">
-        <p style="margin-bottom: 10px; font-weight: bold; color: #333;">آیا می‌خواهید اپلیکیشن را روی گوشی خود نصب کنید?</p>
-        <div style="display: flex; gap: 10px; width: 100%;">
-            <button id="btnInstall" class="btn" style="margin-top: 0;">نصب سریع</button>
-            <button id="btnClose" style="flex: 1; background: #eee; border: none; border-radius: 8px; cursor: pointer;">بعداً</button>
+    <!-- پاپ‌آپ نصب PWA با سبک شیشه‌ای پریمیوم (Glassmorphism) -->
+    <div id="install-banner" class="fixed bottom-24 left-4 right-4 md:left-auto md:right-4 md:max-w-sm z-[9999] p-5 rounded-3xl border border-white/30 bg-white/80 backdrop-blur-xl shadow-2xl flex flex-col gap-4 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-700">
+        <div class="flex items-start gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-lg shadow-blue-200 shrink-0">
+                📥
+            </div>
+            <div>
+                <h4 class="font-bold text-sm text-gray-900 leading-tight">پوستر ایران را نصب کنید!</h4>
+                <p class="text-xs text-gray-600 mt-1 leading-relaxed">با نصب نسخه وب‌اپلیکیشن، خریدی سریع‌تر و دسترسی آفلاین به گالری و خدمات را تجربه کنید.</p>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button id="btnInstall" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold text-xs transition-colors shadow-lg shadow-blue-100">نصب سریع</button>
+            <button id="btnClose" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold text-xs transition-colors">بعداً</button>
         </div>
     </div>
 
@@ -611,32 +619,30 @@
             toastText.innerText = currentToast.message;
             toastGroup.innerText = currentToast.groupName ? ` ${currentToast.groupName}` : "";
             
-            // بازنشانی کلاس‌های قالب اعلان به صورت کاملاً پویا، مدرن و با جلوه شیشه‌ای باکیفیت
-            toast.className = "fixed left-1/2 -translate-x-1/2 z-[1000] px-6 py-3.5 rounded-2xl flex flex-col items-center gap-1 border shadow-2xl transition-all duration-500 backdrop-blur-lg toast-hidden text-center max-w-[90vw]";
-            
-            if (currentToast.type === 'error' || currentToast.type === 'remove') {
-                toast.classList.add('bg-rose-50/95', 'border-rose-200', 'text-rose-950', 'shadow-rose-100/50');
-                if (toastIconContainer) toastIconContainer.className = "w-6 h-6 rounded-full flex items-center justify-center text-white bg-rose-500 shadow-md shadow-rose-200 animate-bounce";
-                if (toastIcon) toastIcon.className = currentToast.type === 'remove' ? "fas fa-trash-alt text-[10px]" : "fas fa-exclamation-circle text-[10px]";
-                if (toastGroup) toastGroup.className = "text-[10px] text-rose-700 font-semibold opacity-90";
-            } else if (currentToast.type === 'warning') {
-                toast.classList.add('bg-amber-50/95', 'border-amber-200', 'text-amber-950', 'shadow-amber-100/50');
-                if (toastIconContainer) toastIconContainer.className = "w-6 h-6 rounded-full flex items-center justify-center text-white bg-amber-500 shadow-md shadow-amber-200 animate-pulse";
-                if (toastIcon) toastIcon.className = "fas fa-exclamation text-[10px]";
-                if (toastGroup) toastGroup.className = "text-[10px] text-amber-700 font-semibold opacity-90";
-            } else if (currentToast.type === 'info') {
-                toast.classList.add('bg-blue-50/95', 'border-blue-200', 'text-blue-950', 'shadow-blue-100/50');
-                if (toastIconContainer) toastIconContainer.className = "w-6 h-6 rounded-full flex items-center justify-center text-white bg-blue-500 shadow-md shadow-blue-200";
-                if (toastIcon) toastIcon.className = "fas fa-info text-[10px]";
-                if (toastGroup) toastGroup.className = "text-[10px] text-blue-700 font-semibold opacity-90";
-            } else { // success
-                toast.classList.add('bg-emerald-50/95', 'border-emerald-200', 'text-emerald-950', 'shadow-emerald-100/50');
-                if (toastIconContainer) toastIconContainer.className = "w-6 h-6 rounded-full flex items-center justify-center text-white bg-emerald-500 shadow-md shadow-emerald-200 scale-105";
-                if (toastIcon) toastIcon.className = "fas fa-check text-[10px]";
-                if (toastGroup) toastGroup.className = "text-[10px] text-emerald-700 font-semibold opacity-90";
+            // بازنشانی کلاس‌های قالب آیکون اعلان و افکت‌های تعاملی
+            if (toastIconContainer && toastIcon) {
+                toastIconContainer.className = "w-6 h-6 rounded-full flex items-center justify-center text-white shadow-sm transition-all duration-300";
+                
+                // مدیریت رنگ‌ها و گرافیک بر اساس نوع اعلان
+                if (currentToast.type === 'error') {
+                    toastIconContainer.classList.add('bg-red-500', 'animate-pulse');
+                    toastIcon.className = "fas fa-exclamation-circle text-[10px]";
+                } else if (currentToast.type === 'remove') {
+                    toastIconContainer.classList.add('bg-red-500', 'animate-bounce');
+                    toastIcon.className = "fas fa-trash-alt text-[10px]";
+                } else if (currentToast.type === 'warning') {
+                    toastIconContainer.classList.add('bg-yellow-500', 'animate-pulse');
+                    toastIcon.className = "fas fa-exclamation text-[10px]";
+                } else if (currentToast.type === 'info') {
+                    toastIconContainer.classList.add('bg-blue-500');
+                    toastIcon.className = "fas fa-info text-[10px]";
+                } else {
+                    // قالب پیش‌فرض موفقیت (success)
+                    toastIconContainer.classList.add('bg-green-500');
+                    toastIcon.className = "fas fa-check text-[10px]";
+                }
             }
             
-            // لغزش و نمایان شدن اعلان
             toast.classList.remove('toast-hidden');
             toast.classList.add('toast-visible');
             
@@ -646,7 +652,7 @@
                 setTimeout(() => {
                     processToastQueue();
                 }, 500);
-            }, 4000); // زمان نمایش کمی افزایش یافته تا پیام‌های طولانی‌تر خوانا باشند
+            }, 3500);
         }
 
         // تابع مدیریت کپی متن در حافظه به روشی مدرن و مقاوم در برابر محدودیت‌های iFrame
@@ -911,51 +917,40 @@
             });
         }
 
-        // ۵. مدیریت تغییر تعداد و افزودن به سبد با پیام‌های کاملاً هوشمند، پویا و صمیمانه
+        // ۵. مدیریت تغییر تعداد و افزودن به سبد خرید با پایش مقادیر قبلی و ارسال پیام‌های پویا و هوشمند
         function addToCart(filename, name, qty, price, groupName, allowedQtys) {
             const productId = groupName + "_" + filename;
-            const previousItem = cart[productId];
-            
+            const previousQty = cart[productId] ? cart[productId].quantity : 0;
+
             if (qty === 0) {
-                if (previousItem) {
-                    delete cart[productId];
-                    updateBadge();
-                    saveCartToStorage();
-                    // اعلان مدرن برای حذف کالا از سبد
-                    showToast(`❌ «${name}» از سبد خرید برداشته شد.`, groupName, "remove");
-                }
+                delete cart[productId];
+                updateBadge();
+                saveCartToStorage();
+                // اعلان مدرن برای حذف کامل کالا از سبد
+                showToast(`❌ «${name}» از سبد خرید برداشته شد.`, groupName, "remove");
             } else {
-                if (previousItem) {
-                    const oldQty = previousItem.quantity;
-                    cart[productId] = {
-                        filename: filename,
-                        name: name,
-                        quantity: qty,
-                        price: price,
-                        groupName: groupName,
-                        allowedQtys: allowedQtys 
-                    };
-                    updateBadge();
-                    saveCartToStorage();
-                    
-                    // بررسی و ارسال پیام هوشمند بر اساس کاهش یا افزایش تعداد
-                    if (qty > oldQty) {
-                        showToast(`📈 تعداد «${name}» به ${toPersianDigits(qty)} عدد افزایش یافت!`, groupName, "success");
-                    } else if (qty < oldQty) {
-                        showToast(`📉 تعداد «${name}» به ${toPersianDigits(qty)} عدد کاهش یافت!`, groupName, "warning");
+                cart[productId] = {
+                    filename: filename,
+                    name: name,
+                    quantity: qty,
+                    price: price,
+                    groupName: groupName,
+                    allowedQtys: allowedQtys 
+                };
+                updateBadge();
+                saveCartToStorage();
+
+                // اگر کالا از قبل موجود بود و تعداد آن تغییر کرد، تشخیص جهت کاهش یا افزایش تعداد
+                if (previousQty > 0 && previousQty !== qty) {
+                    if (qty > previousQty) {
+                        const diff = qty - previousQty;
+                        showToast(`📈 تعداد «${name}» به ${toPersianDigits(qty)} عدد افزایش یافت (به میزان ${toPersianDigits(diff)}+ عدد)`, groupName, "success");
+                    } else {
+                        const diff = previousQty - qty;
+                        showToast(`📉 تعداد «${name}» به ${toPersianDigits(qty)} عدد کاهش یافت (به میزان ${toPersianDigits(diff)}- عدد)`, groupName, "info");
                     }
                 } else {
-                    // محصول جدیدی اضافه شده است
-                    cart[productId] = {
-                        filename: filename,
-                        name: name,
-                        quantity: qty,
-                        price: price,
-                        groupName: groupName,
-                        allowedQtys: allowedQtys 
-                    };
-                    updateBadge();
-                    saveCartToStorage();
+                    // بار اولی است که کالا انتخاب می‌شود
                     showToast(`✨ ${toPersianDigits(qty)} عدد «${name}» به سبد خرید اضافه شد!`, groupName, "success");
                 }
             }
@@ -1517,7 +1512,7 @@
             );
         }
 
-        // بازنشانی و بارگذاری سفارشات پیشین به سبد خرید با اعتبارسنجی هوشمند حداکثر تعداد مجاز فعلی و پیام تفکیک شده
+        // بازنشانی و بارگذاری سفارشات پیشین به سبد خرید با اعتبارسنجی هوشمند حداکثر تعداد مجاز فعلی و نمایش گزارش دقیق
         function reorder(oldItems) {
             cart = {}; 
             let removedItemsCount = 0;
@@ -1560,7 +1555,7 @@
                     }
                 }
 
-                if (Number(item.price) !== Number(currentRef.price)) {
+                if (item.price !== currentRef.price) {
                     updatedPriceCount++;
                 }
 
@@ -1577,21 +1572,14 @@
             saveCartToStorage();
             updateBadge();
             
-            // تولید و ساخت پویای پیغام هشدار به شکل فوق‌العاده شکیل، فارسی و رسا
+            // نمایش هوشمند و تفکیک‌شده پیغام‌های هشدار مربوط به بازنشانی فاکتور
             if (removedItemsCount > 0 || updatedQtyCount > 0 || updatedPriceCount > 0) {
-                let messageParts = [];
-                if (removedItemsCount > 0) {
-                    messageParts.push(`حذف ${toPersianDigits(removedItemsCount)} کالا به دلیل اتمام موجودی`);
-                }
-                if (updatedQtyCount > 0) {
-                    messageParts.push(`اصلاح تعداد ${toPersianDigits(updatedQtyCount)} کالا به بالاترین حد مجاز`);
-                }
-                if (updatedPriceCount > 0) {
-                    messageParts.push(`بروزرسانی قیمت ${toPersianDigits(updatedPriceCount)} کالا`);
-                }
+                let alertMsg = "⚠️ سبد خرید بازنشانی شد:";
+                if (removedItemsCount > 0) alertMsg += ` ${toPersianDigits(removedItemsCount)} کالا (اتمام موجودی) حذف؛`;
+                if (updatedQtyCount > 0) alertMsg += ` تعداد ${toPersianDigits(updatedQtyCount)} کالا به حداکثر مقدار مجاز تغییر یافت؛`;
+                if (updatedPriceCount > 0) alertMsg += ` قیمت ${toPersianDigits(updatedPriceCount)} کالا بروز شد.`;
                 
-                const finalWarningMessage = `⚠️ سبد خرید بازنشانی شد اما تغییرات زیر اعمال گردید:\n` + messageParts.join(' و ');
-                showToast(finalWarningMessage, "بروزرسانی سبد", "warning");
+                showToast(alertMsg, "بروزرسانی سبد", "warning");
             } else {
                 showToast("🔄 سفارش قبلی با موفقیت جایگزین سبد خرید فعلی شما شد.", "تاریخچه", "success");
             }
@@ -1781,10 +1769,96 @@ ${catalogString}
             return indicatorDiv;
         }
 
+        // === مدیریت هوشمند نصب اپلیکیشن PWA (پاپ آپ ۱۵ ثانیه‌ای مستقل و ذخیره وضعیت در حافظه محلی) ===
+        let deferredPrompt;
+
+        function setupInstallBanner() {
+            const banner = document.getElementById('install-banner');
+            const btnInstall = document.getElementById('btnInstall');
+            const btnClose = document.getElementById('btnClose');
+
+            if (!banner || !btnInstall || !btnClose) return;
+
+            // شنود رویداد بومی مرورگر برای نصب (فقط زمانی تحریک می‌شود که برنامه قبلاً نصب نشده باشد)
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // جلوگیری از رفتار پیش‌فرض خودکار مرورگر
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // اگر قبلاً کاربر دکمه "بعداً" را زده باشد، وضعیت آن به مدت ۲۴ ساعت ذخیره شده تا دوباره بلافاصله مزاحم نشود
+                const blockInstallBanner = localStorage.getItem('block_install_banner_until');
+                if (blockInstallBanner && Date.now() < Number(blockInstallBanner)) {
+                    return; // تا پایان مدت قفل، نمایش نده
+                }
+
+                // نمایش پاپ‌آپ با وقفه کوتاه پس از لود کامل صفحه (۱ ثانیه)
+                setTimeout(() => {
+                    banner.classList.remove('pointer-events-none', 'translate-y-20', 'opacity-0');
+                    banner.classList.add('translate-y-0', 'opacity-100');
+
+                    // بعد از دقیقاً ۱۵ ثانیه بنر را به‌طور خودکار به صورت انیمیشنی ببند
+                    setTimeout(() => {
+                        hideInstallBanner();
+                    }, 15000);
+                }, 1000);
+            });
+
+            // رویداد اتمام نصب موفق
+            window.addEventListener('appinstalled', (evt) => {
+                // ثبت دائمی در حافظه که برنامه با موفقیت نصب شده است
+                localStorage.setItem('pwa_installed', 'true');
+                hideInstallBanner();
+                showToast("🎉 اپلیکیشن پوستر ایران با موفقیت روی دستگاه شما نصب شد!", "نصب موفق", "success");
+            });
+
+            // رفتار دکمه "نصب سریع"
+            btnInstall.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        localStorage.setItem('pwa_installed', 'true');
+                    }
+                    deferredPrompt = null;
+                    hideInstallBanner();
+                } else {
+                    // راهنمای دستی برای سیستم‌عامل iOS و دستگاه‌هایی که از فرآیند نصب نیتیو پشتیبانی نمی‌کنند
+                    hideInstallBanner();
+                    showCustomConfirm(
+                        "راهنمای نصب در آیفون (iOS)",
+                        "برای نصب اپلیکیشن پوستر ایران در گوشی آیفون خود، روی دکمه Share (ارسال/اشتراک) در مرورگر سافاری ضربه بزنید و سپس گزینه Add to Home Screen را انتخاب کنید.",
+                        () => {},
+                        "متوجه شدم",
+                        "بستن",
+                        "bg-blue-600 hover:bg-blue-700",
+                        '<i class="fas fa-mobile-alt text-2xl"></i>',
+                        "bg-blue-100 text-blue-600"
+                    );
+                }
+            });
+
+            // رفتار دکمه "بعداً" (مزاحمت را تا ۲۴ ساعت آینده سلب می‌کند)
+            btnClose.addEventListener('click', () => {
+                const oneDayInMs = 24 * 60 * 60 * 1000;
+                localStorage.setItem('block_install_banner_until', (Date.now() + oneDayInMs).toString());
+                hideInstallBanner();
+                showToast("⏳ پیشنهاد نصب برای ۲۴ ساعت آینده غیرفعال شد.", "نصب برنامه", "info");
+            });
+        }
+
+        function hideInstallBanner() {
+            const banner = document.getElementById('install-banner');
+            if (banner) {
+                banner.classList.remove('translate-y-0', 'opacity-100');
+                banner.classList.add('pointer-events-none', 'translate-y-20', 'opacity-0');
+            }
+        }
+
         // راه‌اندازی اولیه برنامه
         function initializeApplication() {
             loadCustomerData();
             loadCartFromStorage();
+            setupInstallBanner();
             showScreen('home');
         }
 
