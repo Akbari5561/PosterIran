@@ -1,5 +1,5 @@
 // هر بار تغییر دادید، عدد نسخه را بالا ببرید (مثلاً v2 ، v1.1 و ...)
-const CACHE_NAME = 'poster-iran-v4.5';
+const CACHE_NAME = 'poster-iran-v4.6';
 const assetsToCache = [
   './',
   './index.html',
