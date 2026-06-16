@@ -1,7 +1,8 @@
 {
   "name": "پوستر ایران",
   "short_name": "پوستر ایران",
-  "start_url": "./index.html",
+  "start_url": "index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#1e40af",
   "theme-color": "#1e40af",
@@ -11,13 +12,25 @@
       "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "https://akbari5561.github.io/PosterIran/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
