@@ -1,50 +1,22 @@
-// هر بار تغییر دادید، عدد نسخه را بالا ببرید (مثلاً v2 ، v1.1 و ...)
-const CACHE_NAME = 'poster-iran-v4.8';
-const assetsToCache = [
-  './',
+const CACHE_NAME = 'poster-iran-cache-v1';
+const urlsToCache = [
   './index.html',
   './manifest.json',
-  './icons/icon-192x192.png',
-  './icons/icon-512x512.png'
+  'https://akbari5561.github.io/PosterIran/icons/logo.png'
 ];
 
-// مرحله نصب: ذخیره فایل‌ها در حافظه گوشی
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-    .then(cache => {
-      return cache.addAll(assetsToCache);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
     })
   );
 });
-// مرحله فعال‌سازی: پاکسازی کش‌های قدیمی
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
-  );
-});
-// جایگزین کردن این کد در بخش fetch فایل service-worker.js
-self.addEventListener('fetch', event => {
+
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        // اگر اینترنت وصل بود، نسخه جدید را در کش هم آپدیت کن
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      })
-      .catch(() => {
-        // اگر اینترنت قطع بود، فایل را از کش بخوان
-        return caches.match(event.request);
-      })
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
   );
 });
