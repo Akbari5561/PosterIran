@@ -1,28 +1,28 @@
-const CACHE_NAME = 'poster-iran-cache-v4.1'; // نام کش را برای اعمال سریع تغییرات ارتقا دادیم
-const urlsToCache = [
+const CACHE_NAME = 'poster-iran-v1';
+const assetsToCache = [
+  './',
   './index.html',
   './manifest.json',
-  './icon/icon-192x192.png',
-  './icon/icon-512x512.png'
+  './icons/icon-192x192.png',
+  './icons/icon-512x512.png'
 ];
 
-self.addEventListener('install', (event) => {
+// مرحله نصب: ذخیره فایل‌ها در حافظه گوشی
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      // استفاده ازaddAll برای فایلهای حیاتی اپلیکیشن
-      return cache.addAll(urlsToCache);
+    caches.open(CACHE_NAME)
+    .then(cache => {
+      return cache.addAll(assetsToCache);
     })
   );
 });
-
-self.addEventListener('activate', (event) => {
-  // پاکسازی کش‌های قدیمی در صورت ارتقای نسخه
+// مرحله فعال‌سازی: پاکسازی کش‌های قدیمی
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map((cache) => {
+        cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('🧹 در حال پاکسازی کش قدیمی:', cache);
             return caches.delete(cache);
           }
         })
@@ -30,10 +30,11 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
-
-self.addEventListener('fetch', (event) => {
+// مرحله دریافت درخواست: اول از کش بخوان، اگر نبود از اینترنت
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(event.request)
+    .then(response => {
       return response || fetch(event.request);
     })
   );
