@@ -1,4 +1,4 @@
-const CACHE_NAME = 'poster-iran-cache-v2'; // نام کش را برای اعمال سریع تغییرات ارتقا دادیم
+const CACHE_NAME = 'poster-iran-cache-v4.1'; // نام کش را برای اعمال سریع تغییرات ارتقا دادیم
 const urlsToCache = [
   './index.html',
   './manifest.json',
