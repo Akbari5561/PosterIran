@@ -3,7 +3,7 @@ const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  'https://akbari5561.github.io/PosterIran/icons/icon-192x192.png'
+  'https://akbari5561.github.io/PosterIran/icons/logo.png'
 ];
 
 // نصب سرویس‌ورکر به صورت کاملاً ایمن و مقاوم در برابر خطای کش
