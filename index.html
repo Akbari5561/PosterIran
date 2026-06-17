@@ -580,6 +580,7 @@
             return n.toString().replace(/\d/g, x => farsiDigits[x]);
         }
 
+        // نمایش تصویر شاخص به زبان فارسی به عنوان برچسب کمکی
         function toPersianPrice(n) {
             return toPersianDigits(n.toLocaleString());
         }
@@ -1787,8 +1788,8 @@ ${catalogString}
             return indicatorDiv;
         }
 
-        // === مدیریت هوشمند نصب اپلیکیشن PWA (پاپ آپ ۱۲ ثانیه‌ای مستقل و ذخیره وضعیت در حافظه محلی) ===
-        let deferredPrompt;
+        // === مدیریت هوشمند نصب اپلیکیشن PWA (پاپ آپ مستقل و ذخیره وضعیت در حافظه محلی) ===
+        let deferredPrompt = null;
 
         function setupInstallBanner() {
             const banner = document.getElementById('install-banner');
@@ -1797,34 +1798,40 @@ ${catalogString}
 
             if (!banner || !btnInstall || !btnClose) return;
 
-            // شنود رویداد بومی مرورگر برای نصب (فقط زمانی تحریک می‌شود که برنامه قبلاً نصب نشده باشد)
+            // تشخیص سیستم‌عامل برای ارائه بازخورد دقیق‌تر
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            // بررسی اینکه آیا از قبل وب‌اپلیکیشن به عنوان مستقل باز شده است
+            const isRunningStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+            if (isRunningStandalone) {
+                localStorage.setItem('pwa_installed', 'true');
+                return; 
+            }
+
+            // شنود رویداد بومی مرورگر برای نصب
             window.addEventListener('beforeinstallprompt', (e) => {
-                // جلوگیری از رفتار پیش‌فرض خودکار مرورگر
                 e.preventDefault();
                 deferredPrompt = e;
                 
-                // اگر قبلاً کاربر دکمه "بعداً" را زده باشد، وضعیت آن به مدت ۲۴ ساعت ذخیره شده تا دوباره بلافاصله مزاحم نشود
+                // بسیار مهم: چون مرورگر اجازه نصب مجدد داده، یعنی برنامه نصب نیست. پس کلیدهای مزاحم را پاک می‌کنیم!
+                localStorage.removeItem('pwa_installed');
+
                 const blockInstallBanner = localStorage.getItem('block_install_banner_until');
                 if (blockInstallBanner && Date.now() < Number(blockInstallBanner)) {
-                    return; // تا پایان مدت قفل، نمایش نده
+                    return; 
                 }
 
-                // نمایش پاپ‌آپ با وقفه کوتاه پس از لود کامل صفحه (۱ ثانیه)
+                // نمایش پاپ‌آپ با وقفه کوتاه پس از ۲ ثانیه لود
                 setTimeout(() => {
                     banner.classList.remove('pointer-events-none', 'translate-y-20', 'opacity-0');
                     banner.classList.add('translate-y-0', 'opacity-100');
-
-                    // بعد از دقیقاً ۱۵ ثانیه بنر را به‌طور خودکار به صورت انیمیشنی ببند
-                    setTimeout(() => {
-                        hideInstallBanner();
-                    }, 15000);
-                }, 1000);
+                }, 2000);
             });
 
             // رویداد اتمام نصب موفق
             window.addEventListener('appinstalled', (evt) => {
-                // ثبت دائمی در حافظه که برنامه با موفقیت نصب شده است
                 localStorage.setItem('pwa_installed', 'true');
+                deferredPrompt = null;
                 hideInstallBanner();
                 showToast("🎉 اپلیکیشن پوستر ایران با موفقیت روی دستگاه شما نصب شد!", "نصب موفق", "success");
             });
@@ -1836,20 +1843,33 @@ ${catalogString}
                     const { outcome } = await deferredPrompt.userChoice;
                     if (outcome === 'accepted') {
                         localStorage.setItem('pwa_installed', 'true');
+                        deferredPrompt = null;
                     }
-                    deferredPrompt = null;
                     hideInstallBanner();
-                } else {
-                    // راهنمای دستی برای سیستم‌عامل iOS و دستگاه‌هایی که از فرآیند نصب نیتیو پشتیبانی نمی‌کنند
+                } else if (isIOS) {
+                    // راهنمای دستی برای آیفون (iOS)
                     hideInstallBanner();
                     showCustomConfirm(
                         "راهنمای نصب در آیفون (iOS)",
-                        "برای نصب اپلیکیشن پوستر ایران در گوشی آیفون خود، روی دکمه Share (ارسال/اشتراک) در مرورگر سافاری ضربه بزنید و سپس گزینه Add to Home Screen را انتخاب کنید.",
+                        "برای نصب اپلیکیشن پوستر ایران در گوشی آیفون خود، روی دکمه Share (ارسال/اشتراک) در انتهای مرورگر سافاری ضربه بزنید و سپس گزینه Add to Home Screen (افزودن به صفحه اصلی) را انتخاب کنید.",
                         () => {},
                         "متوجه شدم",
                         "بستن",
                         "bg-blue-600 hover:bg-blue-700",
                         '<i class="fas fa-mobile-alt text-2xl"></i>',
+                        "bg-blue-100 text-blue-600"
+                    );
+                } else {
+                    // برای اندروید/مرورگرهایی که قبل از رویداد prompt کلیک کرده‌اند یا مرورگر نصب را مسدود کرده است
+                    hideInstallBanner();
+                    showCustomConfirm(
+                        "راهنمای نصب وب‌اپلیکیشن",
+                        "مرورگر شما در حال حاضر فرآیند نصب مستقیم را مسدود کرده است. جهت نصب دستی، لطفاً بر روی ۳ نقطه بالا سمت راست مرورگر خود ضربه بزنید و گزینه «Install app» یا «Add to Home screen» را انتخاب کنید.",
+                        () => {},
+                        "متوجه شدم",
+                        "بستن",
+                        "bg-blue-600 hover:bg-blue-700",
+                        '<i class="fas fa-ellipsis-v text-2xl"></i>',
                         "bg-blue-100 text-blue-600"
                     );
                 }
@@ -1886,9 +1906,12 @@ ${catalogString}
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // ثبت سرویس ورکر بدون پارامترهای تداخلی اضافی و با محدوده صریح برای به رسمیت شناخته شدن Scope در مرورگر گوشی
+                // ثبت سرویس ورکر با متد اصولی و Scope ریشه برای عملکرد همیشگی
                 navigator.serviceWorker.register('./service-worker.js', { scope: './' }).then(function(registration) {
                     console.log('✅ Service Worker با موفقیت ثبت شد: ', registration.scope);
+                    
+                    // بررسی بروزرسانی خودکار فایل سرویس ورکر در هر بار لود سایت
+                    registration.update();
                 }).catch(function(error) {
                     console.log('❌ ثبت Service Worker شکست خورد:', error);
                 });
