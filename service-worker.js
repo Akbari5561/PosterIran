@@ -1,5 +1,5 @@
 // نام کش جدید برای اعمال سریع تر تغییرات بر روی دستگاه کاربران
-const CACHE_NAME = 'poster-iran-cache-v4';
+const CACHE_NAME = 'poster-iran-cache-v4.1';
 
 // فایل‌هایی که به صورت آفلاین همواره در دسترس خواهند بود
 const STATIC_ASSETS = [
