@@ -56,30 +56,30 @@ self.addEventListener('activate', (event) => {
 // مدیریت هوشمند درخواست‌ها: Network-First برای HTML و مانیفست / Cache-First برای تصاویر و فونت‌ها
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
-
+  
   // بررسی اینکه آیا فایل درخواستی جزو فایل‌های حساس به آپدیت است یا خیر
   const isNetworkFirst = NETWORK_FIRST_ASSETS.some(asset => {
     const cleanAsset = asset.replace('./', '');
     return requestUrl.pathname.endsWith(cleanAsset) || requestUrl.pathname === '/PosterIran/' || requestUrl.pathname === '/';
   });
-
+  
   if (isNetworkFirst) {
     // استراتژی Network-First: ابتدا دریافت آخرین تغییرات از سرور، در صورت آفلاین بودن لود از کش
     event.respondWith(
       fetch(event.request)
-        .then((response) => {
-          if (response && response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          // در صورت آفلاین بودن، از کش لود کن
-          return caches.match(event.request);
-        })
+      .then((response) => {
+        if (response && response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return response;
+      })
+      .catch(() => {
+        // در صورت آفلاین بودن، از کش لود کن
+        return caches.match(event.request);
+      })
     );
   } else {
     // استراتژی Cache-First برای بقیه منابع (مثل تصاویر، استیکرها و فونت‌ها برای لود فوق‌العاده سریع)
