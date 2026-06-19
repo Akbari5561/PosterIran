@@ -1,5 +1,5 @@
 // ارتقای نسخه کش جهت اعمال آنی تغییرات بر روی دستگاه کاربران
-const CACHE_NAME = 'poster-iran-cache-v6';
+const CACHE_NAME = 'poster-iran-cache-v6.1';
 
 // فایل‌هایی که به صورت آفلاین باید همواره بدون نقص در دسترس باشند
 const STATIC_ASSETS = [
